@@ -1,0 +1,28 @@
+.yay-reviews-photos {
+    display: flex;
+}
+
+.yay-reviews-photos .yay-reviews-photo {
+    display: block;
+    width: 72px;
+    height: 72px;
+    overflow: hidden;
+}
+
+.yay-reviews-photos .yay-reviews-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.yay-reviews-preview-photo {
+    max-width: 400px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.yay-reviews-preview-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
