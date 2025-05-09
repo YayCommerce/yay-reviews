@@ -1,0 +1,7 @@
+.vscode/launch.json
+.DS_Store
+assets/admin/dist/*
+release
+build
+apps/yay-reviews/package-lock.json
+yay-reviews.zip
