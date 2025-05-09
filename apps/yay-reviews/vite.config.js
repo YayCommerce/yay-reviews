@@ -1,43 +1,90 @@
-import react from "@vitejs/plugin-react";
-import path from "path";
-import { defineConfig } from "vite";
-import mkcert from "vite-plugin-mkcert";
-const rootpath = "./src";
+import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
+import react from '@vitejs/plugin-react';
+import { defineConfig, loadEnv } from 'vite';
+import pluginExternal from 'vite-plugin-external';
+
+process.env = { ...process.env, ...loadEnv(process.env.mode || 'development', process.cwd()) };
+
+const terserOptions = {
+  output: {
+    comments: /translators:/i,
+  },
+  compress: {
+    passes: 2,
+  },
+  mangle: {
+    reserved: ['__', '_n', '_nx', '_x'],
+  },
+};
+
+const externalOptions = {
+  interop: 'auto',
+
+  development: {
+    externals: {
+      '@wordpress/hooks': 'wp.hooks',
+      '@wordpress/i18n': 'wp.i18n',
+    },
+  },
+
+  production: {
+    externals: {
+      '@wordpress/hooks': 'wp.hooks',
+      '@wordpress/i18n': 'wp.i18n',
+      react: 'React',
+      'react-dom': 'ReactDOM',
+      'react-dom/client': 'ReactDOM',
+    },
+  },
+};
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  root: rootpath,
-  plugins: [react(), mkcert()],
-  build: {
-    manifest: true,
-    cssCodeSplit: false,
-    emptyOutDir: true,
-    assetsDir: "",
-    outDir: path.resolve("../../assets/admin", "dist"),
-    rollupOptions: {
-      input: {
-        "main.jsx": path.resolve(__dirname, rootpath, "main.jsx")
-      },
-      output: {
-        assetFileNames: "[name].[ext]",
-      },
-    },
-  },
+  root: './src',
+
+  plugins: [
+    react({ jsxRuntime: 'classic' }),
+    tailwindcss(),
+    pluginExternal(externalOptions),
+    // visualizer({ template: 'network', emitFile: true, filename: 'stats.html' }),
+  ],
+
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+  build: {
+    minify: 'terser',
+    terserOptions: terserOptions,
+    manifest: false,
+    emptyOutDir: true,
+    outDir: path.resolve('../../assets/admin', 'dist'),
+    assetsDir: '',
+    cssCodeSplit: false,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'src/main.tsx'),
+      },
+      output: {
+        entryFileNames: '[name].js',
+        assetFileNames: '[name].[ext]',
+      },
+      plugins: [
+        // analyze({ summaryOnly: true, limit:10 }),
+      ],
     },
   },
   server: {
-    https: true,
     cors: true,
     strictPort: true,
     port: 3000,
+    origin: `${process.env.VITE_SERVER_ORIGIN}`,
     hmr: {
       port: 3000,
-      host: "localhost",
-      // Add line if we don't use https
-      // protocol: "ws",
+      host: 'localhost',
+      protocol: 'ws',
     },
   },
 });

@@ -2,243 +2,255 @@
 namespace YayReviews\Classes;
 
 class Helpers {
-    public static function get_all_settings_from_db() {
-        $settings = get_option( 'yay_reviews_settings' , array() );
-        return Helpers::add_default_settings( $settings );
-    }
-    public static function get_all_settings() {
-        global $yay_reviews_settings;
-        return $yay_reviews_settings;
-    }
-    public static function set_settings($key, $val) {
-        global $yay_reviews_settings;
+	public static function get_all_settings_from_db() {
+		$settings = get_option( 'yay_reviews_settings', array() );
+		return self::add_default_settings( $settings );
+	}
+	public static function get_all_settings() {
+		global $yay_reviews_settings;
+		return $yay_reviews_settings;
+	}
+	public static function set_settings( $key, $val ) {
+		global $yay_reviews_settings;
 
-        $old_settings = self::get_all_settings();
-        $old_settings[$key] = $val;
-        update_option( 'yay_reviews_settings', $old_settings, false );
+		$old_settings         = self::get_all_settings();
+		$old_settings[ $key ] = $val;
+		update_option( 'yay_reviews_settings', $old_settings, false );
 
-        $yay_reviews_settings = $old_settings;
-    }
-    public static function get_settings( $key1, $key2 = null, $default = '') {
-        $settings = self::get_all_settings();
-        $val = isset( $settings[$key1] ) ? $settings[$key1] : $default;
-        if(!is_null($key2) && is_array($val) && isset( $val[$key2] )) {
-            $val = $val[$key2];
-        }
-        return $val;
-    }
-    public static function print_photos( $files, $echo = true ) {
-        // Define arrays of image and video extensions
-        $image_extensions = array('jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp');
-        $video_extensions = array('mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv');
+		$yay_reviews_settings = $old_settings;
+	}
+	public static function get_settings( $key1, $key2 = null, $default = '' ) {
+		$settings = self::get_all_settings();
+		$val      = isset( $settings[ $key1 ] ) ? $settings[ $key1 ] : $default;
+		if ( ! is_null( $key2 ) && is_array( $val ) && isset( $val[ $key2 ] ) ) {
+			$val = $val[ $key2 ];
+		}
+		return $val;
+	}
+	public static function print_photos( $files, $echo = true ) {
+		// Define arrays of image and video extensions
+		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
+		$video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv' );
 
-        ob_start();
-        $uploads = wp_upload_dir();
-        echo '<div class="yay-reviews-photos">';
-        foreach($files as $file) {
-            $extension = pathinfo($file, PATHINFO_EXTENSION);
-            if (in_array(strtolower($extension), $image_extensions)) {
-                $html = '<img src="' . $uploads['baseurl'] . $file . '" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
-            } elseif (in_array(strtolower($extension), $video_extensions)) {
-                $html = '<img src="' . YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
-            }
+		ob_start();
+		$uploads = wp_upload_dir();
+		echo '<div class="yay-reviews-photos">';
+		foreach ( $files as $file ) {
+			$extension = pathinfo( $file, PATHINFO_EXTENSION );
+			if ( in_array( strtolower( $extension ), $image_extensions ) ) {
+				$html = '<img src="' . $uploads['baseurl'] . $file . '" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
+			} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
+				$html = '<img src="' . YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
+			}
 
-            echo '<div class="yay-reviews-photo">'.$html.'</div>';
-        }
-        echo '</div>';
-        echo '<div class="yay-reviews-preview-photo"></div>';
-        $html = ob_get_clean();
-        if( $echo ) {
-            echo $html;
-        } else {
-            return $html;
-        }
-    }
-    public static function add_default_settings( $settings ) {
-        if( ! is_array( $settings ) ) {
-            $settings = array();
-        }
-        $settings = self::wp_parse_args_recursive( $settings, array(
-            'general'                                   => array(
-                'enabled'                               => true,
-            ),
-            'coupon'                                    => array(
-                'enabled'                               => false,
-                'coupons'                               => []
-            ),
-            'optional_fields'                           => array(
-                'enabled'                               => false,
-                'fields'                                => []
-            ),
-            'reviews'                                   => array(
-                'anchor_link'                           => 'reviews',
-                'enabled_photos_videos'                 => false,
-                'upload_required'                       => false,
-                'max_upload_file_size'                  => 2000,//kb
-                'max_upload_file_qty'                   => 5,
-                'enabled_gdpr_checkbox'                 => false,
-                'gdpr_message'                          => ''
-            ),
-            'reviewReminder'                            => array(
-                'enabled'                               => false,
-                'order_status'                          => array(),
-                'exclude_emails'                        => array(),
-                'exclude_products'                      => array(),
-                'exclude_categories'                    => array(),
-                'custom_from_address'                   => '',
-                'schedule_value'                        => 0,
-                'schedule_unit'                         => 'seconds',
-                // 'email_template'                     => 'none',
-                'email_subject'                         => '',
-                'email_heading'                         => '',
-                'email_content'                         => '',
-                'email_review_btn_text'                 => esc_html__( 'Review Now', 'yay_reviews'),
-                'email_review_btn_color'                => '#fff',
-                'email_review_btn_bg_color'             => '#206bb9',
-                'order_status_to_show_review_at_orders' => array()
-            ),
-        ));
-        return $settings;
-    }
-    public static function get_order_statuses() {
-        $order_statuses = array();
-        if( function_exists( 'wc_get_order_statuses' ) ) {
-            $stt = wc_get_order_statuses();
-            foreach($stt as $k => $v) {
-                $order_statuses[] = array(
-                    'value' => $k,
-                    'label' => $v
-                );
-            }
-        }
-        return $order_statuses;
-    }
-    public static function get_table_of_products( $args = array(), $limit = 3, $data = array() ) {
-        $limit = (int)$limit;
-        
-        $default_args = array(
-            'post_type' => 'product',
-            'posts_per_page' => $limit,
-        );
+			echo '<div class="yay-reviews-photo">' . $html . '</div>';
+		}
+		echo '</div>';
+		echo '<div class="yay-reviews-preview-photo"></div>';
+		$html = ob_get_clean();
+		if ( $echo ) {
+			echo $html;
+		} else {
+			return $html;
+		}
+	}
+	public static function add_default_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			$settings = array();
+		}
+		$settings = self::wp_parse_args_recursive(
+			$settings,
+			array(
+				'general'         => array(
+					'enabled' => true,
+				),
+				'coupon'          => array(
+					'enabled' => false,
+					'coupons' => array(),
+				),
+				'optional_fields' => array(
+					'enabled' => false,
+					'fields'  => array(),
+				),
+				'reviews'         => array(
+					'anchor_link'           => 'reviews',
+					'enabled_photos_videos' => false,
+					'upload_required'       => false,
+					'max_upload_file_size'  => 2000, //kb
+					'max_upload_file_qty'   => 5,
+					'enabled_gdpr_checkbox' => false,
+					'gdpr_message'          => '',
+				),
+				'reviewReminder'  => array(
+					'enabled'                   => false,
+					'order_status'              => array(),
+					'exclude_emails'            => array(),
+					'exclude_products'          => array(),
+					'exclude_categories'        => array(),
+					'custom_from_address'       => '',
+					'schedule_value'            => 0,
+					'schedule_unit'             => 'seconds',
+					// 'email_template'                     => 'none',
+					'email_subject'             => '',
+					'email_heading'             => '',
+					'email_content'             => '',
+					'email_review_btn_text'     => esc_html__( 'Review Now', 'yay_reviews' ),
+					'email_review_btn_color'    => '#fff',
+					'email_review_btn_bg_color' => '#206bb9',
+					'order_status_to_show_review_at_orders' => array(),
+				),
+			)
+		);
+		return $settings;
+	}
+	public static function get_order_statuses() {
+		$order_statuses = array();
+		if ( function_exists( 'wc_get_order_statuses' ) ) {
+			$stt = wc_get_order_statuses();
+			foreach ( $stt as $k => $v ) {
+				$order_statuses[] = array(
+					'value' => $k,
+					'label' => $v,
+				);
+			}
+		}
+		return $order_statuses;
+	}
+	public static function get_table_of_products( $args = array(), $limit = 3, $data = array() ) {
+		$limit = (int) $limit;
 
-        if( count($args) > 0 ) {
-            $args = array_merge( $default_args, $args );
-        } else {
-            $args = $default_args;
-        }
-        
-        $data = wp_parse_args( $data, array(
-            'email_review_btn_color' => '#fff',
-            'email_review_btn_bg_color' => '#206bb9',
-            'email_review_btn_text' => esc_html__( 'Review now' , 'yay_reviews' )
-        ));
+		$default_args = array(
+			'post_type'      => 'product',
+			'posts_per_page' => $limit,
+		);
 
-        $latest_products = new \WP_Query($args);
+		if ( count( $args ) > 0 ) {
+			$args = array_merge( $default_args, $args );
+		} else {
+			$args = $default_args;
+		}
 
-        $table = '<table border="0" cellpadding="5" cellspacing="0">';
-        $table .= '<thead>';
-        $table .= '<tr>';
-        $table .= '<th>'.esc_html__('Thumbnail', 'yay_reviews').'</th>';
-        $table .= '<th>'.esc_html__('Product Name', 'yay_reviews').'</th>';
-        $table .= '<th>'.esc_html__('Price', 'yay_reviews').'</th>';
-        $table .= '<th>'.esc_html__('Link', 'yay_reviews').'</th>';
-        $table .= '</tr>';
-        $table .= '</thead>';
-        $table .= '<tbody>';
+		$data = wp_parse_args(
+			$data,
+			array(
+				'email_review_btn_color'    => '#fff',
+				'email_review_btn_bg_color' => '#206bb9',
+				'email_review_btn_text'     => esc_html__( 'Review now', 'yay_reviews' ),
+			)
+		);
 
-        if ($latest_products->have_posts()) {
-            while ($latest_products->have_posts()) {
-                $latest_products->the_post();
+		$latest_products = new \WP_Query( $args );
 
-                $id = get_the_ID();
-                $product = wc_get_product( $id );
-                if (has_post_thumbnail()) {
-                    $thumbnail = get_the_post_thumbnail($id, 'thumbnail');
-                } else {
-                    $thumbnail = '<img style="width: 150px; height: 150px;" src="' . esc_url(wc_placeholder_img_src()) . '" alt="" />';
-                }
-                $link = get_permalink() . '#' . Helpers::get_settings( 'reviews', 'anchor_link', 'reviews' );
+		$table  = '<table border="0" cellpadding="5" cellspacing="0">';
+		$table .= '<thead>';
+		$table .= '<tr>';
+		$table .= '<th>' . esc_html__( 'Thumbnail', 'yay_reviews' ) . '</th>';
+		$table .= '<th>' . esc_html__( 'Product Name', 'yay_reviews' ) . '</th>';
+		$table .= '<th>' . esc_html__( 'Price', 'yay_reviews' ) . '</th>';
+		$table .= '<th>' . esc_html__( 'Link', 'yay_reviews' ) . '</th>';
+		$table .= '</tr>';
+		$table .= '</thead>';
+		$table .= '<tbody>';
 
-                $table .= '<tr>';
-                $table .= '<td><a href="' . $link . '" target="_blank" >' . $thumbnail . '</a></td>';
-                $table .= '<td><a href="' . $link . '" target="_blank" >' . get_the_title() . '</a></td>';
-                $table .= '<td>' . $product->get_price_html() . '</td>';
-                $table .= '<td><a target="_blank" href="' . $link . '" style="display: inline-block; padding: 5px;color: '.$data['email_review_btn_color'].'; background-color: '.$data['email_review_btn_bg_color'].'" >'. $data['email_review_btn_text'] .'</a></td>';
-                $table .= '</tr>';
-            }
-        } else {
-            $table .= '<tr><td colspan="4">'.esc_html__('No products found.', 'yay_reviews').'</td></tr>';
-        }
+		if ( $latest_products->have_posts() ) {
+			while ( $latest_products->have_posts() ) {
+				$latest_products->the_post();
 
-        $table .= '</tbody>';
-        $table .= '</table>';
+				$id      = get_the_ID();
+				$product = wc_get_product( $id );
+				if ( has_post_thumbnail() ) {
+					$thumbnail = get_the_post_thumbnail( $id, 'thumbnail' );
+				} else {
+					$thumbnail = '<img style="width: 150px; height: 150px;" src="' . esc_url( wc_placeholder_img_src() ) . '" alt="" />';
+				}
+				$link = get_permalink() . '#' . self::get_settings( 'reviews', 'anchor_link', 'reviews' );
 
-        wp_reset_postdata();
-        return $table;
-    }
-    public static function wp_parse_args_recursive( &$args, $defaults ) {
-        $args = (array) $args;
-        $result = $defaults;
-    
-        foreach ( $args as $key => $value ) {
-            if ( is_array( $value ) && isset( $result[ $key ] ) && is_array( $result[ $key ] ) ) {
-                // If both $args and $defaults have an array at this key, merge them recursively
-                $result[ $key ] = self::wp_parse_args_recursive( $value, $result[ $key ] );
-            } else {
-                // Otherwise, overwrite or add the value
-                $result[ $key ] = $value;
-            }
-        }
-    
-        return $result;
-    }
-    public static function upload_max_size() {
-        return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
-    }
-    public static function download_and_save_photo($photo_url) {
-        // Get the upload directory details
-        $uploads       = wp_upload_dir();
-        $upload_dir    = $uploads['path'];
-        $upload_url    = $uploads['url'];
-        $upload_subdir = $uploads['subdir'];
+				$table .= '<tr>';
+				$table .= '<td><a href="' . $link . '" target="_blank" >' . $thumbnail . '</a></td>';
+				$table .= '<td><a href="' . $link . '" target="_blank" >' . get_the_title() . '</a></td>';
+				$table .= '<td>' . $product->get_price_html() . '</td>';
+				$table .= '<td><a target="_blank" href="' . $link . '" style="display: inline-block; padding: 5px;color: ' . $data['email_review_btn_color'] . '; background-color: ' . $data['email_review_btn_bg_color'] . '" >' . $data['email_review_btn_text'] . '</a></td>';
+				$table .= '</tr>';
+			}
+		} else {
+			$table .= '<tr><td colspan="4">' . esc_html__( 'No products found.', 'yay_reviews' ) . '</td></tr>';
+		}
 
-        // Generate a unique filename
-        $filename        = basename($photo_url);
-        $unique_filename = wp_unique_filename($upload_dir, $filename);
-        $file_path       = $upload_dir . '/' . $unique_filename;
+		$table .= '</tbody>';
+		$table .= '</table>';
 
-        // Download the photo
-        $response = wp_remote_get($photo_url, array('timeout' => 300, 'sslverify' => false));
+		wp_reset_postdata();
+		return $table;
+	}
+	public static function wp_parse_args_recursive( &$args, $defaults ) {
+		$args   = (array) $args;
+		$result = $defaults;
 
-        if (is_wp_error($response) || wp_remote_retrieve_response_code($response) !== 200) {
-            return false; // Return false if there was an error downloading the photo
-        }
+		foreach ( $args as $key => $value ) {
+			if ( is_array( $value ) && isset( $result[ $key ] ) && is_array( $result[ $key ] ) ) {
+				// If both $args and $defaults have an array at this key, merge them recursively
+				$result[ $key ] = self::wp_parse_args_recursive( $value, $result[ $key ] );
+			} else {
+				// Otherwise, overwrite or add the value
+				$result[ $key ] = $value;
+			}
+		}
 
-        $photo_data = wp_remote_retrieve_body($response);
+		return $result;
+	}
+	public static function upload_max_size() {
+		return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
+	}
+	public static function download_and_save_photo( $photo_url ) {
+		// Get the upload directory details
+		$uploads       = wp_upload_dir();
+		$upload_dir    = $uploads['path'];
+		$upload_url    = $uploads['url'];
+		$upload_subdir = $uploads['subdir'];
 
-        // Save the photo to the uploads directory
-        if (file_put_contents($file_path, $photo_data) === false) {
-            return false; // Return false if there was an error saving the photo
-        }
+		// Generate a unique filename
+		$filename        = basename( $photo_url );
+		$unique_filename = wp_unique_filename( $upload_dir, $filename );
+		$file_path       = $upload_dir . '/' . $unique_filename;
 
-        // Return the relative path of the photo
-        return $upload_subdir . '/' . $unique_filename;
-    }
-    public static function upload_max_qty() {
-        return 20;
-    }
-    public static function coupon_default_fields() {
-        return array(
-            'title'                   => '',
-            'coupon_code'             => '',
-            'only_registered_account' => '',
-            'upload_required'         => '',
-            'only_verified_owner'     => '',
-            'minimum_rating'          => 0,
-            'required_categories'     => array(),
-            'exclude_categories'      => array(),
-            'required_products'       => array(),
-            'exclude_products'        => array(),
-        );
-    }
+		// Download the photo
+		$response = wp_remote_get(
+			$photo_url,
+			array(
+				'timeout'   => 300,
+				'sslverify' => false,
+			)
+		);
+
+		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
+			return false; // Return false if there was an error downloading the photo
+		}
+
+		$photo_data = wp_remote_retrieve_body( $response );
+
+		// Save the photo to the uploads directory
+		if ( file_put_contents( $file_path, $photo_data ) === false ) {
+			return false; // Return false if there was an error saving the photo
+		}
+
+		// Return the relative path of the photo
+		return $upload_subdir . '/' . $unique_filename;
+	}
+	public static function upload_max_qty() {
+		return 20;
+	}
+	public static function coupon_default_fields() {
+		return array(
+			'title'                   => '',
+			'coupon_code'             => '',
+			'only_registered_account' => '',
+			'upload_required'         => '',
+			'only_verified_owner'     => '',
+			'minimum_rating'          => 0,
+			'required_categories'     => array(),
+			'exclude_categories'      => array(),
+			'required_products'       => array(),
+			'exclude_products'        => array(),
+		);
+	}
 }
