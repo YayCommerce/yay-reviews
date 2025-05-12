@@ -61,7 +61,7 @@ export default defineConfig({
     manifest: false,
     emptyOutDir: true,
     outDir: path.resolve('../../assets/admin', 'dist'),
-    assetsDir: '',
+    assetsDir: 'assets',
     cssCodeSplit: false,
     rollupOptions: {
       input: {
@@ -69,7 +69,7 @@ export default defineConfig({
       },
       output: {
         entryFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
+        assetFileNames: 'assets/[name].[hash][extname]',
       },
       plugins: [
         // analyze({ summaryOnly: true, limit:10 }),

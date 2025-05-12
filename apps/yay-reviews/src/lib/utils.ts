@@ -1,7 +1,7 @@
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import { SettingsFormData } from './schema';
+// import { SettingsFormData } from './schema';
 
 export const usePro = true;
 
@@ -15,6 +15,6 @@ export const __ = (text: string): string => {
   return translations[text] || text;
 };
 
-export const getSettings = (): SettingsFormData => {
-  return window.yayReviews.data_settings;
-};
+// export const getSettings = (): SettingsFormData => {
+//   return window.yayReviews.data_settings;
+// };

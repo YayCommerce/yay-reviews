@@ -128,3 +128,7 @@
 .yaycommerce_page_yay-reviews #screen-meta-links {
   display: none;
 }
+
+.yaycommerce_page_yay-reviews .wrap {
+  margin: 0;
+}

@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@esbuild/darwin-x64': ^0.25.4
   '@hookform/resolvers': ^5.0.1
   '@ianvs/prettier-plugin-sort-imports': ^4.4.1
   '@radix-ui/react-dialog': ^1.1.5
@@ -68,6 +69,7 @@ dependencies:
   zod: 3.24.4
 
 devDependencies:
+  '@esbuild/darwin-x64': 0.25.4
   '@ianvs/prettier-plugin-sort-imports': 4.4.1_prettier@3.5.3
   '@tailwindcss/vite': 4.1.5_vite@6.3.5
   '@types/node': 22.15.17
@@ -317,7 +319,6 @@ packages:
     os: [darwin]
     requiresBuild: true
     dev: true
-    optional: true
 
   /@esbuild/freebsd-arm64/0.25.4:
     resolution: {integrity: sha512-yYq+39NlTRzU2XmoPW4l5Ifpl9fqSk0nAJYM/V/WUGPEFfek1epLHJIkTQM6bBs1swApjO5nWgvr843g6TjxuQ==}
