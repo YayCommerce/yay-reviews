@@ -93,8 +93,12 @@ export default function App() {
             </Button>
           </div>
         </div>
-        <div className="bg-gray-50 p-6">
-          <TabsContent value="dashboard" className="data-[state=inactive]:hidden" forceMount>
+        <div className="p-6">
+          <TabsContent
+            value="dashboard"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
             <DashboardTab />
           </TabsContent>
           {/* <TabsContent value="review" className="data-[state=inactive]:hidden" forceMount>
