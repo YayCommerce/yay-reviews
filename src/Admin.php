@@ -609,7 +609,7 @@ class Admin {
 						'maximum_files_desc'              => __( 'Maximum files customer can upload', 'yay_reviews' ),
 						'maximum_file_size'               => __( 'Maximum File Size', 'yay_reviews' ),
 						'maximum_file_size_desc'          => __( 'Maximum 102400Kbs', 'yay_reviews' ),
-						'data_process_consent'            => __( 'Data Process Consent', 'yay_reviews' ),
+						'data_processing_consent'         => __( 'Data Processing Consent', 'yay_reviews' ),
 						'gdpr_message'                    => __( 'GDPR Message', 'yay_reviews' ),
 						'gdpr_message_default'            => __( 'I agree with your policy,...', 'yay_reviews' ),
 						'before_message'                  => __( 'Before message', 'yay_reviews' ),

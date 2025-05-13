@@ -18,8 +18,8 @@ export default function ReviewTab() {
               <Switch />
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-2">
+          <CardContent className="w-full sm:w-1/2">
+            <div className="flex w-full flex-col gap-2">
               {/* Is Required */}
               <div className="flex items-center gap-2">
                 <Switch />
@@ -29,7 +29,7 @@ export default function ReviewTab() {
               <div className="flex flex-col gap-1">
                 <span>{__('media_types')}</span>
                 <Select>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-1/2">
                     <SelectValue placeholder={__('select_types')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -57,11 +57,11 @@ export default function ReviewTab() {
         <Card>
           <CardHeader>
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
-              <span className="text-lg">{__('data_process_consent')}</span>
+              <span className="text-lg">{__('data_processing_consent')}</span>
               <Switch />
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="w-full">
             <div className="flex flex-col gap-2">
               {/* GDPR message */}
               <div className="flex flex-col gap-1">
