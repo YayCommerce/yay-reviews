@@ -13,6 +13,7 @@ import NoteIcon from './components/icons/Note';
 import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
+import ReviewTab from './components/tabs/review';
 import { __ } from './lib/utils';
 
 const queryClient = new QueryClient();
@@ -103,12 +104,13 @@ export default function App() {
           >
             <DashboardTab />
           </TabsContent>
-          {/* <TabsContent value="review" className="data-[state=inactive]:hidden" forceMount>
+          <TabsContent
+            value="review"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
             <ReviewTab />
           </TabsContent>
-          <TabsContent value="coupon" className="data-[state=inactive]:hidden" forceMount>
-            <CouponTab />
-          </TabsContent> */}
         </div>
       </Tabs>
       {/* </form>
