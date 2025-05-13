@@ -3,8 +3,36 @@ import { forwardRef } from 'react';
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
 const HomeIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
-  <BaseIcon ref={ref} stroke="currentColor" viewBox="0 0 256 256" {...props}>
-    <path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"></path>
+  <BaseIcon ref={ref} {...props}>
+    <g clipPath="url(#clip0_4482_3494)">
+      <path
+        d="M9 17H15"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+      />
+      <path
+        d="M3.43994 7.25977V17.9998C3.43994 20.2098 5.22994 21.9998 7.43994 21.9998H16.6799C18.8899 21.9998 20.6799 20.2098 20.6799 17.9998V7.25977"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M1 8.86984L10.52 2.50984C11.55 1.81984 12.89 1.83984 13.9 2.53984L23 8.86984"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_4482_3494">
+        <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
+      </clipPath>
+    </defs>
   </BaseIcon>
 ));
 

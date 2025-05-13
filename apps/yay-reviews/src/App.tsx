@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { toast, Toaster } from '@/components/ui/sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import DownloadIcon from './components/icons/Download';
 import GiftIcon from './components/icons/Gift';
 import HomeIcon from './components/icons/Home';
 import NoteIcon from './components/icons/Note';
@@ -20,6 +19,7 @@ const queryClient = new QueryClient();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
   // const form = useForm<SettingsFormData>({
   //   resolver: zodResolver(settingsSchema),
   //   defaultValues: [],
@@ -46,7 +46,7 @@ export default function App() {
             console.log(errors, e);
           })}
         > */}
-      <Tabs defaultValue="dashboard">
+      <Tabs defaultValue="dashboard" onValueChange={setActiveTab}>
         <div className="flex items-center justify-between gap-4 bg-white">
           <div className="flex items-center gap-4">
             <div className="border-r border-gray-100 p-2.5">
@@ -59,28 +59,30 @@ export default function App() {
             </div>
             <TabsList>
               <TabsTrigger value="dashboard">
-                <HomeIcon fill="currentColor" />
+                <HomeIcon strokeWidth={activeTab === 'dashboard' ? 1.5 : 1} fill="currentColor" />
                 {__('dashboard')}
               </TabsTrigger>
               <TabsTrigger value="review">
-                <ReviewIcon fill="currentColor" />
+                <ReviewIcon strokeWidth={activeTab === 'review' ? 1.5 : 1} fill="currentColor" />
                 {__('review')}
               </TabsTrigger>
               <TabsTrigger value="reminder">
-                <ReminderIcon fill="currentColor" />
+                <ReminderIcon
+                  strokeWidth={activeTab === 'reminder' ? 1.5 : 1}
+                  fill="currentColor"
+                />
                 {__('reminder')}
               </TabsTrigger>
               <TabsTrigger value="reward">
-                <GiftIcon fill="currentColor" />
+                <GiftIcon strokeWidth={activeTab === 'reward' ? 1.5 : 1} fill="currentColor" />
                 {__('review_reward')}
               </TabsTrigger>
               <TabsTrigger value="optional-fields">
-                <NoteIcon fill="currentColor" />
+                <NoteIcon
+                  strokeWidth={activeTab === 'optional-fields' ? 1.5 : 1}
+                  fill="currentColor"
+                />
                 {__('optional_fields')}
-              </TabsTrigger>
-              <TabsTrigger value="export-import">
-                <DownloadIcon fill="currentColor" />
-                {__('import_export_reviews')}
               </TabsTrigger>
             </TabsList>
           </div>

@@ -8,7 +8,7 @@ export type BaseIconProps = React.SVGProps<SVGSVGElement> & {
  * Base Component for Bookster Icons
  */
 const BaseIcon = forwardRef<SVGSVGElement, BaseIconProps>(function BaseIcon(
-  { children, className = '', size = 16, viewBox = '0 0 16 16', ...props },
+  { children, className = '', size = 24, ...props },
   ref,
 ) {
   return (
@@ -17,7 +17,7 @@ const BaseIcon = forwardRef<SVGSVGElement, BaseIconProps>(function BaseIcon(
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox={viewBox}
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"

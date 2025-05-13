@@ -3,8 +3,61 @@ import { forwardRef } from 'react';
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
 const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
-  <BaseIcon ref={ref} stroke="currentColor" viewBox="0 0 256 256" {...props}>
-    <path d="M88,96a8,8,0,0,1,8-8h64a8,8,0,0,1,0,16H96A8,8,0,0,1,88,96Zm8,40h64a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16Zm32,16H96a8,8,0,0,0,0,16h32a8,8,0,0,0,0-16ZM224,48V156.69A15.86,15.86,0,0,1,219.31,168L168,219.31A15.86,15.86,0,0,1,156.69,224H48a16,16,0,0,1-16-16V48A16,16,0,0,1,48,32H208A16,16,0,0,1,224,48ZM48,208H152V160a8,8,0,0,1,8-8h48V48H48Zm120-40v28.7L196.69,168Z"></path>
+  <BaseIcon ref={ref} {...props}>
+    <g clipPath="url(#clip0_3111_12540)">
+      <path
+        d="M8.05 4.55L7.08 4.78C6.39 4.94 5.85 5.48 5.69 6.17L5.46 7.14C5.44 7.24 5.29 7.24 5.26 7.14L5.03 6.17C4.87 5.48 4.33 4.94 3.64 4.78L2.67 4.55C2.57 4.53 2.57 4.38 2.67 4.35L3.64 4.12C4.33 3.96 4.87 3.42 5.03 2.73L5.26 1.76C5.28 1.66 5.43 1.66 5.46 1.76L5.69 2.73C5.85 3.42 6.39 3.96 7.08 4.12L8.05 4.35C8.15 4.37 8.15 4.52 8.05 4.55Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeMiterlimit="10"
+        fill="transparent"
+      />
+      <path
+        d="M7.31001 14.26H12.34"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M7.31001 10.24H15.35"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M10.33 2.20001H16.36C19.71 2.38001 21.39 3.62001 21.39 8.22001V16.27"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M3.29001 9.25V16.26C3.29001 20.29 4.30001 22.31 9.32001 22.31H15.35"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M21.39 16.27L15.36 22.3V19.28C15.36 17.27 16.37 16.26 18.38 16.26H21.4L21.39 16.27Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_3111_12540">
+        <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
+      </clipPath>
+    </defs>
   </BaseIcon>
 ));
 

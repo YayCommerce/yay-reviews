@@ -3,8 +3,53 @@ import { forwardRef } from 'react';
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
 const GiftIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
-  <BaseIcon ref={ref} stroke="currentColor" viewBox="0 0 256 256" {...props}>
-    <path d="M216,72H180.92c.39-.33.79-.65,1.17-1A29.53,29.53,0,0,0,192,49.57,32.62,32.62,0,0,0,158.44,16,29.53,29.53,0,0,0,137,25.91a54.94,54.94,0,0,0-9,14.48,54.94,54.94,0,0,0-9-14.48A29.53,29.53,0,0,0,97.56,16,32.62,32.62,0,0,0,64,49.57,29.53,29.53,0,0,0,73.91,71c.38.33.78.65,1.17,1H40A16,16,0,0,0,24,88v32a16,16,0,0,0,16,16v64a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V136a16,16,0,0,0,16-16V88A16,16,0,0,0,216,72ZM149,36.51a13.69,13.69,0,0,1,10-4.5h.49A16.62,16.62,0,0,1,176,49.08a13.69,13.69,0,0,1-4.5,10c-9.49,8.4-25.24,11.36-35,12.4C137.7,60.89,141,45.5,149,36.51Zm-64.09.36A16.63,16.63,0,0,1,96.59,32h.49a13.69,13.69,0,0,1,10,4.5c8.39,9.48,11.35,25.2,12.39,34.92-9.72-1-25.44-4-34.92-12.39a13.69,13.69,0,0,1-4.5-10A16.6,16.6,0,0,1,84.87,36.87ZM40,88h80v32H40Zm16,48h64v64H56Zm144,64H136V136h64Zm16-80H136V88h80v32Z"></path>
+  <BaseIcon ref={ref} {...props}>
+    <g clipPath="url(#clip0_3111_12359)">
+      <path
+        d="M19.92 19.12L18.94 19.35C18.24 19.51 17.69 20.06 17.53 20.76L17.3 21.74C17.28 21.84 17.13 21.84 17.1 21.74L16.87 20.76C16.71 20.06 16.16 19.51 15.46 19.35L14.48 19.12C14.38 19.1 14.38 18.95 14.48 18.92L15.46 18.69C16.16 18.53 16.71 17.98 16.87 17.28L17.1 16.3C17.12 16.2 17.27 16.2 17.3 16.3L17.53 17.28C17.69 17.98 18.24 18.53 18.94 18.69L19.92 18.92C20.02 18.94 20.02 19.09 19.92 19.12Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeMiterlimit="10"
+        fill="transparent"
+      />
+      <path
+        d="M12 21.18H6.71999C5.55999 21.18 4.60999 20.23 4.60999 19.07V12.74H19.39V14.21"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M21.5 9.21999V10.98C21.5 11.95 20.55 12.74 19.39 12.74H4.61C3.45 12.74 2.5 11.95 2.5 10.98V9.21999C2.5 8.24999 3.45 7.45999 4.61 7.45999H19.39C20.55 7.45999 21.5 8.24999 21.5 9.21999Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M9.63999 7.33C11.75 7.74 12.28 7.23 11.88 5.09C11.41 2.59 8.93999 1.33 7.42999 2.82C5.89999 4.32 7.15999 6.85 9.63999 7.33Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+      <path
+        d="M14.36 7.33C12.25 7.74 11.72 7.23 12.12 5.09C12.59 2.59 15.06 1.33 16.57 2.82C18.1 4.32 16.84 6.85 14.36 7.33Z"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_3111_12359">
+        <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
+      </clipPath>
+    </defs>
   </BaseIcon>
 ));
 

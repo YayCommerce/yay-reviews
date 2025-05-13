@@ -3,8 +3,29 @@ import { forwardRef } from 'react';
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
 const ReminderIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
-  <BaseIcon ref={ref} stroke="currentColor" viewBox="0 0 256 256" {...props}>
-    <path d="M224,71.1a8,8,0,0,1-10.78-3.42,94.13,94.13,0,0,0-33.46-36.91,8,8,0,1,1,8.54-13.54,111.46,111.46,0,0,1,39.12,43.09A8,8,0,0,1,224,71.1ZM35.71,72a8,8,0,0,0,7.1-4.32A94.13,94.13,0,0,1,76.27,30.77a8,8,0,1,0-8.54-13.54A111.46,111.46,0,0,0,28.61,60.32,8,8,0,0,0,35.71,72Zm186.1,103.94A16,16,0,0,1,208,200H167.2a40,40,0,0,1-78.4,0H48a16,16,0,0,1-13.79-24.06C43.22,160.39,48,138.28,48,112a80,80,0,0,1,160,0C208,138.27,212.78,160.38,221.81,175.94ZM150.62,200H105.38a24,24,0,0,0,45.24,0ZM208,184c-10.64-18.27-16-42.49-16-72a64,64,0,0,0-128,0c0,29.52-5.38,53.74-16,72Z"></path>
+  <BaseIcon ref={ref} {...props}>
+    <g clipPath="url(#clip0_4482_8263)">
+      <path
+        d="M14.2193 20.89C13.6893 21.59 12.8693 22 11.9993 22C11.1293 22 10.2993 21.59 9.7793 20.89"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M18.6597 11.71C18.6597 12.24 18.8697 12.75 19.2497 13.13L20.0797 13.96C20.6397 14.52 20.9897 15.31 20.8697 16.1C20.6897 17.3 19.6697 18.13 18.5197 18.13H5.64965C4.84965 18.13 4.04965 17.81 3.57965 17.17C2.86965 16.19 2.99965 14.89 3.75965 14.13L4.70965 13.18C5.07965 12.81 5.28965 12.31 5.29965 11.79L5.32965 8.69002C5.32965 5.01002 8.31965 2.02002 11.9997 2.02002C15.1197 2.02002 18.0097 4.20002 18.6297 7.72002"
+        stroke="currentColor"
+        strokeWidth={props.strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="transparent"
+      />
+    </g>
+    <defs>
+      <clipPath id="clip0_4482_8263">
+        <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
+      </clipPath>
+    </defs>
   </BaseIcon>
 ));
 
