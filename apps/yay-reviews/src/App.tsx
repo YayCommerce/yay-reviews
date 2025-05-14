@@ -17,13 +17,13 @@ import DashboardTab from './components/tabs/dashboard';
 import EmailsTab from './components/tabs/emails';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
+import ReviewRewardTab from './components/tabs/review-reward';
 import { __ } from './lib/utils';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('dashboard');
   // const form = useForm<SettingsFormData>({
   //   resolver: zodResolver(settingsSchema),
   //   defaultValues: [],
@@ -50,7 +50,7 @@ export default function App() {
             console.log(errors, e);
           })}
         > */}
-      <Tabs defaultValue="dashboard" onValueChange={setActiveTab}>
+      <Tabs defaultValue="dashboard">
         <div className="flex items-center justify-between gap-4 bg-white">
           <div className="flex items-center gap-4">
             <div className="border-r border-gray-100 p-2.5">
@@ -63,33 +63,27 @@ export default function App() {
             </div>
             <TabsList>
               <TabsTrigger value="dashboard">
-                <HomeIcon strokeWidth={activeTab === 'dashboard' ? 1.5 : 1} fill="currentColor" />
+                <HomeIcon />
                 {__('dashboard')}
               </TabsTrigger>
               <TabsTrigger value="review">
-                <ReviewIcon strokeWidth={activeTab === 'review' ? 1.5 : 1} fill="currentColor" />
+                <ReviewIcon />
                 {__('review')}
               </TabsTrigger>
               <TabsTrigger value="reminder">
-                <ReminderIcon
-                  strokeWidth={activeTab === 'reminder' ? 1.5 : 1}
-                  fill="currentColor"
-                />
+                <ReminderIcon />
                 {__('reminder')}
               </TabsTrigger>
               <TabsTrigger value="reward">
-                <GiftIcon strokeWidth={activeTab === 'reward' ? 1.5 : 1} fill="currentColor" />
+                <GiftIcon />
                 {__('review_reward')}
               </TabsTrigger>
               <TabsTrigger value="emails">
-                <EmailIcon strokeWidth={activeTab === 'emails' ? 1.5 : 1} fill="currentColor" />
+                <EmailIcon />
                 {__('emails')}
               </TabsTrigger>
               <TabsTrigger value="optional-fields">
-                <NoteIcon
-                  strokeWidth={activeTab === 'optional-fields' ? 1.5 : 1}
-                  fill="currentColor"
-                />
+                <NoteIcon />
                 {__('optional_fields')}
               </TabsTrigger>
             </TabsList>
@@ -124,6 +118,13 @@ export default function App() {
             forceMount
           >
             <ReminderTab />
+          </TabsContent>
+          <TabsContent
+            value="reward"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
+            <ReviewRewardTab />
           </TabsContent>
           <TabsContent
             value="emails"

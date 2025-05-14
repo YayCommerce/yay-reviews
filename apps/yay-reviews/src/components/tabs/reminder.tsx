@@ -67,14 +67,16 @@ export default function ReminderTab() {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-2">
+                    <span>{__('select_categories')}</span>
                     <Select>
                       <SelectTrigger className="w-1/2" disabled>
                         <SelectValue placeholder={__('select_categories')} />
                       </SelectTrigger>
                     </Select>
                   </div>
-                  <div>
+                  <div className="flex flex-col gap-2">
+                    <span>{__('select_products')}</span>
                     <Select>
                       <SelectTrigger className="w-1/2" disabled>
                         <SelectValue placeholder={__('select_products')} />

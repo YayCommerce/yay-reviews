@@ -2,11 +2,11 @@ import { forwardRef } from 'react';
 
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
-const ReminderIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
+const InboxIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
   <BaseIcon ref={ref} {...props}>
-    <g clipPath="url(#clip0_4482_8263)">
+    <g clipPath="url(#clip0_4482_9752)">
       <path
-        d="M14.2193 20.89C13.6893 21.59 12.8693 22 11.9993 22C11.1293 22 10.2993 21.59 9.7793 20.89"
+        d="M7.55957 11.44V9C7.55957 7.9 8.45957 7 9.55957 7H14.4496C15.5496 7 16.4496 7.9 16.4496 9V11.44"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -14,7 +14,7 @@ const ReminderIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref
         fill={props.fill || 'transparent'}
       />
       <path
-        d="M18.6597 11.71C18.6597 12.24 18.8697 12.75 19.2497 13.13L20.0797 13.96C20.6397 14.52 20.9897 15.31 20.8697 16.1C20.6897 17.3 19.6697 18.13 18.5197 18.13H5.64965C4.84965 18.13 4.04965 17.81 3.57965 17.17C2.86965 16.19 2.99965 14.89 3.75965 14.13L4.70965 13.18C5.07965 12.81 5.28965 12.31 5.29965 11.79L5.32965 8.69002C5.32965 5.01002 8.31965 2.02002 11.9997 2.02002C15.1197 2.02002 18.0097 4.20002 18.6297 7.72002"
+        d="M10.8802 13.1099H13.1102L14.4502 11.7699C14.6602 11.5599 14.9402 11.4399 15.2402 11.4399H16.4502C17.0602 11.4399 17.5602 11.9399 17.5602 12.5499V14.9899C17.5602 16.0899 16.6602 16.9899 15.5602 16.9899H8.4502C7.3502 16.9899 6.4502 16.0899 6.4502 14.9899V12.5499C6.4502 11.9399 6.9502 11.4399 7.5602 11.4399H8.7602C9.0602 11.4399 9.3402 11.5599 9.5502 11.7699L10.8902 13.1099H10.8802Z"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -23,11 +23,11 @@ const ReminderIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref
       />
     </g>
     <defs>
-      <clipPath id="clip0_4482_8263">
+      <clipPath id="clip0_4482_9752">
         <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
       </clipPath>
     </defs>
   </BaseIcon>
 ));
 
-export default ReminderIcon;
+export default InboxIcon;

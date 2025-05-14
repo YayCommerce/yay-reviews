@@ -18,39 +18,51 @@ export default function ReviewTab() {
               <Switch />
             </CardTitle>
           </CardHeader>
-          <CardContent className="w-full sm:w-1/2">
-            <div className="flex w-full flex-col gap-2">
-              {/* Is Required */}
-              <div className="flex items-center gap-2">
-                <Switch />
-                <span className="lowercase">{__('is_required')}</span>
+          <CardContent className="flex flex-col gap-2">
+            <div className="w-full sm:w-1/2">
+              <div className="flex w-full flex-col gap-2">
+                {/* Is Required */}
+                <div className="flex items-center gap-2">
+                  <Switch />
+                  <span className="lowercase">{__('is_required')}</span>
+                </div>
+                {/* Media Types */}
+                <div className="flex flex-col gap-1">
+                  <span>{__('media_types')}</span>
+                  <Select>
+                    <SelectTrigger className="w-1/2">
+                      <SelectValue placeholder={__('select_types')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="video_image">{__('video_and_image')}</SelectItem>
+                      <SelectItem value="only_video">{__('only_video')}</SelectItem>
+                      <SelectItem value="only_image">{__('only_image')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* Maximum Files */}
+                <div className="flex flex-col gap-1">
+                  <div>{__('maximum_files')}</div>
+                  <Input type="text" defaultValue={5} className="w-1/2" />
+                  <span className="text-sm text-slate-500">{__('maximum_files_desc')}</span>
+                </div>
+                {/* Maximum File Size */}
+                <div className="flex flex-col gap-1">
+                  <div>{__('maximum_file_size')} (Kbs)</div>
+                  <Input type="number" defaultValue={1000} className="w-1/2" />
+                  <span className="text-sm text-slate-500">{__('maximum_file_size_desc')}</span>
+                </div>
+                {/* Field Label */}
+                <div className="flex flex-col gap-1">
+                  <div>{__('field_label')}</div>
+                  <Input type="text" defaultValue={__('field_label_default')} className="w-full" />
+                </div>
               </div>
-              {/* Media Types */}
-              <div className="flex flex-col gap-1">
-                <span>{__('media_types')}</span>
-                <Select>
-                  <SelectTrigger className="w-1/2">
-                    <SelectValue placeholder={__('select_types')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="video_image">{__('video_and_image')}</SelectItem>
-                    <SelectItem value="only_video">{__('only_video')}</SelectItem>
-                    <SelectItem value="only_image">{__('only_image')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              {/* Maximum Files */}
-              <div className="flex flex-col gap-1">
-                <div>{__('maximum_files')}</div>
-                <Input type="text" defaultValue={5} className="w-1/2" />
-                <span className="text-sm text-slate-500">{__('maximum_files_desc')}</span>
-              </div>
-              {/* Maximum File Size */}
-              <div className="flex flex-col gap-1">
-                <div>{__('maximum_file_size')} (Kbs)</div>
-                <Input type="number" defaultValue={1000} className="w-1/2" />
-                <span className="text-sm text-slate-500">{__('maximum_file_size_desc')}</span>
-              </div>
+            </div>
+            {/* Field Description */}
+            <div className="flex w-full flex-col gap-1">
+              <div>{__('field_description')}</div>
+              <Textarea rows={3} defaultValue="..." />
             </div>
           </CardContent>
         </Card>

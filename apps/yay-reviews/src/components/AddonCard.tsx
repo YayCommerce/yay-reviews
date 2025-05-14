@@ -27,7 +27,7 @@ export default function AddonCard({
           <div className="px-6 pb-4 text-sm font-normal">{description}</div>
           <div className="border-border flex items-center justify-between border-t px-6 pt-4">
             <Button variant="outline" size="sm" className="gap-2" disabled={status === 'inactive'}>
-              <SettingIcon fill="currentColor" strokeWidth={1.5} />
+              <SettingIcon />
               {__('settings')}
             </Button>
             <Switch checked={status === 'active'} />

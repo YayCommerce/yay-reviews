@@ -2,18 +2,11 @@ import { forwardRef } from 'react';
 
 import BaseIcon, { BaseIconProps } from './BaseIcon';
 
-const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
+const DuplicateIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
   <BaseIcon ref={ref} {...props}>
-    <g clipPath="url(#clip0_3111_12540)">
+    <g clipPath="url(#clip0_4482_11000)">
       <path
-        d="M8.05 4.55L7.08 4.78C6.39 4.94 5.85 5.48 5.69 6.17L5.46 7.14C5.44 7.24 5.29 7.24 5.26 7.14L5.03 6.17C4.87 5.48 4.33 4.94 3.64 4.78L2.67 4.55C2.57 4.53 2.57 4.38 2.67 4.35L3.64 4.12C4.33 3.96 4.87 3.42 5.03 2.73L5.26 1.76C5.28 1.66 5.43 1.66 5.46 1.76L5.69 2.73C5.85 3.42 6.39 3.96 7.08 4.12L8.05 4.35C8.15 4.37 8.15 4.52 8.05 4.55Z"
-        stroke={props.stroke || 'currentColor'}
-        strokeWidth={props.strokeWidth || 1.5}
-        strokeMiterlimit="10"
-        fill={props.fill || 'transparent'}
-      />
-      <path
-        d="M7.31001 14.26H12.34"
+        d="M2 19.7798C2 21.0098 2.99 21.9998 4.22 21.9998"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -21,7 +14,7 @@ const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) =>
         fill={props.fill || 'transparent'}
       />
       <path
-        d="M7.31001 10.24H15.35"
+        d="M2 16.4399V13.1099"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -29,7 +22,7 @@ const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) =>
         fill={props.fill || 'transparent'}
       />
       <path
-        d="M10.33 2.20001H16.36C19.71 2.38001 21.39 3.62001 21.39 8.22001V16.27"
+        d="M4.22 7.56006C2.99 7.56006 2 8.55006 2 9.78006"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -37,7 +30,14 @@ const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) =>
         fill={props.fill || 'transparent'}
       />
       <path
-        d="M3.29001 9.25V16.26C3.29001 20.29 4.30001 22.31 9.32001 22.31H15.35"
+        d="M14.2197 21.9998C15.4497 21.9998 16.4397 21.0098 16.4397 19.7798"
+        stroke={props.stroke || 'currentColor'}
+        strokeWidth={props.strokeWidth || 1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M10.8896 22H7.55957"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -45,7 +45,15 @@ const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) =>
         fill={props.fill || 'transparent'}
       />
       <path
-        d="M21.39 16.27L15.36 22.3V19.28C15.36 17.27 16.37 16.26 18.38 16.26H21.4L21.39 16.27Z"
+        d="M14.2198 7.56006C15.4498 7.56006 16.4398 8.55006 16.4398 9.78006V16.4501H9.7698C8.5398 16.4501 7.5498 15.4601 7.5498 14.2301V7.56006H14.2198Z"
+        stroke={props.stroke || 'currentColor'}
+        strokeWidth={props.strokeWidth || 1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill={props.fill || 'transparent'}
+      />
+      <path
+        d="M7.55957 7.55977V4.22977C7.55957 2.99977 8.54957 2.00977 9.77957 2.00977H19.7796C21.0096 2.00977 21.9996 2.99977 21.9996 4.22977V14.2198C21.9996 15.4498 21.0096 16.4398 19.7796 16.4398H16.4496"
         stroke={props.stroke || 'currentColor'}
         strokeWidth={props.strokeWidth || 1.5}
         strokeLinecap="round"
@@ -54,11 +62,11 @@ const NoteIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) =>
       />
     </g>
     <defs>
-      <clipPath id="clip0_3111_12540">
+      <clipPath id="clip0_4482_11000">
         <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
       </clipPath>
     </defs>
   </BaseIcon>
 ));
 
-export default NoteIcon;
+export default DuplicateIcon;

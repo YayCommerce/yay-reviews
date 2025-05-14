@@ -132,3 +132,17 @@
 .yaycommerce_page_yay-reviews .wrap {
   margin: 0;
 }
+
+.yay-reviews-collapsible .yay-reviews-collapsible-content {
+  background:
+    linear-gradient(0deg, #f4f4f5, #f4f4f5),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6));
+}
+
+.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='closed'] {
+  border-radius: calc(var(--radius) + 4px);
+}
+
+.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
+  border-bottom: 1px solid var(--border);
+}
