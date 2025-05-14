@@ -17,7 +17,7 @@ export default function AddonCard({
   status: 'active' | 'inactive';
 }) {
   return (
-    <Card className="pt-6 pb-4">
+    <Card className="gap-2 pt-6 pb-4">
       <CardHeader className="p-0">
         <CardTitle className="px-6">{icon}</CardTitle>
       </CardHeader>

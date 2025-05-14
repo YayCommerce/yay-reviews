@@ -7,12 +7,15 @@ import { Button } from '@/components/ui/button';
 import { toast, Toaster } from '@/components/ui/sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
+import EmailIcon from './components/icons/Email';
 import GiftIcon from './components/icons/Gift';
 import HomeIcon from './components/icons/Home';
 import NoteIcon from './components/icons/Note';
 import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
+import EmailsTab from './components/tabs/emails';
+import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import { __ } from './lib/utils';
 
@@ -78,6 +81,10 @@ export default function App() {
                 <GiftIcon strokeWidth={activeTab === 'reward' ? 1.5 : 1} fill="currentColor" />
                 {__('review_reward')}
               </TabsTrigger>
+              <TabsTrigger value="emails">
+                <EmailIcon strokeWidth={activeTab === 'emails' ? 1.5 : 1} fill="currentColor" />
+                {__('emails')}
+              </TabsTrigger>
               <TabsTrigger value="optional-fields">
                 <NoteIcon
                   strokeWidth={activeTab === 'optional-fields' ? 1.5 : 1}
@@ -110,6 +117,20 @@ export default function App() {
             forceMount
           >
             <ReviewTab />
+          </TabsContent>
+          <TabsContent
+            value="reminder"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
+            <ReminderTab />
+          </TabsContent>
+          <TabsContent
+            value="emails"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
+            <EmailsTab />
           </TabsContent>
         </div>
       </Tabs>
