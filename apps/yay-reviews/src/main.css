@@ -133,6 +133,20 @@
   margin: 0;
 }
 
+.yaycommerce_page_yay-reviews input,
+.yaycommerce_page_yay-reviews textarea {
+  border-color: var(--input);
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.yaycommerce_page_yay-reviews input:focus,
+.yaycommerce_page_yay-reviews textarea:focus {
+  border-color: var(--ring);
+  box-shadow:
+    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
+    var(--tw-ring-shadow), var(--tw-shadow);
+}
+
 .yay-reviews-collapsible .yay-reviews-collapsible-content {
   background:
     linear-gradient(0deg, #f4f4f5, #f4f4f5),

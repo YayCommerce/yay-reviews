@@ -15,6 +15,7 @@ import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
 import EmailsTab from './components/tabs/emails';
+import OptionalFieldTab from './components/tabs/optional-field';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
@@ -125,6 +126,13 @@ export default function App() {
             forceMount
           >
             <ReviewRewardTab />
+          </TabsContent>
+          <TabsContent
+            value="optional-fields"
+            className="flex items-center justify-center data-[state=inactive]:hidden"
+            forceMount
+          >
+            <OptionalFieldTab />
           </TabsContent>
           <TabsContent
             value="emails"

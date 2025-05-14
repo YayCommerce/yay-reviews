@@ -22,7 +22,7 @@ export default function RewardCard({
   return (
     <Collapsible className="yay-reviews-collapsible">
       <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">
-        <div className="flex items-center justify-between p-4">
+        <div className="flex items-center justify-between p-6">
           <div className="flex w-1/2 items-center gap-2">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
               <Switch />
@@ -54,10 +54,10 @@ export default function RewardCard({
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl">
-        <div className="flex flex-col gap-4 p-4">
+        <div className="flex flex-col gap-4 p-6">
           {/* Coupon selection */}
           <div className="flex flex-col gap-2">
-            <span>{__('select_coupon_to_be_sent')}</span>
+            <span className="text-sm font-medium text-black">{__('select_coupon_to_be_sent')}</span>
             <div>
               <Select>
                 <SelectTrigger className="w-1/2 bg-white">
@@ -69,7 +69,7 @@ export default function RewardCard({
           </div>
           {/* Coupon selection */}
           <div className="flex flex-col gap-2">
-            <span>{__('to_users')}</span>
+            <span className="text-sm font-medium text-black">{__('to_users')}</span>
             <div>
               <Select>
                 <SelectTrigger className="w-1/2 bg-white">
@@ -81,7 +81,7 @@ export default function RewardCard({
           </div>
           {/* Except emails */}
           <div className="flex flex-col gap-2">
-            <span>{__('except_emails')}</span>
+            <span className="text-sm font-medium text-black">{__('except_emails')}</span>
             <Textarea rows={7} className="w-1/2" />
           </div>
           <div className="text-sm text-slate-500">
@@ -104,11 +104,15 @@ export default function RewardCard({
               <span className="text-muted-foreground">{__('guests_can_receive_reward')}</span>
             </div>
             <div className="flex flex-col gap-2">
-              <label className="font-medium">{__('minimum_required_rating')}</label>
+              <label className="text-sm font-medium text-black">
+                {__('minimum_required_rating')}
+              </label>
               <Input type="number" className="w-16" value={3} />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="font-medium">{__('minimum_media_files_uploaded')}</label>
+              <label className="text-sm font-medium text-black">
+                {__('minimum_media_files_uploaded')}
+              </label>
               <Input type="number" className="w-16" value={1} />
             </div>
           </div>
@@ -125,7 +129,7 @@ export default function RewardCard({
 
             {/* Products in */}
             <div className="flex flex-col gap-4">
-              <span>{__('products_in')}</span>
+              <span className="text-sm font-medium text-black">{__('products_in')}</span>
               <div>
                 <Select>
                   <SelectTrigger className="w-1/2 bg-white">
@@ -139,7 +143,7 @@ export default function RewardCard({
                 </Select>
               </div>
               <div className="flex flex-col gap-2">
-                <span>{__('select_categories')}</span>
+                <span className="text-sm font-medium text-black">{__('select_categories')}</span>
                 <Select>
                   <SelectTrigger className="w-1/2 bg-white" disabled>
                     <SelectValue placeholder={__('select_categories')} />
@@ -147,7 +151,7 @@ export default function RewardCard({
                 </Select>
               </div>
               <div className="flex flex-col gap-2">
-                <span>{__('select_products')}</span>
+                <span className="text-sm font-medium text-black">{__('select_products')}</span>
                 <Select>
                   <SelectTrigger className="w-1/2 bg-white" disabled>
                     <SelectValue placeholder={__('select_products')} />
@@ -158,7 +162,7 @@ export default function RewardCard({
 
             {/* Exclude categories */}
             <div className="flex flex-col gap-2">
-              <span>{__('exclude_categories')}</span>
+              <span className="text-sm font-medium text-black">{__('exclude_categories')}</span>
               <Select>
                 <SelectTrigger className="w-1/2 bg-white">
                   <SelectValue placeholder={__('select_categories')} />
@@ -169,7 +173,7 @@ export default function RewardCard({
 
             {/* Exclude products */}
             <div className="flex flex-col gap-2">
-              <span>{__('exclude_products')}</span>
+              <span className="text-sm font-medium text-black">{__('exclude_products')}</span>
               <Select>
                 <SelectTrigger className="w-1/2 bg-white">
                   <SelectValue placeholder={__('select_products')} />
