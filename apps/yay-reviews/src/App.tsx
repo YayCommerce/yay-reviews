@@ -25,6 +25,7 @@ const queryClient = new QueryClient();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('dashboard');
   // const form = useForm<SettingsFormData>({
   //   resolver: zodResolver(settingsSchema),
   //   defaultValues: [],
@@ -51,7 +52,7 @@ export default function App() {
             console.log(errors, e);
           })}
         > */}
-      <Tabs defaultValue="dashboard">
+      <Tabs defaultValue="dashboard" value={activeTab} onValueChange={setActiveTab}>
         <div className="flex items-center justify-between gap-4 bg-white">
           <div className="flex items-center gap-4">
             <div className="border-r border-gray-100 p-2.5">
@@ -104,7 +105,7 @@ export default function App() {
             className="flex items-center justify-center data-[state=inactive]:hidden"
             forceMount
           >
-            <DashboardTab />
+            <DashboardTab setActiveTab={setActiveTab} />
           </TabsContent>
           <TabsContent
             value="review"

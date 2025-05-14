@@ -144,6 +144,11 @@ export default function ReminderTab() {
             </CardContent>
           </Card>
         </div>
+        <div className="text-sm text-slate-500">
+          {__('change_email_content')}
+          {` `}
+          <span className="cursor-pointer underline decoration-solid">{__('here')}</span>
+        </div>
       </div>
     </div>
   );

@@ -10,11 +10,13 @@ export default function AddonCard({
   title,
   description,
   status,
+  onClick,
 }: {
   icon: React.ReactNode;
   title: string;
   description: string;
   status: 'active' | 'inactive';
+  onClick: () => void;
 }) {
   return (
     <Card className="gap-2 pt-6 pb-4">
@@ -26,7 +28,12 @@ export default function AddonCard({
           <div className="px-6 text-base font-semibold">{title}</div>
           <div className="px-6 pb-4 text-sm font-normal">{description}</div>
           <div className="border-border flex items-center justify-between border-t px-6 pt-4">
-            <Button variant="outline" size="sm" className="gap-2" disabled={status === 'inactive'}>
+            <Button
+              variant="outline"
+              className="gap-2"
+              disabled={status === 'inactive'}
+              onClick={onClick}
+            >
               <SettingIcon />
               {__('settings')}
             </Button>
