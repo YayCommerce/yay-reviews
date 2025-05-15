@@ -12,12 +12,14 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/t
 
 export default function RewardCard({
   item,
+  setActiveTab,
 }: {
   item: {
     id: number;
     name: string;
     status: 'active' | 'inactive';
   };
+  setActiveTab: (tab: string) => void;
 }) {
   return (
     <Collapsible className="yay-reviews-collapsible">
@@ -84,10 +86,17 @@ export default function RewardCard({
             <span className="text-sm font-medium text-black">{__('except_emails')}</span>
             <Textarea rows={7} className="w-1/2" />
           </div>
-          <div className="text-sm text-slate-500">
-            {__('change_email_content')}
+          <div className="text-xs">
+            <span className="text-slate-500">{__('change')}</span>
             {` `}
-            <span className="cursor-pointer underline decoration-solid">{__('here')}</span>
+            <span
+              className="cursor-pointer lowercase underline decoration-solid"
+              onClick={() => {
+                setActiveTab('emails');
+              }}
+            >
+              {__('email_template')}
+            </span>
           </div>
           <hr className="text-[#E5E7EB]" />
           {/* Review criteria */}

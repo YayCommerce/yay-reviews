@@ -101,7 +101,7 @@ export default function OptionalFieldCard({
             <div className="flex flex-col gap-2">
               <span className="text-sm font-medium text-black">{__('values')}</span>
               <Textarea rows={7} className="w-1/2" value={item.values} />
-              <span className="text-sm text-slate-500">{__('values_description')}</span>
+              <span className="text-xs text-slate-500">{__('values_description')}</span>
             </div>
           )}
           {item.type === 'rating' && (

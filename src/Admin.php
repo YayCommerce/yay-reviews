@@ -664,7 +664,7 @@ class Admin {
 						'to_users'                         => __( 'To users', 'yay_reviews' ),
 						'select_coupon'                    => __( 'Select coupon', 'yay_reviews' ),
 						'select_coupon_to_be_sent'         => __( 'Select coupon to be sent', 'yay_reviews' ),
-						'change_email_content'             => __( 'Change email content', 'yay_reviews' ),
+						'change'                           => __( 'Change', 'yay_reviews' ),
 						'here'                             => __( 'here', 'yay_reviews' ),
 						'review_criteria'                  => __( 'Review criteria', 'yay_reviews' ),
 						'only_send_coupon_for_reviews_from_purchased_customers' => __( 'Only send coupon for reviews from purchased customers.', 'yay_reviews' ),

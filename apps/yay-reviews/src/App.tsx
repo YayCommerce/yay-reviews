@@ -135,14 +135,14 @@ export default function App() {
                 className="flex items-center justify-center data-[state=inactive]:hidden"
                 forceMount
               >
-                <ReminderTab />
+                <ReminderTab setActiveTab={setActiveTab} />
               </TabsContent>
               <TabsContent
                 value="reward"
                 className="flex items-center justify-center data-[state=inactive]:hidden"
                 forceMount
               >
-                <ReviewRewardTab />
+                <ReviewRewardTab setActiveTab={setActiveTab} />
               </TabsContent>
               <TabsContent
                 value="optional-fields"

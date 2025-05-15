@@ -44,13 +44,13 @@ export default function ReviewTab() {
                 <div className="flex flex-col gap-1">
                   <div>{__('maximum_files')}</div>
                   <Input type="text" defaultValue={5} className="w-1/2" />
-                  <span className="text-sm text-slate-500">{__('maximum_files_desc')}</span>
+                  <span className="text-xs text-slate-500">{__('maximum_files_desc')}</span>
                 </div>
                 {/* Maximum File Size */}
                 <div className="flex flex-col gap-1">
                   <div>{__('maximum_file_size')} (Kbs)</div>
                   <Input type="number" defaultValue={1000} className="w-1/2" />
-                  <span className="text-sm text-slate-500">{__('maximum_file_size_desc')}</span>
+                  <span className="text-xs text-slate-500">{__('maximum_file_size_desc')}</span>
                 </div>
                 {/* Field Label */}
                 <div className="flex flex-col gap-1">

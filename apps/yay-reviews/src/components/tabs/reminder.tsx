@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 
-export default function ReminderTab() {
+export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   return (
     <div className="flex w-2/3 flex-col gap-8">
       <div className="text-foreground text-3xl font-bold">{__('reminder_settings')}</div>
@@ -144,10 +144,17 @@ export default function ReminderTab() {
             </CardContent>
           </Card>
         </div>
-        <div className="text-sm text-slate-500">
-          {__('change_email_content')}
+        <div className="text-xs">
+          <span className="text-slate-500">{__('change')}</span>
           {` `}
-          <span className="cursor-pointer underline decoration-solid">{__('here')}</span>
+          <span
+            className="cursor-pointer lowercase underline decoration-solid"
+            onClick={(e) => {
+              setActiveTab('emails');
+            }}
+          >
+            {__('email_template')}
+          </span>
         </div>
       </div>
     </div>

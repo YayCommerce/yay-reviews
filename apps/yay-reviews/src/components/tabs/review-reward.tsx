@@ -7,7 +7,7 @@ import RewardCard from '../RewardCard';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 
-export default function ReviewRewardTab() {
+export default function ReviewRewardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const [reward, setReward] = useState<
     { id: number; name: string; status: 'active' | 'inactive' }[]
   >([]);
@@ -52,7 +52,7 @@ export default function ReviewRewardTab() {
                 </Button>
               </div>
               {reward.map((item) => (
-                <RewardCard key={item.id} item={item} />
+                <RewardCard key={item.id} item={item} setActiveTab={setActiveTab} />
               ))}
               <Button
                 className="w-fit self-center"
