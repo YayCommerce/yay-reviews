@@ -1,11 +1,13 @@
+import { SettingsFormData } from '@/lib/schema';
 import { __ } from '@/lib/utils';
+import { useFormContext } from '@/components/ui/form';
 
 import AddonCard from '../AddonCard';
-import OptionalFieldsIcon from '../icons/Note';
-import ReminderIcon from '../icons/Reminder';
-import ReviewRewardIcon from '../icons/Review';
 
 export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+  const { watch } = useFormContext<SettingsFormData>();
+  const addons = watch('addons');
+
   return (
     <div className="flex w-2/3 flex-col gap-8">
       <div className="flex flex-col gap-4 p-8">
@@ -25,27 +27,15 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
       <div className="flex flex-col gap-4 px-8">
         <div className="text-foreground text-xl font-semibold">{__('addon_settings')}</div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
-          <AddonCard
-            icon={<ReminderIcon size={30} strokeWidth={2} />}
-            title={__('reminder')}
-            description={__('addon_reminder_description')}
-            status="active"
-            onClick={() => setActiveTab('reminder')}
-          />
-          <AddonCard
-            icon={<ReviewRewardIcon size={30} strokeWidth={2} />}
-            title={__('review_reward')}
-            description={__('addon_review_reward_description')}
-            status="inactive"
-            onClick={() => setActiveTab('reward')}
-          />
-          <AddonCard
-            icon={<OptionalFieldsIcon size={30} strokeWidth={2} />}
-            title={__('optional_fields')}
-            description={__('addon_optional_fields_description')}
-            status="active"
-            onClick={() => setActiveTab('optional-fields')}
-          />
+          {addons.map((addon, index) => (
+            <AddonCard
+              key={index}
+              id={addon.id}
+              index={index}
+              status={addon.status as 'active' | 'inactive'}
+              onClick={() => setActiveTab(addon.id)}
+            />
+          ))}
         </div>
       </div>
     </div>

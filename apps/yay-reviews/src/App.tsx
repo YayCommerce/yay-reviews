@@ -1,9 +1,9 @@
 import { useState } from 'react';
-// import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 import { Button } from '@/components/ui/button';
-// import { Form, useForm } from '@/components/ui/form';
+import { Form, useForm } from '@/components/ui/form';
 import { toast, Toaster } from '@/components/ui/sonner';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -19,133 +19,149 @@ import OptionalFieldTab from './components/tabs/optional-field';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
-import { __ } from './lib/utils';
+import { SettingsFormData, settingsSchema } from './lib/schema';
+import { __, getSettings } from './lib/utils';
 
 const queryClient = new QueryClient();
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
-  // const form = useForm<SettingsFormData>({
-  //   resolver: zodResolver(settingsSchema),
-  //   defaultValues: [],
-  // });
+  const form = useForm<SettingsFormData>({
+    resolver: zodResolver(settingsSchema),
+    defaultValues: getSettings(),
+  });
 
-  // async function onSubmit(data: SettingsFormData) {
-  //   try {
-  //     setIsLoading(true);
-  //     // await postSettings(data);
-  //     toast.success('Settings saved successfully');
-  //   } catch (error) {
-  //     toast.error('Failed to save settings');
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
+  const addons = form.watch('addons');
+
+  const addonReminder = addons.find((addon) => addon.id === 'reminder');
+  const addonReward = addons.find((addon) => addon.id === 'reward');
+  const addonOptionalFields = addons.find((addon) => addon.id === 'optional-fields');
+
+  async function onSubmit(data: SettingsFormData) {
+    try {
+      setIsLoading(true);
+      // await postSettings(data);
+      toast.success('Settings saved successfully');
+    } catch (error) {
+      toast.error('Failed to save settings');
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster />
-      {/* <Form {...form}>
+      <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit, (errors, e) => {
             console.log(errors, e);
           })}
-        > */}
-      <Tabs defaultValue="dashboard" value={activeTab} onValueChange={setActiveTab}>
-        <div className="flex items-center justify-between gap-4 bg-white">
-          <div className="flex items-center gap-4">
-            <div className="border-r border-gray-100 p-2.5">
-              <img
-                src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
-                alt="Yay Reviews"
-                width={34}
-                height={34}
-              />
+        >
+          <Tabs defaultValue="dashboard" value={activeTab} onValueChange={setActiveTab}>
+            <div className="flex items-center justify-between gap-4 bg-white">
+              <div className="flex items-center gap-4">
+                <div className="border-r border-gray-100 p-2.5">
+                  <img
+                    src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
+                    alt="Yay Reviews"
+                    width={34}
+                    height={34}
+                  />
+                </div>
+                <TabsList>
+                  <TabsTrigger value="dashboard">
+                    <HomeIcon />
+                    {__('dashboard')}
+                  </TabsTrigger>
+                  <TabsTrigger value="review">
+                    <ReviewIcon />
+                    {__('review')}
+                  </TabsTrigger>
+                  {addonReminder && addonReminder.status === 'active' && (
+                    <TabsTrigger value="reminder">
+                      <ReminderIcon />
+                      {__('reminder')}
+                    </TabsTrigger>
+                  )}
+                  {addonReward && addonReward.status === 'active' && (
+                    <TabsTrigger value="reward">
+                      <GiftIcon />
+                      {__('review_reward')}
+                    </TabsTrigger>
+                  )}
+                  {((addonReminder && addonReminder.status === 'active') ||
+                    (addonReward && addonReward.status === 'active')) && (
+                    <TabsTrigger value="emails">
+                      <EmailIcon />
+                      {__('emails')}
+                    </TabsTrigger>
+                  )}
+                  {addonOptionalFields && addonOptionalFields.status === 'active' && (
+                    <TabsTrigger value="optional-fields">
+                      <NoteIcon />
+                      {__('optional_fields')}
+                    </TabsTrigger>
+                  )}
+                </TabsList>
+              </div>
+              <div className="flex items-center gap-2 p-2.5">
+                <Button type="button" variant="outline">
+                  {__('preview_form')}
+                </Button>
+                <Button type="submit" disabled={isLoading}>
+                  {__('save')}
+                </Button>
+              </div>
             </div>
-            <TabsList>
-              <TabsTrigger value="dashboard">
-                <HomeIcon />
-                {__('dashboard')}
-              </TabsTrigger>
-              <TabsTrigger value="review">
-                <ReviewIcon />
-                {__('review')}
-              </TabsTrigger>
-              <TabsTrigger value="reminder">
-                <ReminderIcon />
-                {__('reminder')}
-              </TabsTrigger>
-              <TabsTrigger value="reward">
-                <GiftIcon />
-                {__('review_reward')}
-              </TabsTrigger>
-              <TabsTrigger value="emails">
-                <EmailIcon />
-                {__('emails')}
-              </TabsTrigger>
-              <TabsTrigger value="optional-fields">
-                <NoteIcon />
-                {__('optional_fields')}
-              </TabsTrigger>
-            </TabsList>
-          </div>
-          <div className="flex items-center gap-2 p-2.5">
-            <Button type="button" variant="outline">
-              {__('preview_form')}
-            </Button>
-            <Button type="submit" disabled={isLoading}>
-              {__('save')}
-            </Button>
-          </div>
-        </div>
-        <div className="p-6">
-          <TabsContent
-            value="dashboard"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <DashboardTab setActiveTab={setActiveTab} />
-          </TabsContent>
-          <TabsContent
-            value="review"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <ReviewTab />
-          </TabsContent>
-          <TabsContent
-            value="reminder"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <ReminderTab />
-          </TabsContent>
-          <TabsContent
-            value="reward"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <ReviewRewardTab />
-          </TabsContent>
-          <TabsContent
-            value="optional-fields"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <OptionalFieldTab />
-          </TabsContent>
-          <TabsContent
-            value="emails"
-            className="flex items-center justify-center data-[state=inactive]:hidden"
-            forceMount
-          >
-            <EmailsTab />
-          </TabsContent>
-        </div>
-      </Tabs>
-      {/* </form>
-      </Form> */}
+            <div className="p-6">
+              <TabsContent
+                value="dashboard"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <DashboardTab setActiveTab={setActiveTab} />
+              </TabsContent>
+              <TabsContent
+                value="review"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <ReviewTab />
+              </TabsContent>
+              <TabsContent
+                value="reminder"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <ReminderTab />
+              </TabsContent>
+              <TabsContent
+                value="reward"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <ReviewRewardTab />
+              </TabsContent>
+              <TabsContent
+                value="optional-fields"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <OptionalFieldTab />
+              </TabsContent>
+              <TabsContent
+                value="emails"
+                className="flex items-center justify-center data-[state=inactive]:hidden"
+                forceMount
+              >
+                <EmailsTab />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </form>
+      </Form>
     </QueryClientProvider>
   );
 }

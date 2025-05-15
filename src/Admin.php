@@ -691,6 +691,25 @@ class Admin {
 						'values_description'               => __( 'Enter each value in a single row', 'yay_reviews' ),
 						'total_starts_points'              => __( 'Total starts/points', 'yay_reviews' ),
 					),
+					'data_settings'   => array(
+						'addons' => get_option(
+							'yay_reviews_addon_data',
+							array(
+								array(
+									'id'     => 'reminder',
+									'status' => 'inactive',
+								),
+								array(
+									'id'     => 'reward',
+									'status' => 'inactive',
+								),
+								array(
+									'id'     => 'optional-fields',
+									'status' => 'inactive',
+								),
+							)
+						),
+					),
 				)
 			);
 

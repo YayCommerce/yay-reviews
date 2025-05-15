@@ -1,23 +1,62 @@
+import { useMemo } from 'react';
+
+import { SettingsFormData } from '@/lib/schema';
 import { __ } from '@/lib/utils';
 
+import GiftIcon from './icons/Gift';
+import NoteIcon from './icons/Note';
+import ReminderIcon from './icons/Reminder';
 import SettingIcon from './icons/Setting';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { FormField, useFormContext } from './ui/form';
 import { Switch } from './ui/switch';
 
 export default function AddonCard({
-  icon,
-  title,
-  description,
+  id,
+  index,
   status,
   onClick,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  status: 'active' | 'inactive';
-  onClick: () => void;
+  id: string;
+  index: number;
+  status: string;
+  onClick: (id: string) => void;
 }) {
+  const { control } = useFormContext<SettingsFormData>();
+  const icon = useMemo(() => {
+    switch (id) {
+      case 'reminder':
+        return <ReminderIcon size={30} />;
+      case 'reward':
+        return <GiftIcon size={30} />;
+      case 'optional-fields':
+        return <NoteIcon size={30} />;
+    }
+  }, [id]);
+
+  const title = useMemo(() => {
+    switch (id) {
+      case 'reminder':
+        return __('reminder');
+      case 'reward':
+        return __('review_reward');
+      case 'optional-fields':
+        return __('optional_fields');
+    }
+  }, [id]);
+
+  const description = useMemo(() => {
+    switch (id) {
+      case 'reminder':
+        return __('addon_reminder_description');
+      case 'reward':
+        return __('addon_review_reward_description');
+      case 'optional-fields':
+        return __('addon_optional_fields_description');
+    }
+  }, [id]);
+
   return (
     <Card className="gap-2 pt-6 pb-4">
       <CardHeader className="p-0">
@@ -32,12 +71,26 @@ export default function AddonCard({
               variant="outline"
               className="gap-2"
               disabled={status === 'inactive'}
-              onClick={onClick}
+              onClick={(e) => {
+                e.preventDefault();
+                onClick(id);
+              }}
             >
               <SettingIcon />
               {__('settings')}
             </Button>
-            <Switch checked={status === 'active'} />
+            <FormField
+              control={control}
+              name={`addons.${index}.status`}
+              render={({ field }) => (
+                <Switch
+                  checked={field.value === 'active'}
+                  onCheckedChange={() =>
+                    field.onChange(field.value === 'active' ? 'inactive' : 'active')
+                  }
+                />
+              )}
+            />
           </div>
         </div>
       </CardContent>

@@ -1,11 +1,4 @@
-// import type {
-//   AttributeSettings,
-//   ButtonCustomizeSettings,
-//   CollectionCustomizeSettings,
-//   SoldOutCustomizeSettings,
-//   SwatchCustomizeSettings,
-// } from './settings.type';
-
+import { Addons } from '../src/lib/schema';
 declare global {
   interface Window {
     yayReviews: {
@@ -20,7 +13,9 @@ declare global {
       rest_base: string;
       rest_nonce: string;
       i18n: Record;
-      // data_settings: SettingsFormData;
+      data_settings: {
+        addons: Addons;
+      };
     };
     wp: AnyObject;
   }
