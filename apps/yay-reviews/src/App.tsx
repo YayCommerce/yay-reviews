@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -27,16 +27,15 @@ const queryClient = new QueryClient();
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+
   const form = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
     defaultValues: getSettings(),
   });
 
-  const addons = form.watch('addons');
-
-  const addonReminder = addons.find((addon) => addon.id === 'reminder');
-  const addonReward = addons.find((addon) => addon.id === 'reward');
-  const addonOptionalFields = addons.find((addon) => addon.id === 'optional-fields');
+  const addonReminder = form.watch('addons.reminder');
+  const addonReward = form.watch('addons.reward');
+  const addonOptionalFields = form.watch('addons.optional_fields');
 
   async function onSubmit(data: SettingsFormData) {
     try {
@@ -49,6 +48,8 @@ export default function App() {
       setIsLoading(false);
     }
   }
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -79,27 +80,26 @@ export default function App() {
                     <ReviewIcon />
                     {__('review')}
                   </TabsTrigger>
-                  {addonReminder && addonReminder.status === 'active' && (
+                  {addonReminder && (
                     <TabsTrigger value="reminder">
                       <ReminderIcon />
                       {__('reminder')}
                     </TabsTrigger>
                   )}
-                  {addonReward && addonReward.status === 'active' && (
+                  {addonReward && (
                     <TabsTrigger value="reward">
                       <GiftIcon />
                       {__('review_reward')}
                     </TabsTrigger>
                   )}
-                  {((addonReminder && addonReminder.status === 'active') ||
-                    (addonReward && addonReward.status === 'active')) && (
+                  {(addonReminder || addonReward) && (
                     <TabsTrigger value="emails">
                       <EmailIcon />
                       {__('emails')}
                     </TabsTrigger>
                   )}
-                  {addonOptionalFields && addonOptionalFields.status === 'active' && (
-                    <TabsTrigger value="optional-fields">
+                  {addonOptionalFields && (
+                    <TabsTrigger value="optional_fields">
                       <NoteIcon />
                       {__('optional_fields')}
                     </TabsTrigger>
@@ -145,7 +145,7 @@ export default function App() {
                 <ReviewRewardTab setActiveTab={setActiveTab} />
               </TabsContent>
               <TabsContent
-                value="optional-fields"
+                value="optional_fields"
                 className="flex items-center justify-center data-[state=inactive]:hidden"
                 forceMount
               >

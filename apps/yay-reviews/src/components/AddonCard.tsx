@@ -14,23 +14,35 @@ import { Switch } from './ui/switch';
 
 export default function AddonCard({
   id,
-  index,
   status,
   onClick,
 }: {
   id: string;
-  index: number;
-  status: string;
+  status: boolean;
   onClick: (id: string) => void;
 }) {
   const { control } = useFormContext<SettingsFormData>();
+
+  const nameAddon = useMemo(() => {
+    switch (id) {
+      case 'reminder':
+        return 'addons.reminder';
+      case 'reward':
+        return 'addons.reward';
+      case 'optional_fields':
+        return 'addons.optional_fields';
+      default:
+        return 'addons.reminder';
+    }
+  }, [id]);
+
   const icon = useMemo(() => {
     switch (id) {
       case 'reminder':
         return <ReminderIcon size={30} />;
       case 'reward':
         return <GiftIcon size={30} />;
-      case 'optional-fields':
+      case 'optional_fields':
         return <NoteIcon size={30} />;
     }
   }, [id]);
@@ -41,7 +53,7 @@ export default function AddonCard({
         return __('reminder');
       case 'reward':
         return __('review_reward');
-      case 'optional-fields':
+      case 'optional_fields':
         return __('optional_fields');
     }
   }, [id]);
@@ -52,7 +64,7 @@ export default function AddonCard({
         return __('addon_reminder_description');
       case 'reward':
         return __('addon_review_reward_description');
-      case 'optional-fields':
+      case 'optional_fields':
         return __('addon_optional_fields_description');
     }
   }, [id]);
@@ -70,7 +82,7 @@ export default function AddonCard({
             <Button
               variant="outline"
               className="gap-2"
-              disabled={status === 'inactive'}
+              disabled={!status}
               onClick={(e) => {
                 e.preventDefault();
                 onClick(id);
@@ -81,14 +93,9 @@ export default function AddonCard({
             </Button>
             <FormField
               control={control}
-              name={`addons.${index}.status`}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value === 'active'}
-                  onCheckedChange={() =>
-                    field.onChange(field.value === 'active' ? 'inactive' : 'active')
-                  }
-                />
+              name={nameAddon}
+              render={({ field: { value, onChange } }) => (
+                <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
               )}
             />
           </div>

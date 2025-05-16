@@ -20,7 +20,7 @@ class RegisterDev {
 
 	public function render_dev_refresh() {
 		echo '<script type="module">
-        import RefreshRuntime from "http://localhost:3000/@react-refresh"
+        import RefreshRuntime from "http://localhost:3001/@react-refresh"
         RefreshRuntime.injectIntoGlobalHook(window)
         window.$RefreshReg$ = () => {}
         window.$RefreshSig$ = () => (type) => type
@@ -31,6 +31,6 @@ class RegisterDev {
 	public function register_all_scripts() {
 		$deps = array( 'react', 'react-dom', 'wp-hooks', 'wp-i18n' );
 
-		wp_register_script( ScriptName::PAGE_SETTINGS, 'http://localhost:3000/main.tsx', $deps, null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_register_script( ScriptName::PAGE_SETTINGS, 'http://localhost:3001/main.tsx', $deps, null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
 	}
 }

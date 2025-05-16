@@ -58,49 +58,59 @@ class Helpers {
 		if ( ! is_array( $settings ) ) {
 			$settings = array();
 		}
+
 		$settings = self::wp_parse_args_recursive(
 			$settings,
 			array(
-				'general'         => array(
-					'enabled' => true,
-				),
-				'coupon'          => array(
-					'enabled' => false,
-					'coupons' => array(),
-				),
-				'optional_fields' => array(
-					'enabled' => false,
-					'fields'  => array(),
+				'addons'          => array(
+					'reminder'        => false,
+					'reward'          => false,
+					'optional_fields' => false,
 				),
 				'reviews'         => array(
-					'anchor_link'           => 'reviews',
-					'enabled_photos_videos' => false,
-					'upload_required'       => false,
-					'max_upload_file_size'  => 2000, //kb
-					'max_upload_file_qty'   => 5,
-					'enabled_gdpr_checkbox' => false,
-					'gdpr_message'          => '',
+					'upload_media'            => false,
+					'upload_required'         => false,
+					'media_type'              => 'video_image',
+					'max_upload_file_size'    => 2000, //kb
+					'max_upload_file_qty'     => 5,
+					'upload_file_label'       => __( 'Upload media', 'yay_reviews' ),
+					'upload_file_description' => '',
+					'enable_gdpr'             => false,
+					'gdpr_message'            => __( 'I agree with your policy,...', 'yay_reviews' ),
+					'before_message'          => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay_reviews' ),
+					'after_message'           => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay_reviews' ),
 				),
-				'reviewReminder'  => array(
-					'enabled'                   => false,
-					'order_status'              => array(),
-					'exclude_emails'            => array(),
-					'exclude_products'          => array(),
-					'exclude_categories'        => array(),
-					'custom_from_address'       => '',
-					'schedule_value'            => 0,
-					'schedule_unit'             => 'seconds',
-					// 'email_template'                     => 'none',
-					'email_subject'             => '',
-					'email_heading'             => '',
-					'email_content'             => '',
-					'email_review_btn_text'     => esc_html__( 'Review Now', 'yay_reviews' ),
-					'email_review_btn_color'    => '#fff',
-					'email_review_btn_bg_color' => '#206bb9',
-					'order_status_to_show_review_at_orders' => array(),
+				'reminder'        => array(
+					'send_after_value'   => 5,
+					'send_after_unit'    => 'minutes',
+					'order_status'       => array(),
+					'order_products_in'  => 'all_products',
+					'products'           => array(),
+					'categories'         => array(),
+					'exclude_products'   => array(),
+					'exclude_categories' => array(),
+					'user_roles'         => array(),
+					'except_emails'      => '',
+				),
+				'rewards'         => array(),
+				'optional_fields' => array(),
+				'email'           => array(
+					'reminder' => array(
+						'subject' => __( 'Reminder email', 'yay_reviews' ),
+						'heading' => __( 'Reminder email for you', 'yay_reviews' ),
+						'content' => __( "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged", 'yay_reviews' ),
+						'footer'  => __( 'Thank you for your review.', 'yay_reviews' ),
+					),
+					'reward'   => array(
+						'subject' => __( 'Review reward email', 'yay_reviews' ),
+						'heading' => __( 'Reward email for you', 'yay_reviews' ),
+						'content' => __( "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged", 'yay_reviews' ),
+						'footer'  => __( 'Thank you for your review.', 'yay_reviews' ),
+					),
 				),
 			)
 		);
+
 		return $settings;
 	}
 	public static function get_order_statuses() {

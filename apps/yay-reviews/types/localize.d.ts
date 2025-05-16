@@ -1,4 +1,4 @@
-import { Addons } from '../src/lib/schema';
+import { SettingsFormData } from '../lib/schema';
 declare global {
   interface Window {
     yayReviews: {
@@ -12,10 +12,10 @@ declare global {
       rest_url: string;
       rest_base: string;
       rest_nonce: string;
-      i18n: Record;
-      data_settings: {
-        addons: Addons;
-      };
+      i18n: Record<string, string>;
+      data_settings: SettingsFormData;
+      upload_max_size: number;
+      upload_max_qty: number;
     };
     wp: AnyObject;
   }

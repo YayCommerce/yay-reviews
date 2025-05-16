@@ -79,10 +79,10 @@ export default defineConfig({
   server: {
     cors: true,
     strictPort: true,
-    port: 3000,
+    port: 3001,
     origin: `${process.env.VITE_SERVER_ORIGIN}`,
     hmr: {
-      port: 3000,
+      port: 3001,
       host: 'localhost',
       protocol: 'ws',
     },
