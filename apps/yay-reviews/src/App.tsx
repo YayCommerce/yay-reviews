@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Form, useForm } from '@/components/ui/form';
 import { toast, Toaster } from '@/components/ui/sonner';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 import EmailIcon from './components/icons/Email';
 import GiftIcon from './components/icons/Gift';
@@ -15,13 +14,13 @@ import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
 import EmailsTab from './components/tabs/emails';
-import OptionalFieldTab from './components/tabs/optional-field';
+// import OptionalFieldTab from './components/tabs/optional-field';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
-import { __, getSettings } from './lib/utils';
+import { __, cn, getSettings } from './lib/utils';
 
 const queryClient = new QueryClient();
 
@@ -72,106 +71,110 @@ export default function App() {
             console.log(errors, e);
           })}
         >
-          <Tabs defaultValue="dashboard" value={activeTab} onValueChange={setActiveTab}>
-            <div className="flex items-center justify-between gap-4 bg-white">
-              <div className="flex items-center gap-4">
-                <div className="border-r border-gray-100 p-2.5">
-                  <img
-                    src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
-                    alt="Yay Reviews"
-                    width={34}
-                    height={34}
-                  />
-                </div>
-                <TabsList>
-                  <TabsTrigger value="dashboard">
-                    <HomeIcon />
-                    {__('dashboard')}
-                  </TabsTrigger>
-                  <TabsTrigger value="review">
-                    <ReviewIcon />
-                    {__('review')}
-                  </TabsTrigger>
-                  {addonReminder && (
-                    <TabsTrigger value="reminder">
-                      <ReminderIcon />
-                      {__('reminder')}
-                    </TabsTrigger>
-                  )}
-                  {addonReward && (
-                    <TabsTrigger value="reward">
-                      <GiftIcon />
-                      {__('review_reward')}
-                    </TabsTrigger>
-                  )}
-                  {(addonReminder || addonReward) && (
-                    <TabsTrigger value="emails">
-                      <EmailIcon />
-                      {__('emails')}
-                    </TabsTrigger>
-                  )}
-                  {/* {addonOptionalFields && (
-                    <TabsTrigger value="optional_fields">
-                      <NoteIcon />
-                      {__('optional_fields')}
-                    </TabsTrigger>
-                  )} */}
-                </TabsList>
+          <div className="flex items-center justify-between gap-4 bg-white">
+            <div className="flex items-center gap-4">
+              <div className="border-r border-gray-100 p-2.5">
+                <img
+                  src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
+                  alt="Yay Reviews"
+                  width={34}
+                  height={34}
+                />
               </div>
-              <div className="flex items-center gap-2 p-2.5">
-                {/* <Button type="button" variant="outline">
-                  {__('preview_form')}
-                </Button> */}
-                <Button type="submit" disabled={isLoading || !hasChanges}>
-                  {__('save')}
+              {/* Navigation */}
+              <div className="flex space-x-6">
+                <Button
+                  variant="link"
+                  className={cn(
+                    'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    activeTab === 'dashboard' && 'border-[#2271B1] text-[#2271B1]',
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('dashboard');
+                  }}
+                >
+                  <HomeIcon />
+                  {__('dashboard')}
                 </Button>
+                <Button
+                  variant="link"
+                  className={cn(
+                    'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    activeTab === 'review' && 'border-[#2271B1] text-[#2271B1]',
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab('review');
+                  }}
+                >
+                  <ReviewIcon />
+                  {__('review')}
+                </Button>
+                {addonReminder && (
+                  <Button
+                    variant="link"
+                    className={cn(
+                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      activeTab === 'reminder' && 'border-[#2271B1] text-[#2271B1]',
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTab('reminder');
+                    }}
+                  >
+                    <ReminderIcon />
+                    {__('reminder')}
+                  </Button>
+                )}
+                {addonReward && (
+                  <Button
+                    variant="link"
+                    className={cn(
+                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      activeTab === 'review-reward' && 'border-[#2271B1] text-[#2271B1]',
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTab('review-reward');
+                    }}
+                  >
+                    <GiftIcon />
+                    {__('review_reward')}
+                  </Button>
+                )}
+                {(addonReminder || addonReward) && (
+                  <Button
+                    variant="link"
+                    className={cn(
+                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      activeTab === 'emails' && 'border-[#2271B1] text-[#2271B1]',
+                    )}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTab('emails');
+                    }}
+                  >
+                    <EmailIcon />
+                    {__('emails')}
+                  </Button>
+                )}
               </div>
             </div>
-            <div className="p-6">
-              <TabsContent
-                value="dashboard"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <DashboardTab setActiveTab={setActiveTab} />
-              </TabsContent>
-              <TabsContent
-                value="review"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <ReviewTab />
-              </TabsContent>
-              <TabsContent
-                value="reminder"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <ReminderTab setActiveTab={setActiveTab} />
-              </TabsContent>
-              <TabsContent
-                value="reward"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <ReviewRewardTab setActiveTab={setActiveTab} />
-              </TabsContent>
-              <TabsContent
-                value="optional_fields"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <OptionalFieldTab />
-              </TabsContent>
-              <TabsContent
-                value="emails"
-                className="flex items-center justify-center data-[state=inactive]:hidden"
-                forceMount
-              >
-                <EmailsTab />
-              </TabsContent>
+            <div className="flex items-center gap-2 p-2.5 pr-6">
+              <Button type="submit" disabled={isLoading || !hasChanges}>
+                {__('save')}
+              </Button>
             </div>
-          </Tabs>
+          </div>
+          {/* </Tabs> */}
+          <div className="flex items-center justify-center px-6 py-12">
+            {activeTab === 'dashboard' && <DashboardTab setActiveTab={setActiveTab} />}
+            {activeTab === 'review' && <ReviewTab />}
+            {activeTab === 'reminder' && <ReminderTab setActiveTab={setActiveTab} />}
+            {activeTab === 'review-reward' && <ReviewRewardTab setActiveTab={setActiveTab} />}
+            {activeTab === 'emails' && <EmailsTab />}
+          </div>
         </form>
       </Form>
     </QueryClientProvider>

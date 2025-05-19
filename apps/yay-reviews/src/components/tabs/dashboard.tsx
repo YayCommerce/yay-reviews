@@ -10,7 +10,7 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
-      <div className="flex flex-col gap-4 p-8">
+      <div className="flex flex-col gap-4">
         <div className="text-foreground text-3xl font-bold">{__('welcome_to_yay_reviews')}</div>
         <div className="text-base leading-relaxed text-slate-600">
           <span>{__('welcome_to_yay_reviews_description')}</span>
@@ -24,7 +24,7 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
           </span>
         </div>
       </div>
-      <div className="flex flex-col gap-4 px-8">
+      <div className="flex flex-col gap-4">
         <div className="text-foreground text-xl font-semibold">{__('addon_settings')}</div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
           {Object.entries(addons)
