@@ -1,33 +1,37 @@
 import { api } from './api';
 import { SettingsFormData } from './schema';
-
-// export type ProductInfo = {
-//   ID: number;
-//   post_title: string;
-//   view_url: string;
-//   image_url: string;
-// };
-
-// export type AffectedProducts = {
-//   affectedProductsQuantity: number;
-//   listAffectedProducts: ProductInfo[];
-// };
-
-// export type PreloadAffectedProducts = {
-//   [key: string]: AffectedProducts;
-// };
+import { ComboboxOption } from '../components/ui/combobox';
 
 export async function postSettings(data: SettingsFormData) {
   const response = await api.post('settings', { json: data });
   return response.json();
 }
 
-// export async function getPreloadAffectedProducts() {
-//   const response = await api.get('affected-products/preload');
-//   return response.json() as Promise<PreloadAffectedProducts>;
-// }
+export async function getProducts(search: string, limit: number) {
+  const response = await api.get(`products`, {
+    searchParams: {
+      search,
+      limit,
+    },
+  });
+  return response.json() as Promise<ComboboxOption[]>;
+}
 
-// export async function getAffectedProducts(attrName: string, pageNo: number) {
-//   const response = await api.get(`affected-products/${attrName}/${pageNo}`);
-//   return response.json() as Promise<AffectedProducts>;
-// }
+export async function getCategories(search: string) {
+  const response = await api.get(`categories`, {
+    searchParams: {
+      search,
+    },
+  });
+  return response.json() as Promise<ComboboxOption[]>;
+}
+
+export async function getCoupons(search: string, limit: number) {
+  const response = await api.get(`coupons`, {
+    searchParams: {
+      search,
+      limit,
+    },
+  });
+  return response.json() as Promise<ComboboxOption[]>;
+}

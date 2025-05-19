@@ -25,11 +25,11 @@ const reminderSchema = z.object({
   send_after_unit: z.string(),
   order_status: z.array(z.string()),
   order_products_in: z.string(),
-  products: z.array(z.string()),
-  categories: z.array(z.string()),
-  exclude_products: z.array(z.string()),
-  exclude_categories: z.array(z.string()),
-  user_roles: z.array(z.string()),
+  products: z.array(z.object({ label: z.string(), value: z.string() })),
+  categories: z.array(z.object({ label: z.string(), value: z.string() })),
+  exclude_products: z.array(z.object({ label: z.string(), value: z.string() })),
+  exclude_categories: z.array(z.object({ label: z.string(), value: z.string() })),
+  user_roles: z.array(z.object({ label: z.string(), value: z.string() })),
   except_emails: z.string(),
 });
 
@@ -38,7 +38,7 @@ const rewardSchema = z.object({
   name: z.string(),
   enabled: z.boolean(),
   coupon_id: z.string(),
-  user_roles: z.array(z.string()),
+  user_roles: z.array(z.object({ label: z.string(), value: z.string() })),
   except_emails: z.string(),
   only_send_to_purchased_customers: z.boolean(),
   send_to_guest: z.boolean(),
@@ -46,10 +46,10 @@ const rewardSchema = z.object({
   minimum_upload_file_qty: z.number(),
   is_inherit_coupon_restriction: z.boolean(),
   products_in: z.string(),
-  products: z.array(z.string()),
-  categories: z.array(z.string()),
-  exclude_products: z.array(z.string()),
-  exclude_categories: z.array(z.string()),
+  products: z.array(z.object({ label: z.string(), value: z.string() })),
+  categories: z.array(z.object({ label: z.string(), value: z.string() })),
+  exclude_products: z.array(z.object({ label: z.string(), value: z.string() })),
+  exclude_categories: z.array(z.object({ label: z.string(), value: z.string() })),
 });
 
 const rewardsSchema = z.array(rewardSchema);

@@ -27,9 +27,11 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
       <div className="flex flex-col gap-4 px-8">
         <div className="text-foreground text-xl font-semibold">{__('addon_settings')}</div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
-          {Object.entries(addons).map(([key, value]) => (
-            <AddonCard key={key} id={key} status={value} onClick={() => setActiveTab(key)} />
-          ))}
+          {Object.entries(addons)
+            .filter(([key, value]) => key !== 'optional_fields')
+            .map(([key, value]) => (
+              <AddonCard key={key} id={key} status={value} onClick={() => setActiveTab(key)} />
+            ))}
         </div>
       </div>
     </div>

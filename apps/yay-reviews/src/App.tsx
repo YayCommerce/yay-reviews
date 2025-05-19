@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import EmailIcon from './components/icons/Email';
 import GiftIcon from './components/icons/Gift';
 import HomeIcon from './components/icons/Home';
-import NoteIcon from './components/icons/Note';
+// import NoteIcon from './components/icons/Note';
 import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
@@ -19,6 +19,7 @@ import OptionalFieldTab from './components/tabs/optional-field';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
+import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
 import { __, getSettings } from './lib/utils';
 
@@ -31,25 +32,36 @@ export default function App() {
   const form = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
     defaultValues: getSettings(),
+    mode: 'onChange',
   });
 
   const addonReminder = form.watch('addons.reminder');
   const addonReward = form.watch('addons.reward');
-  const addonOptionalFields = form.watch('addons.optional_fields');
+  // const addonOptionalFields = form.watch('addons.optional_fields');
+
+  // Watch all form values for changes
+  const formValues = form.watch();
+  const [hasChanges, setHasChanges] = useState(false);
+
+  useEffect(() => {
+    const defaultValues = getSettings();
+    const isDifferent = JSON.stringify(formValues) !== JSON.stringify(defaultValues);
+    setHasChanges(isDifferent);
+  }, [formValues]);
 
   async function onSubmit(data: SettingsFormData) {
     try {
       setIsLoading(true);
-      // await postSettings(data);
+      await postSettings(data);
       toast.success('Settings saved successfully');
+      form.reset(data); // Reset form with new values after successful save
+      setHasChanges(false); // Reset changes state
     } catch (error) {
       toast.error('Failed to save settings');
     } finally {
       setIsLoading(false);
     }
   }
-
-  if (isLoading) return <div>Loading...</div>;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -98,19 +110,19 @@ export default function App() {
                       {__('emails')}
                     </TabsTrigger>
                   )}
-                  {addonOptionalFields && (
+                  {/* {addonOptionalFields && (
                     <TabsTrigger value="optional_fields">
                       <NoteIcon />
                       {__('optional_fields')}
                     </TabsTrigger>
-                  )}
+                  )} */}
                 </TabsList>
               </div>
               <div className="flex items-center gap-2 p-2.5">
-                <Button type="button" variant="outline">
+                {/* <Button type="button" variant="outline">
                   {__('preview_form')}
-                </Button>
-                <Button type="submit" disabled={isLoading}>
+                </Button> */}
+                <Button type="submit" disabled={isLoading || !hasChanges}>
                   {__('save')}
                 </Button>
               </div>

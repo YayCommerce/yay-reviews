@@ -1,7 +1,10 @@
+import { useState } from 'react';
+
+import { getCategories, getProducts } from '@/lib/queries';
 import { __ } from '@/lib/utils';
 
 import { Card, CardContent } from '../ui/card';
-import Combobox from '../ui/combobox';
+import Combobox, { ComboboxOption } from '../ui/combobox';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -11,10 +14,23 @@ import { Textarea } from '../ui/textarea';
 export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const { watch, control } = useFormContext();
   const orderProductsIn = watch('reminder.order_products_in');
+  const [products, setProducts] = useState<ComboboxOption[]>([]);
+  const [categories, setCategories] = useState<ComboboxOption[]>([]);
+  const searchProducts = (search: string) => {
+    getProducts(search, 10).then((products) => {
+      setProducts(products);
+    });
+  };
+  const searchCategories = (search: string) => {
+    getCategories(search).then((categories) => {
+      setCategories(categories);
+    });
+  };
+
   return (
     <div className="flex w-2/3 flex-col gap-8">
       <div className="text-foreground text-3xl font-bold">{__('reminder_settings')}</div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         {/* Send reminder when */}
         <div className="flex flex-col gap-2">
           <div className="text-foreground text-lg font-semibold">{__('send_reminder_when')}</div>
@@ -58,24 +74,24 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   </div>
 
                   {/* After order status is */}
-                  <div className="flex flex-col gap-2">
-                    <span className="lowercase">{__('after_order_status_is')}</span>
-                    <FormField
+                  <div className="flex flex-col justify-center gap-2">
+                    <span> &nbsp;</span>
+                    <span className="lowercase">
+                      {__('after_order')} {__('completed')}
+                    </span>
+                    {/* <FormField
                       control={control}
                       name={`reminder.order_status`}
                       render={({ field: { value, onChange } }) => (
                         <Combobox
                           className="w-1/2"
                           placeholder={__('select_statuses')}
-                          options={[
-                            { label: 'Completed', value: 'completed' },
-                            { label: 'Processing', value: 'processing' },
-                          ]}
+                          options={window.yayReviews.order_statuses}
                           value={value}
                           onChange={onChange}
                         />
                       )}
-                    />
+                    /> */}
                   </div>
                 </div>
 
@@ -99,6 +115,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                             <SelectItem value="specific_products">
                               {__('specific_products')}
                             </SelectItem>
+                            <SelectItem value="products_in_order">
+                              {__('products_in_order')}
+                            </SelectItem>
                           </SelectContent>
                         </Select>
                       )}
@@ -107,10 +126,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   <div className="flex flex-col gap-2">
                     <span
                       className={
-                        orderProductsIn === 'all_products' ||
-                        orderProductsIn === 'specific_products'
-                          ? 'cursor-not-allowed opacity-50'
-                          : ''
+                        orderProductsIn === 'specific_categories'
+                          ? ''
+                          : 'cursor-not-allowed opacity-50'
                       }
                     >
                       {__('select_categories')}
@@ -120,14 +138,12 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       name={`reminder.categories`}
                       render={({ field: { value, onChange } }) => (
                         <Combobox
-                          options={[]}
+                          options={categories}
                           value={value}
                           onChange={onChange}
                           className="w-1/2"
-                          disabled={
-                            orderProductsIn === 'all_products' ||
-                            orderProductsIn === 'specific_products'
-                          }
+                          disabled={!orderProductsIn || orderProductsIn !== 'specific_categories'}
+                          onSearch={searchCategories}
                         />
                       )}
                     />
@@ -135,10 +151,10 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   <div className="flex flex-col gap-2">
                     <span
                       className={
-                        orderProductsIn === 'all_products' ||
-                        orderProductsIn === 'specific_categories'
-                          ? 'cursor-not-allowed opacity-50'
-                          : ''
+                        orderProductsIn === 'specific_products' ||
+                        orderProductsIn === 'products_in_order'
+                          ? ''
+                          : 'cursor-not-allowed opacity-50'
                       }
                     >
                       {__('select_products')}
@@ -149,13 +165,15 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       render={({ field: { value, onChange } }) => (
                         <Combobox
                           disabled={
-                            orderProductsIn === 'all_products' ||
-                            orderProductsIn === 'specific_categories'
+                            !orderProductsIn ||
+                            (orderProductsIn !== 'specific_products' &&
+                              orderProductsIn !== 'products_in_order')
                           }
-                          options={[]}
+                          options={products}
                           value={value}
                           onChange={onChange}
                           className="w-1/2"
+                          onSearch={searchProducts}
                         />
                       )}
                     />
@@ -163,7 +181,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                 </div>
 
                 {/* Exclude categories */}
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                   <span>{__('exclude_categories')}</span>
                   <FormField
                     control={control}
@@ -172,10 +190,10 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       <Combobox options={[]} value={value} onChange={onChange} className="w-1/2" />
                     )}
                   />
-                </div>
+                </div> */}
 
                 {/* Exclude products */}
-                <div className="flex flex-col gap-2">
+                {/* <div className="flex flex-col gap-2">
                   <span>{__('exclude_products')}</span>
                   <FormField
                     control={control}
@@ -184,7 +202,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       <Combobox options={[]} value={value} onChange={onChange} className="w-1/2" />
                     )}
                   />
-                </div>
+                </div> */}
               </div>
             </CardContent>
           </Card>
@@ -204,7 +222,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       name={`reminder.user_roles`}
                       render={({ field: { value, onChange } }) => (
                         <Combobox
-                          options={[]}
+                          options={window.yayReviews.user_roles}
                           value={value}
                           onChange={onChange}
                           className="w-1/2"

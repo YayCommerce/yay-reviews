@@ -13,33 +13,31 @@ class Admin {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 30 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 
-		// Register REST API routes
-		add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
 		add_filter( 'wc_get_template', array( $this, 'wc_template' ), 10, 5 );
 
-		if ( Helpers::get_settings( 'general', 'enabled', true ) ) {
-			$settings = Helpers::get_all_settings();
-			//Review reminder
-			$reviewReminder = $settings['reviewReminder'];
-			if ( $reviewReminder['enabled'] ) {
-				if ( count( $reviewReminder['order_status'] ) > 0 ) {
-					foreach ( $reviewReminder['order_status'] as $status ) {
-						add_action( 'woocommerce_order_status_' . substr( $status, 3 ), array( $this, 'woocommerce_new_order' ), 10, 2 );
-					}
-				}
-			}
-			add_action( 'yay_reviews_send_delayed_reminder_email', array( $this, 'send_review_reminder_email' ), 10, 1 );
-			add_action( 'wp_insert_comment', array( $this, 'wp_insert_comment' ), 10, 2 );
+		// if ( Helpers::get_settings( 'general', 'enabled', true ) ) {
+		//  $settings = Helpers::get_all_settings();
+		//  //Review reminder
+		//  $reviewReminder = $settings['reviewReminder'];
+		//  if ( $reviewReminder['enabled'] ) {
+		//      if ( count( $reviewReminder['order_status'] ) > 0 ) {
+		//          foreach ( $reviewReminder['order_status'] as $status ) {
+		//              add_action( 'woocommerce_order_status_' . substr( $status, 3 ), array( $this, 'woocommerce_new_order' ), 10, 2 );
+		//          }
+		//      }
+		//  }
+		//  add_action( 'yay_reviews_send_delayed_reminder_email', array( $this, 'send_review_reminder_email' ), 10, 1 );
+		//  add_action( 'wp_insert_comment', array( $this, 'wp_insert_comment' ), 10, 2 );
 
-			//Coupon
-			$coupon_settings = $settings['coupon'];
-			if ( $coupon_settings['enabled'] ) {
-				// Hook into comment post and edit comment hooks
-				add_action( 'comment_post', array( $this, 'send_coupon_on_review_approval' ), 10, 2 );
-				add_action( 'edit_comment', array( $this, 'send_coupon_on_review_approval' ), 10, 2 );
+		//  //Coupon
+		//  $coupon_settings = $settings['coupon'];
+		//  if ( $coupon_settings['enabled'] ) {
+		//      // Hook into comment post and edit comment hooks
+		//      add_action( 'comment_post', array( $this, 'send_coupon_on_review_approval' ), 10, 2 );
+		//      add_action( 'edit_comment', array( $this, 'send_coupon_on_review_approval' ), 10, 2 );
 
-			}
-		}
+		//  }
+		// }
 	}
 
 	public function register_rest_api() {
@@ -570,7 +568,6 @@ class Admin {
 	}
 	public function admin_enqueue_scripts( $hook ) {
 		if ( 'yaycommerce_page_yay-reviews' === $hook ) {
-			$order_statuses = Helpers::get_order_statuses();
 
 			wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay_reviews', YAY_REVIEWS_PLUGIN_PATH . 'languages' );
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
@@ -584,7 +581,7 @@ class Admin {
 					'rest_url'        => esc_url_raw( rest_url() ),
 					'rest_base'       => YAY_REVIEWS_REST_URL,
 					'image_url'       => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
-					'order_statuses'  => $order_statuses,
+					'site_title'      => get_bloginfo( 'name' ),
 					'upload_max_size' => Helpers::upload_max_size(),
 					'upload_max_qty'  => Helpers::upload_max_qty(),
 					'i18n'            => array(
@@ -592,6 +589,7 @@ class Admin {
 						'review'                           => __( 'Review', 'yay_reviews' ),
 						'optional_fields'                  => __( 'Optional Fields', 'yay_reviews' ),
 						'reminder'                         => __( 'Reminder', 'yay_reviews' ),
+						'reward'                           => __( 'Reward', 'yay_reviews' ),
 						'review_reward'                    => __( 'Review Reward', 'yay_reviews' ),
 						'preview_form'                     => __( 'Preview form', 'yay_reviews' ),
 						'save'                             => __( 'Save', 'yay_reviews' ),
@@ -635,7 +633,7 @@ class Admin {
 						'hours'                            => __( 'Hours', 'yay_reviews' ),
 						'days'                             => __( 'Days', 'yay_reviews' ),
 						'select_statuses'                  => __( 'Select statuses', 'yay_reviews' ),
-						'after_order_status_is'            => __( 'After order status is', 'yay_reviews' ),
+						'after_order'                      => __( 'After order', 'yay_reviews' ),
 						'all_products'                     => __( 'All Products', 'yay_reviews' ),
 						'specific_categories'              => __( 'Specific Categories', 'yay_reviews' ),
 						'specific_products'                => __( 'Specific Products', 'yay_reviews' ),
@@ -653,8 +651,10 @@ class Admin {
 						'email_heading'                    => __( 'Email heading', 'yay_reviews' ),
 						'email_subject'                    => __( 'Email subject', 'yay_reviews' ),
 						'email_content'                    => __( 'Email content', 'yay_reviews' ),
+						'email_footer'                     => __( 'Email footer', 'yay_reviews' ),
 						'customer_name_vars'               => __( "{customer_name} - Customer's name", 'yay_reviews' ),
 						'site_title_vars'                  => __( '{site_title} - Your site title', 'yay_reviews' ),
+						'product_list_vars'                => __( '{product_list} - List products need review', 'yay_reviews' ),
 						'preview'                          => __( 'Preview', 'yay_reviews' ),
 						'send_test_mail'                   => __( 'Send test mail', 'yay_reviews' ),
 						'emails'                           => __( 'Emails', 'yay_reviews' ),
@@ -701,8 +701,11 @@ class Admin {
 						'select_values'                    => __( 'Select values...', 'yay_reviews' ),
 						'no_value_found'                   => __( 'No value found.', 'yay_reviews' ),
 						'all'                              => __( 'All', 'yay_reviews' ),
+						'products_in_order'                => __( 'Products in order', 'yay_reviews' ),
+						'completed'                        => __( 'Completed', 'yay_reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
+					'user_roles'      => Helpers::get_user_roles(),
 				)
 			);
 
@@ -715,7 +718,7 @@ class Admin {
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . 'assets/admin/js/yay-reviews.js', array( 'jquery' ), '1.0', true );
 	}
 	public function wc_template( $template, $template_name, $args, $template_path, $default_path ) {
-		if ( $template_name == 'yay_reviews_reminder_reviews.php' ) {
+		if ( 'yay_reviews_reminder_reviews.php' === $template_name ) {
 			$template = YAY_REVIEWS_VIEW_PATH . 'emails/' . $template_name;
 		}
 		return $template;

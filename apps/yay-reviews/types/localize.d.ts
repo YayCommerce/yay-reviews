@@ -1,13 +1,13 @@
 import { SettingsFormData } from '../lib/schema';
+import { ComboboxOption } from '../components/ui/combobox';
 declare global {
   interface Window {
     yayReviews: {
       admin_url: string;
       image_url: string;
       admin_post_url: string;
-      admin_product_attributes_url: string;
       ajaxurl: string;
-      single_product_url: string;
+      site_title: string;
       nonce: string;
       rest_url: string;
       rest_base: string;
@@ -16,6 +16,7 @@ declare global {
       data_settings: SettingsFormData;
       upload_max_size: number;
       upload_max_qty: number;
+      user_roles: ComboboxOption[];
     };
     wp: AnyObject;
   }

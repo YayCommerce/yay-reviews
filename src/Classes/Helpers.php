@@ -27,6 +27,34 @@ class Helpers {
 		}
 		return $val;
 	}
+	public static function update_settings( $settings ) {
+		global $yay_reviews_settings;
+
+		// Merge with default settings to preserve any missing fields
+		$default_settings = self::get_all_settings();
+		$merged_settings  = self::wp_parse_args_recursive( $settings, $default_settings );
+
+		// Update the option in database
+		update_option( 'yay_reviews_settings', $merged_settings, false );
+
+		// Update global variable
+		$yay_reviews_settings = $merged_settings;
+
+		return $merged_settings;
+	}
+
+	public static function get_user_roles() {
+		$roles     = array();
+		$all_roles = get_editable_roles();
+		foreach ( $all_roles as $role_name => $role_info ) {
+			$roles[] = array(
+				'value' => $role_name,
+				'label' => $role_info['name'],
+			);
+		}
+		return $roles;
+	}
+
 	public static function print_photos( $files, $echo = true ) {
 		// Define arrays of image and video extensions
 		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
@@ -113,19 +141,7 @@ class Helpers {
 
 		return $settings;
 	}
-	public static function get_order_statuses() {
-		$order_statuses = array();
-		if ( function_exists( 'wc_get_order_statuses' ) ) {
-			$stt = wc_get_order_statuses();
-			foreach ( $stt as $k => $v ) {
-				$order_statuses[] = array(
-					'value' => $k,
-					'label' => $v,
-				);
-			}
-		}
-		return $order_statuses;
-	}
+
 	public static function get_table_of_products( $args = array(), $limit = 3, $data = array() ) {
 		$limit = (int) $limit;
 
