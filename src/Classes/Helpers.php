@@ -43,18 +43,6 @@ class Helpers {
 		return $merged_settings;
 	}
 
-	public static function get_user_roles() {
-		$roles     = array();
-		$all_roles = get_editable_roles();
-		foreach ( $all_roles as $role_name => $role_info ) {
-			$roles[] = array(
-				'value' => $role_name,
-				'label' => $role_info['name'],
-			);
-		}
-		return $roles;
-	}
-
 	public static function print_photos( $files, $echo = true ) {
 		// Define arrays of image and video extensions
 		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
@@ -109,16 +97,12 @@ class Helpers {
 					'after_message'           => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay_reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value'   => 5,
-					'send_after_unit'    => 'minutes',
-					'order_status'       => array(),
-					'order_products_in'  => 'all_products',
-					'products'           => array(),
-					'categories'         => array(),
-					'exclude_products'   => array(),
-					'exclude_categories' => array(),
-					'user_roles'         => array(),
-					'except_emails'      => '',
+					'send_after_value' => 5,
+					'send_after_unit'  => 'minutes',
+					'max_products'     => 3,
+					'products_type'    => 'featured',
+					'except_emails'    => '',
+					'send_to_guests'   => false,
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),

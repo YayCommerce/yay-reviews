@@ -23,14 +23,10 @@ const reviewsSchema = z.object({
 const reminderSchema = z.object({
   send_after_value: z.number(),
   send_after_unit: z.string(),
-  order_status: z.array(z.string()),
-  order_products_in: z.string(),
-  products: z.array(z.object({ label: z.string(), value: z.string() })),
-  categories: z.array(z.object({ label: z.string(), value: z.string() })),
-  exclude_products: z.array(z.object({ label: z.string(), value: z.string() })),
-  exclude_categories: z.array(z.object({ label: z.string(), value: z.string() })),
-  user_roles: z.array(z.object({ label: z.string(), value: z.string() })),
   except_emails: z.string(),
+  max_products: z.number(),
+  products_type: z.string(),
+  send_to_guests: z.boolean(),
 });
 
 const rewardSchema = z.object({

@@ -59,7 +59,7 @@ export default function RewardCard({
         <div className="flex flex-col gap-4 p-6">
           {/* Coupon selection */}
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('select_coupon_to_be_sent')}</span>
+            <span className="text-sm">{__('select_coupon_to_be_sent')}</span>
             <div>
               <Select>
                 <SelectTrigger className="w-1/2 bg-white">
@@ -68,23 +68,6 @@ export default function RewardCard({
                 <SelectContent>{/* ...options... */}</SelectContent>
               </Select>
             </div>
-          </div>
-          {/* Coupon selection */}
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('to_users')}</span>
-            <div>
-              <Select>
-                <SelectTrigger className="w-1/2 bg-white">
-                  <SelectValue placeholder={__('select_user_roles')} />
-                </SelectTrigger>
-                <SelectContent>{/* ...options... */}</SelectContent>
-              </Select>
-            </div>
-          </div>
-          {/* Except emails */}
-          <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('except_emails')}</span>
-            <Textarea rows={7} className="w-1/2" />
           </div>
           <div className="text-xs">
             <span className="text-slate-500">{__('change')}</span>
@@ -113,82 +96,19 @@ export default function RewardCard({
               <span className="text-muted-foreground">{__('guests_can_receive_reward')}</span>
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-black">
-                {__('minimum_required_rating')}
-              </label>
+              <label className="text-sm">{__('minimum_required_rating')}</label>
               <Input type="number" className="w-16" value={3} />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-black">
-                {__('minimum_media_files_uploaded')}
-              </label>
+              <label className="text-sm">{__('minimum_media_files_uploaded')}</label>
               <Input type="number" className="w-16" value={1} />
             </div>
-          </div>
-          <hr className="text-[#E5E7EB]" />
-          {/* Review criteria */}
-          <div className="flex flex-col gap-4">
-            <div className="text-foreground mb-2 text-lg font-semibold">
-              {__('coupon_restriction')}
-            </div>
-            <div className="mb-2 flex items-center gap-2">
-              <Switch />
-              <span>{__('inherit_coupon_restriction')}</span>
-            </div>
-
-            {/* Products in */}
-            <div className="flex flex-col gap-4">
-              <span className="text-sm font-medium text-black">{__('products_in')}</span>
-              <div>
-                <Select>
-                  <SelectTrigger className="w-1/2 bg-white">
-                    <SelectValue placeholder={__('select_filter')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">{__('all_products')}</SelectItem>
-                    <SelectItem value="categories">{__('specific_categories')}</SelectItem>
-                    <SelectItem value="products">{__('specific_products')}</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-sm font-medium text-black">{__('select_categories')}</span>
-                <Select>
-                  <SelectTrigger className="w-1/2 bg-white" disabled>
-                    <SelectValue placeholder={__('select_categories')} />
-                  </SelectTrigger>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-2">
-                <span className="text-sm font-medium text-black">{__('select_products')}</span>
-                <Select>
-                  <SelectTrigger className="w-1/2 bg-white" disabled>
-                    <SelectValue placeholder={__('select_products')} />
-                  </SelectTrigger>
-                </Select>
-              </div>
-            </div>
-
-            {/* Exclude categories */}
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-black">{__('exclude_categories')}</span>
-              <Select>
-                <SelectTrigger className="w-1/2 bg-white">
-                  <SelectValue placeholder={__('select_categories')} />
-                </SelectTrigger>
-                <SelectContent>{/* Map your categories here */}</SelectContent>
-              </Select>
-            </div>
-
-            {/* Exclude products */}
-            <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-black">{__('exclude_products')}</span>
-              <Select>
-                <SelectTrigger className="w-1/2 bg-white">
-                  <SelectValue placeholder={__('select_products')} />
-                </SelectTrigger>
-                <SelectContent>{/* Map your products here */}</SelectContent>
-              </Select>
+              <label className="text-sm">{__('minimum_required_reviews')}</label>
+              <Input type="number" className="w-16" value={1} />
+              <span className="text-stale-500">
+                {__('leave_empty_to_receive_reward_after_every_review')}
+              </span>
             </div>
           </div>
         </div>

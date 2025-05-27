@@ -16,7 +16,6 @@ declare global {
       data_settings: SettingsFormData;
       upload_max_size: number;
       upload_max_qty: number;
-      user_roles: ComboboxOption[];
     };
     wp: AnyObject;
   }

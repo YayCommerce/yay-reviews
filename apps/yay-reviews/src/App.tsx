@@ -86,7 +86,7 @@ export default function App() {
                 <Button
                   variant="link"
                   className={cn(
-                    'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                     activeTab === 'dashboard' && 'border-[#2271B1] text-[#2271B1]',
                   )}
                   onClick={(e) => {
@@ -95,12 +95,14 @@ export default function App() {
                   }}
                 >
                   <HomeIcon />
-                  {__('dashboard')}
+                  <span className={cn(activeTab === 'dashboard' && 'font-medium')}>
+                    {__('dashboard')}
+                  </span>
                 </Button>
                 <Button
                   variant="link"
                   className={cn(
-                    'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                     activeTab === 'review' && 'border-[#2271B1] text-[#2271B1]',
                   )}
                   onClick={(e) => {
@@ -109,13 +111,15 @@ export default function App() {
                   }}
                 >
                   <ReviewIcon />
-                  {__('review')}
+                  <span className={cn(activeTab === 'review' && 'font-medium')}>
+                    {__('review')}
+                  </span>
                 </Button>
                 {addonReminder && (
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'reminder' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -124,14 +128,16 @@ export default function App() {
                     }}
                   >
                     <ReminderIcon />
-                    {__('reminder')}
+                    <span className={cn(activeTab === 'reminder' && 'font-medium')}>
+                      {__('reminder')}
+                    </span>
                   </Button>
                 )}
                 {addonReward && (
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'review-reward' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -140,14 +146,16 @@ export default function App() {
                     }}
                   >
                     <GiftIcon />
-                    {__('review_reward')}
+                    <span className={cn(activeTab === 'review-reward' && 'font-medium')}>
+                      {__('review_reward')}
+                    </span>
                   </Button>
                 )}
                 {(addonReminder || addonReward) && (
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[55px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'emails' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -156,7 +164,9 @@ export default function App() {
                     }}
                   >
                     <EmailIcon />
-                    {__('emails')}
+                    <span className={cn(activeTab === 'emails' && 'font-medium')}>
+                      {__('emails')}
+                    </span>
                   </Button>
                 )}
               </div>

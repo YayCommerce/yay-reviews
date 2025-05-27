@@ -1,10 +1,6 @@
-import { useState } from 'react';
-
-import { getCategories, getProducts } from '@/lib/queries';
 import { __ } from '@/lib/utils';
 
 import { Card, CardContent } from '../ui/card';
-import Combobox, { ComboboxOption } from '../ui/combobox';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -12,20 +8,7 @@ import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 
 export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
-  const { watch, control } = useFormContext();
-  const orderProductsIn = watch('reminder.order_products_in');
-  const [products, setProducts] = useState<ComboboxOption[]>([]);
-  const [categories, setCategories] = useState<ComboboxOption[]>([]);
-  const searchProducts = (search: string) => {
-    getProducts(search, 10).then((products) => {
-      setProducts(products);
-    });
-  };
-  const searchCategories = (search: string) => {
-    getCategories(search).then((categories) => {
-      setCategories(categories);
-    });
-  };
+  const { control } = useFormContext();
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
@@ -37,11 +20,11 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
-                <div className="flex w-1/2 flex-row gap-2">
+                <div className="w-full sm:w-1/2 md:w-1/2">
                   {/* Send a reminder email */}
                   <div className="flex flex-col gap-2">
                     <span>{__('send_a_reminder_email')}</span>
-                    <div className="flex items-center gap-2">
+                    <div className="xs:flex-col flex w-full flex-row items-center gap-2">
                       <FormField
                         control={control}
                         name={`reminder.send_after_value`}
@@ -54,155 +37,78 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           />
                         )}
                       />
-                      <FormField
-                        control={control}
-                        name={`reminder.send_after_unit`}
-                        render={({ field: { value, onChange } }) => (
-                          <Select value={value} onValueChange={onChange}>
-                            <SelectTrigger className="w-3/4">
-                              <SelectValue placeholder={__('select_filter')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="minutes">{__('minutes')}</SelectItem>
-                              <SelectItem value="hours">{__('hours')}</SelectItem>
-                              <SelectItem value="days">{__('days')}</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        )}
-                      />
+                      <div className="flex w-3/4 flex-row items-center gap-2">
+                        <FormField
+                          control={control}
+                          name={`reminder.send_after_unit`}
+                          render={({ field: { value, onChange } }) => (
+                            <Select value={value} onValueChange={onChange}>
+                              <SelectTrigger className="min-w-40">
+                                <SelectValue placeholder={__('select_filter')} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="minutes">{__('minutes')}</SelectItem>
+                                <SelectItem value="hours">{__('hours')}</SelectItem>
+                                <SelectItem value="days">{__('days')}</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )}
+                        />
+                        <div className="min-w-[150px] lowercase">{__('after_order_completed')}</div>
+                      </div>
                     </div>
                   </div>
-
-                  {/* After order status is */}
-                  <div className="flex flex-col justify-center gap-2">
-                    <span> &nbsp;</span>
-                    <span className="lowercase">
-                      {__('after_order')} {__('completed')}
-                    </span>
-                    {/* <FormField
-                      control={control}
-                      name={`reminder.order_status`}
-                      render={({ field: { value, onChange } }) => (
-                        <Combobox
-                          className="w-1/2"
-                          placeholder={__('select_statuses')}
-                          options={window.yayReviews.order_statuses}
-                          value={value}
-                          onChange={onChange}
+                </div>
+                <div className="w-1/2">
+                  {/* Max products  */}
+                  <div className="flex flex-col gap-2">
+                    <span>{__('max_products_label')}</span>
+                    <div className="flex w-full items-center gap-2">
+                      <FormField
+                        control={control}
+                        name={`reminder.max_products`}
+                        render={({ field: { value, onChange } }) => (
+                          <Input
+                            type="number"
+                            value={value}
+                            onChange={onChange}
+                            className="w-1/4"
+                          />
+                        )}
+                      />
+                      <div className="w-3/4">
+                        <FormField
+                          control={control}
+                          name={`reminder.products_type`}
+                          render={({ field: { value, onChange } }) => (
+                            <Select value={value} onValueChange={onChange}>
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder={__('select_filter')} />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="featured">{__('featured_products')}</SelectItem>
+                                <SelectItem value="on_sale">{__('on_sale_products')}</SelectItem>
+                                <SelectItem value="newest">{__('newest_products')}</SelectItem>
+                                <SelectItem value="high_rated">
+                                  {__('high_rated_products')}
+                                </SelectItem>
+                                <SelectItem value="low_rated">
+                                  {__('low_rated_products')}
+                                </SelectItem>
+                                <SelectItem value="best_selling">
+                                  {__('best_selling_products')}
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
+                          )}
                         />
-                      )}
-                    /> */}
+                      </div>
+                    </div>
+                    <div className="text-muted-foreground text-sm">
+                      {__('leave_empty_to_remind_all')}
+                    </div>
                   </div>
                 </div>
-
-                {/* Order products in */}
-                <div className="flex flex-col gap-2">
-                  <span>{__('order_products_in')}</span>
-                  <div>
-                    <FormField
-                      control={control}
-                      name={`reminder.order_products_in`}
-                      render={({ field: { value, onChange } }) => (
-                        <Select value={value} onValueChange={onChange}>
-                          <SelectTrigger className="w-1/2">
-                            <SelectValue placeholder={__('select_filter')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="all_products">{__('all_products')}</SelectItem>
-                            <SelectItem value="specific_categories">
-                              {__('specific_categories')}
-                            </SelectItem>
-                            <SelectItem value="specific_products">
-                              {__('specific_products')}
-                            </SelectItem>
-                            <SelectItem value="products_in_order">
-                              {__('products_in_order')}
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span
-                      className={
-                        orderProductsIn === 'specific_categories'
-                          ? ''
-                          : 'cursor-not-allowed opacity-50'
-                      }
-                    >
-                      {__('select_categories')}
-                    </span>
-                    <FormField
-                      control={control}
-                      name={`reminder.categories`}
-                      render={({ field: { value, onChange } }) => (
-                        <Combobox
-                          options={categories}
-                          value={value}
-                          onChange={onChange}
-                          className="w-1/2"
-                          disabled={!orderProductsIn || orderProductsIn !== 'specific_categories'}
-                          onSearch={searchCategories}
-                        />
-                      )}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span
-                      className={
-                        orderProductsIn === 'specific_products' ||
-                        orderProductsIn === 'products_in_order'
-                          ? ''
-                          : 'cursor-not-allowed opacity-50'
-                      }
-                    >
-                      {__('select_products')}
-                    </span>
-                    <FormField
-                      control={control}
-                      name={`reminder.products`}
-                      render={({ field: { value, onChange } }) => (
-                        <Combobox
-                          disabled={
-                            !orderProductsIn ||
-                            (orderProductsIn !== 'specific_products' &&
-                              orderProductsIn !== 'products_in_order')
-                          }
-                          options={products}
-                          value={value}
-                          onChange={onChange}
-                          className="w-1/2"
-                          onSearch={searchProducts}
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-
-                {/* Exclude categories */}
-                {/* <div className="flex flex-col gap-2">
-                  <span>{__('exclude_categories')}</span>
-                  <FormField
-                    control={control}
-                    name={`reminder.exclude_categories`}
-                    render={({ field: { value, onChange } }) => (
-                      <Combobox options={[]} value={value} onChange={onChange} className="w-1/2" />
-                    )}
-                  />
-                </div> */}
-
-                {/* Exclude products */}
-                {/* <div className="flex flex-col gap-2">
-                  <span>{__('exclude_products')}</span>
-                  <FormField
-                    control={control}
-                    name={`reminder.exclude_products`}
-                    render={({ field: { value, onChange } }) => (
-                      <Combobox options={[]} value={value} onChange={onChange} className="w-1/2" />
-                    )}
-                  />
-                </div> */}
               </div>
             </CardContent>
           </Card>
@@ -213,25 +119,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
-                {/* User roles */}
-                <div className="flex flex-col gap-2">
-                  <span>{__('user_roles')}</span>
-                  <div>
-                    <FormField
-                      control={control}
-                      name={`reminder.user_roles`}
-                      render={({ field: { value, onChange } }) => (
-                        <Combobox
-                          options={window.yayReviews.user_roles}
-                          value={value}
-                          onChange={onChange}
-                          className="w-1/2"
-                        />
-                      )}
-                    />
-                  </div>
-                </div>
-
                 {/* Except emails */}
                 <div className="flex flex-col gap-2">
                   <span>{__('except_emails')}</span>

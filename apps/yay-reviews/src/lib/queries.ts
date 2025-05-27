@@ -7,25 +7,6 @@ export async function postSettings(data: SettingsFormData) {
   return response.json();
 }
 
-export async function getProducts(search: string, limit: number) {
-  const response = await api.get(`products`, {
-    searchParams: {
-      search,
-      limit,
-    },
-  });
-  return response.json() as Promise<ComboboxOption[]>;
-}
-
-export async function getCategories(search: string) {
-  const response = await api.get(`categories`, {
-    searchParams: {
-      search,
-    },
-  });
-  return response.json() as Promise<ComboboxOption[]>;
-}
-
 export async function getCoupons(search: string, limit: number) {
   const response = await api.get(`coupons`, {
     searchParams: {
