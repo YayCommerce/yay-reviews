@@ -6,10 +6,12 @@ class Helpers {
 		$settings = get_option( 'yay_reviews_settings', array() );
 		return self::add_default_settings( $settings );
 	}
+
 	public static function get_all_settings() {
 		global $yay_reviews_settings;
 		return $yay_reviews_settings;
 	}
+
 	public static function set_settings( $key, $val ) {
 		global $yay_reviews_settings;
 
@@ -19,6 +21,7 @@ class Helpers {
 
 		$yay_reviews_settings = $old_settings;
 	}
+
 	public static function get_settings( $key1, $key2 = null, $default = '' ) {
 		$settings = self::get_all_settings();
 		$val      = isset( $settings[ $key1 ] ) ? $settings[ $key1 ] : $default;
@@ -27,6 +30,7 @@ class Helpers {
 		}
 		return $val;
 	}
+
 	public static function update_settings( $settings ) {
 		global $yay_reviews_settings;
 
@@ -131,72 +135,6 @@ class Helpers {
 		return $settings;
 	}
 
-	public static function get_table_of_products( $args = array(), $limit = 3, $data = array() ) {
-		$limit = (int) $limit;
-
-		$default_args = array(
-			'post_type'      => 'product',
-			'posts_per_page' => $limit,
-		);
-
-		if ( count( $args ) > 0 ) {
-			$args = array_merge( $default_args, $args );
-		} else {
-			$args = $default_args;
-		}
-
-		$data = wp_parse_args(
-			$data,
-			array(
-				'email_review_btn_color'    => '#fff',
-				'email_review_btn_bg_color' => '#206bb9',
-				'email_review_btn_text'     => esc_html__( 'Review now', 'yay_reviews' ),
-			)
-		);
-
-		$latest_products = new \WP_Query( $args );
-
-		$table  = '<table border="0" cellpadding="5" cellspacing="0">';
-		$table .= '<thead>';
-		$table .= '<tr>';
-		$table .= '<th>' . esc_html__( 'Thumbnail', 'yay_reviews' ) . '</th>';
-		$table .= '<th>' . esc_html__( 'Product Name', 'yay_reviews' ) . '</th>';
-		$table .= '<th>' . esc_html__( 'Price', 'yay_reviews' ) . '</th>';
-		$table .= '<th>' . esc_html__( 'Link', 'yay_reviews' ) . '</th>';
-		$table .= '</tr>';
-		$table .= '</thead>';
-		$table .= '<tbody>';
-
-		if ( $latest_products->have_posts() ) {
-			while ( $latest_products->have_posts() ) {
-				$latest_products->the_post();
-
-				$id      = get_the_ID();
-				$product = wc_get_product( $id );
-				if ( has_post_thumbnail() ) {
-					$thumbnail = get_the_post_thumbnail( $id, 'thumbnail' );
-				} else {
-					$thumbnail = '<img style="width: 150px; height: 150px;" src="' . esc_url( wc_placeholder_img_src() ) . '" alt="" />';
-				}
-				$link = get_permalink() . '#' . self::get_settings( 'reviews', 'anchor_link', 'reviews' );
-
-				$table .= '<tr>';
-				$table .= '<td><a href="' . $link . '" target="_blank" >' . $thumbnail . '</a></td>';
-				$table .= '<td><a href="' . $link . '" target="_blank" >' . get_the_title() . '</a></td>';
-				$table .= '<td>' . $product->get_price_html() . '</td>';
-				$table .= '<td><a target="_blank" href="' . $link . '" style="display: inline-block; padding: 5px;color: ' . $data['email_review_btn_color'] . '; background-color: ' . $data['email_review_btn_bg_color'] . '" >' . $data['email_review_btn_text'] . '</a></td>';
-				$table .= '</tr>';
-			}
-		} else {
-			$table .= '<tr><td colspan="4">' . esc_html__( 'No products found.', 'yay_reviews' ) . '</td></tr>';
-		}
-
-		$table .= '</tbody>';
-		$table .= '</table>';
-
-		wp_reset_postdata();
-		return $table;
-	}
 	public static function wp_parse_args_recursive( &$args, $defaults ) {
 		$args   = (array) $args;
 		$result = $defaults;
@@ -213,59 +151,12 @@ class Helpers {
 
 		return $result;
 	}
+
 	public static function upload_max_size() {
 		return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
 	}
-	public static function download_and_save_photo( $photo_url ) {
-		// Get the upload directory details
-		$uploads       = wp_upload_dir();
-		$upload_dir    = $uploads['path'];
-		$upload_url    = $uploads['url'];
-		$upload_subdir = $uploads['subdir'];
 
-		// Generate a unique filename
-		$filename        = basename( $photo_url );
-		$unique_filename = wp_unique_filename( $upload_dir, $filename );
-		$file_path       = $upload_dir . '/' . $unique_filename;
-
-		// Download the photo
-		$response = wp_remote_get(
-			$photo_url,
-			array(
-				'timeout'   => 300,
-				'sslverify' => false,
-			)
-		);
-
-		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
-			return false; // Return false if there was an error downloading the photo
-		}
-
-		$photo_data = wp_remote_retrieve_body( $response );
-
-		// Save the photo to the uploads directory
-		if ( file_put_contents( $file_path, $photo_data ) === false ) {
-			return false; // Return false if there was an error saving the photo
-		}
-
-		// Return the relative path of the photo
-		return $upload_subdir . '/' . $unique_filename;
-	}
 	public static function upload_max_qty() {
 		return 20;
-	}
-	public static function coupon_default_fields() {
-		return array(
-			'title'                   => '',
-			'coupon_code'             => '',
-			'only_registered_account' => '',
-			'upload_required'         => '',
-			'only_verified_owner'     => '',
-			'minimum_rating'          => 0,
-			'required_categories'     => array(),
-			'exclude_categories'      => array(),
-			'required_products'       => array(),
-			'exclude_products'        => array(),
-		);
 	}
 }
