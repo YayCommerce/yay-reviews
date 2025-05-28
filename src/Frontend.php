@@ -6,8 +6,8 @@ use YayReviews\Classes\View;
 class Frontend {
 	public function __construct() {
 		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ) );
-		// add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
-		// add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
+		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
+		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 	}
 
@@ -32,8 +32,8 @@ class Frontend {
 
 	public function save_custom_review_fields( $comment_id ) {
 		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
-			if ( isset( $_FILES['yay-reviews-file-input'] ) ) {
-				$files       = $_FILES['yay-reviews-file-input'];
+			if ( isset( $_FILES['yay_reviews_media'] ) && isset( $_POST['yay_reviews_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files = count( $files['name'] );
 				if ( $total_files > Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ) {
 					return;
@@ -98,6 +98,7 @@ class Frontend {
 
 		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/yay-reviews.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/media-modal.js', array( 'jquery' ), null, true );
 		wp_localize_script(
 			'yay-reviews-script',
 			'yay_reviews',
@@ -115,5 +116,6 @@ class Frontend {
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/yay-reviews.css', array(), '1.0' );
+		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/media-modal.css', array(), '1.0' );
 	}
 }

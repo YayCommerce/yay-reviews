@@ -88,6 +88,14 @@ jQuery(document).ready(function ($) {
       alert(yay_reviews.gdpr_notice);
       return false;
     }
+
+    // Add nonce to form data
+    var nonce = $("#yay_reviews_nonce").val();
+    if (nonce) {
+      $(this).append(
+        '<input type="hidden" name="yay_reviews_nonce" value="' + nonce + '">'
+      );
+    }
   });
 
   let allFiles = [];
@@ -310,15 +318,15 @@ jQuery(document).ready(function ($) {
     var img_photo = $(this).find("img");
 
     var preview_obj = $(this)
-      .closest(".yay-reviews-photos")
-      .next(".yay-reviews-preview-photo");
+      .closest(".yay-reviews-media")
+      .next(".yay-reviews-preview-media");
 
     var src = img_photo.attr("data-src");
     var ext = getFileExtension(src);
     var mimeType = getMimeType(ext);
 
     //empty all preview
-    $(".yay-reviews-preview-photo").html("");
+    $(".yay-reviews-preview-media").html("");
     //remove/add active class
     $(".yay-reviews-photo").removeClass("active");
     $(this).addClass("active");

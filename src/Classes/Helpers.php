@@ -46,26 +46,32 @@ class Helpers {
 	public static function print_media( $files, $echo = true ) {
 		// Define arrays of image and video extensions
 		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
-		$video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv' );
+		$video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv', 'quicktime' );
 
 		ob_start();
 		$uploads = wp_upload_dir();
-		echo '<div class="yay-reviews-photos">';
+		echo '<div class="yay-reviews-medias">';
 		foreach ( $files as $file ) {
 			$extension = pathinfo( $file, PATHINFO_EXTENSION );
 			if ( in_array( strtolower( $extension ), $image_extensions ) ) {
 				$html = '<img src="' . $uploads['baseurl'] . $file . '" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
+				$html = '<img src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 			} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
-				$html = '<img src="' . YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
+				$html = '<img src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 			}
 
-			echo '<div class="yay-reviews-photo">' . $html . '</div>';
+			echo '<div class="yay-reviews-media" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '">' . $html . '</div>'; //phpcs:ignore
 		}
 		echo '</div>';
-		echo '<div class="yay-reviews-preview-photo"></div>';
+		echo '<div class="yay-reviews-preview-media-modal">
+			<div class="yay-reviews-modal-content">
+				<span class="yay-reviews-modal-close">&times;</span>
+				<div class="yay-reviews-modal-body"></div>
+			</div>
+		</div>';
 		$html = ob_get_clean();
 		if ( $echo ) {
-			echo $html;
+			echo $html; //phpcs:ignore
 		} else {
 			return $html;
 		}

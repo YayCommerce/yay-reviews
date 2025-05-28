@@ -14,6 +14,7 @@ if ( 'video_image' === $media_type ) {
 ?>
 
 <div class="my-4 bg-[#FAFBFB] p-[10px] rounded-lg shadow-sm flex flex-col gap-[10px]">
+	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
 			<div class="text-sm font-medium"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></div>
