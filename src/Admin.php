@@ -539,33 +539,16 @@ class Admin {
 		$screen_id = $screen ? $screen->id : '';
 
 		if ( 'comment' === $screen_id && isset( $_GET['c'] ) && metadata_exists( 'comment', wc_clean( wp_unslash( $_GET['c'] ) ), 'rating' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			add_meta_box( 'woocommerce-rating-yay-reviews', __( 'Photos/Videos', 'yayreviews' ), array( $this, 'reviews_metabox_callback' ), 'comment', 'normal', 'high' );
-			add_meta_box( 'woocommerce-rating-yay-reviews-op-fields', __( 'YayReviews Optional Fields', 'yayreviews' ), array( $this, 'reviews_opfields_metabox_callback' ), 'comment', 'normal', 'high' );
+			add_meta_box( 'woocommerce-rating-yay-reviews', __( 'Media', 'yayreviews' ), array( $this, 'reviews_metabox_callback' ), 'comment', 'normal', 'high' );
 		}
 	}
 	public function reviews_metabox_callback( $comment ) {
-		$photos = get_comment_meta( $comment->comment_ID, 'yay_reviews_photos', true );
-		if ( is_array( $photos ) ) {
-			Helpers::print_photos( $photos );
+		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		if ( is_array( $media ) ) {
+			Helpers::print_media( $media );
 		}
 	}
 
-	public function reviews_opfields_metabox_callback( $comment ) {
-		if ( Helpers::get_settings( 'optional_fields', 'enabled', false ) ) {
-			$op_fields = Helpers::get_settings( 'optional_fields', 'fields', array() );
-			foreach ( $op_fields as $field ) {
-				$val = get_comment_meta( $comment->comment_ID, 'yay_reviews_' . $field['name'], true );
-				?>
-				<div>
-					<strong><?php echo esc_html( $field['label'] ); ?>: </strong><br />
-					<div>
-						<?php echo esc_html( $val ); ?>
-					</div>    
-				</div>
-				<?php
-			}
-		}
-	}
 	public function admin_enqueue_scripts( $hook ) {
 		if ( 'yaycommerce_page_yay-reviews' === $hook ) {
 

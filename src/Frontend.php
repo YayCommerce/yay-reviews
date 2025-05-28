@@ -5,78 +5,35 @@ use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
 class Frontend {
 	public function __construct() {
-		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_photo_fields' ) );
-		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_gdpr' ) );
+		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ) );
 		// add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
-		add_action( 'pre_comment_on_post', array( $this, 'pre_comment_on_post' ) );
 		// add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
-
 	}
 
-	public function add_photo_fields( $comment_form ) {
-		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
-			$data = array(
-				'upload_required' => Helpers::get_settings( 'reviews', 'upload_required', false ),
-				'label'           => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
-				'description'     => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
-				'media_type'      => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
-				'max_files_qty'   => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
-				'max_file_size'   => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
+	public function add_reviews_form( $comment_form ) {
+		$data = array(
+			'upload_media'    => Helpers::get_settings( 'reviews', 'upload_media', false ),
+			'upload_required' => Helpers::get_settings( 'reviews', 'upload_required', false ),
+			'label'           => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
+			'description'     => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
+			'media_type'      => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
+			'max_files_qty'   => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
+			'max_file_size'   => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
+			'enable_gdpr'     => Helpers::get_settings( 'reviews', 'enable_gdpr', false ),
+			'gdpr_message'    => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
+			'before'          => Helpers::get_settings( 'reviews', 'before_message', '' ),
+			'after'           => Helpers::get_settings( 'reviews', 'after_message', '' ),
 
-			);
-			$comment_form['comment_field'] .= View::load( 'frontend.photo-field', $data, false );
-		}
+		);
+		$comment_form['comment_field'] .= View::load( 'frontend.reviews-form', $data, false );
 		return $comment_form;
-	}
-
-	public function add_gdpr( $comment_form ) {
-		if ( Helpers::get_settings( 'reviews', 'enable_gdpr', false ) ) {
-			$data                           = array(
-				'gdpr_message' => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
-				'before'       => Helpers::get_settings( 'reviews', 'before_message', '' ),
-				'after'        => Helpers::get_settings( 'reviews', 'after_message', '' ),
-			);
-			$comment_form['comment_field'] .= View::load( 'frontend.gdpr-field', $data, false );
-		}
-		return $comment_form;
-	}
-	public function pre_comment_on_post( $comment_post_ID ) {
-		if ( Helpers::get_settings( 'reviews', 'enabled_photos_videos', false ) ) {
-			//validate required files
-			if ( Helpers::get_settings( 'reviews', 'upload_required', false ) ) {
-				if ( ! isset( $_FILES['yay_reviews_field_photos'] ) || count( $_FILES['yay_reviews_field_photos'] ) == 0 || empty( $_FILES['yay_reviews_field_photos']['name'][0] ) ) {
-					wp_die( esc_html__( 'Please upload at least 1 photo or video.', 'yay_reviews' ) );
-				}
-			}
-			//validate file size
-			if ( isset( $_FILES['yay_reviews_field_photos'] ) ) {
-				$files       = $_FILES['yay_reviews_field_photos'];
-				$total_files = count( $files['name'] );
-				if ( $total_files > Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ) {
-					wp_die( esc_html__( 'The number of files you uploaded exceeds the allowed limit.', 'yay_reviews' ) );
-				}
-				$max_upload_size = Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) * 1000;//converts to byte
-				for ( $i = 0; $i < $total_files; $i++ ) {
-					if ( $files['size'][ $i ] > $max_upload_size ) {
-						$text = esc_html__( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay_reviews' );
-						wp_die( sprintf( $text, $files['name'][ $i ], ( $max_upload_size / 1000 ) ) );
-					}
-				}
-			}
-		}
-		//validate gdpr checkbox
-		if ( Helpers::get_settings( 'reviews', 'enable_gdpr', false ) ) {
-			if ( ! isset( $_POST['yay-reviews-gdpr-checkbox'] ) ) {
-				wp_die( esc_html__( 'Please check GDPR checkbox.', 'yay_reviews' ) );
-			}
-		}
 	}
 
 	public function save_custom_review_fields( $comment_id ) {
-		if ( Helpers::get_settings( 'reviews', 'enabled_photos_videos', false ) ) {
-			if ( isset( $_FILES['yay_reviews_field_photos'] ) ) {
-				$files       = $_FILES['yay_reviews_field_photos'];
+		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
+			if ( isset( $_FILES['yay-reviews-file-input'] ) ) {
+				$files       = $_FILES['yay-reviews-file-input'];
 				$total_files = count( $files['name'] );
 				if ( $total_files > Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ) {
 					return;
@@ -101,7 +58,7 @@ class Frontend {
 						//file's to large
 						continue;
 					}
-					if ( $file['error'] === UPLOAD_ERR_OK ) {
+					if ( UPLOAD_ERR_OK === $file['error'] ) {
 						// Upload the file to WordPress
 						$movefile = wp_handle_upload( $file, array( 'test_form' => false ) );
 
@@ -115,25 +72,31 @@ class Frontend {
 						$paths[]  = $uploads['subdir'] . "/$filename";
 					}
 				}
-				add_comment_meta( $comment_id, 'yay_reviews_photos', $paths );
-			}
-		}
-		if ( Helpers::get_settings( 'optional_fields', 'enabled', false ) ) {
-			$op_fields = Helpers::get_settings( 'optional_fields', 'fields', array() );
-			foreach ( $op_fields as $field ) {
-				if ( isset( $_POST[ $field['name'] ] ) ) {
-					update_comment_meta( $comment_id, 'yay_reviews_' . $field['name'], sanitize_text_field( $_POST[ $field['name'] ] ) );
-				}
+				add_comment_meta( $comment_id, 'yay_reviews_files', $paths );
 			}
 		}
 	}
 	public function review_after_comment_text( $comment ) {
-		$photos = get_comment_meta( $comment->comment_ID, 'yay_reviews_photos', true );
-		if ( is_array( $photos ) && count( $photos ) > 0 ) {
-			Helpers::print_photos( $photos );
+		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		if ( is_array( $media ) && count( $media ) > 0 ) {
+			Helpers::print_media( $media );
 		}
 	}
+
 	public function frontend_enqueue_scripts() {
+		$media_type           = Helpers::get_settings( 'reviews', 'media_type', 'video_image' );
+		$file_required_notice = sprintf(
+			// translators: %s: media type (image or video, video, image)
+			__( 'Please upload at least 1 %s.', 'yay_reviews' ),
+			'video_image' === $media_type ?
+					__( 'image or video', 'yay_reviews' ) :
+				( 'video' === $media_type ?
+					__( 'video', 'yay_reviews' ) :
+					__( 'image', 'yay_reviews' )
+				)
+		);
+
+		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/yay-reviews.js', array( 'jquery' ), null, true );
 		wp_localize_script(
 			'yay-reviews-script',
@@ -144,7 +107,7 @@ class Frontend {
 				'max_upload_qty'       => intval( Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 				'max_upload_size'      => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
 				'gdpr_notice'          => __( 'Please check GDPR checkbox.', 'yay_reviews' ),
-				'file_required_notice' => __( 'Please upload at least 1 photo or video.', 'yay_reviews' ),
+				'file_required_notice' => $file_required_notice,
 				// translators: %1$s: file name, %2$s: max upload size
 				'file_size_notice'     => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay_reviews' ),
 				// translators: %1$s: max upload quantity

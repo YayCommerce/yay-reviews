@@ -71,7 +71,7 @@ export default function ReviewTab() {
                       <Input
                         type="number"
                         value={value}
-                        onChange={onChange}
+                        onChange={(e) => onChange(Number(e.target.value))}
                         className="w-1/2"
                         min={1}
                         max={window.yayReviews.upload_max_qty}
@@ -90,7 +90,7 @@ export default function ReviewTab() {
                       <Input
                         type="number"
                         value={value}
-                        onChange={onChange}
+                        onChange={(e) => onChange(Number(e.target.value))}
                         className="w-1/2"
                         min={1}
                         max={window.yayReviews.upload_max_size}

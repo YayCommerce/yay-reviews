@@ -106,7 +106,7 @@ export default function RewardCard({
             <div className="flex flex-col gap-2">
               <label className="text-sm">{__('minimum_required_reviews')}</label>
               <Input type="number" className="w-16" value={1} />
-              <span className="text-stale-500">
+              <span className="text-[#64748B]">
                 {__('leave_empty_to_receive_reward_after_every_review')}
               </span>
             </div>

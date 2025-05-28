@@ -43,7 +43,7 @@ class Helpers {
 		return $merged_settings;
 	}
 
-	public static function print_photos( $files, $echo = true ) {
+	public static function print_media( $files, $echo = true ) {
 		// Define arrays of image and video extensions
 		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
 		$video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv' );

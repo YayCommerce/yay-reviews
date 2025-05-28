@@ -34,18 +34,12 @@ const rewardSchema = z.object({
   name: z.string(),
   enabled: z.boolean(),
   coupon_id: z.string(),
-  user_roles: z.array(z.object({ label: z.string(), value: z.string() })),
-  except_emails: z.string(),
   only_send_to_purchased_customers: z.boolean(),
-  send_to_guest: z.boolean(),
+  send_to_guests: z.boolean(),
   minimum_rating: z.number(),
   minimum_upload_file_qty: z.number(),
-  is_inherit_coupon_restriction: z.boolean(),
-  products_in: z.string(),
-  products: z.array(z.object({ label: z.string(), value: z.string() })),
-  categories: z.array(z.object({ label: z.string(), value: z.string() })),
-  exclude_products: z.array(z.object({ label: z.string(), value: z.string() })),
-  exclude_categories: z.array(z.object({ label: z.string(), value: z.string() })),
+  minimum_required_reviews: z.number(),
+  minimum_required_reviews_since_last_reward: z.number(),
 });
 
 const rewardsSchema = z.array(rewardSchema);

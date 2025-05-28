@@ -1,118 +1,154 @@
 .yay-reviews-thumbnails {
-    margin: 10px 0 0;
-    display: flex;
+  margin: 10px 0 0;
+  display: flex;
 }
 
 .yay-reviews-thumbnail img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 .yay-reviews-thumbnail {
-    width: 72px;
-    height: 72px;
-    position: relative;
-    margin-right: 5px;
-    overflow: hidden;
+  width: 72px;
+  height: 72px;
+  position: relative;
+  margin-right: 5px;
+  overflow: hidden;
 }
 
-.yay-reviews-thumbnail:after {
-    position: absolute;
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    background-color: rgba(255,255,255,0.5);
-}
 .yay-reviews-thumbnail .delete-icon {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .yay_reviews_upload_progress {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 999;
-    transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 999;
+  transform: translateX(-50%) translateY(-50%);
 }
 .yay-reviews-loading-icon {
-    width: 25px;
-    height: 25px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    border-top: 2px solid #3498db;
-    border-radius: 50%;
-    animation: yay-reviews-spin 1s linear infinite;
+  width: 25px;
+  height: 25px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  animation: yay-reviews-spin 1s linear infinite;
 }
 
 @keyframes yay-reviews-spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .yay-reviews-photos {
-    display: flex;
+  display: flex;
 }
 .yay-reviews-photos .yay-reviews-photo {
-    width: 72px;
-    height: 72px;
-    overflow: hidden;
-    cursor: pointer;
-    border: 1px solid transparent;
-    margin-right: 10px;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  margin-right: 10px;
 }
 .yay-reviews-photos .yay-reviews-photo.active {
-    border-color: #ccc;
+  border-color: #ccc;
 }
 
 .yay-reviews-photos .yay-reviews-photo img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .yay_reviews_file_wrap {
-    width: 100px;
-    height: 100px;
-    position: relative;
-    background: url(../img/upload-icon.png) no-repeat center center;
-    background-size: 100% auto;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  background: url(../img/upload-icon.png) no-repeat center center;
+  background-size: 100% auto;
 }
 .yay_reviews_file_wrap input[type="file"] {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    opacity: 0;
-    cursor: pointer;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .yay-reviews-preview-photo {
-    max-width: 400px;
-    margin-top: 10px;
-    max-height: 400px;
-    overflow: auto;
+  max-width: 400px;
+  margin-top: 10px;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .yay-reviews-preview-photo > img {
-    display: block;
-    width: 100%;
-    height: auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .yay-reviews-field > label {
-    display: block;
-    margin: 0 0 2px 0;
+  display: block;
+  margin: 0 0 2px 0;
 }
 
 .yay-reviews-field {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 .yay-reviews-field input[type="text"],
 .yay-reviews-field select {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
+}
+
+.yay-reviews-gdpr-checkbox-wrap label {
+  margin-bottom: 0;
+}
+
+#review_form_wrapper #review_form textarea {
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: #fff;
+}
+
+.yay-reviews-thumbnail {
+  position: relative;
+  display: inline-block;
+  margin: 4px;
+}
+
+.yay-reviews-thumbnail img {
+  display: block;
+  width: 80px; /* Adjust as needed */
+  height: 80px; /* Adjust as needed */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.yay-reviews-thumbnail .delete-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #ff4d4f;
+  color: #fff;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 11px;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.yay-reviews-thumbnail .delete-icon:hover {
+  background: #d9363e;
 }
