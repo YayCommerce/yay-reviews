@@ -54,7 +54,6 @@ class Helpers {
 		foreach ( $files as $file ) {
 			$extension = pathinfo( $file, PATHINFO_EXTENSION );
 			if ( in_array( strtolower( $extension ), $image_extensions ) ) {
-				$html = '<img src="' . $uploads['baseurl'] . $file . '" data-src="' . $uploads['baseurl'] . $file . '" alt="" />';
 				$html = '<img src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 			} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
 				$html = '<img src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
