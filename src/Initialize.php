@@ -17,5 +17,7 @@ class Initialize {
 	protected function __construct() {
 		\YayReviews\Register\RegisterFacade::get_instance();
 		\YayReviews\RestAPI::get_instance();
+		\YayReviews\Classes\Emails::get_instance();
+		\YayReviews\Classes\Cron::get_instance();
 	}
 }

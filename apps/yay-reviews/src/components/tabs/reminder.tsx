@@ -1,7 +1,6 @@
 import { __ } from '@/lib/utils';
 
 import { Card, CardContent } from '../ui/card';
-import { Checkbox } from '../ui/checkbox';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -25,7 +24,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   {/* Send a reminder email */}
                   <div className="flex flex-col gap-2">
                     <span>{__('send_a_reminder_email')}</span>
-                    <Checkbox />
                     <div className="xs:flex-col flex w-full flex-row items-center gap-2">
                       <FormField
                         control={control}

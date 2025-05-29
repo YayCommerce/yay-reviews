@@ -79,13 +79,12 @@ require_once YAY_REVIEWS_PLUGIN_PATH . 'src/AdminMenu.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Admin.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Frontend.php';
 
-$yay_reviews_settings = Classes\Helpers::get_all_settings_from_db();
-
-
-
 add_action(
 	'plugins_loaded',
 	function () {
+		global $yay_reviews_settings;
+		$yay_reviews_settings = Classes\Helpers::get_all_settings_from_db();
+
 		// if ( function_exists( 'determine_locale' ) ) {
 		//  $locale = determine_locale();
 		// } else {
