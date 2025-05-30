@@ -94,7 +94,7 @@ class Frontend {
 			__( 'Please upload at least 1 %s.', 'yay-reviews' ),
 			'video_image' === $media_type ?
 					__( 'image or video', 'yay-reviews' ) :
-				( 'video' === $media_type ?
+				( 'only_video' === $media_type ?
 					__( 'video', 'yay-reviews' ) :
 					__( 'image', 'yay-reviews' )
 				)

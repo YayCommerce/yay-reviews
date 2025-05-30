@@ -18,16 +18,44 @@ jQuery(document).ready(function ($) {
   let yayReviewsFilesArr = [];
   let renderedFilesCount = 0;
 
-  function renderThumbnails() {
+  function createVideoThumbnail(file) {
+    return new Promise((resolve) => {
+      const video = document.createElement("video");
+      video.preload = "metadata";
+      video.onloadedmetadata = function () {
+        video.currentTime = 1;
+      };
+      video.onseeked = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = 96; // 6rem = 96px
+        canvas.height = 96;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const thumbnailUrl = canvas.toDataURL();
+        URL.revokeObjectURL(video.src);
+        resolve(thumbnailUrl);
+      };
+      video.src = URL.createObjectURL(file);
+    });
+  }
+
+  async function renderThumbnails() {
     // Only render new thumbnails
     for (let i = renderedFilesCount; i < yayReviewsFilesArr.length; i++) {
       const file = yayReviewsFilesArr[i];
-      const url = URL.createObjectURL(file);
+      let thumbnailUrl;
+
+      if (file.type.startsWith("video/")) {
+        thumbnailUrl = await createVideoThumbnail(file);
+      } else {
+        thumbnailUrl = URL.createObjectURL(file);
+      }
+
       const card = document.createElement("div");
       card.className =
         "yay-reviews-thumb-card relative w-24 h-24 rounded-lg border-dashed overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center";
       card.innerHTML = `
-        <img src="${url}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview">
+        <img src="${thumbnailUrl}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview">
         <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" data-index="${i}">&times;</button>
       `;
       grid.insertBefore(card, grid.lastElementChild);
