@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
         "yay-reviews-thumb-card relative w-24 h-24 rounded-lg border-dashed overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center";
       card.innerHTML = `
         <img src="${url}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview">
-        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onclick="removeFile(${i})">&times;</button>
+        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" data-index="${i}">&times;</button>
       `;
       grid.insertBefore(card, grid.lastElementChild);
     }
@@ -44,7 +44,15 @@ jQuery(document).ready(function ($) {
     }
   }
 
-  window.removeFile = function (idx) {
+  // Handle delete button clicks
+  $(document).on("click", ".yay-reviews-thumb-card button", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const idx = parseInt($(this).data("index"));
+    removeFile(idx);
+  });
+
+  function removeFile(idx) {
     // Remove the thumbnail element
     const thumbCards = grid.querySelectorAll(".yay-reviews-thumb-card");
     if (thumbCards[idx]) {
@@ -55,12 +63,12 @@ jQuery(document).ready(function ($) {
     yayReviewsFilesArr.splice(idx, 1);
     renderedFilesCount--;
 
-    // Update indices for remaining delete buttons
+    // Update indices for remaining thumbnails
     thumbCards.forEach((card, index) => {
-      if (index >= idx) {
+      if (index > idx) {
         const button = card.querySelector("button");
         if (button) {
-          button.setAttribute("onclick", `removeFile(${index})`);
+          button.setAttribute("data-index", index - 1);
         }
       }
     });
@@ -80,7 +88,7 @@ jQuery(document).ready(function ($) {
           ? "none"
           : "flex";
     }
-  };
+  }
 
   // Handle file drop functionality
   window.handleFileDrop = function (event) {
