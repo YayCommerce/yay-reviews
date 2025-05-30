@@ -1,6 +1,4 @@
-import { useState } from 'react';
-
-import { __ } from '@/lib/utils';
+import { __, getEmailSampleValues } from '@/lib/utils';
 
 import DesktopIcon from './icons/Desktop';
 import MobileIcon from './icons/Mobile';
@@ -25,6 +23,17 @@ export default function EmailTemplateCard({
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
   const emailFooter = watch(`email.${templateId}.footer`);
+
+  const sampleValues = getEmailSampleValues();
+
+  const content = emailContent
+    .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
+    .replace(/\{site_title\}/g, sampleValues['{site_title}'])
+    .replace(/\{product_table\}/g, sampleValues['{product_table}']);
+
+  const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
+  const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
+  const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
 
   return (
     <Card>
@@ -67,7 +76,7 @@ export default function EmailTemplateCard({
               <div className="text-muted-foreground flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>
                 <span>{__('site_title_vars')}</span>
-                <span>{__('product_list_vars')}</span>
+                <span>{__('product_table_vars')}</span>
               </div>
             </div>
 
@@ -119,7 +128,7 @@ export default function EmailTemplateCard({
             <Card>
               <CardHeader className="border-border border-b">
                 <CardTitle className="text-foreground flex flex-col gap-2">
-                  <div className="text-base">{emailSubject}</div>
+                  <div className="text-base">{subject}</div>
                   <div className="flex items-center gap-2 text-sm font-normal">
                     <Avatar className="h-6 w-6">
                       <AvatarImage src="https://github.com/shadcn.png" />
@@ -131,9 +140,9 @@ export default function EmailTemplateCard({
               </CardHeader>
               <CardContent>
                 <div className="text-foreground flex flex-col items-center gap-5 text-center">
-                  <span className="text-base font-semibold">{emailHeading}</span>
-                  <span className="text-sm">{emailContent}</span>
-                  <span className="text-base font-semibold">{emailFooter}</span>
+                  <div className="text-base font-semibold">{heading}</div>
+                  <div className="text-sm" dangerouslySetInnerHTML={{ __html: content }} />
+                  <div className="text-base font-semibold">{footer}</div>
                 </div>
               </CardContent>
             </Card>

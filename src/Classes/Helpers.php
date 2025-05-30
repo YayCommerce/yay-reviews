@@ -138,4 +138,45 @@ class Helpers {
 	public static function upload_max_qty() {
 		return 20;
 	}
+
+	public static function get_product_table( $order ) {
+		if ( ! is_a( $order, 'WC_Order' ) ) {
+			$sample_products = array();
+			$product1        = new \WC_Product_Simple();
+			$product1->set_name( 'Sample Product 1' );
+			$product1->set_regular_price( '99.99' );
+			$product1->set_sale_price( '79.99' );
+			$product1->set_sku( 'SP001' );
+			$product1->set_short_description( 'This is a sample product description for testing the email template. It includes some basic information about the product.' );
+			$sample_products[] = $product1;
+			$product2          = new \WC_Product_Simple();
+			$product2->set_name( 'Sample Product 2' );
+			$product2->set_regular_price( '149.99' );
+			$product2->set_sku( 'SP002' );
+			$product2->set_short_description( 'Another sample product with a different price point and description for testing purposes.' );
+			$sample_products[] = $product2;
+
+			return wc_get_template_html(
+				'emails/product-table.php',
+				array(
+					'product_list' => $sample_products,
+				),
+				'',
+				YAY_REVIEWS_PLUGIN_PATH . 'views/'
+			);
+		}
+		$product_list = array();
+		$items        = $order->get_items();
+		foreach ( $items as $item ) {
+			$product_list[] = $item->get_product();
+		}
+		return wc_get_template_html(
+			'emails/product-table.php',
+			array(
+				'product_list' => $product_list,
+			),
+			'',
+			YAY_REVIEWS_PLUGIN_PATH . 'views/'
+		);
+	}
 }

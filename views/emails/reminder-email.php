@@ -1,12 +1,25 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+
+$content = $email_content;
+$content = str_replace(
+	array( '{customer_name}', '{site_title}', '{product_table}', '{order_date}', '{order_number}' ),
+	array(
+		$email->placeholders['{customer_name}'],
+		$email->placeholders['{site_title}'],
+		$email->placeholders['{product_table}'],
+		$email->placeholders['{order_date}'],
+		$email->placeholders['{order_number}'],
+	),
+	$content
+);
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
+		<meta http-equiv="Content-Type" content="text/html; charset=<?php echo esc_attr( get_bloginfo( 'charset' ) ); ?>" />
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
-		<title><?php echo get_bloginfo( 'name', 'display' ); ?></title>
+		<title><?php echo esc_html( get_bloginfo( 'name', 'display' ) ); ?></title>
 	</head>
 	<body <?php echo is_rtl() ? 'rightmargin' : 'leftmargin'; ?>="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
 		<table width="100%" id="outer_wrapper">
@@ -50,7 +63,7 @@ defined( 'ABSPATH' ) || exit;
 															<table border="0" cellpadding="20" cellspacing="0" width="100%">
 																<tr>
 																	<td valign="top" style="padding: 20px 32px;">
-																		<div id="body_content_inner" style="text-align: center;"><?php echo $email_content; ?></div>
+																		<div id="body_content_inner" style="text-align: center;"><?php echo wp_kses_post( $content ); ?></div>
 																	</td>
 																</tr>
 															</table>

@@ -114,7 +114,7 @@ class Admin {
 						'email_footer'                     => __( 'Email footer', 'yay-reviews' ),
 						'customer_name_vars'               => __( "{customer_name} - Customer's name", 'yay-reviews' ),
 						'site_title_vars'                  => __( '{site_title} - Your site title', 'yay-reviews' ),
-						'product_list_vars'                => __( '{product_list} - List products need review', 'yay-reviews' ),
+						'product_table_vars'               => __( '{product_table} - Table of products need review', 'yay-reviews' ),
 						'preview'                          => __( 'Preview', 'yay-reviews' ),
 						'send_test_mail'                   => __( 'Send test mail', 'yay-reviews' ),
 						'emails'                           => __( 'Emails', 'yay-reviews' ),
@@ -167,6 +167,11 @@ class Admin {
 						'completed'                        => __( 'Completed', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
+					'sample_values'   => array(
+						'{customer_name}' => 'John Doe',
+						'{site_title}'    => get_bloginfo( 'name' ),
+						'{product_table}' => Helpers::get_product_table( 'sample' ),
+					),
 				)
 			);
 

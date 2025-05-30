@@ -17,3 +17,7 @@ export const __ = (text: string): string => {
 export const getSettings = (): SettingsFormData => {
   return window.yayReviews.data_settings;
 };
+
+export const getEmailSampleValues = (): Record<string, string> => {
+  return window.yayReviews.sample_values;
+};

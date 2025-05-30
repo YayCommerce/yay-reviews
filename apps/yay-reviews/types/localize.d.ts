@@ -5,8 +5,6 @@ declare global {
     yayReviews: {
       admin_url: string;
       image_url: string;
-      admin_post_url: string;
-      ajaxurl: string;
       site_title: string;
       nonce: string;
       rest_url: string;
@@ -16,6 +14,7 @@ declare global {
       data_settings: SettingsFormData;
       upload_max_size: number;
       upload_max_qty: number;
+      sample_values: Record<string, string>;
     };
     wp: AnyObject;
   }

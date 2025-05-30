@@ -22,7 +22,7 @@ class ReminderEmail extends \WC_Email {
 			'{order_number}'  => '',
 			'{customer_name}' => '',
 			'{site_title}'    => '',
-			'{product_list}'  => '',
+			'{product_table}' => '',
 		);
 
 		// Call parent constructor
@@ -73,7 +73,7 @@ class ReminderEmail extends \WC_Email {
 		$this->placeholders['{order_number}']  = $this->object->get_order_number();
 		$this->placeholders['{customer_name}'] = $this->object->get_formatted_billing_full_name();
 		$this->placeholders['{site_title}']    = get_bloginfo( 'name' );
-		$this->placeholders['{product_list}']  = $this->get_product_list();
+		$this->placeholders['{product_table}'] = $this->get_product_table();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -115,7 +115,7 @@ class ReminderEmail extends \WC_Email {
 		return __( 'Thank you for your review!', 'yay-reviews' );
 	}
 
-	public function get_product_list() {
+	public function get_product_table() {
 		if ( ! $this->object ) {
 			return '';
 		}
@@ -126,7 +126,7 @@ class ReminderEmail extends \WC_Email {
 			$product_list[] = $item->get_product();
 		}
 		return wc_get_template_html(
-			'emails/product-list.php',
+			'emails/product-table.php',
 			array(
 				'product_list' => $product_list,
 			),
@@ -197,7 +197,7 @@ class ReminderEmail extends \WC_Email {
 				'title'       => __( 'Email Content', 'yay-reviews' ),
 				'type'        => 'textarea',
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_list}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_table}</code>' ),
 				'placeholder' => $this->get_email_content(),
 				'default'     => '',
 			),
