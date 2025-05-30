@@ -180,6 +180,7 @@ class ReminderEmail extends \WC_Email {
 			'subject'    => array(
 				'title'       => __( 'Subject', 'yay-reviews' ),
 				'type'        => 'text',
+				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_subject(),
@@ -188,6 +189,7 @@ class ReminderEmail extends \WC_Email {
 			'heading'    => array(
 				'title'       => __( 'Email Heading', 'yay-reviews' ),
 				'type'        => 'text',
+				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_heading(),
@@ -196,6 +198,7 @@ class ReminderEmail extends \WC_Email {
 			'content'    => array(
 				'title'       => __( 'Email Content', 'yay-reviews' ),
 				'type'        => 'textarea',
+				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_table}</code>' ),
 				'placeholder' => $this->get_email_content(),
@@ -204,6 +207,7 @@ class ReminderEmail extends \WC_Email {
 			'footer'     => array(
 				'title'       => __( 'Email Footer', 'yay-reviews' ),
 				'type'        => 'textarea',
+				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_footer(),

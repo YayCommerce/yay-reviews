@@ -14,6 +14,7 @@ class Emails {
 		add_filter( 'woocommerce_email_classes', array( $this, 'register_email_classes' ) );
 		add_filter( 'woocommerce_email_actions', array( $this, 'register_email_actions' ) );
 		add_action( 'woocommerce_update_options_email_yay_reviews_reminder', array( $this, 'save_email_settings' ) );
+		add_filter( 'woocommerce_email_preview_placeholders', array( $this, 'add_placeholders' ), 10, 2 );
 	}
 
 	public function register_email_classes( $email_classes ) {
@@ -56,5 +57,14 @@ class Emails {
 		$email_settings['footer']      = ! empty( $footer ) ? $footer : $email_settings['footer'];
 		$settings['email']['reminder'] = $email_settings;
 		Helpers::update_settings( $settings );
+	}
+
+	public function add_placeholders( $placeholders, $email_type ) {
+		if ( 'YayReviews\Emails\ReminderEmail' === $email_type ) {
+			$placeholders['{product_table}'] = Helpers::get_product_table( 'sample' );
+			$placeholders['{site_title}']    = get_bloginfo( 'name' );
+			$placeholders['{customer_name}'] = 'John Doe';
+		}
+		return $placeholders;
 	}
 }
