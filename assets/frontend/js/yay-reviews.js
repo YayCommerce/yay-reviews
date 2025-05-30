@@ -16,24 +16,23 @@ jQuery(document).ready(function ($) {
   const fileInput = document.getElementById("yay-reviews-file-input");
   const grid = document.querySelector(".yay-reviews-picture-card-grid");
   let yayReviewsFilesArr = [];
+  let renderedFilesCount = 0;
 
   function renderThumbnails() {
-    // Remove all except the upload card
-    grid
-      .querySelectorAll(".yay-reviews-thumb-card")
-      .forEach((el) => el.remove());
-
-    yayReviewsFilesArr.forEach((file, idx) => {
+    // Only render new thumbnails
+    for (let i = renderedFilesCount; i < yayReviewsFilesArr.length; i++) {
+      const file = yayReviewsFilesArr[i];
       const url = URL.createObjectURL(file);
       const card = document.createElement("div");
       card.className =
         "yay-reviews-thumb-card relative w-24 h-24 rounded-lg border-dashed overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center";
       card.innerHTML = `
         <img src="${url}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview">
-        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onclick="removeFile(${idx})">&times;</button>
+        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onclick="removeFile(${i})">&times;</button>
       `;
       grid.insertBefore(card, grid.lastElementChild);
-    });
+    }
+    renderedFilesCount = yayReviewsFilesArr.length;
 
     // Hide upload card if max files reached
     const uploadCard = grid.querySelector(".yay-reviews-upload-card");
@@ -46,8 +45,25 @@ jQuery(document).ready(function ($) {
   }
 
   window.removeFile = function (idx) {
+    // Remove the thumbnail element
+    const thumbCards = grid.querySelectorAll(".yay-reviews-thumb-card");
+    if (thumbCards[idx]) {
+      thumbCards[idx].remove();
+    }
+
+    // Remove from array
     yayReviewsFilesArr.splice(idx, 1);
-    renderThumbnails();
+    renderedFilesCount--;
+
+    // Update indices for remaining delete buttons
+    thumbCards.forEach((card, index) => {
+      if (index >= idx) {
+        const button = card.querySelector("button");
+        if (button) {
+          button.setAttribute("onclick", `removeFile(${index})`);
+        }
+      }
+    });
 
     // Update the file input with remaining files
     const dataTransfer = new DataTransfer();
@@ -55,6 +71,15 @@ jQuery(document).ready(function ($) {
       dataTransfer.items.add(file);
     });
     fileInput.files = dataTransfer.files;
+
+    // Show upload card if below max
+    const uploadCard = grid.querySelector(".yay-reviews-upload-card");
+    if (uploadCard) {
+      uploadCard.style.display =
+        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
+          ? "none"
+          : "flex";
+    }
   };
 
   // Handle file drop functionality
