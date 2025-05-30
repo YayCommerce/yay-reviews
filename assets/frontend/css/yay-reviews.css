@@ -118,7 +118,6 @@
 #review_form_wrapper #review_form textarea {
   border-width: 1px;
   border-radius: 4px;
-  background-color: #fff;
 }
 
 .yay-reviews-thumbnail {
@@ -154,4 +153,17 @@
 
 .yay-reviews-thumbnail .delete-icon:hover {
   background: #d9363e;
+}
+
+.columns-1,
+.columns-2,
+.columns-3,
+.columns-4,
+.columns-5,
+.columns-6,
+.columns-7,
+.columns-8,
+.columns-9,
+.columns-10 {
+  columns: auto;
 }

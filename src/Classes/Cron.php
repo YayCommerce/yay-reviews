@@ -11,18 +11,21 @@ class Cron {
 	use SingletonTrait;
 
 	public function __construct() {
-		add_action( 'yay_reviews_reminder_email', array( $this, 'send_reminder_email' ), 10, 2 );
+		add_action( 'yay_reviews_reminder_email', array( $this, 'send_reminder_email' ), 10, 1 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_reminder_email' ), 10, 1 );
 	}
 
 	public function schedule_reminder_email( $order_id ) {
-		if ( get_post_meta( $order_id, '_yay_reviews_scheduled', true ) ) {
+		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 
-		update_post_meta( $order_id, '_yay_reviews_scheduled', 'yes' );
+		$settings = Helpers::get_all_settings();
 
-		$settings          = Helpers::get_all_settings_from_db();
+		if ( ! isset( $settings['addons']['reminder'] ) || ! $settings['addons']['reminder'] ) {
+			return;
+		}
+
 		$reminder_settings = $settings['reminder'];
 		$time              = time();
 
@@ -43,46 +46,17 @@ class Cron {
 			}
 		}
 
-		wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id ) );
-	}
+		$products_type = isset( $reminder_settings['products_type'] ) ? $reminder_settings['products_type'] : 'featured';
+		$max_products  = isset( $reminder_settings['max_products'] ) ? $reminder_settings['max_products'] : 3;
 
-	public function send_reminder_email( $order_id ) {
-		if ( ! $order_id ) {
+		// Check if products type different from featured or on sale or max products is 0. If so, schedule reminder email.
+		if ( ! in_array( $products_type, array( 'featured', 'on_sale' ) ) || 0 === $max_products ) {
+			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id ) );
 			return;
 		}
 
-		$order = wc_get_order( $order_id );
-		if ( ! $order ) {
-			return;
-		}
-
-		$settings          = Helpers::get_all_settings_from_db();
-		$reminder_settings = $settings['reminder'];
-		$addons_settings   = $settings['addons'];
-
-		// Check if reminder is enabled
-		if ( ! $addons_settings['reminder'] ) {
-			return;
-		}
-
-		// Check if sending to guests is allowed
-		if ( $reminder_settings['send_to_guests'] ) {
-			if ( ! $order->get_user_id() ) {
-				return;
-			}
-		}
-
-		// Check excluded emails
-		$excluded_emails = isset( $reminder_settings['except_emails'] ) ? $reminder_settings['except_emails'] : '';
-		if ( ! empty( $excluded_emails ) ) {
-			$excluded_emails = array_map( 'trim', explode( ',', $excluded_emails ) );
-			if ( in_array( $order->get_billing_email(), $excluded_emails ) ) {
-				return;
-			}
-		}
-
-		// Get products that need review
-		$items       = $order->get_items();
+		// Get list product ids from order
+		$items       = wc_get_order( $order_id )->get_items();
 		$product_ids = array();
 		foreach ( $items as $item ) {
 			$product_id = $item->get_data()['product_id'];
@@ -90,30 +64,51 @@ class Cron {
 				$product_ids[] = $product_id;
 			}
 		}
-		$product_ids = array_unique( $product_ids );
 
-		// Check if user has already reviewed these products
-		// $user_id = $order->get_user_id();
-		// if ( $user_id ) {
-		//  $reviewed_products = get_user_meta( $user_id, '_yay_reviews_reviewed_product', true );
-		//  if ( ! is_array( $reviewed_products ) ) {
-		//      $reviewed_products = array();
-		//  }
-		//  $reviewed_products = array_map( 'intval', $reviewed_products );
-		//  $product_ids       = array_diff( $product_ids, $reviewed_products );
-		// }
+		$product_ids = array_unique( $product_ids );
+		if ( empty( $product_ids ) ) {
+			return;
+		}
+
+		// Check condition before create schedule reminder email
+		if ( 'featured' === $products_type ) {
+			$featured_product_ids = Products::get_featured_products();
+			$product_ids          = array_intersect( $product_ids, $featured_product_ids );
+		} elseif ( 'on_sale' === $products_type ) {
+			$on_sale_product_ids = Products::get_on_sale_products();
+			$product_ids         = array_intersect( $product_ids, $on_sale_product_ids );
+		}
 
 		if ( empty( $product_ids ) ) {
 			return;
 		}
 
-		// // Limit number of products to remind about
-		// $max_products = isset( $settings['max_products'] ) ? intval( $settings['max_products'] ) : 3;
-		// if ( $max_products > 0 ) {
-		//  $product_ids = array_slice( $product_ids, 0, $max_products );
-		// }
+		// Schedule reminder email
+		wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id ) );
+	}
 
-		// Trigger the email
+	public function send_reminder_email( $order_id ) {
+
+		if ( ! $order_id ) {
+			return;
+		}
+
+		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+			return;
+		}
+
+		// Ensure WooCommerce email classes are loaded
+		if ( ! class_exists( 'WC_Email' ) ) {
+			WC()->mailer();
+		}
+
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order || ! is_a( $order, 'WC_Order' ) ) {
+			return;
+		}
+
+		// Trigger reminder email notification
 		do_action( 'yay_reviews_reminder_email_notification', $order_id, $order );
 	}
 }

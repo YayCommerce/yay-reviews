@@ -84,15 +84,19 @@ class Frontend {
 	}
 
 	public function frontend_enqueue_scripts() {
+		if ( ! is_product() ) {
+			return;
+		}
+
 		$media_type           = Helpers::get_settings( 'reviews', 'media_type', 'video_image' );
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
-			__( 'Please upload at least 1 %s.', 'yay_reviews' ),
+			__( 'Please upload at least 1 %s.', 'yay-reviews' ),
 			'video_image' === $media_type ?
-					__( 'image or video', 'yay_reviews' ) :
+					__( 'image or video', 'yay-reviews' ) :
 				( 'video' === $media_type ?
-					__( 'video', 'yay_reviews' ) :
-					__( 'image', 'yay_reviews' )
+					__( 'video', 'yay-reviews' ) :
+					__( 'image', 'yay-reviews' )
 				)
 		);
 
@@ -107,12 +111,12 @@ class Frontend {
 				'nonce'                => wp_create_nonce( 'yay-reviews-nonce' ),
 				'max_upload_qty'       => intval( Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 				'max_upload_size'      => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
-				'gdpr_notice'          => __( 'Please check GDPR checkbox.', 'yay_reviews' ),
+				'gdpr_notice'          => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
 				'file_required_notice' => $file_required_notice,
 				// translators: %1$s: file name, %2$s: max upload size
-				'file_size_notice'     => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay_reviews' ),
+				'file_size_notice'     => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
 				// translators: %1$s: max upload quantity
-				'file_quantity_notice' => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay_reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'file_quantity_notice' => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/yay-reviews.css', array(), '1.0' );

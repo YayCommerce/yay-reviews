@@ -21,11 +21,6 @@ class RestAPI {
 	private $settings_service;
 
 	protected function __construct() {
-		// $this->default_swatch_customize_settings     = Helper::get_default_swatch_customize_settings();
-		// $this->default_button_customize_settings     = Helper::get_default_button_customize_settings();
-		// $this->default_sold_out_customize_settings   = Helper::get_default_sold_out_settings();
-		// $this->default_collection_customize_settings = Helper::get_default_collection_customize_settings();
-		// $this->settings_service                      = SettingsService::get_instance();
 		add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
 	}
 

@@ -5,7 +5,7 @@
  * Version: 1.0
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com
- * Text Domain: yay_reviews
+ * Text Domain: yay-reviews
  * Domain Path: /languages
  * Requires at least: 4.7
  * Requires PHP: 5.4
@@ -53,16 +53,10 @@ spl_autoload_register(
 
 if ( ! class_exists( 'woocommerce' ) ) {
 	function yay_reviews_admin_notice() {
-		// $activate_woo_url = add_query_arg(array(
-		//     '_wpnonce' => wp_create_nonce( 'activate-plugin_woocommerce/woocommerce.php'),
-		//     'action' => 'activate',
-		//     'plugin' => 'woocommerce/woocommerce.php'
-		// ), admin_url('plugins.php'));
-		// $activate_html = '<a href="'.esc_url($activate_woo_url).'" target="_blank" class="button button-primary" style="vertical-align: middle;margin-top: 5px">'.esc_html__('Active WooCommerce', 'yay_reviews').'</a>';
 		?>
 		<div class="notice notice-warning is-dismissible"> 
 			<p>
-				<strong><?php esc_html_e( 'Please activate WooCommerce to activate Yay Reviews', 'yay_reviews' ); ?></strong>
+				<strong><?php esc_html_e( 'Please activate WooCommerce to activate Yay Reviews', 'yay-reviews' ); ?></strong>
 				<br />
 			</p>
 		</div>
@@ -72,9 +66,15 @@ if ( ! class_exists( 'woocommerce' ) ) {
 	return;
 }
 
+// Ensure WooCommerce is fully loaded
+if ( ! function_exists( 'WC' ) ) {
+	return;
+}
+
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Helpers.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/View.php';
-
+require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Emails.php';
+require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Cron.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/AdminMenu.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Admin.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Frontend.php';
@@ -82,16 +82,11 @@ require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Frontend.php';
 add_action(
 	'plugins_loaded',
 	function () {
-		global $yay_reviews_settings;
-		$yay_reviews_settings = Classes\Helpers::get_all_settings_from_db();
+		// Ensure WooCommerce is loaded
+		if ( ! function_exists( 'WC' ) ) {
+			return;
+		}
 
-		// if ( function_exists( 'determine_locale' ) ) {
-		//  $locale = determine_locale();
-		// } else {
-		//  $locale = is_admin() ? get_user_locale() : get_locale();
-		// }
-		// unload_textdomain( 'yay_reviews' );
-		// load_textdomain( 'yay_reviews', YAY_REVIEWS_PLUGIN_PATH . '/languages/yay_reviews-' . $locale . '.mo' );
 		add_action(
 			'before_woocommerce_init',
 			function () {
@@ -100,9 +95,12 @@ add_action(
 				}
 			}
 		);
-		load_plugin_textdomain( 'yay_reviews', false, dirname( plugin_basename( YAY_REVIEWS_FILE ) ) . '/languages/' );
+
+		// Initialize plugin components
 		Initialize::get_instance();
 		new Admin();
 		new Frontend();
 	}
 );
+
+

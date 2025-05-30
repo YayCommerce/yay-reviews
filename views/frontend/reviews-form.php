@@ -1,20 +1,20 @@
 <?php
 
 if ( 'video_image' === $media_type ) {
-	$upload_text = __( 'You can upload image &amp; video (maximum ' . $max_file_size . 'KB)', 'yay_reviews' );
+	$upload_text = __( 'You can upload image &amp; video (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
 	$accept      = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp,video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
 } elseif ( 'only_video' === $media_type ) {
-	$upload_text = __( 'You can upload video (maximum ' . $max_file_size . 'KB)', 'yay_reviews' );
+	$upload_text = __( 'You can upload video (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
 	$accept      = 'video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
 } else {
-	$upload_text = __( 'You can upload image (maximum ' . $max_file_size . 'KB)', 'yay_reviews' );
+	$upload_text = __( 'You can upload image (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
 	$accept      = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp';
 }
 
 ?>
 
-<div class="my-4 bg-[#FAFBFB] p-[10px] rounded-lg shadow-sm flex flex-col gap-[10px]">
-	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
+<div class="my-4 flex flex-col gap-[10px]">
+	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay-reviews_nonce' ); ?>
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
 			<div class="text-sm font-medium"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></div>
@@ -33,11 +33,11 @@ if ( 'video_image' === $media_type ) {
 				<div class="mb-4">
 					<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="yay-reviews-icon bg-white rounded-lg" stroke-width="1"><g clip-path="url(#clip0_4482_9752)"><path d="M7.55957 11.44V9C7.55957 7.9 8.45957 7 9.55957 7H14.4496C15.5496 7 16.4496 7.9 16.4496 9V11.44" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M10.8802 13.1099H13.1102L14.4502 11.7699C14.6602 11.5599 14.9402 11.4399 15.2402 11.4399H16.4502C17.0602 11.4399 17.5602 11.9399 17.5602 12.5499V14.9899C17.5602 16.0899 16.6602 16.9899 15.5602 16.9899H8.4502C7.3502 16.9899 6.4502 16.0899 6.4502 14.9899V12.5499C6.4502 11.9399 6.9502 11.4399 7.5602 11.4399H8.7602C9.0602 11.4399 9.3402 11.5599 9.5502 11.7699L10.8902 13.1099H10.8802Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path></g><defs><clipPath id="clip0_4482_9752"><rect width="48" height="48" fill="currentColor"></rect></clipPath></defs></svg>
 				</div>
-				<p class="text-lg font-semibold mb-2"><?php echo esc_html__( 'Select files to upload', 'yay_reviews' ); ?></p>
-				<p class="text-sm text-gray-500 mb-4"><?php echo esc_html__( 'or drag and drop it here', 'yay_reviews' ); ?></p>
-				<input type="file" name="yay_reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
+				<p class="text-lg font-semibold mb-2"><?php echo esc_html__( 'Select files to upload', 'yay-reviews' ); ?></p>
+				<p class="text-sm text-gray-500 mb-4"><?php echo esc_html__( 'or drag and drop it here', 'yay-reviews' ); ?></p>
+				<input type="file" name="yay-reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
 				<label for="yay-reviews-file-input" class="text-sm bg-black text-white px-6 py-2 rounded font-medium hover:bg-gray-800 transition cursor-pointer flex items-center gap-2">
-					<span class="upload-text"><?php echo esc_html__( 'Upload', 'yay_reviews' ); ?></span>
+					<span class="upload-text"><?php echo esc_html__( 'Upload', 'yay-reviews' ); ?></span>
 					<span class="loading-spinner hidden">
 						<svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 							<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
