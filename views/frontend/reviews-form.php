@@ -14,7 +14,7 @@ if ( 'video_image' === $media_type ) {
 ?>
 
 <div class="my-4 flex flex-col gap-[10px]">
-	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay-reviews_nonce' ); ?>
+	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
 			<div class="text-sm font-medium"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></div>
@@ -24,36 +24,26 @@ if ( 'video_image' === $media_type ) {
 		<?php endif; ?>
 		<!-- Upload area -->
 		<div>
-			<div class="border-2 border-dashed border-gray-200 rounded-lg flex flex-col items-center justify-center py-8 mb-2 yay-reviews-dropzone" 
-				data-accept="<?php echo esc_attr( $accept ); ?>"
-				ondragover="event.preventDefault(); this.classList.add('border-blue-500');"
-				ondragleave="this.classList.remove('border-blue-500');"
-				ondrop="event.preventDefault(); this.classList.remove('border-blue-500'); handleFileDrop(event);"
-			>
-				<div class="mb-4">
-					<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round" class="yay-reviews-icon bg-white rounded-lg" stroke-width="1"><g clip-path="url(#clip0_4482_9752)"><path d="M7.55957 11.44V9C7.55957 7.9 8.45957 7 9.55957 7H14.4496C15.5496 7 16.4496 7.9 16.4496 9V11.44" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path><path d="M10.8802 13.1099H13.1102L14.4502 11.7699C14.6602 11.5599 14.9402 11.4399 15.2402 11.4399H16.4502C17.0602 11.4399 17.5602 11.9399 17.5602 12.5499V14.9899C17.5602 16.0899 16.6602 16.9899 15.5602 16.9899H8.4502C7.3502 16.9899 6.4502 16.0899 6.4502 14.9899V12.5499C6.4502 11.9399 6.9502 11.4399 7.5602 11.4399H8.7602C9.0602 11.4399 9.3402 11.5599 9.5502 11.7699L10.8902 13.1099H10.8802Z" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" fill="transparent"></path></g><defs><clipPath id="clip0_4482_9752"><rect width="48" height="48" fill="currentColor"></rect></clipPath></defs></svg>
+			<div class="yay-reviews-picture-card-grid flex gap-2 flex-wrap">
+				<!-- Thumbnails will be inserted here by JS -->
+				<div class="yay-reviews-upload-card flex flex-col items-center justify-center border border-dashed border-gray-200 rounded-lg w-24 h-24 cursor-pointer hover:border-blue-500 transition"
+					data-accept="<?php echo esc_attr( $accept ); ?>"	
+					onclick="document.getElementById('yay-reviews-file-input').click();" ondragover="event.preventDefault(); this.classList.add('border-blue-500');"
+					ondragleave="this.classList.remove('border-blue-500');"
+					ondrop="event.preventDefault(); this.classList.remove('border-blue-500'); handleFileDrop(event);"
+				>
+					<span class="text-3xl text-gray-400">+</span>
+					<span class="text-xs text-gray-500 mt-1"><?php echo esc_html__( 'Upload', 'yay-reviews' ); ?></span>
 				</div>
-				<p class="text-lg font-semibold mb-2"><?php echo esc_html__( 'Select files to upload', 'yay-reviews' ); ?></p>
-				<p class="text-sm text-gray-500 mb-4"><?php echo esc_html__( 'or drag and drop it here', 'yay-reviews' ); ?></p>
-				<input type="file" name="yay-reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
-				<label for="yay-reviews-file-input" class="text-sm bg-black text-white px-6 py-2 rounded font-medium hover:bg-gray-800 transition cursor-pointer flex items-center gap-2">
-					<span class="upload-text"><?php echo esc_html__( 'Upload', 'yay-reviews' ); ?></span>
-					<span class="loading-spinner hidden">
-						<svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-							<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-							<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-						</svg>
-					</span>
-				</label>
 			</div>
-			<p class="text-gray-500 text-sm mb-4"><?php echo esc_html( $upload_text ); ?></p>
-			<div class="yay-reviews-thumbnails" style="margin-top: 10px;"></div>
+			<input type="file" name="yay_reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
+			<div class="text-gray-500 text-sm my-2"><?php echo esc_html( $upload_text ); ?></div>
 		</div>
 	<?php endif; ?>
 	<?php if ( ! empty( $enable_gdpr ) ) : ?>
 		<div class="space-y-2">
 			<?php if ( ! empty( $before ) ) : ?>
-				<p class="text-gray-500 text-sm"><?php echo esc_html( $before ); ?></p>
+				<div class="text-gray-500 text-sm"><?php echo esc_html( $before ); ?></div>
 			<?php endif; ?>
 			<?php if ( ! empty( $gdpr_message ) ) : ?>
 				<div class="flex items-center space-x-2 yay-reviews-gdpr-checkbox-wrap">
@@ -84,8 +74,62 @@ if ( 'video_image' === $media_type ) {
 				</div>
 			<?php endif; ?>
 			<?php if ( ! empty( $after ) ) : ?>
-				<p class="text-gray-500 text-sm"><?php echo esc_html( $after ); ?></p>
+				<div class="text-gray-500 text-sm"><?php echo esc_html( $after ); ?></div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 </div>
+
+<style>
+.yay-reviews-picture-card-grid {
+	display: flex;
+	flex-wrap: wrap;
+}
+.yay-reviews-upload-card {
+	width: 6rem;
+	height: 6rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	border: 1px dashed #e5e7eb;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: border-color 0.2s;
+}
+.yay-reviews-upload-card:hover {
+	border-color: #1890ff;
+}
+.yay-reviews-thumb-card {
+	position: relative;
+	width: 6rem;
+	height: 6rem;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	border: 1px dashed #e5e7eb;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+.yay-reviews-thumb-card img {
+	width: 100%;
+	height: 100%;
+	border-radius: 0.5rem;
+	object-fit: cover;
+}
+.yay-reviews-thumb-card button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.5) !important;
+	color: #fff !important;
+	border: none !important;
+	border-radius: 9999px;
+	padding: 0.25rem;
+	width: 1.25rem;
+	height: 1.25rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+</style>

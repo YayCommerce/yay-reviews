@@ -13,17 +13,55 @@ jQuery(document).ready(function ($) {
     });
   }
 
+  const fileInput = document.getElementById("yay-reviews-file-input");
+  const grid = document.querySelector(".yay-reviews-picture-card-grid");
+  let yayReviewsFilesArr = [];
+
+  function renderThumbnails() {
+    // Remove all except the upload card
+    grid
+      .querySelectorAll(".yay-reviews-thumb-card")
+      .forEach((el) => el.remove());
+
+    yayReviewsFilesArr.forEach((file, idx) => {
+      const url = URL.createObjectURL(file);
+      const card = document.createElement("div");
+      card.className =
+        "yay-reviews-thumb-card relative w-24 h-24 rounded-lg border-dashed overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center";
+      card.innerHTML = `
+        <img src="${url}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview">
+        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" onclick="removeFile(${idx})">&times;</button>
+      `;
+      grid.insertBefore(card, grid.lastElementChild);
+    });
+
+    // Hide upload card if max files reached
+    const uploadCard = grid.querySelector(".yay-reviews-upload-card");
+    if (uploadCard) {
+      uploadCard.style.display =
+        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
+          ? "none"
+          : "flex";
+    }
+  }
+
+  window.removeFile = function (idx) {
+    yayReviewsFilesArr.splice(idx, 1);
+    renderThumbnails();
+
+    // Update the file input with remaining files
+    const dataTransfer = new DataTransfer();
+    yayReviewsFilesArr.forEach(function (file) {
+      dataTransfer.items.add(file);
+    });
+    fileInput.files = dataTransfer.files;
+  };
+
   // Handle file drop functionality
   window.handleFileDrop = function (event) {
     const dropzone = event.currentTarget;
     const accept = dropzone.dataset.accept;
     const files = event.dataTransfer.files;
-    const fileInput = document.getElementById("yay-reviews-file-input");
-    const loadingSpinner = document.querySelector(".loading-spinner");
-    const uploadText = document.querySelector(".upload-text");
-    const uploadLabel = document.querySelector(
-      'label[for="yay-reviews-file-input"]'
-    );
 
     // Create a new FileList object
     const dataTransfer = new DataTransfer();
@@ -44,13 +82,6 @@ jQuery(document).ready(function ($) {
 
     // Only proceed if there are valid files
     if (hasValidFiles) {
-      // Show loading state and disable upload
-      loadingSpinner.classList.remove("hidden");
-      uploadText.classList.add("hidden");
-      uploadLabel.classList.add("opacity-50", "cursor-not-allowed");
-      fileInput.disabled = true;
-      dropzone.classList.add("pointer-events-none");
-
       // Update the file input with the new files
       fileInput.files = dataTransfer.files;
 
@@ -98,16 +129,9 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  let allFiles = [];
-
   $("#yay-reviews-file-input").on("change", function (event) {
-    const dropzone = document.querySelector(".yay-reviews-dropzone");
+    const dropzone = document.querySelector(".yay-reviews-upload-card");
     const accept = dropzone.dataset.accept;
-    const loadingSpinner = document.querySelector(".loading-spinner");
-    const uploadText = document.querySelector(".upload-text");
-    const uploadLabel = document.querySelector(
-      'label[for="yay-reviews-file-input"]'
-    );
 
     var max_upload_qty = parseInt(yay_reviews.max_upload_qty);
     var max_upload_size = parseInt(yay_reviews.max_upload_size);
@@ -126,175 +150,41 @@ jQuery(document).ready(function ($) {
 
     // Only proceed if there are valid files
     if (files.length > 0) {
-      // Show loading state and disable upload
-      loadingSpinner.classList.remove("hidden");
-      uploadText.classList.add("hidden");
-      uploadLabel.classList.add("opacity-50", "cursor-not-allowed");
-      this.disabled = true;
-      dropzone.classList.add("pointer-events-none");
-
-      // Add new files to allFiles, avoiding duplicates by name+size
+      // Add new files to yayReviewsFilesArr
       files.forEach(function (file) {
         if (
-          !allFiles.some((f) => f.name === file.name && f.size === file.size)
+          !yayReviewsFilesArr.some(
+            (f) => f.name === file.name && f.size === file.size
+          )
         ) {
-          allFiles.push(file);
+          // Check if file size is too large before adding to array
+          if (file.size > max_upload_size * 1024) {
+            alert(
+              yay_reviews.file_size_notice
+                .replace("%1$s", file.name)
+                .replace("%2$s", max_upload_size)
+            );
+            return;
+          }
+          yayReviewsFilesArr.push(file);
         }
       });
 
       // Limit total files
-      if (allFiles.length > max_upload_qty) {
+      if (yayReviewsFilesArr.length > max_upload_qty) {
         alert(yay_reviews.file_quantity_notice);
-        allFiles = allFiles.slice(0, max_upload_qty);
-      }
-
-      // Check file sizes
-      var hasInvalidSize = false;
-      allFiles.forEach(function (file) {
-        if (file.size > max_upload_size * 1024) {
-          alert(
-            yay_reviews.file_size_notice
-              .replace("%1$s", file.name)
-              .replace("%2$s", max_upload_size)
-          );
-          hasInvalidSize = true;
-        }
-      });
-
-      if (hasInvalidSize) {
-        allFiles = allFiles.filter(
-          (file) => file.size <= max_upload_size * 1024
-        );
+        yayReviewsFilesArr = yayReviewsFilesArr.slice(0, max_upload_qty);
       }
 
       // Update the file input
       var dataTransfer = new DataTransfer();
-      allFiles.forEach(function (file) {
+      yayReviewsFilesArr.forEach(function (file) {
         dataTransfer.items.add(file);
       });
-      $("#yay-reviews-file-input")[0].files = dataTransfer.files;
+      fileInput.files = dataTransfer.files;
 
-      // Update thumbnails
-      var thumbnailsContainer = $(".yay-reviews-thumbnails");
-      thumbnailsContainer.empty();
-
-      // Create an array of promises for thumbnail generation
-      const thumbnailPromises = allFiles.map(function (file) {
-        return new Promise((resolve) => {
-          if (file.type.startsWith("image/")) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              var thumbnail = $('<div class="yay-reviews-thumbnail">')
-                .append($("<img>").attr("src", e.target.result))
-                .append(
-                  $('<span class="delete-icon">&times;</span>')
-                    .data("name", file.name)
-                    .data("size", file.size)
-                );
-              thumbnailsContainer.append(thumbnail);
-              resolve();
-            };
-            reader.readAsDataURL(file);
-          } else if (file.type.startsWith("video/")) {
-            var video = document.createElement("video");
-            video.preload = "metadata";
-
-            video.onloadedmetadata = function () {
-              window.URL.revokeObjectURL(video.src);
-              video.currentTime = 1;
-            };
-
-            video.onseeked = function () {
-              var canvas = document.createElement("canvas");
-              canvas.width = 100;
-              canvas.height = 100;
-              var ctx = canvas.getContext("2d");
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-              var thumbnail = $('<div class="yay-reviews-thumbnail">')
-                .append($("<img>").attr("src", canvas.toDataURL()))
-                .append(
-                  $('<span class="delete-icon">&times;</span>')
-                    .data("name", file.name)
-                    .data("size", file.size)
-                );
-
-              thumbnailsContainer.append(thumbnail);
-              resolve();
-            };
-
-            video.src = URL.createObjectURL(file);
-          } else {
-            resolve();
-          }
-        });
-      });
-
-      // Hide loading state when all thumbnails are generated
-      Promise.all(thumbnailPromises).then(() => {
-        setTimeout(() => {
-          loadingSpinner.classList.add("hidden");
-          uploadText.classList.remove("hidden");
-          uploadLabel.classList.remove("opacity-50", "cursor-not-allowed");
-          document.getElementById("yay-reviews-file-input").disabled = false;
-          dropzone.classList.remove("pointer-events-none");
-        }, 1000);
-      });
+      renderThumbnails();
     }
-  });
-
-  $(document).on("click", ".yay-reviews-thumbnails .delete-icon", function (e) {
-    e.stopPropagation();
-    const name = $(this).data("name");
-    const size = $(this).data("size");
-    allFiles = allFiles.filter((f) => !(f.name === name && f.size === size));
-    // Update thumbnails
-    var thumbnailsContainer = $(".yay-reviews-thumbnails");
-    thumbnailsContainer.empty();
-    allFiles.forEach(function (file, index) {
-      if (file.type.startsWith("image/")) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          var thumbnail = $('<div class="yay-reviews-thumbnail">')
-            .append($("<img>").attr("src", e.target.result))
-            .append(
-              $('<span class="delete-icon">&times;</span>')
-                .data("name", file.name)
-                .data("size", file.size)
-            );
-          thumbnailsContainer.append(thumbnail);
-        };
-        reader.readAsDataURL(file);
-      } else if (file.type.startsWith("video/")) {
-        var video = document.createElement("video");
-        video.preload = "metadata";
-
-        video.onloadedmetadata = function () {
-          window.URL.revokeObjectURL(video.src);
-          video.currentTime = 1;
-        };
-
-        video.onseeked = function () {
-          var canvas = document.createElement("canvas");
-          canvas.width = 100;
-          canvas.height = 100;
-          var ctx = canvas.getContext("2d");
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-          var thumbnail = $('<div class="yay-reviews-thumbnail">')
-            .append($("<img>").attr("src", canvas.toDataURL()))
-            .append(
-              $('<span class="delete-icon">&times;</span>')
-                .data("name", file.name)
-                .data("size", file.size)
-            );
-
-          thumbnailsContainer.append(thumbnail);
-        };
-
-        video.src = URL.createObjectURL(file);
-      }
-    });
   });
 
   $(document).on("click", ".yay-reviews-thumbnail", function () {
