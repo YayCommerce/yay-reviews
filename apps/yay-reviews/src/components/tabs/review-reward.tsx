@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
+import { getCoupons } from '@/lib/queries';
 import { __ } from '@/lib/utils';
 
 import InboxIcon from '../icons/Inbox';
@@ -11,6 +13,12 @@ export default function ReviewRewardTab({ setActiveTab }: { setActiveTab: (tab: 
   const [reward, setReward] = useState<
     { id: number; name: string; status: 'active' | 'inactive' }[]
   >([]);
+
+  const { data: coupons = [] } = useQuery({
+    queryKey: ['coupons'],
+    queryFn: () => getCoupons('', 10),
+    staleTime: 5 * 60 * 1000,
+  });
 
   const handleCreateNewReward = () => {
     setReward([...reward, { id: reward.length + 1, name: 'New Reward', status: 'active' }]);
@@ -52,7 +60,12 @@ export default function ReviewRewardTab({ setActiveTab }: { setActiveTab: (tab: 
                 </Button>
               </div>
               {reward.map((item) => (
-                <RewardCard key={item.id} item={item} setActiveTab={setActiveTab} />
+                <RewardCard
+                  key={item.id}
+                  item={item}
+                  setActiveTab={setActiveTab}
+                  coupons={coupons}
+                />
               ))}
               <Button
                 className="w-fit self-center"

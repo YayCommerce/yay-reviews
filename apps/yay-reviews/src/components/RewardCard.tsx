@@ -4,15 +4,16 @@ import DuplicateIcon from './icons/Duplicate';
 import TrashIcon from './icons/Trash';
 import { Button } from './ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
+import { ComboboxOption } from './ui/combobox';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Switch } from './ui/switch';
-import { Textarea } from './ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 export default function RewardCard({
   item,
   setActiveTab,
+  coupons,
 }: {
   item: {
     id: number;
@@ -20,6 +21,7 @@ export default function RewardCard({
     status: 'active' | 'inactive';
   };
   setActiveTab: (tab: string) => void;
+  coupons: ComboboxOption[];
 }) {
   return (
     <Collapsible className="yay-reviews-collapsible">
@@ -65,7 +67,17 @@ export default function RewardCard({
                 <SelectTrigger className="w-1/2 bg-white">
                   <SelectValue placeholder={__('select_coupon')} />
                 </SelectTrigger>
-                <SelectContent>{/* ...options... */}</SelectContent>
+                <SelectContent>
+                  {coupons.map((coupon) => (
+                    <SelectItem key={coupon.value} value={coupon.value}>
+                      {coupon.label}
+                    </SelectItem>
+                  ))}
+                  {/* Render empty content if no coupons */}
+                  {coupons.length === 0 && (
+                    <div className="text-muted-foreground">{__('no_coupons_found')}</div>
+                  )}
+                </SelectContent>
               </Select>
             </div>
           </div>
