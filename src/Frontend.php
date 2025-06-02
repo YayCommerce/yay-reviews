@@ -102,7 +102,7 @@ class Frontend {
 
 		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), null, true );
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/yay-reviews.js', array( 'jquery' ), null, true );
-		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/media-modal.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/js/media-modal.js', array( 'jquery' ), null, true );
 		wp_localize_script(
 			'yay-reviews-script',
 			'yay_reviews',
@@ -120,6 +120,6 @@ class Frontend {
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/yay-reviews.css', array(), '1.0' );
-		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/media-modal.css', array(), '1.0' );
+		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/css/media-modal.css', array(), '1.0' );
 	}
 }

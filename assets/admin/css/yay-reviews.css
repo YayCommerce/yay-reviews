@@ -1,28 +1,40 @@
-.yay-reviews-media {
+.yay-reviews-medias {
   display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-bottom: 15px;
 }
-
-.yay-reviews-media .yay-reviews-photo {
-  display: block;
-  width: 72px;
-  height: 72px;
+.yay-reviews-medias .yay-reviews-media {
+  width: 80px;
+  height: 80px;
   overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  margin-right: 10px;
+}
+.yay-reviews-medias .yay-reviews-media.active {
+  border-color: #ccc;
 }
 
-.yay-reviews-media .yay-reviews-photo img {
+.yay-reviews-medias .yay-reviews-media img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-.yay-reviews-preview-media {
-  max-width: 400px;
-  max-height: 400px;
-  overflow: auto;
+.yay-reviews-medias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.yay-reviews-preview-media img {
-  display: block;
+.yay-reviews-media {
+  cursor: pointer;
+  max-width: 150px;
+}
+
+.yay-reviews-media img {
   width: 100%;
   height: auto;
+  object-fit: cover;
 }
