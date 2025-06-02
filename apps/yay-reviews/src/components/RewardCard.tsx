@@ -68,14 +68,27 @@ export default function RewardCard({
                   <SelectValue placeholder={__('select_coupon')} />
                 </SelectTrigger>
                 <SelectContent>
-                  {coupons.map((coupon) => (
-                    <SelectItem key={coupon.value} value={coupon.value}>
-                      {coupon.label}
-                    </SelectItem>
-                  ))}
-                  {/* Render empty content if no coupons */}
-                  {coupons.length === 0 && (
-                    <div className="text-muted-foreground">{__('no_coupons_found')}</div>
+                  {coupons.length > 0 ? (
+                    coupons.map((coupon) => (
+                      <SelectItem key={coupon.value} value={coupon.value}>
+                        {coupon.label}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <div className="flex flex-col items-center justify-center py-6 text-center">
+                      <div className="text-muted-foreground mb-2 text-sm">
+                        {__('no_coupons_found')}
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setActiveTab('coupons');
+                        }}
+                      >
+                        {__('create_coupon')}
+                      </Button>
+                    </div>
                   )}
                 </SelectContent>
               </Select>

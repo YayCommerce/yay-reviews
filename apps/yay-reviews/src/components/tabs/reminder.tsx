@@ -71,7 +71,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           <Input
                             type="number"
                             value={value}
-                            onChange={onChange}
+                            onChange={(e) => onChange(Number(e.target.value))}
                             className="w-1/4"
                           />
                         )}

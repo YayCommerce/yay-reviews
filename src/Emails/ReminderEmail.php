@@ -43,6 +43,10 @@ class ReminderEmail extends \WC_Email {
 			return;
 		}
 
+		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+			return;
+		}
+
 		$recipient_email = $order->get_billing_email();
 
 		$settings          = Helpers::get_all_settings();
@@ -120,15 +124,25 @@ class ReminderEmail extends \WC_Email {
 			return '';
 		}
 
-		$product_list = array();
-		$items        = $this->object->get_items();
+		$product_in_order = array();
+		$items            = $this->object->get_items();
 		foreach ( $items as $item ) {
-			$product_list[] = $item->get_product();
+			$product_in_order[] = $item->get_product_id();
 		}
+
+		if ( empty( $product_in_order ) ) {
+			return '';
+		}
+		$remind_product_ids = Helpers::get_max_remind_products_for_email( $product_in_order );
+
+		if ( empty( $remind_product_ids ) ) {
+			return '';
+		}
+
 		return wc_get_template_html(
 			'emails/product-table.php',
 			array(
-				'product_list' => $product_list,
+				'product_list' => $remind_product_ids,
 			),
 			'',
 			$this->template_base

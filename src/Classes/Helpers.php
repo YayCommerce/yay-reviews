@@ -1,6 +1,8 @@
 <?php
 namespace YayReviews\Classes;
 
+use YayReviews\Classes\Products;
+
 class Helpers {
 	public static function get_all_settings() {
 		$settings = get_option( 'yay_reviews_settings', array() );
@@ -178,5 +180,26 @@ class Helpers {
 			'',
 			YAY_REVIEWS_PLUGIN_PATH . 'views/'
 		);
+	}
+
+	public static function get_max_remind_products_for_email( $product_in_order ) {
+		$max_products = self::get_settings( 'reminder', 'max_products', 3 );
+
+		if ( 0 === $max_products ) {
+			return $product_in_order;
+		}
+
+		$remind_product_ids = array();
+		$product_type       = self::get_settings( 'reminder', 'products_type' );
+		$product_ids        = Products::get_products_by_type( $product_type );
+		foreach ( $product_ids as $product_id ) {
+			if ( count( $remind_product_ids ) >= $max_products ) {
+				break;
+			}
+			if ( in_array( $product_id, $product_in_order ) ) {
+				$remind_product_ids[] = $product_id;
+			}
+		}
+		return $remind_product_ids;
 	}
 }
