@@ -65,7 +65,7 @@ class ReminderEmail extends \WC_Email {
 		// Check excluded emails
 		$excluded_emails = isset( $reminder_settings['except_emails'] ) ? $reminder_settings['except_emails'] : '';
 		if ( ! empty( $excluded_emails ) ) {
-			$excluded_emails = array_map( 'trim', explode( ',', $excluded_emails ) );
+			$excluded_emails = array_map( 'trim', explode( "\n", $excluded_emails ) );
 			if ( in_array( $recipient_email, $excluded_emails ) ) {
 				return;
 			}
