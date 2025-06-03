@@ -1,14 +1,11 @@
 <?php
 
 if ( 'video_image' === $media_type ) {
-	$upload_text = __( 'You can upload image &amp; video (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
-	$accept      = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp,video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
+	$accept = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp,video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
 } elseif ( 'only_video' === $media_type ) {
-	$upload_text = __( 'You can upload video (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
-	$accept      = 'video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
+	$accept = 'video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';
 } else {
-	$upload_text = __( 'You can upload image (maximum ' . $max_file_size . 'KB)', 'yay-reviews' );
-	$accept      = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp';
+	$accept = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp';
 }
 
 ?>
@@ -18,9 +15,6 @@ if ( 'video_image' === $media_type ) {
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
 			<div class="text-sm font-medium"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></div>
-		<?php endif; ?>
-		<?php if ( ! empty( $description ) ) : ?>
-			<div class="text-sm text-gray-500"><?php echo esc_html( $description ); ?></div>
 		<?php endif; ?>
 		<!-- Upload area -->
 		<div>
@@ -37,7 +31,9 @@ if ( 'video_image' === $media_type ) {
 				</div>
 			</div>
 			<input type="file" name="yay_reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
-			<div class="text-gray-500 text-sm my-2"><?php echo esc_html( $upload_text ); ?></div>
+			<?php if ( ! empty( $description ) ) : ?>
+				<div class="text-gray-500 text-sm my-2"><?php echo esc_html( $description ); ?></div>
+			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 	<?php if ( ! empty( $enable_gdpr ) ) : ?>

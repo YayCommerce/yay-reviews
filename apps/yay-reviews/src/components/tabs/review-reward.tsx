@@ -62,7 +62,7 @@ export default function ReviewRewardTab({
       <div className="text-foreground text-3xl font-bold">{__('review_reward')}</div>
       <div className="flex flex-col gap-4">
         {/* No reward added */}
-        {rewards.length === 0 && (
+        {Object.values(rewards).length === 0 && (
           <Card className="items-center gap-2 pt-6 pb-4 text-center">
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-2 pb-4">

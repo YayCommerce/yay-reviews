@@ -78,7 +78,7 @@ class Helpers {
 					'max_upload_file_size'    => 2000, //kb
 					'max_upload_file_qty'     => 5,
 					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
-					'upload_file_description' => '',
+					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kb)', 'yay-reviews' ),
 					'enable_gdpr'             => false,
 					'gdpr_message'            => __( 'I agree with your policy,...', 'yay-reviews' ),
 					'before_message'          => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay-reviews' ),

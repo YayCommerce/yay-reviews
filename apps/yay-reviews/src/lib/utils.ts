@@ -15,7 +15,11 @@ export const __ = (text: string): string => {
 };
 
 export const getSettings = (): SettingsFormData => {
-  return window.yayReviews.data_settings;
+  let settings = window.yayReviews.data_settings;
+  if (settings.rewards.length === 0) {
+    settings.rewards = {};
+  }
+  return settings;
 };
 
 export const getEmailSampleValues = (): Record<string, string> => {
