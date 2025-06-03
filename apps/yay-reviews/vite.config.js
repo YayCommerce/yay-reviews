@@ -61,7 +61,7 @@ export default defineConfig({
     manifest: false,
     emptyOutDir: true,
     outDir: path.resolve('../../assets/admin', 'dist'),
-    assetsDir: 'assets',
+    // assetsDir: 'assets',
     cssCodeSplit: false,
     rollupOptions: {
       input: {
@@ -69,7 +69,12 @@ export default defineConfig({
       },
       output: {
         entryFileNames: '[name].js',
-        assetFileNames: 'assets/[name].[hash][extname]',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.css')) {
+            return 'main.css';
+          }
+          return 'assets/[name].[hash][extname]';
+        },
       },
       plugins: [
         // analyze({ summaryOnly: true, limit:10 }),

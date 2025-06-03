@@ -72,7 +72,7 @@ class Helpers {
 					'optional_fields' => false,
 				),
 				'reviews'         => array(
-					'upload_media'            => false,
+					'upload_media'            => true,
 					'upload_required'         => false,
 					'media_type'              => 'video_image',
 					'max_upload_file_size'    => 2000, //kb

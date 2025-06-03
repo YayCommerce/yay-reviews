@@ -38,7 +38,7 @@ class RegisterFacade {
 	public function register_all_assets() {
 		wp_register_style(
 			ScriptName::STYLE_SETTINGS,
-			YAY_REVIEWS_PLUGIN_URL . 'assets/admin/dist/style.css',
+			YAY_REVIEWS_PLUGIN_URL . 'assets/admin/dist/main.css',
 			array(
 				'woocommerce_admin_styles',
 				'wp-components',

@@ -9,9 +9,9 @@ mkdir -p "$DEST_PATH"
 
 echo "Installing PHP and JS dependencies..."
 cd apps/yay-reviews
-npm install
+pnpm install
 echo "Running JS Build..."
-npm run build
+pnpm run build
 cd ../../
 
 echo "Syncing files..."
