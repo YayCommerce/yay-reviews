@@ -168,6 +168,8 @@ class Admin {
 						'all'                              => __( 'All', 'yay-reviews' ),
 						'products_in_order'                => __( 'Products in order', 'yay-reviews' ),
 						'completed'                        => __( 'Completed', 'yay-reviews' ),
+						'no_coupons_found'                 => __( 'No coupons found.', 'yay-reviews' ),
+						'create_coupon'                    => __( 'Create new coupon', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
 					'sample_values'   => array(

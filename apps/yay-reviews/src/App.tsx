@@ -27,6 +27,7 @@ const queryClient = new QueryClient();
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [currentEmailTab, setCurrentEmailTab] = useState('reminder');
 
   const form = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
@@ -181,9 +182,21 @@ export default function App() {
           <div className="flex items-center justify-center px-6 py-12">
             {activeTab === 'dashboard' && <DashboardTab setActiveTab={setActiveTab} />}
             {activeTab === 'review' && <ReviewTab />}
-            {activeTab === 'reminder' && <ReminderTab setActiveTab={setActiveTab} />}
-            {activeTab === 'review-reward' && <ReviewRewardTab setActiveTab={setActiveTab} />}
-            {activeTab === 'emails' && <EmailsTab />}
+            {activeTab === 'reminder' && (
+              <ReminderTab setActiveTab={setActiveTab} setCurrentEmailTab={setCurrentEmailTab} />
+            )}
+            {activeTab === 'review-reward' && (
+              <ReviewRewardTab
+                setActiveTab={setActiveTab}
+                setCurrentEmailTab={setCurrentEmailTab}
+              />
+            )}
+            {activeTab === 'emails' && (
+              <EmailsTab
+                currentEmailTab={currentEmailTab}
+                setCurrentEmailTab={setCurrentEmailTab}
+              />
+            )}
           </div>
         </form>
       </Form>

@@ -7,7 +7,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 
-export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+export default function ReminderTab({
+  setActiveTab,
+  setCurrentEmailTab,
+}: {
+  setActiveTab: (tab: string) => void;
+  setCurrentEmailTab: (tab: string) => void;
+}) {
   const { control } = useFormContext();
 
   return (
@@ -152,7 +158,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           <span
             className="cursor-pointer lowercase underline decoration-solid"
             onClick={(e) => {
+              e.preventDefault();
               setActiveTab('emails');
+              setCurrentEmailTab('reminder');
             }}
           >
             {__('email_template')}

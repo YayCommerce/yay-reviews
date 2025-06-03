@@ -1,3 +1,4 @@
+import { Reward, SettingsFormData } from '@/lib/schema';
 import { __ } from '@/lib/utils';
 
 import DuplicateIcon from './icons/Duplicate';
@@ -5,39 +6,70 @@ import TrashIcon from './icons/Trash';
 import { Button } from './ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { ComboboxOption } from './ui/combobox';
+import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Switch } from './ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 export default function RewardCard({
-  item,
-  setActiveTab,
+  reward,
   coupons,
+  setActiveTab,
+  handleDuplicate,
+  handleDelete,
+  setCurrentEmailTab,
 }: {
-  item: {
-    id: number;
-    name: string;
-    status: 'active' | 'inactive';
-  };
-  setActiveTab: (tab: string) => void;
+  reward: Reward;
   coupons: ComboboxOption[];
+  setActiveTab: (tab: string) => void;
+  handleDuplicate: (reward: Reward) => void;
+  handleDelete: (reward: Reward) => void;
+  setCurrentEmailTab: (tab: string) => void;
 }) {
+  const { control } = useFormContext<SettingsFormData>();
+
   return (
     <Collapsible className="yay-reviews-collapsible">
       <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">
         <div className="flex items-center justify-between p-6">
           <div className="flex w-1/2 items-center gap-2">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
-              <Switch />
-              <Input value={item.name} className="w-full" />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.enabled`}
+                render={({ field: { value, onChange } }) => (
+                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                )}
+              />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.name`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    value={value}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onChange(e.target.value);
+                    }}
+                    className="w-full"
+                  />
+                )}
+              />
             </div>
           </div>
           <div>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDuplicate(reward);
+                    }}
+                  >
                     <DuplicateIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
@@ -47,7 +79,14 @@ export default function RewardCard({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleDelete(reward);
+                    }}
+                  >
                     <TrashIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
@@ -63,35 +102,30 @@ export default function RewardCard({
           <div className="flex flex-col gap-2">
             <span className="text-sm">{__('select_coupon_to_be_sent')}</span>
             <div>
-              <Select>
-                <SelectTrigger className="w-1/2 bg-white">
-                  <SelectValue placeholder={__('select_coupon')} />
-                </SelectTrigger>
-                <SelectContent>
-                  {coupons.length > 0 ? (
-                    coupons.map((coupon) => (
-                      <SelectItem key={coupon.value} value={coupon.value}>
-                        {coupon.label}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <div className="flex flex-col items-center justify-center py-6 text-center">
-                      <div className="text-muted-foreground mb-2 text-sm">
-                        {__('no_coupons_found')}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => {
-                          setActiveTab('coupons');
-                        }}
-                      >
-                        {__('create_coupon')}
-                      </Button>
-                    </div>
-                  )}
-                </SelectContent>
-              </Select>
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.coupon_id`}
+                render={({ field: { value, onChange } }) => (
+                  <Select value={value} onValueChange={onChange}>
+                    <SelectTrigger className="w-1/2 bg-white">
+                      <SelectValue placeholder={__('select_coupon')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {coupons.length > 0 ? (
+                        coupons.map((coupon) => (
+                          <SelectItem key={coupon.value} value={coupon.value}>
+                            {coupon.label}
+                          </SelectItem>
+                        ))
+                      ) : (
+                        <div className="text-muted-foreground mt-2 mb-2 flex items-center justify-center text-sm">
+                          {__('no_coupons_found')}
+                        </div>
+                      )}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </div>
           </div>
           <div className="text-xs">
@@ -99,8 +133,10 @@ export default function RewardCard({
             {` `}
             <span
               className="cursor-pointer lowercase underline decoration-solid"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setActiveTab('emails');
+                setCurrentEmailTab('reward');
               }}
             >
               {__('email_template')}
@@ -113,24 +149,54 @@ export default function RewardCard({
               {__('review_criteria')}
             </div>
             <div className="mb-2 flex items-center gap-2">
-              <Switch />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.only_send_to_purchased_customers`}
+                render={({ field: { value, onChange } }) => (
+                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                )}
+              />
               <span>{__('only_send_coupon_for_reviews_from_purchased_customers')}</span>
             </div>
             <div className="mb-2 flex items-center gap-2">
-              <Switch />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.send_to_guests`}
+                render={({ field: { value, onChange } }) => (
+                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                )}
+              />
               <span className="text-muted-foreground">{__('guests_can_receive_reward')}</span>
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm">{__('minimum_required_rating')}</label>
-              <Input type="number" className="w-16" value={3} />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.minimum_required_rating`}
+                render={({ field: { value, onChange } }) => (
+                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                )}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm">{__('minimum_media_files_uploaded')}</label>
-              <Input type="number" className="w-16" value={1} />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.minimum_media_files_uploaded`}
+                render={({ field: { value, onChange } }) => (
+                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                )}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-sm">{__('minimum_required_reviews')}</label>
-              <Input type="number" className="w-16" value={1} />
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
+                render={({ field: { value, onChange } }) => (
+                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                )}
+              />
               <span className="text-[#64748B]">
                 {__('leave_empty_to_receive_reward_after_every_review')}
               </span>

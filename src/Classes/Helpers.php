@@ -22,10 +22,8 @@ class Helpers {
 	}
 
 	public static function update_settings( $settings ) {
-		$default_settings = self::get_all_settings();
-		$merged_settings  = self::wp_parse_args_recursive( $settings, $default_settings );
-		update_option( 'yay_reviews_settings', $merged_settings, false );
-		return $merged_settings;
+		update_option( 'yay_reviews_settings', $settings, false );
+		return $settings;
 	}
 
 	public static function print_media( $files, $echo = true ) {

@@ -36,13 +36,12 @@ const rewardSchema = z.object({
   coupon_id: z.string(),
   only_send_to_purchased_customers: z.boolean(),
   send_to_guests: z.boolean(),
-  minimum_rating: z.number(),
-  minimum_upload_file_qty: z.number(),
-  minimum_required_reviews: z.number(),
+  minimum_required_rating: z.number(),
+  minimum_media_files_uploaded: z.number(),
   minimum_required_reviews_since_last_reward: z.number(),
 });
 
-const rewardsSchema = z.array(rewardSchema);
+const rewardsSchema = z.record(z.string(), rewardSchema);
 
 const optionalFieldSchema = z.object({
   id: z.string(),
