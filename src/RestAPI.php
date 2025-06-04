@@ -69,6 +69,23 @@ class RestAPI {
 	public function post_settings( $request ) {
 		$data     = $request->get_params();
 		$response = Helpers::update_settings( $data );
+		// Update woocommerce email settings
+		$reminder_email = get_option( 'woocommerce_yay_reviews_reminder_settings', array() );
+		$reward_email   = get_option( 'woocommerce_yay_reviews_reward_settings', array() );
+		if ( ! empty( $reminder_email ) ) {
+			$reminder_email['subject'] = $data['email']['reminder']['subject'];
+			$reminder_email['heading'] = $data['email']['reminder']['heading'];
+			$reminder_email['content'] = $data['email']['reminder']['content'];
+			$reminder_email['footer']  = $data['email']['reminder']['footer'];
+			update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
+		}
+		if ( ! empty( $reward_email ) ) {
+			$reward_email['subject'] = $data['email']['reward']['subject'];
+			$reward_email['heading'] = $data['email']['reward']['heading'];
+			$reward_email['content'] = $data['email']['reward']['content'];
+			$reward_email['footer']  = $data['email']['reward']['footer'];
+			update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
+		}
 		return rest_ensure_response( $response );
 	}
 
