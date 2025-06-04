@@ -75,7 +75,14 @@ class Frontend {
 				add_comment_meta( $comment_id, 'yay_reviews_files', $paths );
 			}
 		}
+		// Check and send reward email
+		$reward_addon = Helpers::get_settings( 'addons', 'reward' );
+		$rewards      = Helpers::get_settings( 'rewards' );
+		if ( $reward_addon && count( $rewards ) > 0 ) {
+			do_action( 'yay_reviews_reward_email_notification', $comment_id );
+		}
 	}
+
 	public function review_after_comment_text( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) && count( $media ) > 0 ) {

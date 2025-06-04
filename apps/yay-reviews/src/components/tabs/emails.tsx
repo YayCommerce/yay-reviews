@@ -25,10 +25,10 @@ export default function EmailsTab({
             className="gap-6"
           >
             <TabsList className="w-1/2">
-              <TabsTrigger value="reminder" className="w-1/2">
+              <TabsTrigger value="reminder" className="w-1/2 cursor-pointer">
                 {__('reminder')}
               </TabsTrigger>
-              <TabsTrigger value="reward" className="w-1/2">
+              <TabsTrigger value="reward" className="w-1/2 cursor-pointer">
                 {__('reward')}
               </TabsTrigger>
             </TabsList>

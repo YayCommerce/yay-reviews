@@ -26,6 +26,10 @@ export default function EmailTemplateCard({
 
   const sampleValues = getEmailSampleValues();
 
+  if (templateId === 'reward') {
+    sampleValues['{product_table}'] = '{product_table}';
+  }
+
   const content = emailContent
     .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
     .replace(/\{site_title\}/g, sampleValues['{site_title}'])
@@ -76,7 +80,7 @@ export default function EmailTemplateCard({
               <div className="text-muted-foreground flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>
                 <span>{__('site_title_vars')}</span>
-                <span>{__('product_table_vars')}</span>
+                {templateId === 'reminder' && <span>{__('product_table_vars')}</span>}
               </div>
             </div>
 
@@ -98,6 +102,7 @@ export default function EmailTemplateCard({
               <div className="flex gap-2">
                 <Button
                   variant={device === 'desktop' ? 'default' : 'ghost'}
+                  className="cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     setDevice('desktop');
@@ -107,6 +112,7 @@ export default function EmailTemplateCard({
                 </Button>
                 <Button
                   variant={device === 'mobile' ? 'default' : 'ghost'}
+                  className="cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     setDevice('mobile');
@@ -116,6 +122,7 @@ export default function EmailTemplateCard({
                 </Button>
                 <Button
                   variant="outline"
+                  className="cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     setDevice('desktop');

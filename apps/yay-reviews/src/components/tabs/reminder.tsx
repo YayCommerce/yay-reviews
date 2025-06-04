@@ -49,13 +49,19 @@ export default function ReminderTab({
                           name={`reminder.send_after_unit`}
                           render={({ field: { value, onChange } }) => (
                             <Select value={value} onValueChange={onChange}>
-                              <SelectTrigger className="min-w-40">
+                              <SelectTrigger className="min-w-40 cursor-pointer">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="minutes">{__('minutes')}</SelectItem>
-                                <SelectItem value="hours">{__('hours')}</SelectItem>
-                                <SelectItem value="days">{__('days')}</SelectItem>
+                                <SelectItem value="minutes" className="cursor-pointer">
+                                  {__('minutes')}
+                                </SelectItem>
+                                <SelectItem value="hours" className="cursor-pointer">
+                                  {__('hours')}
+                                </SelectItem>
+                                <SelectItem value="days" className="cursor-pointer">
+                                  {__('days')}
+                                </SelectItem>
                               </SelectContent>
                             </Select>
                           )}
@@ -88,20 +94,26 @@ export default function ReminderTab({
                           name={`reminder.products_type`}
                           render={({ field: { value, onChange } }) => (
                             <Select value={value} onValueChange={onChange}>
-                              <SelectTrigger className="w-full">
+                              <SelectTrigger className="w-full cursor-pointer">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="featured">{__('featured_products')}</SelectItem>
-                                <SelectItem value="on_sale">{__('on_sale_products')}</SelectItem>
-                                <SelectItem value="newest">{__('newest_products')}</SelectItem>
-                                <SelectItem value="high_rated">
+                                <SelectItem value="featured" className="cursor-pointer">
+                                  {__('featured_products')}
+                                </SelectItem>
+                                <SelectItem value="on_sale" className="cursor-pointer">
+                                  {__('on_sale_products')}
+                                </SelectItem>
+                                <SelectItem value="newest" className="cursor-pointer">
+                                  {__('newest_products')}
+                                </SelectItem>
+                                <SelectItem value="high_rated" className="cursor-pointer">
                                   {__('high_rated_products')}
                                 </SelectItem>
-                                <SelectItem value="low_rated">
+                                <SelectItem value="low_rated" className="cursor-pointer">
                                   {__('low_rated_products')}
                                 </SelectItem>
-                                <SelectItem value="best_selling">
+                                <SelectItem value="best_selling" className="cursor-pointer">
                                   {__('best_selling_products')}
                                 </SelectItem>
                               </SelectContent>
@@ -143,7 +155,11 @@ export default function ReminderTab({
                     control={control}
                     name={`reminder.send_to_guests`}
                     render={({ field: { value, onChange } }) => (
-                      <Switch checked={value} onCheckedChange={onChange} />
+                      <Switch
+                        className="cursor-pointer"
+                        checked={value}
+                        onCheckedChange={onChange}
+                      />
                     )}
                   />
                   <span>{__('send_to_guests')}</span>

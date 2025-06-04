@@ -58,6 +58,7 @@ class Helpers {
 			return $html;
 		}
 	}
+
 	public static function add_default_settings( $settings ) {
 		if ( ! is_array( $settings ) ) {
 			$settings = array();
@@ -78,7 +79,7 @@ class Helpers {
 					'max_upload_file_size'    => 2000, //kb
 					'max_upload_file_qty'     => 5,
 					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
-					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kb)', 'yay-reviews' ),
+					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
 					'enable_gdpr'             => false,
 					'gdpr_message'            => __( 'I agree with your policy,...', 'yay-reviews' ),
 					'before_message'          => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay-reviews' ),
@@ -199,5 +200,15 @@ class Helpers {
 			}
 		}
 		return $remind_product_ids;
+	}
+
+	public static function is_coupon_expired( $coupon ) {
+		$expiry_date = $coupon->get_date_expires();
+
+		if ( ! $expiry_date ) {
+			return false; // No expiry date set, so not expired
+		}
+
+		return time() > $expiry_date->getTimestamp();
 	}
 }

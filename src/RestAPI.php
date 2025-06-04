@@ -92,10 +92,15 @@ class RestAPI {
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				$coupons[] = array(
-					'value' => (string) get_the_ID(),
-					'label' => get_the_title(),
-				);
+				$coupon = new \WC_Coupon( get_the_ID() );
+				if ( ! empty( $coupon->get_code() ) ) {
+					$coupons[] = array(
+						'id'           => (string) $coupon->get_id(),
+						'code'         => $coupon->get_code(),
+						'expired'      => Helpers::is_coupon_expired( $coupon ),
+						'out_of_stock' => $coupon->get_usage_limit() === 0 ? false : $coupon->get_usage_count() >= $coupon->get_usage_limit(),
+					);
+				}
 			}
 		}
 		wp_reset_postdata();

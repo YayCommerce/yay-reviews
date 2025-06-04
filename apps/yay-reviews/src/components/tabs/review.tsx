@@ -22,21 +22,29 @@ export default function ReviewTab() {
                 control={control}
                 name={`reviews.upload_media`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                  <Switch
+                    className="cursor-pointer"
+                    checked={Boolean(value)}
+                    onCheckedChange={() => onChange(!value)}
+                  />
                 )}
               />
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
             <div className="w-full sm:w-1/2">
-              <div className="flex w-full flex-col gap-2">
+              <div className="flex w-full flex-col gap-4">
                 {/* Is Required */}
                 <div className="flex items-center gap-2">
                   <FormField
                     control={control}
                     name={`reviews.upload_required`}
                     render={({ field: { value, onChange } }) => (
-                      <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                      <Switch
+                        className="cursor-pointer"
+                        checked={Boolean(value)}
+                        onCheckedChange={() => onChange(!value)}
+                      />
                     )}
                   />
                   <span className="lowercase">{__('is_required')}</span>
@@ -49,13 +57,19 @@ export default function ReviewTab() {
                     name={`reviews.media_type`}
                     render={({ field: { value, onChange } }) => (
                       <Select value={value} onValueChange={onChange}>
-                        <SelectTrigger className="w-1/2">
+                        <SelectTrigger className="w-1/2 cursor-pointer">
                           <SelectValue placeholder={__('select_types')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="video_image">{__('video_and_image')}</SelectItem>
-                          <SelectItem value="only_video">{__('only_video')}</SelectItem>
-                          <SelectItem value="only_image">{__('only_image')}</SelectItem>
+                          <SelectItem value="video_image" className="cursor-pointer">
+                            {__('video_and_image')}
+                          </SelectItem>
+                          <SelectItem value="only_video" className="cursor-pointer">
+                            {__('only_video')}
+                          </SelectItem>
+                          <SelectItem value="only_image" className="cursor-pointer">
+                            {__('only_image')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -142,13 +156,17 @@ export default function ReviewTab() {
                 control={control}
                 name={`reviews.enable_gdpr`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                  <Switch
+                    className="cursor-pointer"
+                    checked={Boolean(value)}
+                    onCheckedChange={() => onChange(!value)}
+                  />
                 )}
               />
             </CardTitle>
           </CardHeader>
           <CardContent className="w-full">
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-4">
               {/* GDPR message */}
               <div className="flex flex-col gap-1">
                 <div>{__('gdpr_message')}</div>

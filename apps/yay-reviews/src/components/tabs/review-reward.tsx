@@ -34,7 +34,7 @@ export default function ReviewRewardTab({
       id: newId,
       name: 'New Reward',
       enabled: true,
-      coupon_id: coupons.length > 0 ? coupons[0].value : '',
+      coupon_id: coupons.length > 0 ? coupons[0].id : '',
       only_send_to_purchased_customers: true,
       send_to_guests: false,
       minimum_required_rating: 3,
@@ -74,7 +74,7 @@ export default function ReviewRewardTab({
                   {__('no_reward_added_description_second')}
                 </div>
                 <Button
-                  className="w-fit gap-2"
+                  className="w-fit cursor-pointer gap-2"
                   onClick={(e) => {
                     e.preventDefault();
                     handleCreateNewReward();
@@ -96,6 +96,7 @@ export default function ReviewRewardTab({
                 </div>
                 <Button
                   variant="outline"
+                  className="cursor-pointer"
                   onClick={(e) => {
                     e.preventDefault();
                     handleCreateNewReward();
@@ -116,7 +117,7 @@ export default function ReviewRewardTab({
                 />
               ))}
               <Button
-                className="w-fit self-center"
+                className="w-fit cursor-pointer self-center"
                 variant="outline"
                 onClick={(e) => {
                   e.preventDefault();

@@ -160,3 +160,7 @@
 .yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
   border-bottom: 1px solid var(--border);
 }
+
+.yay-reviews-coupon-select-item span[id^='radix-'] {
+  width: 100%;
+}
