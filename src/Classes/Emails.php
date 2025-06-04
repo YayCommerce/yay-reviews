@@ -106,6 +106,7 @@ class Emails {
 		if ( 'YayReviews\Emails\RewardEmail' === $email_type ) {
 			$placeholders['{site_title}']    = get_bloginfo( 'name' );
 			$placeholders['{customer_name}'] = 'John Doe';
+			$placeholders['{coupon_code}']   = '123456';
 		}
 		return $placeholders;
 	}

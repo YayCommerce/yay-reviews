@@ -28,38 +28,19 @@ class RewardEmail extends \WC_Email {
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yay_reviews_reward_email_notification', array( $this, 'trigger' ), 10, 1 );
+		add_action( 'yay_reviews_reward_email_notification', array( $this, 'trigger' ), 10, 5 );
 	}
 
-	public function trigger( $comment_id ) {
+	public function trigger( $reward, $comment, $coupon, $product, $recipient_email ) {
 		$this->setup_locale();
 
-		$comment = get_comment( $comment_id );
+		$recipient_email = $recipient_email;
 
-		if ( ! $comment ) {
-			return;
-		}
-
-		$recipient_email = $order->get_billing_email();
-
-		$reward_settings = Helpers::get_settings( 'email', 'reward', array() );
-
-		// Check if sending to guests is disabled
-		if ( ! $reward_settings['send_to_guests'] ) {
-			$customer_id = $order->get_customer_id();
-			if ( ! $customer_id ) {
-				return;
-			} else {
-				$recipient_email = get_user_meta( $customer_id, 'billing_email', true );
-			}
-		}
-
-		$this->object                          = $order;
+		$this->object                          = $coupon;
 		$this->recipient                       = $recipient_email;
-		$this->placeholders['{order_date}']    = wc_format_datetime( $this->object->get_date_created() );
-		$this->placeholders['{order_number}']  = $this->object->get_order_number();
-		$this->placeholders['{customer_name}'] = $this->object->get_formatted_billing_full_name();
 		$this->placeholders['{site_title}']    = get_bloginfo( 'name' );
+		$this->placeholders['{customer_name}'] = $comment->comment_author;
+		$this->placeholders['{coupon_code}']   = $coupon->get_code();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -104,7 +85,7 @@ class RewardEmail extends \WC_Email {
 		return wc_get_template_html(
 			$this->template_html,
 			array(
-				'order'         => $this->object,
+				'coupon'        => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
 				'email_footer'  => $this->get_default_footer(),
@@ -121,7 +102,7 @@ class RewardEmail extends \WC_Email {
 		return wc_get_template_html(
 			$this->template_plain,
 			array(
-				'order'         => $this->object,
+				'coupon'        => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
 				'email_footer'  => $this->get_default_footer(),
@@ -156,7 +137,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}</code>' ),
 				'placeholder' => $this->get_default_heading(),
 				'default'     => '',
 			),
@@ -165,7 +146,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {coupon_code}</code>' ),
 				'placeholder' => $this->get_email_content(),
 				'default'     => '',
 			),
@@ -174,7 +155,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}</code>' ),
 				'placeholder' => $this->get_default_footer(),
 				'default'     => '',
 			),

@@ -78,8 +78,30 @@ class Frontend {
 		// Check and send reward email
 		$reward_addon = Helpers::get_settings( 'addons', 'reward' );
 		$rewards      = Helpers::get_settings( 'rewards' );
+		$comment      = get_comment( $comment_id );
+		if ( ! $comment ) {
+			return;
+		}
 		if ( $reward_addon && count( $rewards ) > 0 ) {
-			do_action( 'yay_reviews_reward_email_notification', $comment_id );
+			$product_id = $comment->comment_post_ID;
+			$product    = wc_get_product( $product_id );
+			if ( $product ) {
+				foreach ( $rewards as $reward ) {
+					if ( ! $reward['enabled'] ) {
+						continue;
+					}
+					$coupon_id    = $reward['coupon_id'];
+					$coupon       = new \WC_Coupon( $coupon_id );
+					$expired      = Helpers::is_coupon_expired( $coupon );
+					$out_of_stock = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
+					if ( ! $expired && ! $out_of_stock && Helpers::is_valid_coupon_for_product( $coupon, $product ) && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
+						if ( ! class_exists( 'WC_Email' ) ) {
+							WC()->mailer();
+						}
+						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					}
+				}
+			}
 		}
 	}
 

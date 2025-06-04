@@ -2,6 +2,7 @@
 namespace YayReviews\Classes;
 
 use YayReviews\Classes\Products;
+use Automattic\WooCommerce\Enums\ProductType;
 
 class Helpers {
 	public static function get_all_settings() {
@@ -210,5 +211,134 @@ class Helpers {
 		}
 
 		return time() > $expiry_date->getTimestamp();
+	}
+
+	public static function is_valid_coupon_for_product( $coupon, $product ) {
+		$valid        = false;
+		$product_cats = wc_get_product_cat_ids( $product->is_type( ProductType::VARIATION ) ? $product->get_parent_id() : $product->get_id() );
+		$product_ids  = array( $product->get_id(), $product->get_parent_id() );
+
+		// Specific products get the discount.
+		if ( count( $coupon->get_product_ids() ) && count( array_intersect( $product_ids, $coupon->get_product_ids() ) ) ) {
+			$valid = true;
+		}
+
+		// Category discounts.
+		if ( count( $coupon->get_product_categories() ) && count( array_intersect( $product_cats, $coupon->get_product_categories() ) ) ) {
+			$valid = true;
+		}
+
+		// No product ids - all items discounted.
+		if ( ! count( $coupon->get_product_ids() ) && ! count( $coupon->get_product_categories() ) ) {
+			$valid = true;
+		}
+
+		// Specific product IDs excluded from the discount.
+		if ( count( $coupon->get_excluded_product_ids() ) && count( array_intersect( $product_ids, $coupon->get_excluded_product_ids() ) ) ) {
+			$valid = false;
+		}
+
+		// Specific categories excluded from the discount.
+		if ( count( $coupon->get_excluded_product_categories() ) && count( array_intersect( $product_cats, $coupon->get_excluded_product_categories() ) ) ) {
+			$valid = false;
+		}
+
+		// Check brand restrictions
+		$brand_coupon_settings = \WC_Brands_Brand_Settings_Manager::get_brand_settings_on_coupon( $coupon );
+		$brand_restrictions    = ! empty( $brand_coupon_settings['included_brands'] ) || ! empty( $brand_coupon_settings['excluded_brands'] );
+
+		if ( ! $brand_restrictions ) {
+			return $valid;
+		}
+
+		$included_brands_match = false;
+
+		$product_brands = wp_get_post_terms( $product->get_id(), 'product_brand', array( 'fields' => 'ids' ) );
+
+		if ( ! empty( array_intersect( $product_brands, $brand_coupon_settings['included_brands'] ) ) ) {
+			$included_brands_match = true;
+		}
+
+		if ( ! empty( array_intersect( $product_brands, $brand_coupon_settings['excluded_brands'] ) ) ) {
+			$valid = false;
+		}
+
+		if ( ! $included_brands_match && ! empty( $brand_coupon_settings['included_brands'] ) ) {
+			$valid = false;
+		}
+
+		return $valid;
+	}
+
+	public static function is_valid_review_criteria( $comment, $reward ) {
+		$valid           = true;
+		$rating          = (float) get_comment_meta( $comment->comment_ID, 'rating', true );
+		$media           = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		$comment_user_id = $comment->user_id;
+
+		$only_send_to_purchased_customers           = $reward['only_send_to_purchased_customers'];
+		$send_to_guests                             = $reward['send_to_guests'];
+		$minimum_required_rating                    = (float) $reward['minimum_required_rating'];
+		$minimum_media_files_uploaded               = (int) $reward['minimum_media_files_uploaded'];
+		$minimum_required_reviews_since_last_reward = (int) $reward['minimum_required_reviews_since_last_reward'];
+
+		if ( $only_send_to_purchased_customers ) {
+			if ( empty( $comment_user_id ) ) {
+				$valid = false;
+			} else {
+				$total_orders = self::get_user_orders_total( $comment_user_id );
+				if ( 0 === $total_orders ) {
+					$valid = false;
+				}
+			}
+		}
+
+		if ( $send_to_guests && empty( $comment_user_id ) ) {
+			if ( ! isset( $_POST['email'] ) || empty( $_POST['email'] ) ) { //phpcs:ignore
+				$valid = false;
+			}
+		}
+
+		if ( $rating < $minimum_required_rating ) {
+			$valid = false;
+		}
+		if ( count( $media ) < $minimum_media_files_uploaded ) {
+			$valid = false;
+		}
+
+		if ( ! empty( $comment_user_id ) && $minimum_required_reviews_since_last_reward > 0 ) {
+			$user_reviews_count = count(
+				get_comments(
+					array(
+						'user_id'      => $comment_user_id,
+						'comment_type' => 'review',
+						'status'       => 'approve',
+					)
+				)
+			);
+
+			if ( $user_reviews_count < $minimum_required_reviews_since_last_reward ) {
+				$valid = false;
+			}
+		}
+
+		return $valid;
+
+	}
+
+	public static function get_user_orders_total( $user_id ) {
+		// Use other args to filter more
+		$args = array(
+			'customer_id' => $user_id,
+			'limit'       => -1, // to get _all_ orders from this user
+		);
+		// call WC API
+		$orders = wc_get_orders( $args );
+
+		if ( empty( $orders ) || ! is_array( $orders ) ) {
+			return 0;
+		}
+
+		return count( $orders );
 	}
 }

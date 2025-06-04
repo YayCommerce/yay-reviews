@@ -98,7 +98,7 @@ class RestAPI {
 						'id'           => (string) $coupon->get_id(),
 						'code'         => $coupon->get_code(),
 						'expired'      => Helpers::is_coupon_expired( $coupon ),
-						'out_of_stock' => $coupon->get_usage_limit() === 0 ? false : $coupon->get_usage_count() >= $coupon->get_usage_limit(),
+						'out_of_stock' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
 					);
 				}
 			}
