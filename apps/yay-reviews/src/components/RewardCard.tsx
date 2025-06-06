@@ -20,11 +20,13 @@ export default function RewardCard({
   coupons,
   handleDuplicate,
   handleDelete,
+  isNew = false,
 }: {
   reward: Reward;
   coupons: Coupon[];
   handleDuplicate: (reward: Reward) => void;
   handleDelete: (reward: Reward) => void;
+  isNew?: boolean;
 }) {
   const { control, watch } = useFormContext<SettingsFormData>();
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
@@ -38,7 +40,7 @@ export default function RewardCard({
   }, [coupons, coupon]);
 
   return (
-    <Collapsible className="yay-reviews-collapsible">
+    <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
       <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">
         <div className="flex items-center justify-between p-6">
           <div className="flex w-1/2 items-center gap-2">

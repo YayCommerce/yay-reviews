@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -13,6 +14,7 @@ import { useFormContext } from '../ui/form';
 
 export default function ReviewRewardTab() {
   const { watch, setValue } = useFormContext();
+  const [newRewardIds, setNewRewardIds] = useState<string[]>([]);
 
   const rewards = watch('rewards') as Reward[];
 
@@ -36,6 +38,7 @@ export default function ReviewRewardTab() {
       minimum_required_reviews_since_last_reward: 0,
     };
     setValue('rewards', { ...rewards, [newId]: newReward });
+    setNewRewardIds((prev) => [...prev, newId]);
   };
 
   const handleDuplicate = (reward: Reward) => {
@@ -43,12 +46,14 @@ export default function ReviewRewardTab() {
     const newId = uuidv4();
     duplicateReward.id = newId;
     setValue('rewards', { ...rewards, [newId]: duplicateReward });
+    setNewRewardIds((prev) => [...prev, newId]);
   };
 
   const handleDelete = (reward: Reward) => {
     const updatedRewards = { ...rewards };
     delete updatedRewards[reward.id as keyof typeof updatedRewards];
     setValue('rewards', updatedRewards);
+    setNewRewardIds((prev) => prev.filter((id) => id !== reward.id));
   };
 
   return (
@@ -106,6 +111,7 @@ export default function ReviewRewardTab() {
                   coupons={coupons}
                   handleDuplicate={handleDuplicate}
                   handleDelete={handleDelete}
+                  isNew={newRewardIds.includes(reward.id)}
                 />
               ))}
               <Button
