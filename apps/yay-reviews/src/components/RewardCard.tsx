@@ -110,7 +110,7 @@ export default function RewardCard({
           </div>
         </div>
       </CollapsibleTrigger>
-      <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl">
+      <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl bg-white">
         <div className="flex flex-col gap-4 p-6">
           {/* Coupon selection */}
           <div className="flex flex-col gap-2">
