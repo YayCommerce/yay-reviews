@@ -179,6 +179,12 @@ class Admin {
 						'email_sent_successfully'          => __( 'Email sent successfully', 'yay-reviews' ),
 						'email_sending_failed'             => __( 'Email sending failed', 'yay-reviews' ),
 						'product_name_vars'                => __( '{product_name} - Product name', 'yay-reviews' ),
+						'expired'                          => __( 'Expired', 'yay-reviews' ),
+						'out_of_usage'                     => __( 'Out of usage', 'yay-reviews' ),
+						'coupon_not_available'             => __( 'coupon cannot be sent to customers as rewards. Please update its', 'yay-reviews' ),
+						'restrictions'                     => __( 'restrictions', 'yay-reviews' ),
+						'active'                           => __( 'Active', 'yay-reviews' ),
+						'inactive'                         => __( 'Inactive', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
 					'sample_values'   => array(

@@ -10,13 +10,7 @@ import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
-export default function ReminderTab({
-  setActiveTab,
-  setCurrentEmailTab,
-}: {
-  setActiveTab: (tab: string) => void;
-  setCurrentEmailTab: (tab: string) => void;
-}) {
+export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const { control } = useFormContext();
 
   return (
@@ -88,7 +82,7 @@ export default function ReminderTab({
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
                             className="w-1/4"
-                            min={0}
+                            min={1}
                           />
                         )}
                       />
@@ -125,9 +119,6 @@ export default function ReminderTab({
                           )}
                         />
                       </div>
-                    </div>
-                    <div className="text-muted-foreground text-sm">
-                      {__('leave_empty_to_remind_all')}
                     </div>
                   </div>
                 </div>
@@ -196,11 +187,10 @@ export default function ReminderTab({
           <span className="text-slate-500">{__('change')}</span>
           {` `}
           <span
-            className="cursor-pointer lowercase underline decoration-solid"
+            className="text-foreground cursor-pointer lowercase underline decoration-solid"
             onClick={(e) => {
               e.preventDefault();
               setActiveTab('emails');
-              setCurrentEmailTab('reminder');
             }}
           >
             {__('email_template')}

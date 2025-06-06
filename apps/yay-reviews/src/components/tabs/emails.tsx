@@ -5,13 +5,9 @@ import { __ } from '@/lib/utils';
 import EmailTemplateCard from '../EmailTemplateCard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 
-export default function EmailsTab({
-  currentEmailTab,
-  setCurrentEmailTab,
-}: {
-  currentEmailTab: string;
-  setCurrentEmailTab: (tab: string) => void;
-}) {
+export default function EmailsTab() {
+  const [currentEmailTab, setCurrentEmailTab] = useState('reminder');
+
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop');
   return (
     <div className="flex w-2/3 flex-col gap-8">

@@ -173,3 +173,7 @@
   scale: 0.8;
   transform-origin: top;
 }
+
+.yay-reviews-collapsible-content a {
+  color: var(--foreground);
+}

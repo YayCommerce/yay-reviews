@@ -11,13 +11,7 @@ import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { useFormContext } from '../ui/form';
 
-export default function ReviewRewardTab({
-  setActiveTab,
-  setCurrentEmailTab,
-}: {
-  setActiveTab: (tab: string) => void;
-  setCurrentEmailTab: (tab: string) => void;
-}) {
+export default function ReviewRewardTab() {
   const { watch, setValue } = useFormContext();
 
   const rewards = watch('rewards') as Reward[];
@@ -110,10 +104,8 @@ export default function ReviewRewardTab({
                   key={reward.id}
                   reward={reward}
                   coupons={coupons}
-                  setActiveTab={setActiveTab}
                   handleDuplicate={handleDuplicate}
                   handleDelete={handleDelete}
-                  setCurrentEmailTab={setCurrentEmailTab}
                 />
               ))}
               <Button

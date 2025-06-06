@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Coupon } from 'types/coupon';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
@@ -17,19 +18,24 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/t
 export default function RewardCard({
   reward,
   coupons,
-  setActiveTab,
   handleDuplicate,
   handleDelete,
-  setCurrentEmailTab,
 }: {
   reward: Reward;
   coupons: Coupon[];
-  setActiveTab: (tab: string) => void;
   handleDuplicate: (reward: Reward) => void;
   handleDelete: (reward: Reward) => void;
-  setCurrentEmailTab: (tab: string) => void;
 }) {
-  const { control } = useFormContext<SettingsFormData>();
+  const { control, watch } = useFormContext<SettingsFormData>();
+  const coupon = watch(`rewards.${reward.id}.coupon_id`);
+
+  const selectedCouponStatus = useMemo(() => {
+    return coupons.find((c) => c.id === coupon)?.expired
+      ? __('expired')
+      : coupons.find((c) => c.id === coupon)?.out_of_usage
+        ? __('out_of_usage')
+        : '';
+  }, [coupons, coupon]);
 
   return (
     <Collapsible className="yay-reviews-collapsible">
@@ -131,14 +137,14 @@ export default function RewardCard({
                               <span>
                                 {coupon.expired ? (
                                   <Badge variant="destructive" className="px-1 py-0">
-                                    Expired
+                                    {__('expired')}
                                   </Badge>
                                 ) : (
                                   ''
                                 )}{' '}
-                                {coupon.out_of_stock ? (
+                                {coupon.out_of_usage ? (
                                   <Badge variant="secondary" className="px-1 py-0">
-                                    Out of stock
+                                    {__('out_of_usage')}
                                   </Badge>
                                 ) : (
                                   ''
@@ -158,6 +164,24 @@ export default function RewardCard({
               />
             </div>
           </div>
+          {selectedCouponStatus !== '' && (
+            <div className="text-xs">
+              <span className="text-slate-500">
+                {selectedCouponStatus + ` `}
+                {__('coupon_not_available')}
+              </span>
+              {` `}
+              <a
+                className="text-foreground cursor-pointer lowercase underline decoration-solid"
+                href={coupons.find((c) => c.id === coupon)?.edit_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {__('restrictions')}
+              </a>
+            </div>
+          )}
+
           <hr className="text-[#E5E7EB]" />
           {/* Review criteria */}
           <div className="flex flex-col gap-2">

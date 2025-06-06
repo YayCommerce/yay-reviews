@@ -1,5 +1,6 @@
 import { __ } from '@/lib/utils';
 
+import { Badge } from '../ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
@@ -8,7 +9,9 @@ import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
 
 export default function ReviewTab() {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  const uploadMedia = watch('reviews.upload_media');
+  const enableGdpr = watch('reviews.enable_gdpr');
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
@@ -17,7 +20,19 @@ export default function ReviewTab() {
         <Card>
           <CardHeader>
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
-              <span className="text-lg">{__('upload_media')}</span>
+              <span className="flex items-center gap-3 text-lg">
+                {__('upload_media')}{' '}
+                {uploadMedia ? (
+                  <Badge variant="default" className="bg-green-600 text-xs">
+                    {__('active')}
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="text-xs">
+                    {__('inactive')}
+                  </Badge>
+                )}
+              </span>
+
               <FormField
                 control={control}
                 name={`reviews.upload_media`}
@@ -151,7 +166,18 @@ export default function ReviewTab() {
         <Card>
           <CardHeader>
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
-              <span className="text-lg">{__('data_processing_consent')}</span>
+              <span className="flex items-center gap-3 text-lg">
+                {__('data_processing_consent')}
+                {enableGdpr ? (
+                  <Badge variant="default" className="bg-green-600 text-xs">
+                    {__('active')}
+                  </Badge>
+                ) : (
+                  <Badge variant="outline" className="text-xs">
+                    {__('inactive')}
+                  </Badge>
+                )}
+              </span>
               <FormField
                 control={control}
                 name={`reviews.enable_gdpr`}
