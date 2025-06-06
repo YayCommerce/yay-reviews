@@ -87,7 +87,7 @@ class Frontend {
 			$product    = wc_get_product( $product_id );
 			if ( $product ) {
 				foreach ( $rewards as $reward ) {
-					if ( ! $reward['enabled'] ) {
+					if ( ! $reward['enabled'] || empty( $reward['coupon_id'] ) ) {
 						continue;
 					}
 					$coupon_id    = $reward['coupon_id'];

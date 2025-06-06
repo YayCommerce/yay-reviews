@@ -3,6 +3,7 @@ namespace YayReviews;
 
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
+use YayReviews\Classes\View;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -64,6 +65,16 @@ class RestAPI {
 				),
 			)
 		);
+
+		register_rest_route(
+			YAY_REVIEWS_REST_URL,
+			'/send-test-mail',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'send_test_mail' ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+			)
+		);
 	}
 
 	public function post_settings( $request ) {
@@ -123,6 +134,50 @@ class RestAPI {
 		wp_reset_postdata();
 
 		return rest_ensure_response( $coupons );
+	}
+
+	public function send_test_mail( \WP_REST_Request $request ) {
+		$data    = $request->get_params();
+		$email   = $data['email'];
+		$subject = $data['subject'];
+		$heading = $data['heading'];
+		$content = $data['content'];
+		$footer  = $data['footer'];
+
+		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{product_table}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_product_table( 'sample' ) ), $content );
+
+		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
+		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );
+		$email_footer  = str_replace( '{site_title}', get_bloginfo( 'name' ), $footer );
+
+		$args          = array(
+			'heading' => $email_heading,
+			'content' => $email_content,
+			'footer'  => $email_footer,
+		);
+		$email_content = View::load( 'emails.preview-email', $args, false );
+
+		$headers = array(
+			'Content-Type' => 'text/html; charset=UTF-8',
+		);
+		$headers = apply_filters( 'yay_reviews_email_headers', $headers );
+		$headers = array_map( 'trim', $headers );
+		$headers = array_filter( $headers );
+		$headers = array_unique( $headers );
+
+		$headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>';
+
+		$headers[] = 'Reply-To: ' . get_option( 'admin_email' );
+
+		$headers[] = 'Content-Type: text/html; charset=UTF-8';
+
+		$sent = wp_mail( $email, $email_subject, $email_content, $headers );
+
+		if ( $sent ) {
+			return rest_ensure_response( array( 'message' => 'Email sent successfully' ) );
+		} else {
+			return rest_ensure_response( array( 'message' => 'Email sending failed' ), 500 );
+		}
 	}
 
 	public function permission_callback() {

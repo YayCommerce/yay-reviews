@@ -164,3 +164,12 @@
 .yay-reviews-coupon-select-item span[id^='radix-'] {
   width: 100%;
 }
+
+.yay-reviews-email-content .ql-editor {
+  min-height: 150px;
+}
+
+.yay-reviews-email-preview-mobile {
+  scale: 0.8;
+  transform-origin: top;
+}

@@ -1,10 +1,24 @@
-import { __, getEmailSampleValues } from '@/lib/utils';
+import { useMemo, useState } from 'react';
+import { Loader2Icon } from 'lucide-react';
+import ReactQuill from 'react-quill';
+import { toast } from 'sonner';
+
+import { sendTestMail } from '@/lib/queries';
+import { __, cn, getEmailSampleValues } from '@/lib/utils';
 
 import DesktopIcon from './icons/Desktop';
 import MobileIcon from './icons/Mobile';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -18,26 +32,40 @@ export default function EmailTemplateCard({
   device: 'desktop' | 'mobile';
   setDevice: (device: 'desktop' | 'mobile') => void;
 }) {
+  const [testEmail, setTestEmail] = useState(window.yayReviews.admin_email || '');
+  const [isSending, setIsSending] = useState(false);
+
   const { watch, control } = useFormContext();
   const emailSubject = watch(`email.${templateId}.subject`);
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
   const emailFooter = watch(`email.${templateId}.footer`);
 
-  const sampleValues = getEmailSampleValues();
+  const defaultSampleValues = getEmailSampleValues();
 
-  if (templateId === 'reward') {
-    sampleValues['{product_table}'] = '{product_table}';
-  }
+  const sampleValues = useMemo(() => {
+    if (templateId === 'reward') {
+      return { ...defaultSampleValues, '{product_table}': '{product_table}' };
+    }
+    if (templateId === 'reminder') {
+      return { ...defaultSampleValues, '{coupon_code}': '{coupon_code}' };
+    }
+    return defaultSampleValues;
+  }, [templateId]);
 
   const content = emailContent
     .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
     .replace(/\{site_title\}/g, sampleValues['{site_title}'])
-    .replace(/\{product_table\}/g, sampleValues['{product_table}']);
+    .replace(/\{product_table\}/g, sampleValues['{product_table}'])
+    .replace(/\{coupon_code\}/g, sampleValues['{coupon_code}']);
 
   const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
+
+  const [editorMode, setEditorMode] = useState<'visual' | 'code'>('visual');
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <Card>
@@ -68,19 +96,46 @@ export default function EmailTemplateCard({
             </div>
 
             {/* Email content */}
-            <div className="flex flex-col gap-2">
-              <span>{__('email_content')}</span>
+            <div className="yay-reviews-email-content">
+              <div className="flex items-center justify-between">
+                <span>{__('email_content')}</span>
+                <div className="mb-2 flex gap-2">
+                  <Button
+                    variant={editorMode === 'visual' ? 'default' : 'ghost'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEditorMode('visual');
+                    }}
+                  >
+                    Visual
+                  </Button>
+                  <Button
+                    variant={editorMode === 'code' ? 'default' : 'ghost'}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEditorMode('code');
+                    }}
+                  >
+                    Code
+                  </Button>
+                </div>
+              </div>
               <FormField
                 control={control}
                 name={`email.${templateId}.content`}
-                render={({ field: { value, onChange } }) => (
-                  <Textarea rows={7} value={value} onChange={onChange} />
-                )}
+                render={({ field: { value, onChange } }) =>
+                  editorMode === 'visual' ? (
+                    <ReactQuill theme="snow" value={value} onChange={onChange} />
+                  ) : (
+                    <Textarea rows={7} value={value} onChange={onChange} />
+                  )
+                }
               />
-              <div className="text-muted-foreground flex flex-col text-sm">
+              <div className="text-muted-foreground mt-2 flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>
                 <span>{__('site_title_vars')}</span>
                 {templateId === 'reminder' && <span>{__('product_table_vars')}</span>}
+                {templateId === 'reward' && <span>{__('coupon_code_vars')}</span>}
               </div>
             </div>
 
@@ -120,19 +175,75 @@ export default function EmailTemplateCard({
                 >
                   <MobileIcon />
                 </Button>
-                <Button
-                  variant="outline"
-                  className="cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDevice('desktop');
-                  }}
-                >
-                  <span>{__('send_test_mail')}</span>
-                </Button>
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="cursor-pointer">
+                      {__('send_test_mail')}
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>{__('send_test_mail_title')}</DialogTitle>
+                    </DialogHeader>
+
+                    <div className="flex flex-col gap-4">
+                      <span>{__('send_test_mail_description')}</span>
+                      <div className="flex flex-col gap-2">
+                        <span className="uppercase">{__('send_to')}</span>
+                        <Input
+                          value={testEmail}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setTestEmail(e.target.value);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button
+                        variant="outline"
+                        className="cursor-pointer"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsDialogOpen(false);
+                        }}
+                      >
+                        {__('cancel')}
+                      </Button>
+                      <Button
+                        variant="default"
+                        className="cursor-pointer"
+                        disabled={isSending}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsSending(true);
+                          sendTestMail(testEmail, subject, heading, content, footer)
+                            .then((res: any) => {
+                              console.log(res);
+                              if (res.message === 'Email sent successfully') {
+                                toast.success(__('email_sent_successfully'));
+                              } else {
+                                toast.error(__('email_sending_failed'));
+                              }
+                            })
+                            .catch((err: any) => {
+                              console.log(err);
+                              toast.error(__('email_sending_failed'));
+                            })
+                            .finally(() => {
+                              setIsSending(false);
+                            });
+                        }}
+                      >
+                        {__('send_test_mail')}
+                        {isSending && <Loader2Icon className="animate-spin" />}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
             </div>
-            <Card>
+            <Card className={cn(device === 'mobile' && 'yay-reviews-email-preview-mobile')}>
               <CardHeader className="border-border border-b">
                 <CardTitle className="text-foreground flex flex-col gap-2">
                   <div className="text-base">{subject}</div>
@@ -146,7 +257,7 @@ export default function EmailTemplateCard({
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-foreground flex flex-col items-center gap-5 text-center">
+                <div className={'text-foreground flex flex-col items-center gap-5 text-center'}>
                   <div className="text-base font-semibold">{heading}</div>
                   <div className="text-sm" dangerouslySetInnerHTML={{ __html: content }} />
                   <div className="text-base font-semibold">{footer}</div>

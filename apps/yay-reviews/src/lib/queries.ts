@@ -16,3 +16,16 @@ export async function getCoupons(search: string, limit: number) {
   });
   return response.json() as Promise<Coupon[]>;
 }
+
+export async function sendTestMail(email: string, subject: string, heading: string, content: string, footer: string) {
+  const response = await api.post('send-test-mail', {
+    json: {
+      email,
+      subject,
+      heading,
+      content,
+      footer,
+    },
+  });
+  return response.json();
+}

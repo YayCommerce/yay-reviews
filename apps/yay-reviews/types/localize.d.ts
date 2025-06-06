@@ -4,6 +4,7 @@ declare global {
   interface Window {
     yayReviews: {
       admin_url: string;
+      admin_email: string;
       image_url: string;
       site_title: string;
       nonce: string;

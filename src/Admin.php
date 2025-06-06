@@ -50,6 +50,7 @@ class Admin {
 					'site_title'      => get_bloginfo( 'name' ),
 					'upload_max_size' => Helpers::upload_max_size(),
 					'upload_max_qty'  => Helpers::upload_max_qty(),
+					'admin_email'     => get_option( 'admin_email' ),
 					'i18n'            => array(
 						'dashboard'                        => __( 'Dashboard', 'yay-reviews' ),
 						'review'                           => __( 'Review', 'yay-reviews' ),
@@ -118,10 +119,13 @@ class Admin {
 						'customer_name_vars'               => __( "{customer_name} - Customer's name", 'yay-reviews' ),
 						'site_title_vars'                  => __( '{site_title} - Your site title', 'yay-reviews' ),
 						'product_table_vars'               => __( '{product_table} - Table of products need review', 'yay-reviews' ),
+						'coupon_code_vars'                 => __( '{coupon_code} - Coupon code', 'yay-reviews' ),
 						'preview'                          => __( 'Preview', 'yay-reviews' ),
 						'send_test_mail'                   => __( 'Send test mail', 'yay-reviews' ),
 						'emails'                           => __( 'Emails', 'yay-reviews' ),
-						'emails_settings'                  => __( 'Emails Settings', 'yay-reviews' ),
+						'email_templates'                  => __( 'Email Templates', 'yay-reviews' ),
+						'send_test_mail_title'             => __( 'Send a test email', 'yay-reviews' ),
+						'send_test_mail_description'       => __( 'Send yourself a test email to check how your email looks in different email apps.', 'yay-reviews' ),
 						'no_reward_added'                  => __( 'No reward added', 'yay-reviews' ),
 						'no_reward_added_description_first' => __( 'Sends discount coupons for quality reviews meeting set criteria,', 'yay-reviews' ),
 						'no_reward_added_description_second' => __( 'encouraging great feedback and repeat purchases.', 'yay-reviews' ),
@@ -170,18 +174,22 @@ class Admin {
 						'completed'                        => __( 'Completed', 'yay-reviews' ),
 						'no_coupons_found'                 => __( 'No coupons found.', 'yay-reviews' ),
 						'create_coupon'                    => __( 'Create new coupon', 'yay-reviews' ),
+						'cancel'                           => __( 'Cancel', 'yay-reviews' ),
+						'email_sent_successfully'          => __( 'Email sent successfully', 'yay-reviews' ),
+						'email_sending_failed'             => __( 'Email sending failed', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
 					'sample_values'   => array(
 						'{customer_name}' => 'John Doe',
 						'{site_title}'    => get_bloginfo( 'name' ),
+						'{coupon_code}'   => 'YAYREVIEW10',
 						'{product_table}' => Helpers::get_product_table( 'sample' ),
+
 					),
 				)
 			);
 
-				wp_enqueue_script( ScriptName::PAGE_SETTINGS );
-				wp_enqueue_style( ScriptName::STYLE_SETTINGS );
+			wp_enqueue_style( ScriptName::STYLE_SETTINGS );
 
 		}
 
