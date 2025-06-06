@@ -45,10 +45,14 @@ export default function EmailTemplateCard({
 
   const sampleValues = useMemo(() => {
     if (templateId === 'reward') {
-      return { ...defaultSampleValues, '{product_table}': '{product_table}' };
+      return { ...defaultSampleValues, '{products_table}': '{products_table}' };
     }
     if (templateId === 'reminder') {
-      return { ...defaultSampleValues, '{coupon_code}': '{coupon_code}' };
+      return {
+        ...defaultSampleValues,
+        '{coupon_code}': '{coupon_code}',
+        '{product_name}': '{product_name}',
+      };
     }
     return defaultSampleValues;
   }, [templateId]);
@@ -56,8 +60,9 @@ export default function EmailTemplateCard({
   const content = emailContent
     .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
     .replace(/\{site_title\}/g, sampleValues['{site_title}'])
-    .replace(/\{product_table\}/g, sampleValues['{product_table}'])
-    .replace(/\{coupon_code\}/g, sampleValues['{coupon_code}']);
+    .replace(/\{products_table\}/g, sampleValues['{products_table}'])
+    .replace(/\{coupon_code\}/g, sampleValues['{coupon_code}'])
+    .replace(/\{product_name\}/g, sampleValues['{product_name}']);
 
   const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
@@ -108,8 +113,9 @@ export default function EmailTemplateCard({
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>
                 <span>{__('site_title_vars')}</span>
-                {templateId === 'reminder' && <span>{__('product_table_vars')}</span>}
+                {templateId === 'reminder' && <span>{__('products_table_vars')}</span>}
                 {templateId === 'reward' && <span>{__('coupon_code_vars')}</span>}
+                {templateId === 'reward' && <span>{__('product_name_vars')}</span>}
               </div>
             </div>
 

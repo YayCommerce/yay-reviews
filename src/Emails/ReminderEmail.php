@@ -18,11 +18,11 @@ class ReminderEmail extends \WC_Email {
 		$this->template_plain = 'emails/plain/reminder-email.php';
 		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
 		$this->placeholders   = array(
-			'{order_date}'    => '',
-			'{order_number}'  => '',
-			'{customer_name}' => '',
-			'{site_title}'    => '',
-			'{product_table}' => '',
+			'{order_date}'     => '',
+			'{order_number}'   => '',
+			'{customer_name}'  => '',
+			'{site_title}'     => '',
+			'{products_table}' => '',
 		);
 
 		// Call parent constructor
@@ -71,13 +71,13 @@ class ReminderEmail extends \WC_Email {
 			}
 		}
 
-		$this->object                          = $order;
-		$this->recipient                       = $recipient_email;
-		$this->placeholders['{order_date}']    = wc_format_datetime( $this->object->get_date_created() );
-		$this->placeholders['{order_number}']  = $this->object->get_order_number();
-		$this->placeholders['{customer_name}'] = $this->object->get_formatted_billing_full_name();
-		$this->placeholders['{site_title}']    = get_bloginfo( 'name' );
-		$this->placeholders['{product_table}'] = $this->get_product_table();
+		$this->object                           = $order;
+		$this->recipient                        = $recipient_email;
+		$this->placeholders['{order_date}']     = wc_format_datetime( $this->object->get_date_created() );
+		$this->placeholders['{order_number}']   = $this->object->get_order_number();
+		$this->placeholders['{customer_name}']  = $this->object->get_formatted_billing_full_name();
+		$this->placeholders['{site_title}']     = get_bloginfo( 'name' );
+		$this->placeholders['{products_table}'] = $this->get_products_table();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -119,7 +119,7 @@ class ReminderEmail extends \WC_Email {
 		return __( 'Thank you for your review!', 'yay-reviews' );
 	}
 
-	public function get_product_table() {
+	public function get_products_table() {
 		if ( ! $this->object ) {
 			return '';
 		}
@@ -140,7 +140,7 @@ class ReminderEmail extends \WC_Email {
 		}
 
 		return wc_get_template_html(
-			'emails/product-table.php',
+			'emails/products-table.php',
 			array(
 				'product_list' => $remind_product_ids,
 			),

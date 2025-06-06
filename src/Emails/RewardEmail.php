@@ -41,6 +41,7 @@ class RewardEmail extends \WC_Email {
 		$this->placeholders['{site_title}']    = get_bloginfo( 'name' );
 		$this->placeholders['{customer_name}'] = $comment->comment_author;
 		$this->placeholders['{coupon_code}']   = $coupon->get_code();
+		$this->placeholders['{product_name}']  = $product->get_name();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -146,7 +147,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {coupon_code}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_name}, {coupon_code}</code>' ),
 				'placeholder' => $this->get_email_content(),
 				'default'     => '',
 			),

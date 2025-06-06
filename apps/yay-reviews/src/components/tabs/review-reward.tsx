@@ -32,7 +32,7 @@ export default function ReviewRewardTab({
     const newId = uuidv4();
     const newReward = {
       id: newId,
-      name: 'New Reward',
+      name: 'Reward for reviewing the product',
       enabled: true,
       coupon_id: coupons.length > 0 ? coupons[0].id : '',
       only_send_to_purchased_customers: false,

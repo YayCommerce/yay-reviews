@@ -119,7 +119,7 @@ class Admin {
 						'email_footer'                     => __( 'Email footer', 'yay-reviews' ),
 						'customer_name_vars'               => __( "{customer_name} - Customer's name", 'yay-reviews' ),
 						'site_title_vars'                  => __( '{site_title} - Your site title', 'yay-reviews' ),
-						'product_table_vars'               => __( '{product_table} - Table of products need review', 'yay-reviews' ),
+						'products_table_vars'              => __( '{products_table} - Table of products need review', 'yay-reviews' ),
 						'coupon_code_vars'                 => __( '{coupon_code} - Coupon code', 'yay-reviews' ),
 						'preview'                          => __( 'Preview', 'yay-reviews' ),
 						'send_test_mail'                   => __( 'Send test mail', 'yay-reviews' ),
@@ -178,14 +178,15 @@ class Admin {
 						'cancel'                           => __( 'Cancel', 'yay-reviews' ),
 						'email_sent_successfully'          => __( 'Email sent successfully', 'yay-reviews' ),
 						'email_sending_failed'             => __( 'Email sending failed', 'yay-reviews' ),
+						'product_name_vars'                => __( '{product_name} - Product name', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
 					'sample_values'   => array(
-						'{customer_name}' => 'John Doe',
-						'{site_title}'    => get_bloginfo( 'name' ),
-						'{coupon_code}'   => 'YAYREVIEW10',
-						'{product_table}' => Helpers::get_product_table( 'sample' ),
-
+						'{customer_name}'  => 'John Doe',
+						'{site_title}'     => get_bloginfo( 'name' ),
+						'{coupon_code}'    => 'YAYREVIEW10',
+						'{product_name}'   => 'Sample Product',
+						'{products_table}' => Helpers::get_products_table( 'sample' ),
 					),
 				)
 			);

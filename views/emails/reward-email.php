@@ -3,11 +3,12 @@ defined( 'ABSPATH' ) || exit;
 
 $content = $email_content;
 $content = str_replace(
-	array( '{customer_name}', '{site_title}', '{coupon_code}' ),
+	array( '{customer_name}', '{site_title}', '{coupon_code}', '{product_name}' ),
 	array(
 		$email->placeholders['{customer_name}'],
 		$email->placeholders['{site_title}'],
 		$email->placeholders['{coupon_code}'],
+		$email->placeholders['{product_name}'],
 	),
 	$content
 );

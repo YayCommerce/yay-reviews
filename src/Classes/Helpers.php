@@ -99,15 +99,15 @@ class Helpers {
 				'email'           => array(
 					'reminder' => array(
 						'subject' => __( 'Reminder email', 'yay-reviews' ),
-						'heading' => __( 'Reminder email for you', 'yay-reviews' ),
-						'content' => __( "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged", 'yay-reviews' ),
-						'footer'  => __( 'Thank you for your review.', 'yay-reviews' ),
+						'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
+						'content' => __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {products_table}', 'yay-reviews' ),
+						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 					'reward'   => array(
 						'subject' => __( 'Review reward email', 'yay-reviews' ),
-						'heading' => __( 'Reward email for you', 'yay-reviews' ),
-						'content' => __( "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged", 'yay-reviews' ),
-						'footer'  => __( 'Thank you for your review.', 'yay-reviews' ),
+						'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
+						'content' => __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we’ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ),
+						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 				),
 			)
@@ -141,7 +141,7 @@ class Helpers {
 		return 20;
 	}
 
-	public static function get_product_table( $order ) {
+	public static function get_products_table( $order ) {
 		if ( ! is_a( $order, 'WC_Order' ) ) {
 			$sample_products = array();
 			$product1        = new \WC_Product_Simple();
@@ -159,7 +159,7 @@ class Helpers {
 			$sample_products[] = $product2;
 
 			return wc_get_template_html(
-				'emails/product-table.php',
+				'emails/products-table.php',
 				array(
 					'product_list' => $sample_products,
 				),
@@ -173,7 +173,7 @@ class Helpers {
 			$product_list[] = $item->get_product();
 		}
 		return wc_get_template_html(
-			'emails/product-table.php',
+			'emails/products-table.php',
 			array(
 				'product_list' => $product_list,
 			),

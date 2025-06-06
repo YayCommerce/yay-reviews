@@ -88,7 +88,7 @@ export default function ReminderTab({
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
                             className="w-1/4"
-                            min={1}
+                            min={0}
                           />
                         )}
                       />

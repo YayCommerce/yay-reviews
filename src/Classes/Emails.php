@@ -99,7 +99,7 @@ class Emails {
 
 	public function add_placeholders( $placeholders, $email_type ) {
 		if ( 'YayReviews\Emails\ReminderEmail' === $email_type ) {
-			$placeholders['{product_table}'] = Helpers::get_product_table( 'sample' );
+			$placeholders['{product_table}'] = Helpers::get_products_table( 'sample' );
 			$placeholders['{site_title}']    = get_bloginfo( 'name' );
 			$placeholders['{customer_name}'] = 'John Doe';
 		}
