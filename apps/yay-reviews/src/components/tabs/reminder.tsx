@@ -11,7 +11,8 @@ import { Textarea } from '../ui/textarea';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  const productsType = watch('reminder.products_type');
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
@@ -74,10 +75,12 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     <span>{__('max_products_label')}</span>
                     <div className="flex w-full items-center gap-2">
                       <FormField
+                        disabled={productsType === 'all'}
                         control={control}
                         name={`reminder.max_products`}
                         render={({ field: { value, onChange } }) => (
                           <Input
+                            disabled={productsType === 'all'}
                             type="number"
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
@@ -96,6 +99,12 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
                               <SelectContent>
+                                <SelectItem value="all" className="cursor-pointer">
+                                  {__('all_products')}
+                                </SelectItem>
+                                <SelectItem value="normal" className="cursor-pointer">
+                                  {__('normal_products')}
+                                </SelectItem>
                                 <SelectItem value="featured" className="cursor-pointer">
                                   {__('featured_products')}
                                 </SelectItem>

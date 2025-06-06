@@ -186,6 +186,8 @@ class Admin {
 						'restrictions'                     => __( 'restrictions', 'yay-reviews' ),
 						'active'                           => __( 'Active', 'yay-reviews' ),
 						'inactive'                         => __( 'Inactive', 'yay-reviews' ),
+						'all_products'                     => __( 'All products', 'yay-reviews' ),
+						'normal_products'                  => __( 'Normal products', 'yay-reviews' ),
 					),
 					'data_settings'   => Helpers::get_all_settings(),
 					'sample_values'   => array(

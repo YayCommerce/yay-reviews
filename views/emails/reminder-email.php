@@ -1,18 +1,20 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 
-$content = $email_content;
-$content = str_replace(
-	array( '{customer_name}', '{site_title}', '{product_table}', '{order_date}', '{order_number}' ),
+$content       = $email_content;
+$content       = str_replace(
+	array( '{customer_name}', '{site_title}', '{products_table}', '{order_date}', '{order_number}' ),
 	array(
 		$email->placeholders['{customer_name}'],
 		$email->placeholders['{site_title}'],
-		$email->placeholders['{product_table}'],
+		$email->placeholders['{products_table}'],
 		$email->placeholders['{order_date}'],
 		$email->placeholders['{order_number}'],
 	),
 	$content
 );
+$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $email_heading );
+$email_footer  = str_replace( '{site_title}', get_bloginfo( 'name' ), $email_footer );
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

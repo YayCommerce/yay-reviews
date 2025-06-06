@@ -90,7 +90,7 @@ class Helpers {
 					'send_after_value' => 5,
 					'send_after_unit'  => 'minutes',
 					'max_products'     => 3,
-					'products_type'    => 'featured',
+					'products_type'    => 'normal',
 					'except_emails'    => '',
 					'send_to_guests'   => false,
 				),
@@ -183,15 +183,21 @@ class Helpers {
 	}
 
 	public static function get_max_remind_products_for_email( $product_in_order ) {
-		$max_products = self::get_settings( 'reminder', 'max_products', 3 );
+		$all_settings = self::get_all_settings();
+		$max_products = $all_settings['reminder']['max_products'] ?? 3;
+		$product_type = $all_settings['reminder']['products_type'] ?? 'normal';
 
-		if ( 0 === $max_products ) {
+		if ( 'all' === $product_type ) {
 			return $product_in_order;
 		}
 
+		if ( 'normal' === $product_type ) {
+			return array_slice( $product_in_order, 0, $max_products );
+		}
+
 		$remind_product_ids = array();
-		$product_type       = self::get_settings( 'reminder', 'products_type' );
-		$product_ids        = Products::get_products_by_type( $product_type );
+
+		$product_ids = Products::get_products_by_type( $product_type );
 		foreach ( $product_ids as $product_id ) {
 			if ( count( $remind_product_ids ) >= $max_products ) {
 				break;
