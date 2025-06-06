@@ -45,6 +45,7 @@ class Admin {
 					'nonce'           => wp_create_nonce( 'yay_reviews_nonce' ),
 					'rest_nonce'      => wp_create_nonce( 'wp_rest' ),
 					'rest_url'        => esc_url_raw( rest_url() ),
+					'ajax_url'        => admin_url( 'admin-ajax.php' ),
 					'rest_base'       => YAY_REVIEWS_REST_URL,
 					'image_url'       => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
 					'site_title'      => get_bloginfo( 'name' ),

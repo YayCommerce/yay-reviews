@@ -1,7 +1,8 @@
 import { SettingsFormData } from '../lib/schema';
-import { ComboboxOption } from '../components/ui/combobox';
+import jQuery from '@types/jquery';
 declare global {
   interface Window {
+    jQuery: typeof jQuery;
     yayReviews: {
       admin_url: string;
       admin_email: string;
@@ -9,6 +10,7 @@ declare global {
       site_title: string;
       nonce: string;
       rest_url: string;
+      ajax_url: string;
       rest_base: string;
       rest_nonce: string;
       i18n: Record<string, string>;

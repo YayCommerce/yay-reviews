@@ -1,3 +1,6 @@
+import { toast } from 'sonner';
+
+import { changeAddonStatus } from '@/lib/ajax';
 import { SettingsFormData } from '@/lib/schema';
 import { __ } from '@/lib/utils';
 import { useFormContext } from '@/components/ui/form';
@@ -7,6 +10,18 @@ import AddonCard from '../AddonCard';
 export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const { watch } = useFormContext<SettingsFormData>();
   const addons = watch('addons');
+
+  const handleChangeAddonStatus = async (addon_id: string, status: string) => {
+    try {
+      const response = await changeAddonStatus(addon_id, status);
+      if (!response.success) {
+        toast.error(response.data.mess);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(__('Something went wrong'));
+    }
+  };
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
@@ -30,7 +45,13 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
           {Object.entries(addons)
             .filter(([key, value]) => key !== 'optional_fields')
             .map(([key, value]) => (
-              <AddonCard key={key} id={key} status={value} onClick={() => setActiveTab(key)} />
+              <AddonCard
+                key={key}
+                id={key}
+                status={value}
+                onClick={() => setActiveTab(key)}
+                onChangeStatus={handleChangeAddonStatus}
+              />
             ))}
         </div>
       </div>

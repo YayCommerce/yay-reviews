@@ -20,5 +20,6 @@ class Initialize {
 		\YayReviews\Classes\Cron::get_instance();
 		\YayReviews\Register\RegisterFacade::get_instance();
 		\YayReviews\RestAPI::get_instance();
+		\YayReviews\Ajax::get_instance();
 	}
 }

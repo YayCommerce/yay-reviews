@@ -16,10 +16,12 @@ export default function AddonCard({
   id,
   status,
   onClick,
+  onChangeStatus,
 }: {
   id: string;
   status: boolean;
   onClick: (id: string) => void;
+  onChangeStatus: (addon_id: string, status: string) => void;
 }) {
   const { control } = useFormContext<SettingsFormData>();
 
@@ -98,7 +100,10 @@ export default function AddonCard({
                 <Switch
                   className="cursor-pointer"
                   checked={Boolean(value)}
-                  onCheckedChange={() => onChange(!value)}
+                  onCheckedChange={() => {
+                    onChange(!value);
+                    onChangeStatus(id, !value ? 'active' : 'inactive');
+                  }}
                 />
               )}
             />
