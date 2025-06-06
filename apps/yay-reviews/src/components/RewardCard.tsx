@@ -158,20 +158,6 @@ export default function RewardCard({
               />
             </div>
           </div>
-          <div className="text-xs">
-            <span className="text-slate-500">{__('change')}</span>
-            {` `}
-            <span
-              className="cursor-pointer lowercase underline decoration-solid"
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveTab('emails');
-                setCurrentEmailTab('reward');
-              }}
-            >
-              {__('email_template')}
-            </span>
-          </div>
           <hr className="text-[#E5E7EB]" />
           {/* Review criteria */}
           <div className="flex flex-col gap-2">
@@ -212,7 +198,15 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_rating`}
                 render={({ field: { value, onChange } }) => (
-                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                  <Input
+                    type="number"
+                    className="w-16"
+                    min={0}
+                    value={value}
+                    onChange={(e) => {
+                      onChange(Number(e.target.value));
+                    }}
+                  />
                 )}
               />
             </div>
@@ -222,7 +216,15 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.minimum_media_files_uploaded`}
                 render={({ field: { value, onChange } }) => (
-                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                  <Input
+                    type="number"
+                    className="w-16"
+                    min={0}
+                    value={value}
+                    onChange={(e) => {
+                      onChange(Number(e.target.value));
+                    }}
+                  />
                 )}
               />
             </div>
@@ -232,7 +234,15 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                 render={({ field: { value, onChange } }) => (
-                  <Input type="number" className="w-16" value={value} onChange={onChange} />
+                  <Input
+                    type="number"
+                    className="w-16"
+                    min={0}
+                    value={value}
+                    onChange={(e) => {
+                      onChange(Number(e.target.value));
+                    }}
+                  />
                 )}
               />
               <span className="text-[#64748B]">

@@ -127,24 +127,24 @@ export default function ReviewTab() {
                     )}
                   />
                 </div>
-              </div>
-            </div>
-            {/* Field Description */}
-            <div className="flex w-full flex-col gap-1">
-              <div>{__('field_description')}</div>
-              <FormField
-                control={control}
-                name={`reviews.upload_file_description`}
-                render={({ field: { value, onChange } }) => (
-                  <Textarea
-                    rows={3}
-                    value={value}
-                    onChange={onChange}
-                    placeholder={__('field_description_default')}
-                    className="w-full"
+                {/* Field Description */}
+                <div className="flex w-full flex-col gap-1">
+                  <div>{__('field_description')}</div>
+                  <FormField
+                    control={control}
+                    name={`reviews.upload_file_description`}
+                    render={({ field: { value, onChange } }) => (
+                      <Textarea
+                        rows={3}
+                        value={value}
+                        onChange={onChange}
+                        placeholder={__('field_description_default')}
+                        className="w-full"
+                      />
+                    )}
                   />
-                )}
-              />
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

@@ -63,8 +63,6 @@ export default function EmailTemplateCard({
   const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
 
-  const [editorMode, setEditorMode] = useState<'visual' | 'code'>('visual');
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
@@ -99,37 +97,13 @@ export default function EmailTemplateCard({
             <div className="yay-reviews-email-content">
               <div className="flex items-center justify-between">
                 <span>{__('email_content')}</span>
-                <div className="mb-2 flex gap-2">
-                  <Button
-                    variant={editorMode === 'visual' ? 'default' : 'ghost'}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setEditorMode('visual');
-                    }}
-                  >
-                    Visual
-                  </Button>
-                  <Button
-                    variant={editorMode === 'code' ? 'default' : 'ghost'}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setEditorMode('code');
-                    }}
-                  >
-                    Code
-                  </Button>
-                </div>
               </div>
               <FormField
                 control={control}
                 name={`email.${templateId}.content`}
-                render={({ field: { value, onChange } }) =>
-                  editorMode === 'visual' ? (
-                    <ReactQuill theme="snow" value={value} onChange={onChange} />
-                  ) : (
-                    <Textarea rows={7} value={value} onChange={onChange} />
-                  )
-                }
+                render={({ field: { value, onChange } }) => (
+                  <ReactQuill theme="snow" value={value} onChange={onChange} />
+                )}
               />
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>

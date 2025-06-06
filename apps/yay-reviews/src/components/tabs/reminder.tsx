@@ -1,3 +1,5 @@
+import { CircleHelpIcon } from 'lucide-react';
+
 import { __ } from '@/lib/utils';
 
 import { Card, CardContent } from '../ui/card';
@@ -6,6 +8,7 @@ import { Input } from '../ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 export default function ReminderTab({
   setActiveTab,
@@ -85,6 +88,7 @@ export default function ReminderTab({
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
                             className="w-1/4"
+                            min={1}
                           />
                         )}
                       />
@@ -133,18 +137,38 @@ export default function ReminderTab({
         </div>
         {/* Send to */}
         <div className="flex flex-col gap-2">
-          <div className="text-foreground text-lg font-semibold">{__('send_to')}</div>
+          <div className="text-foreground text-lg font-semibold">{__('send_to_customers')}</div>
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
                 {/* Except emails */}
                 <div className="flex flex-col gap-2">
-                  <span>{__('except_emails')}</span>
+                  <div className="flex items-center gap-1">
+                    <span>{__('except_emails')}</span>
+                    <span className="cursor-pointer">
+                      <TooltipProvider>
+                        <Tooltip delayDuration={0}>
+                          <TooltipTrigger className="cursor-pointer" asChild>
+                            <CircleHelpIcon size={16} />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>{__('except_emails_description')}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </span>
+                  </div>
                   <FormField
                     control={control}
                     name={`reminder.except_emails`}
                     render={({ field: { value, onChange } }) => (
-                      <Textarea rows={7} className="w-1/2" value={value} onChange={onChange} />
+                      <Textarea
+                        placeholder={__('except_emails_description')}
+                        rows={7}
+                        className="w-1/2"
+                        value={value}
+                        onChange={onChange}
+                      />
                     )}
                   />
                 </div>

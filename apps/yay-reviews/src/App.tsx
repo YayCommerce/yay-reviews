@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Loader2Icon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Form, useForm } from '@/components/ui/form';
@@ -43,18 +44,22 @@ export default function App() {
   const formValues = form.watch();
   const [hasChanges, setHasChanges] = useState(false);
 
+  const [defaultValues, setDefaultValues] = useState(getSettings());
+
   useEffect(() => {
-    const defaultValues = getSettings();
     const isDifferent = JSON.stringify(formValues) !== JSON.stringify(defaultValues);
     setHasChanges(isDifferent);
-  }, [formValues]);
+  }, [formValues, defaultValues]);
 
   async function onSubmit(data: SettingsFormData) {
     try {
+      // delete all toast
+      toast.dismiss();
       setIsLoading(true);
       await postSettings(data);
       toast.success('Settings saved successfully');
       form.reset(data); // Reset form with new values after successful save
+      setDefaultValues(data);
       setHasChanges(false); // Reset changes state
     } catch (error) {
       toast.error('Failed to save settings');
@@ -175,6 +180,7 @@ export default function App() {
             <div className="flex items-center gap-2 p-2.5 pr-6">
               <Button type="submit" disabled={isLoading || !hasChanges} className="cursor-pointer">
                 {__('save')}
+                {isLoading && <Loader2Icon className="animate-spin" />}
               </Button>
             </div>
           </div>
