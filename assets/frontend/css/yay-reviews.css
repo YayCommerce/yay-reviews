@@ -167,3 +167,7 @@
 .columns-10 {
   columns: auto;
 }
+
+#yay-reviews-modal-close {
+  background: transparent;
+}
