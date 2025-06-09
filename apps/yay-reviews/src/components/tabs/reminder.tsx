@@ -75,7 +75,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     <span>{__('max_products_label')}</span>
                     <div className="flex w-full items-center gap-2">
                       <FormField
-                        disabled={productsType === 'all'}
                         control={control}
                         name={`reminder.max_products`}
                         render={({ field: { value, onChange } }) => (
