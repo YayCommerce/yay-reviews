@@ -201,6 +201,17 @@ jQuery(document).ready(function ($) {
 
     var files = Array.from(event.target.files);
 
+    // Show loading state
+    const uploadCard = document.querySelector(".yay-reviews-upload-card");
+    const originalContent = uploadCard.innerHTML;
+    uploadCard.innerHTML = `
+      <div class="yay-reviews-loading-icon"></div>
+      <span class="text-xs text-gray-500 mt-1">${
+        yay_reviews.uploading_text || "Uploading..."
+      }</span>
+    `;
+    uploadCard.style.pointerEvents = "none";
+
     // Filter out invalid file types first
     files = files.filter((file) => {
       if (isValidFileType(file, accept)) {
@@ -248,6 +259,10 @@ jQuery(document).ready(function ($) {
 
       await renderThumbnails();
     }
+
+    // Restore upload card to original state
+    uploadCard.innerHTML = originalContent;
+    uploadCard.style.pointerEvents = "auto";
   });
 
   $(document).on("click", ".yay-reviews-thumbnail", function () {

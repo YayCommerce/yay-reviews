@@ -27,37 +27,17 @@ class Helpers {
 		return $settings;
 	}
 
-	public static function print_media( $files, $echo = true ) {
-		// Define arrays of image and video extensions
-		$image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
-		$video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv', 'quicktime' );
-
-		ob_start();
-		$uploads = wp_upload_dir();
-		echo '<div class="yay-reviews-medias">';
-		foreach ( $files as $file ) {
-			$extension = pathinfo( $file, PATHINFO_EXTENSION );
-			if ( in_array( strtolower( $extension ), $image_extensions ) ) {
-				$html = '<img src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
-			} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
-				$html = '<img src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
-			}
-
-			echo '<div class="yay-reviews-media" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '">' . $html . '</div>'; //phpcs:ignore
-		}
-		echo '</div>';
-		echo '<div class="yay-reviews-preview-media-modal">
-			<div class="yay-reviews-modal-content">
-				<span class="yay-reviews-modal-close">&times;</span>
-				<div class="yay-reviews-modal-body"></div>
-			</div>
-		</div>';
-		$html = ob_get_clean();
-		if ( $echo ) {
-			echo $html; //phpcs:ignore
-		} else {
-			return $html;
-		}
+	public static function print_media( $files, $comment, $echo = true ) {
+		echo wc_get_template_html(
+			'frontend/media.php',
+			array(
+				'files'   => $files,
+				'comment' => $comment,
+				'echo'    => $echo,
+			),
+			'',
+			YAY_REVIEWS_PLUGIN_PATH . 'views/'
+		);
 	}
 
 	public static function add_default_settings( $settings ) {
@@ -106,7 +86,7 @@ class Helpers {
 					'reward'   => array(
 						'subject' => __( 'Review reward email', 'yay-reviews' ),
 						'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
-						'content' => __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we’ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ),
+						'content' => __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ),
 						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 				),
