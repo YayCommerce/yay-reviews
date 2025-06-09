@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'YAY_REVIEWS_FILE', __FILE__ );
 define( 'YAY_REVIEWS_PLUGIN_URL', plugin_dir_url( YAY_REVIEWS_FILE ) );
-
+define( 'YAY_REVIEWS_PLUGIN_BASENAME', plugin_basename( YAY_REVIEWS_FILE ) );
 define( 'YAY_REVIEWS_PLUGIN_PATH', plugin_dir_path( YAY_REVIEWS_FILE ) );
 define( 'YAY_REVIEWS_VIEW_PATH', YAY_REVIEWS_PLUGIN_PATH . 'views/' );
 
@@ -75,13 +75,17 @@ require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Helpers.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/View.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Emails.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Cron.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/AdminMenu.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Admin.php';
 require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Frontend.php';
+require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/LicensesMenu.php';
+require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/OtherPluginsMenu.php';
+require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/RegisterMenu.php';
 
 add_action(
 	'plugins_loaded',
 	function () {
+		\YayReviews\YayCommerceMenu\RegisterMenu::get_instance();
+		\YayReviews\License\LicenseHandler::get_instance();
 		// Ensure WooCommerce is loaded
 		if ( ! function_exists( 'WC' ) ) {
 			return;
@@ -95,7 +99,6 @@ add_action(
 				}
 			}
 		);
-
 		// Initialize plugin components
 		Initialize::get_instance();
 		new Admin();
