@@ -109,7 +109,6 @@ if ( 'video_image' === $media_type ) {
 	width: 100%;
 	height: 100%;
 	border-radius: 0.5rem;
-	object-fit: cover;
 }
 .yay-reviews-thumb-card button {
 	position: absolute;

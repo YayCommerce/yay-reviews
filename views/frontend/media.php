@@ -33,14 +33,14 @@ foreach ( $files as $key => $file ) {
 		$html           = '<img src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item" data-index="' . esc_attr( $key ) . '" data-type="image">
                         <div class="rounded-lg overflow-hidden">
-                            <img class="h-[68px] w-[68px] fit-contain" src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
+                            <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
                         </div>
                     </div>';
 	} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
 		$html           = '<img src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item" data-index="' . esc_attr( $key ) . '" data-type="video">
                         <div class="rounded-lg overflow-hidden">
-                            <img class="h-[68px] w-[68px] fit-contain" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
+                            <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
                         </div>
                     </div>';
 	}

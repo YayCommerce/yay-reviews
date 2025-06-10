@@ -57,9 +57,12 @@ jQuery(document).ready(function ($) {
       card.className =
         "yay-reviews-thumb-card relative w-24 h-24 rounded-lg border-dashed overflow-hidden border border-gray-200 shadow-sm flex items-center justify-center cursor-pointer";
       card.innerHTML = `
-        <img src="${thumbnailUrl}" class="object-cover w-full h-full p-2 rounded-lg" alt="preview" data-file-type="${file.type}">
-        <button type="button" class="absolute top-1 right-1 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" data-index="${i}">&times;</button>
-      `;
+        <div class="relative w-full h-full p-2 rounded-lg">
+          <img src="${thumbnailUrl}" class="object-contain w-full h-full rounded-lg" alt="preview" data-file-type="${file.type}">
+          <div><div class="yay-reviews-thumb-card-overlay"></div></div>
+        </div>
+        <button type="button" class="z-10 invisible absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-md" data-index="${i}">&times;</button>
+        `;
       grid.insertBefore(card, grid.lastElementChild);
     }
     renderedFilesCount = yayReviewsFilesArr.length;
