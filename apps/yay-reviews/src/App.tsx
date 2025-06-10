@@ -28,6 +28,7 @@ const queryClient = new QueryClient();
 export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const form = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
@@ -49,6 +50,15 @@ export default function App() {
     const isDifferent = JSON.stringify(formValues) !== JSON.stringify(defaultValues);
     setHasChanges(isDifferent);
   }, [formValues, defaultValues]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   async function onSubmit(data: SettingsFormData) {
     try {
@@ -76,7 +86,12 @@ export default function App() {
             console.log(errors, e);
           })}
         >
-          <div className="sticky top-[32px] z-50 flex items-center justify-between gap-4 bg-white">
+          <div
+            className={cn(
+              'sticky top-[32px] z-50 flex items-center justify-between gap-4 bg-white transition-shadow duration-200',
+              isScrolled && 'shadow-[0px_12px_24px_-20px_rgba(0,0,0,0.5)]',
+            )}
+          >
             <div className="flex items-center gap-4">
               <div className="border-r border-gray-100 p-2.5">
                 <img
