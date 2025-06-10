@@ -10,8 +10,8 @@
 }
 
 .yay-reviews-media img {
-  width: 68px !important;
-  height: 68px !important;
+  width: 140px !important;
+  height: 140px !important;
   object-fit: contain;
 }
 
@@ -162,4 +162,8 @@
 }
 .yay-star.filled {
   color: #ffac70;
+}
+
+.yay-reviews-modal-media-item {
+  border-radius: 4px;
 }

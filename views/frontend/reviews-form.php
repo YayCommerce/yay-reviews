@@ -14,7 +14,7 @@ if ( 'video_image' === $media_type ) {
 	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
-			<div class="text-sm font-medium"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></div>
+			<label for="yay-reviews-file-input"><?php echo esc_html( $label ); ?><?php echo $upload_required ? '&nbsp;<span class="required">*</span>' : ''; ?></label>
 		<?php endif; ?>
 		<!-- Upload area -->
 		<div>

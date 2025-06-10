@@ -30,14 +30,14 @@ echo '<div class="yay-reviews-medias">';
 foreach ( $files as $key => $file ) {
 	$extension = pathinfo( $file, PATHINFO_EXTENSION );
 	if ( in_array( strtolower( $extension ), $image_extensions ) ) {
-		$html           = '<img src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
+		$html           = '<img class="rounded-lg" src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item" data-index="' . esc_attr( $key ) . '" data-type="image">
                         <div class="rounded-lg overflow-hidden">
                             <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
                         </div>
                     </div>';
 	} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
-		$html           = '<img src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
+		$html           = '<img class="rounded-lg" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
 		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item" data-index="' . esc_attr( $key ) . '" data-type="video">
                         <div class="rounded-lg overflow-hidden">
                             <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
@@ -45,7 +45,7 @@ foreach ( $files as $key => $file ) {
                     </div>';
 	}
 
-    echo '<div class="yay-reviews-media" data-comment-id="' . esc_attr( $comment->comment_ID ) . '" data-index="' . esc_attr( $key ) . '" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '">' . $html . '</div>'; //phpcs:ignore
+    echo '<div class="yay-reviews-media" data-comment-id="' . esc_attr( $comment->comment_ID ) . '" data-index="' . esc_attr( $key ) . '" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '"><div class="p-[5px] rounded-lg yay-reviews-media-wrap group relative"><div class="absolute inset-0 bg-black opacity-10 group-hover:opacity-100 group-hover:bg-[rgba(0,0,0,0.5)] transition-opacity transition-background duration-200 rounded-lg"></div>' . $html . '</div></div>'; //phpcs:ignore
 }
 echo '</div>';
 echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr( $comment->comment_ID ) . '">
@@ -56,7 +56,8 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
     </div>
     <div class="yay-reviews-modal-media-frame-content">
         <div class="yay-reviews-modal-media-frame-content-left">
-            <div class="thumbnail thumbnail-image">
+            <div class="thumbnail thumbnail-image flex items-center justify-center h-full bg-gray-50 relative group">
+                <div class="absolute inset-0 bg-black opacity-0 group-hover:opacity-20 transition-opacity duration-200"></div>
             </div>
         </div>
         <div class="yay-reviews-modal-media-frame-content-right">

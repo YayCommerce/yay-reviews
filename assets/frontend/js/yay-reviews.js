@@ -1,4 +1,22 @@
 jQuery(document).ready(function ($) {
+  // Add styles for smooth transition
+  const style = document.createElement("style");
+  style.textContent = `
+    .yay-reviews-thumb-card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0);
+      transition: background-color 0.3s ease;
+    }
+    .yay-reviews-thumb-card:hover .yay-reviews-thumb-card-overlay {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  `;
+  document.head.appendChild(style);
+
   // Helper function to validate file type
   function isValidFileType(file, acceptTypes) {
     const fileType = file.type;
@@ -61,7 +79,7 @@ jQuery(document).ready(function ($) {
           <img src="${thumbnailUrl}" class="object-contain w-full h-full rounded-lg" alt="preview" data-file-type="${file.type}">
           <div><div class="yay-reviews-thumb-card-overlay"></div></div>
         </div>
-        <button type="button" class="z-10 invisible absolute top-2 right-2 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-md" data-index="${i}">&times;</button>
+        <button type="button" class="z-10 invisible absolute top-0 right-0 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-md" data-index="${i}">&times;</button>
         `;
       grid.insertBefore(card, grid.lastElementChild);
     }
@@ -371,15 +389,12 @@ jQuery(document).ready(function ($) {
   }
 
   // Add click handler for thumbnails
-  $(document).on("click", ".yay-reviews-thumb-card img", function (e) {
+  $(document).on("click", ".yay-reviews-thumb-card", function (e) {
     e.preventDefault();
     e.stopPropagation();
-    const index = $(this)
-      .closest(".yay-reviews-thumb-card")
-      .find("button")
-      .data("index");
+    const index = $(this).find("button").data("index");
     const file = yayReviewsFilesArr[index];
-    const thumbnailUrl = this.src;
+    const thumbnailUrl = $(this).find("img").attr("src");
     showMediaInModal(file, thumbnailUrl);
   });
 });

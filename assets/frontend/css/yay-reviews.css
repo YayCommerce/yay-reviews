@@ -52,11 +52,10 @@
   padding-bottom: 15px;
 }
 .yay-reviews-medias .yay-reviews-media {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid transparent;
   margin-right: 10px;
 }
 .yay-reviews-medias .yay-reviews-media.active {
@@ -187,8 +186,8 @@
 
 .yay-reviews-thumb-card button[type="button"] {
   font-size: 18px;
-  top: 8px;
-  right: 8px;
+  top: 0;
+  right: 0;
   z-index: 10;
 }
 
@@ -202,12 +201,13 @@
 
 .yay-reviews-thumb-card-overlay {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  width: calc(100% - 16px);
-  height: calc(100% - 16px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   border-radius: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
 .yay-reviews-thumb-card:hover .yay-reviews-thumb-card-overlay {

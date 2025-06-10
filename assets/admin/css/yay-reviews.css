@@ -5,11 +5,10 @@
   padding-bottom: 15px;
 }
 .yay-reviews-medias .yay-reviews-media {
-  width: 80px;
-  height: 80px;
+  width: 150px;
+  height: 150px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid transparent;
   margin-right: 10px;
 }
 .yay-reviews-medias .yay-reviews-media.active {
