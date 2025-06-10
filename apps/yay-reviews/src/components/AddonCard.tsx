@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { SettingsFormData } from '@/lib/schema';
 import { __ } from '@/lib/utils';
@@ -18,12 +18,13 @@ export default function AddonCard({
   onClick,
   onChangeStatus,
 }: {
-  id: string;
+  id: 'reminder' | 'reward' | 'optional_fields';
   status: boolean;
   onClick: (id: string) => void;
-  onChangeStatus: (addon_id: string, status: string) => void;
+  onChangeStatus: (addon_id: 'reminder' | 'reward' | 'optional_fields', status: string) => void;
 }) {
-  const { control } = useFormContext<SettingsFormData>();
+  const { control, watch } = useFormContext<SettingsFormData>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const nameAddon = useMemo(() => {
     switch (id) {
@@ -37,6 +38,8 @@ export default function AddonCard({
         return 'addons.reminder';
     }
   }, [id]);
+
+  const value = watch(nameAddon);
 
   const icon = useMemo(() => {
     switch (id) {
@@ -71,6 +74,15 @@ export default function AddonCard({
     }
   }, [id]);
 
+  const handleStatusChange = async () => {
+    setIsLoading(true);
+    try {
+      await onChangeStatus(id, !value ? 'active' : 'inactive');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Card className="gap-2 pt-6 pb-4">
       <CardHeader className="p-0">
@@ -93,20 +105,15 @@ export default function AddonCard({
               <SettingIcon />
               {__('settings')}
             </Button>
-            <FormField
-              control={control}
-              name={nameAddon}
-              render={({ field: { value, onChange } }) => (
-                <Switch
-                  className="cursor-pointer"
-                  checked={Boolean(value)}
-                  onCheckedChange={() => {
-                    onChange(!value);
-                    onChangeStatus(id, !value ? 'active' : 'inactive');
-                  }}
-                />
-              )}
-            />
+            <div className="relative">
+              <Switch
+                className="cursor-pointer"
+                checked={Boolean(value)}
+                disabled={isLoading}
+                loading={isLoading}
+                onCheckedChange={handleStatusChange}
+              />
+            </div>
           </div>
         </div>
       </CardContent>

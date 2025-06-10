@@ -8,14 +8,19 @@ import { useFormContext } from '@/components/ui/form';
 import AddonCard from '../AddonCard';
 
 export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
-  const { watch } = useFormContext<SettingsFormData>();
+  const { watch, setValue } = useFormContext<SettingsFormData>();
   const addons = watch('addons');
 
-  const handleChangeAddonStatus = async (addon_id: string, status: string) => {
+  const handleChangeAddonStatus = async (
+    addon_id: 'reminder' | 'reward' | 'optional_fields',
+    status: string,
+  ) => {
     try {
       const response = await changeAddonStatus(addon_id, status);
       if (!response.success) {
-        toast.error(response.data.mess);
+        toast.error(response.data.message);
+      } else {
+        setValue(`addons.${addon_id}`, status === 'active' ? true : false);
       }
     } catch (error) {
       console.error(error);
@@ -47,8 +52,8 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
             .map(([key, value]) => (
               <AddonCard
                 key={key}
-                id={key}
-                status={value}
+                id={key as 'reminder' | 'reward' | 'optional_fields'}
+                status={value as boolean}
                 onClick={() => setActiveTab(key)}
                 onChangeStatus={handleChangeAddonStatus}
               />
