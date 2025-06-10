@@ -30,6 +30,9 @@ export default function RewardCard({
 }) {
   const { control, watch } = useFormContext<SettingsFormData>();
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
+  const onlySendToPurchasedCustomers = watch(
+    `rewards.${reward.id}.only_send_to_purchased_customers`,
+  );
 
   const selectedCouponStatus = useMemo(() => {
     return coupons.find((c) => c.id === coupon)?.expired
@@ -204,20 +207,23 @@ export default function RewardCard({
               />
               <span>{__('only_send_coupon_for_reviews_from_purchased_customers')}</span>
             </div>
-            <div className="mb-2 flex items-center gap-2">
-              <FormField
-                control={control}
-                name={`rewards.${reward.id}.send_to_guests`}
-                render={({ field: { value, onChange } }) => (
-                  <Switch
-                    className="cursor-pointer"
-                    checked={Boolean(value)}
-                    onCheckedChange={() => onChange(!value)}
-                  />
-                )}
-              />
-              <span className="text-muted-foreground">{__('guests_can_receive_reward')}</span>
-            </div>
+
+            {!onlySendToPurchasedCustomers && (
+              <div className="mb-2 flex items-center gap-2">
+                <FormField
+                  control={control}
+                  name={`rewards.${reward.id}.send_to_guests`}
+                  render={({ field: { value, onChange } }) => (
+                    <Switch
+                      className="cursor-pointer"
+                      checked={Boolean(value)}
+                      onCheckedChange={() => onChange(!value)}
+                    />
+                  )}
+                />
+                <span>{__('guests_can_receive_reward')}</span>
+              </div>
+            )}
             <div className="flex flex-col gap-2">
               <label className="text-sm">{__('minimum_required_rating')}</label>
               <FormField

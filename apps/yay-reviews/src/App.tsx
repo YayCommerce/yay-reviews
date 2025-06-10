@@ -76,7 +76,7 @@ export default function App() {
             console.log(errors, e);
           })}
         >
-          <div className="flex items-center justify-between gap-4 bg-white">
+          <div className="sticky top-[32px] z-50 flex items-center justify-between gap-4 bg-white">
             <div className="flex items-center gap-4">
               <div className="border-r border-gray-100 p-2.5">
                 <img
@@ -184,7 +184,7 @@ export default function App() {
             </div>
           </div>
           {/* </Tabs> */}
-          <div className="flex items-center justify-center px-6 py-12">
+          <div className="flex items-center justify-center px-6 py-12 pt-25">
             {activeTab === 'dashboard' && <DashboardTab setActiveTab={setActiveTab} />}
             {activeTab === 'review' && <ReviewTab />}
             {activeTab === 'reminder' && <ReminderTab setActiveTab={setActiveTab} />}

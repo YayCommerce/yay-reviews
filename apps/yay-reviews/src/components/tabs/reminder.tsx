@@ -38,6 +38,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
                             className="w-1/4"
+                            min={1}
                           />
                         )}
                       />
@@ -150,8 +151,8 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           <TooltipTrigger className="cursor-pointer" asChild>
                             <CircleHelpIcon size={16} />
                           </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{__('except_emails_description')}</p>
+                          <TooltipContent align="center">
+                            {__('except_emails_description')}
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>

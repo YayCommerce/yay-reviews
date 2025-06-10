@@ -28,7 +28,7 @@ class Helpers {
 	}
 
 	public static function print_media( $files, $comment, $echo = true ) {
-		echo wc_get_template_html(
+		echo wc_get_template_html( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'frontend/media.php',
 			array(
 				'files'   => $files,

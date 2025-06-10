@@ -1,4 +1,4 @@
-import { __ } from '@/lib/utils';
+import { __, cn } from '@/lib/utils';
 
 import { Badge } from '../ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -22,15 +22,12 @@ export default function ReviewTab() {
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('upload_media')}{' '}
-                {uploadMedia ? (
-                  <Badge variant="default" className="bg-green-600 text-xs">
-                    {__('active')}
-                  </Badge>
-                ) : (
-                  <Badge variant="outline" className="text-xs">
-                    {__('inactive')}
-                  </Badge>
-                )}
+                <Badge
+                  variant={uploadMedia ? 'default' : 'outline'}
+                  className={cn('text-xs transition-none', uploadMedia && 'bg-green-600')}
+                >
+                  {uploadMedia ? __('active') : __('inactive')}
+                </Badge>
               </span>
 
               <FormField
@@ -168,15 +165,12 @@ export default function ReviewTab() {
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('data_processing_consent')}
-                {enableGdpr ? (
-                  <Badge variant="default" className="bg-green-600 text-xs">
-                    {__('active')}
-                  </Badge>
-                ) : (
-                  <Badge variant="outline" className="text-xs">
-                    {__('inactive')}
-                  </Badge>
-                )}
+                <Badge
+                  variant={enableGdpr ? 'default' : 'outline'}
+                  className={cn('text-xs transition-none', enableGdpr && 'bg-green-600')}
+                >
+                  {enableGdpr ? __('active') : __('inactive')}
+                </Badge>
               </span>
               <FormField
                 control={control}

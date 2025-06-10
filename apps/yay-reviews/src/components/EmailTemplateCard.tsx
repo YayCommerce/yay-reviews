@@ -135,26 +135,28 @@ export default function EmailTemplateCard({
             <div className="flex items-center justify-between gap-2">
               <span>{__('preview')}</span>
               <div className="flex gap-2">
-                <Button
-                  variant={device === 'desktop' ? 'default' : 'ghost'}
-                  className="cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDevice('desktop');
-                  }}
-                >
-                  <DesktopIcon />
-                </Button>
-                <Button
-                  variant={device === 'mobile' ? 'default' : 'ghost'}
-                  className="cursor-pointer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setDevice('mobile');
-                  }}
-                >
-                  <MobileIcon />
-                </Button>
+                <div className="flex gap-1">
+                  <Button
+                    variant={device === 'desktop' ? 'default' : 'ghost'}
+                    className="size-9 cursor-pointer has-[>svg]:px-1 has-[>svg]:py-0"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setDevice('desktop');
+                    }}
+                  >
+                    <DesktopIcon className="size-5" />
+                  </Button>
+                  <Button
+                    variant={device === 'mobile' ? 'default' : 'ghost'}
+                    className="size-9 cursor-pointer has-[>svg]:px-1 has-[>svg]:py-0"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setDevice('mobile');
+                    }}
+                  >
+                    <MobileIcon className="size-5" />
+                  </Button>
+                </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
                     <Button variant="outline" className="cursor-pointer">
