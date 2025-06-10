@@ -97,6 +97,7 @@
   float: left;
   width: 65%;
   height: 100%;
+  background-color: #f6f7f7;
 }
 
 .yay-reviews-modal-media-frame-content-left .thumbnail {
@@ -156,10 +157,10 @@
 }
 
 .yay-star {
-  color: #d1d5db; /* grey */
-  font-size: 18px;
+  color: #d1d5db;
+  font-size: 16px;
   margin-right: 2px;
 }
 .yay-star.filled {
-  color: #ffac70; /* orange */
+  color: #ffac70;
 }
