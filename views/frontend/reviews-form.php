@@ -32,14 +32,14 @@ if ( 'video_image' === $media_type ) {
 			</div>
 			<input type="file" name="yay_reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $upload_required ? 'required' : ''; ?>>
 			<?php if ( ! empty( $description ) ) : ?>
-				<div class="text-gray-500 text-sm my-2"><?php echo esc_html( $description ); ?></div>
+				<p class="description"><?php echo esc_html( $description ); ?></p>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 	<?php if ( ! empty( $enable_gdpr ) ) : ?>
 		<div class="space-y-2">
 			<?php if ( ! empty( $before ) ) : ?>
-				<div class="text-gray-500 text-sm"><?php echo esc_html( $before ); ?></div>
+				<span class="description"><?php echo esc_html( $before ); ?></span>
 			<?php endif; ?>
 			<?php if ( ! empty( $gdpr_message ) ) : ?>
 				<div class="flex items-center space-x-2 yay-reviews-gdpr-checkbox-wrap">
@@ -63,14 +63,14 @@ if ( 'video_image' === $media_type ) {
 								<polyline points="20 6 9 17 4 12" />
 							</svg>
 						</div>
-						<span class="text-sm font-normal text-black">
+						<span>
 							<?php echo esc_html( $gdpr_message ); ?>
 						</span>
 					</label>
 				</div>
 			<?php endif; ?>
 			<?php if ( ! empty( $after ) ) : ?>
-				<div class="text-gray-500 text-sm"><?php echo esc_html( $after ); ?></div>
+				<span class="description"><?php echo esc_html( $after ); ?></span>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
