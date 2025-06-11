@@ -1,22 +1,4 @@
 jQuery(document).ready(function ($) {
-  // Add styles for smooth transition
-  const style = document.createElement("style");
-  style.textContent = `
-    .yay-reviews-thumb-card-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0);
-      transition: background-color 0.3s ease;
-    }
-    .yay-reviews-thumb-card:hover .yay-reviews-thumb-card-overlay {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-  `;
-  document.head.appendChild(style);
-
   // Helper function to validate file type
   function isValidFileType(file, acceptTypes) {
     const fileType = file.type;

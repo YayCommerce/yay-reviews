@@ -45,7 +45,7 @@ foreach ( $files as $key => $file ) {
                     </div>';
 	}
 
-    echo '<div class="yay-reviews-media" data-comment-id="' . esc_attr( $comment->comment_ID ) . '" data-index="' . esc_attr( $key ) . '" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '"><div class="p-[5px] rounded-lg yay-reviews-media-wrap group relative"><div class="absolute inset-0 bg-black opacity-10 group-hover:opacity-100 group-hover:bg-[rgba(0,0,0,0.5)] transition-opacity transition-background duration-200 rounded-lg"></div>' . $html . '</div></div>'; //phpcs:ignore
+    echo '<div class="yay-reviews-media" data-comment-id="' . esc_attr( $comment->comment_ID ) . '" data-index="' . esc_attr( $key ) . '" data-type="' . esc_attr( in_array( strtolower( $extension ), $video_extensions ) ? 'video' : 'image' ) . '"><div class="p-[5px] rounded-lg yay-reviews-media-wrap group relative"><div class="absolute inset-0 bg-black opacity-10 group-hover:bg-[rgba(0,0,0,0.5)] group-hover:opacity-50 transition-opacity transition-background rounded-lg"></div>' . $html . '</div></div>'; //phpcs:ignore
 }
 echo '</div>';
 echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr( $comment->comment_ID ) . '">
