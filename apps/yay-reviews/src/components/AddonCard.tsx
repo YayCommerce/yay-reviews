@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 
 import { SettingsFormData } from '@/lib/schema';
-import { __ } from '@/lib/utils';
+import { __, cn } from '@/lib/utils';
 
 import GiftIcon from './icons/Gift';
 import NoteIcon from './icons/Note';
 import ReminderIcon from './icons/Reminder';
 import SettingIcon from './icons/Setting';
+import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { FormField, useFormContext } from './ui/form';
@@ -86,7 +87,17 @@ export default function AddonCard({
   return (
     <Card className="gap-2 pt-6 pb-4">
       <CardHeader className="p-0">
-        <CardTitle className="px-6">{icon}</CardTitle>
+        <CardTitle className="px-6">
+          <div className="flex items-center justify-between">
+            {icon}
+            <Badge
+              variant={status ? 'default' : 'outline'}
+              className={cn('text-xs transition-none', status && 'bg-green-600')}
+            >
+              {status ? __('active') : __('inactive')}
+            </Badge>
+          </div>
+        </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <div className="flex flex-col gap-2">

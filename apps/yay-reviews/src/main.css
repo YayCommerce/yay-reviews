@@ -152,7 +152,7 @@
 }
 
 .yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid #f0f0f0;
   box-shadow: none;
 }
 
@@ -171,4 +171,9 @@
 
 .yay-reviews-collapsible-content a {
   color: var(--foreground);
+}
+
+.yay-reviews-collapsible-content hr {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: none;
 }

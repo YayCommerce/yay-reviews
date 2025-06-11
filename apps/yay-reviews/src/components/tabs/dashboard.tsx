@@ -7,7 +7,15 @@ import { useFormContext } from '@/components/ui/form';
 
 import AddonCard from '../AddonCard';
 
-export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+export default function DashboardTab({
+  defaultValues,
+  setDefaultValues,
+  setActiveTab,
+}: {
+  defaultValues: SettingsFormData;
+  setDefaultValues: (values: SettingsFormData) => void;
+  setActiveTab: (tab: string) => void;
+}) {
   const { watch, setValue } = useFormContext<SettingsFormData>();
   const addons = watch('addons');
 
@@ -21,6 +29,10 @@ export default function DashboardTab({ setActiveTab }: { setActiveTab: (tab: str
         toast.error(response.data.message);
       } else {
         setValue(`addons.${addon_id}`, status === 'active' ? true : false);
+        setDefaultValues({
+          ...defaultValues,
+          addons: { ...defaultValues.addons, [addon_id]: status === 'active' ? true : false },
+        });
       }
     } catch (error) {
       console.error(error);

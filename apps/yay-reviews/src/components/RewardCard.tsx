@@ -187,7 +187,7 @@ export default function RewardCard({
             </div>
           )}
 
-          <hr className="text-[#E5E7EB]" />
+          <hr className="border-t border-[#f0f0f0]" />
           {/* Review criteria */}
           <div className="flex flex-col gap-2">
             <div className="text-foreground mb-2 text-lg font-semibold">

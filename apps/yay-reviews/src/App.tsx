@@ -200,7 +200,13 @@ export default function App() {
           </div>
           {/* </Tabs> */}
           <div className="flex items-center justify-center px-6 py-12 pt-25">
-            {activeTab === 'dashboard' && <DashboardTab setActiveTab={setActiveTab} />}
+            {activeTab === 'dashboard' && (
+              <DashboardTab
+                defaultValues={defaultValues}
+                setDefaultValues={setDefaultValues}
+                setActiveTab={setActiveTab}
+              />
+            )}
             {activeTab === 'review' && <ReviewTab />}
             {activeTab === 'reminder' && <ReminderTab setActiveTab={setActiveTab} />}
             {activeTab === 'review-reward' && <ReviewRewardTab />}
