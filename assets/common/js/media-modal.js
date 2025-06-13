@@ -63,6 +63,10 @@ jQuery(document).ready(function ($) {
   }
 
   $(".yay-reviews-modal-comment-medias-preview-item").on("click", function () {
+    if ( $(this).hasClass("active") ) {
+      return;
+    }
+
     const mediaSrc = $(this).find("img").data("src");
     const commentId = $(this)
       .closest(".yay-reviews-preview-media-modal")
