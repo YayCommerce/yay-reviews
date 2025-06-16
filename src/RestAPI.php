@@ -189,6 +189,9 @@ class RestAPI {
 		if ( isset( $data['usage_limit_per_user'] ) ) {
 			$coupon->set_usage_limit_per_user( $data['usage_limit_per_user'] );
 		}
+		if ( isset( $data['limit_usage_to_x_items'] ) ) {
+			$coupon->set_limit_usage_to_x_items( $data['limit_usage_to_x_items'] );
+		}
 		if ( isset( $data['expiry_date'] ) ) {
 			$coupon->set_date_expires( $data['expiry_date'] );
 		}

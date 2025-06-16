@@ -109,6 +109,7 @@ export const couponSchema = z.object({
   })),
   usage_limit_per_coupon: z.number().optional(),
   usage_limit_per_user: z.number().optional(),
+  limit_usage_to_x_items: z.number().optional(),
 });
 
 export const settingsSchema = z.object({

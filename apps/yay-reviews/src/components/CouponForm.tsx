@@ -8,6 +8,7 @@ import { getProducts, postCoupon } from '@/lib/queries';
 import { CouponFormData, couponSchema } from '@/lib/schema';
 import { __, cn, updateQueryCache } from '@/lib/utils';
 
+import { SectionHorizontal } from './SectionHorizontal';
 import { Button } from './ui/button';
 import { Checkbox } from './ui/checkbox';
 import Combobox, { ComboboxOption } from './ui/combobox';
@@ -72,6 +73,7 @@ export const CouponForm = ({
       product_brands: [],
       exclude_product_brands: [],
       usage_limit_per_coupon: undefined,
+      limit_usage_to_x_items: undefined,
       usage_limit_per_user: undefined,
     },
     mode: 'onChange',
@@ -316,6 +318,7 @@ export const CouponForm = ({
               </div>
 
               <div className="grid gap-2">
+                <SectionHorizontal label={__('and')} />
                 <Label htmlFor="products">{__('products')}</Label>
                 <FormField
                   control={control}
@@ -352,6 +355,7 @@ export const CouponForm = ({
               </div>
 
               <div className="grid gap-2">
+                <SectionHorizontal label={__('and')} />
                 <Label htmlFor="product_categories">{__('product_categories')}</Label>
                 <FormField
                   control={control}
@@ -388,6 +392,7 @@ export const CouponForm = ({
               </div>
 
               <div className="grid gap-2">
+                <SectionHorizontal label={__('and')} />
                 <Label htmlFor="allowed_emails">{__('allowed_emails')}</Label>
                 <FormField
                   control={control}
@@ -399,6 +404,7 @@ export const CouponForm = ({
               </div>
 
               <div className="grid gap-2">
+                <SectionHorizontal label={__('and')} />
                 <Label htmlFor="product_brands">{__('product_brands')}</Label>
                 <FormField
                   control={control}
@@ -442,6 +448,23 @@ export const CouponForm = ({
                     <Input
                       name="usage_limit_per_coupon"
                       placeholder={__('unlimited_usage')}
+                      value={value}
+                      onChange={(e) => onChange(Number(e.target.value))}
+                      type="number"
+                      min={0}
+                    />
+                  )}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="limit_usage_to_x_items">{__('limit_usage_to_x_items')}</Label>
+                <FormField
+                  control={control}
+                  name={`limit_usage_to_x_items`}
+                  render={({ field: { value, onChange } }) => (
+                    <Input
+                      name="limit_usage_to_x_items"
+                      placeholder={__('limit_usage_to_x_items_placeholder')}
                       value={value}
                       onChange={(e) => onChange(Number(e.target.value))}
                       type="number"

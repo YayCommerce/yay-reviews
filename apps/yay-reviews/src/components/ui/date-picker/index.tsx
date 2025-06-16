@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
+import { Calendar as CalendarIcon, Trash } from 'lucide-react';
 
 import { Button } from '../button';
 import { Calendar } from '../calendar';
@@ -20,10 +20,27 @@ export function DatePicker({
         <Button
           variant="outline"
           data-empty={!date}
-          className="data-[empty=true]:text-muted-foreground w-full justify-start text-left font-normal"
+          className="data-[empty=true]:text-muted-foreground flex w-full items-center justify-start text-left font-normal"
         >
-          <CalendarIcon />
-          {date ? format(date, 'PPP') : <span>{placeholder}</span>}
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          <span className="flex-1 truncate text-left">
+            {date ? format(date, 'PPP') : <span>{placeholder}</span>}
+          </span>
+          {date && (
+            <span
+              className="ml-2 flex items-center"
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setDate(undefined);
+              }}
+              tabIndex={-1}
+              role="button"
+              aria-label="Clear date"
+            >
+              <Trash className="text-muted-foreground hover:text-foreground h-4 w-4" />
+            </span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

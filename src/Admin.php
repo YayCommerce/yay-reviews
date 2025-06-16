@@ -229,6 +229,8 @@ class Admin {
 						'usage_limit_per_coupon'           => __( 'Usage limit per coupon', 'yay-reviews' ),
 						'usage_limit_per_user'             => __( 'Usage limit per user', 'yay-reviews' ),
 						'no_expiry'                        => __( 'No expiry', 'yay-reviews' ),
+						'limit_usage_to_x_items'           => __( 'Limit usage to X items', 'yay-reviews' ),
+						'limit_usage_to_x_items_placeholder' => __( 'Apply to all qualifying items in cart', 'yay-reviews' ),
 					),
 					'data_settings'      => Helpers::get_all_settings(),
 					'sample_values'      => array(
