@@ -1,5 +1,6 @@
 import { SettingsFormData } from '../lib/schema';
 import jQuery from '@types/jquery';
+import { ComboboxOption } from '../src/components/ui/combobox';
 declare global {
   interface Window {
     jQuery: typeof jQuery;
@@ -18,6 +19,9 @@ declare global {
       upload_max_size: number;
       upload_max_qty: number;
       sample_values: Record<string, string>;
+      coupon_types: Record<string, string>;
+      product_categories: ComboboxOption[];
+      product_brands: ComboboxOption[];
     };
     wp: AnyObject;
   }

@@ -63,6 +63,34 @@ class RestAPI {
 						),
 					),
 				),
+				array(
+					'methods'             => 'POST',
+					'callback'            => array( $this, 'post_coupon' ),
+					'permission_callback' => array( $this, 'permission_callback' ),
+				),
+			)
+		);
+
+		register_rest_route(
+			YAY_REVIEWS_REST_URL,
+			'/products',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_products' ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+				'args'                => array(
+					'search' => array(
+						'required'          => false,
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+				'limit'               => array(
+					'required'          => false,
+					'type'              => 'integer',
+					'sanitize_callback' => 'absint',
+					'default'           => 10,
+				),
 			)
 		);
 
@@ -102,14 +130,10 @@ class RestAPI {
 
 	public function get_coupons( \WP_REST_Request $request ) {
 		$search = $request->get_param( 'search' );
-		$limit  = $request->get_param( 'limit' );
 
-		if ( ! $limit ) {
-			$limit = 10;
-		}
 		$args = array(
 			'post_type'      => 'shop_coupon',
-			'posts_per_page' => $limit,
+			'posts_per_page' => -1,
 			's'              => $search,
 			'post_status'    => 'publish',
 		);
@@ -135,6 +159,136 @@ class RestAPI {
 		wp_reset_postdata();
 
 		return rest_ensure_response( $coupons );
+	}
+
+	public function post_coupon( \WP_REST_Request $request ) {
+		$data = $request->get_params();
+		// check coupon code exists
+		$coupon_id = wc_get_coupon_id_by_code( $data['code'] );
+		if ( $coupon_id ) {
+			return rest_ensure_response(
+				array(
+					'coupon'    => null,
+					'is_exists' => true,
+					'message'   => 'Coupon code already exists',
+				),
+				400
+			);
+		}
+
+		$coupon = new \WC_Coupon();
+		$coupon->set_code( $data['code'] );
+		$coupon->set_description( $data['description'] );
+		$coupon->set_discount_type( $data['discount_type'] );
+		$coupon->set_amount( $data['amount'] );
+		$coupon->set_individual_use( $data['individual_use'] );
+		$coupon->set_exclude_sale_items( $data['exclude_sale_items'] );
+		if ( isset( $data['usage_limit_per_coupon'] ) ) {
+			$coupon->set_usage_limit( $data['usage_limit_per_coupon'] );
+		}
+		if ( isset( $data['usage_limit_per_user'] ) ) {
+			$coupon->set_usage_limit_per_user( $data['usage_limit_per_user'] );
+		}
+		if ( isset( $data['expiry_date'] ) ) {
+			$coupon->set_date_expires( $data['expiry_date'] );
+		}
+		if ( isset( $data['free_shipping'] ) ) {
+			$coupon->set_free_shipping( $data['free_shipping'] );
+		}
+		if ( isset( $data['minimum_spend'] ) ) {
+			$coupon->set_minimum_amount( $data['minimum_spend'] );
+		}
+		if ( isset( $data['maximum_spend'] ) ) {
+			$coupon->set_maximum_amount( $data['maximum_spend'] );
+		}
+		if ( isset( $data['allowed_emails'] ) ) {
+			$email_restrictions = array_map( 'sanitize_email', explode( ',', $data['allowed_emails'] ) );
+			$coupon->set_email_restrictions( $email_restrictions );
+		}
+
+		if ( isset( $data['products'] ) && ! empty( $data['products'] ) ) {
+			$product_ids = array_map( 'absint', $data['products'] );
+			$coupon->set_product_ids( $product_ids );
+		}
+		if ( isset( $data['exclude_products'] ) && ! empty( $data['exclude_products'] ) ) {
+			$product_ids = array_map( 'absint', $data['exclude_products'] );
+			$coupon->set_excluded_product_ids( $product_ids );
+		}
+		if ( isset( $data['product_categories'] ) && ! empty( $data['product_categories'] ) ) {
+			$product_category_ids = array_map( 'absint', $data['product_categories'] );
+			$coupon->set_product_categories( $product_category_ids );
+		}
+		if ( isset( $data['exclude_product_categories'] ) && ! empty( $data['exclude_product_categories'] ) ) {
+			$product_category_ids = array_map( 'absint', $data['exclude_product_categories'] );
+			$coupon->set_excluded_product_categories( $product_category_ids );
+		}
+
+		$coupon->save();
+		if ( $coupon->get_id() ) {
+			if ( isset( $data['product_brands'] ) ) {
+				$product_brand_ids = array_map( 'absint', $data['product_brands'] );
+				update_post_meta( $coupon->get_id(), 'product_brands', $product_brand_ids );
+
+			}
+			if ( isset( $data['exclude_product_brands'] ) ) {
+				$product_brand_ids = array_map( 'absint', $data['exclude_product_brands'] );
+				update_post_meta( $coupon->get_id(), 'exclude_product_brands', $product_brand_ids );
+			}
+			return rest_ensure_response(
+				array(
+					'coupon'    => array(
+						'id'           => (string) $coupon->get_id(),
+						'code'         => $coupon->get_code(),
+						'expired'      => Helpers::is_coupon_expired( $coupon ),
+						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
+						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
+					),
+					'is_exists' => false,
+					'message'   => 'Coupon created successfully',
+				)
+			);
+		} else {
+			return rest_ensure_response(
+				array(
+					'coupon'    => null,
+					'is_exists' => false,
+					'message'   => 'Failed to create coupon',
+				),
+				500
+			);
+		}
+	}
+
+	public function get_products( \WP_REST_Request $request ) {
+		$search = $request->get_param( 'search' );
+		$limit  = $request->get_param( 'limit' );
+
+		if ( ! $limit ) {
+			$limit = 10;
+		}
+
+		$args = array(
+			'post_type'      => 'product',
+			'posts_per_page' => $limit,
+			's'              => $search,
+			'post_status'    => 'publish',
+		);
+
+		$query = new \WP_Query( $args );
+
+		$products = array();
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$products[] = array(
+					'value' => (string) get_the_ID(),
+					'label' => get_the_title(),
+				);
+			}
+		}
+		wp_reset_postdata();
+
+		return rest_ensure_response( $products );
 	}
 
 	public function send_test_mail( \WP_REST_Request $request ) {

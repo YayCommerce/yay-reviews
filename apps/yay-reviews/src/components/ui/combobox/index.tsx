@@ -16,7 +16,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export interface ComboboxOption {
   label: string;
-  value: string;
+  value: string | number;
 }
 
 export interface ComboboxProps {

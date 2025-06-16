@@ -71,6 +71,46 @@ const emailSchema = z.object({
   }),
 });
 
+export const couponSchema = z.object({
+  code: z.string().min(1, { message: "Coupon code is required" }),
+  description: z.string(),
+  discount_type: z.string(),
+  amount: z.number(),
+  free_shipping: z.boolean(),
+  expiry_date: z.date().optional(),
+  minimum_spend: z.number().optional(),
+  maximum_spend: z.number().optional(),
+  individual_use: z.boolean(),
+  exclude_sale_items: z.boolean(),
+  products: z.array(z.object({
+    value: z.string(),
+    label: z.string(),
+  })),
+  exclude_products: z.array(z.object({
+    value: z.string(),
+    label: z.string(),
+  })),
+  product_categories: z.array(z.object({
+    value: z.number(),
+    label: z.string(),
+  })),
+  exclude_product_categories: z.array(z.object({
+    value: z.number(),
+    label: z.string(),
+  })),
+  allowed_emails: z.string(),
+  product_brands: z.array(z.object({
+    value: z.number(),
+    label: z.string(),
+  })),
+  exclude_product_brands: z.array(z.object({
+    value: z.number(),
+    label: z.string(),
+  })),
+  usage_limit_per_coupon: z.number().optional(),
+  usage_limit_per_user: z.number().optional(),
+});
+
 export const settingsSchema = z.object({
   addons: addonsSchema,
   reviews: reviewsSchema,
@@ -81,6 +121,8 @@ export const settingsSchema = z.object({
 });
 
 export type SettingsFormData = z.infer<typeof settingsSchema>;
+
+export type CouponFormData = z.infer<typeof couponSchema>;
 
 export type Addons = z.infer<typeof addonsSchema>;
 export type Reviews = z.infer<typeof reviewsSchema>;

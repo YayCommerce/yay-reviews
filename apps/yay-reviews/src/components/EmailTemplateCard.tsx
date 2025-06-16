@@ -21,7 +21,6 @@ import {
 } from './ui/dialog';
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
 
 export default function EmailTemplateCard({
   templateId,

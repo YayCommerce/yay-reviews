@@ -20,7 +20,7 @@ export default function ReviewRewardTab() {
 
   const { data: coupons = [] } = useQuery({
     queryKey: ['coupons'],
-    queryFn: () => getCoupons('', 10),
+    queryFn: () => getCoupons(''),
     staleTime: 5 * 60 * 1000,
   });
 
@@ -55,6 +55,8 @@ export default function ReviewRewardTab() {
     setValue('rewards', updatedRewards);
     setNewRewardIds((prev) => prev.filter((id) => id !== reward.id));
   };
+
+  console.log('coupons', coupons);
 
   return (
     <div className="flex w-2/3 flex-col gap-8">

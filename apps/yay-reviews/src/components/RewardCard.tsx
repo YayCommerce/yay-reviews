@@ -6,6 +6,7 @@ import { __ } from '@/lib/utils';
 
 import DuplicateIcon from './icons/Duplicate';
 import TrashIcon from './icons/Trash';
+import { NewCouponDrawer } from './NewCouponDrawer';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
@@ -41,6 +42,9 @@ export default function RewardCard({
         ? __('out_of_usage')
         : '';
   }, [coupons, coupon]);
+
+  console.log('coupon', coupon);
+  console.log(reward);
 
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
@@ -125,7 +129,7 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.coupon_id`}
                 render={({ field: { value, onChange } }) => (
-                  <Select value={value} onValueChange={onChange}>
+                  <Select value={value || ''} defaultValue={value || ''} onValueChange={onChange}>
                     <SelectTrigger className="w-1/2 cursor-pointer bg-white">
                       <SelectValue placeholder={__('select_coupon')} />
                     </SelectTrigger>
@@ -169,8 +173,19 @@ export default function RewardCard({
               />
             </div>
           </div>
+          {/* Create new coupon */}
+          <div className="text-sm">
+            <span className="text-slate-500 capitalize">{__('or')}</span>
+            {` `}
+            <NewCouponDrawer rewardId={reward.id}>
+              <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
+                {__('create_new_coupon')}
+              </span>
+            </NewCouponDrawer>
+          </div>
+          {/* Coupon status */}
           {selectedCouponStatus !== '' && (
-            <div className="text-xs">
+            <span>
               <span className="text-slate-500">
                 {selectedCouponStatus + ` `}
                 {__('coupon_not_available')}
@@ -184,7 +199,7 @@ export default function RewardCard({
               >
                 {__('restrictions')}
               </a>
-            </div>
+            </span>
           )}
 
           <hr className="border-t border-[#f0f0f0]" />
@@ -277,7 +292,7 @@ export default function RewardCard({
                   />
                 )}
               />
-              <span className="text-[#64748B]">
+              <span className="text-slate-500">
                 {__('leave_empty_to_receive_reward_after_every_review')}
               </span>
             </div>

@@ -121,6 +121,46 @@ class Helpers {
 		return 20;
 	}
 
+	public static function get_product_categories() {
+		$categories = get_terms(
+			array(
+				'taxonomy'   => 'product_cat',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		return array_map(
+			function ( $category ) {
+				return array(
+					'value' => $category->term_id,
+					'label' => $category->name,
+				);
+			},
+			$categories
+		);
+	}
+
+	public static function get_product_brands() {
+		$brands = get_terms(
+			array(
+				'taxonomy'   => 'product_brand',
+				'hide_empty' => false,
+				'orderby'    => 'name',
+				'order'      => 'ASC',
+			)
+		);
+		return array_map(
+			function ( $brand ) {
+				return array(
+					'value' => $brand->term_id,
+					'label' => $brand->name,
+				);
+			},
+			$brands
+		);
+	}
+
 	public static function get_products_table( $order ) {
 		if ( ! is_a( $order, 'WC_Order' ) ) {
 			$sample_products = array();
