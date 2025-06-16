@@ -77,6 +77,47 @@ export default function App() {
     }
   }
 
+  const menuItems = useMemo(() => {
+    const result = [
+      {
+        label: __('dashboard'),
+        icon: <HomeIcon />,
+        key: 'dashboard',
+      },
+      {
+        label: __('review'),
+        icon: <ReviewIcon />,
+        key: 'review',
+      },
+    ];
+
+    if (addonReminder) {
+      result.push({
+        label: __('reminder'),
+        icon: <ReminderIcon />,
+        key: 'reminder',
+      });
+    }
+
+    if (addonReward) {
+      result.push({
+        label: __('review_reward'),
+        icon: <GiftIcon />,
+        key: 'review-reward',
+      });
+    }
+
+    if (addonReminder || addonReward) {
+      result.push({
+        label: __('emails'),
+        icon: <EmailIcon />,
+        key: 'emails',
+      });
+    }
+
+    return result;
+  }, [addonReminder, addonReward]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster />
@@ -103,92 +144,33 @@ export default function App() {
               </div>
               {/* Navigation */}
               <div className="flex space-x-6">
-                <Button
-                  variant="link"
-                  className={cn(
-                    'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
-                    activeTab === 'dashboard' && 'border-[#2271B1] text-[#2271B1]',
-                  )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveTab('dashboard');
-                  }}
-                >
-                  <HomeIcon />
-                  <span className={cn(activeTab === 'dashboard' && 'font-medium')}>
-                    {__('dashboard')}
-                  </span>
-                </Button>
-                <Button
-                  variant="link"
-                  className={cn(
-                    'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
-                    activeTab === 'review' && 'border-[#2271B1] text-[#2271B1]',
-                  )}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setActiveTab('review');
-                  }}
-                >
-                  <ReviewIcon />
-                  <span className={cn(activeTab === 'review' && 'font-medium')}>
-                    {__('review')}
-                  </span>
-                </Button>
-                {addonReminder && (
+                {menuItems.map((item) => (
                   <Button
+                    key={item.key}
                     variant="link"
                     className={cn(
                       'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
-                      activeTab === 'reminder' && 'border-[#2271B1] text-[#2271B1]',
+                      activeTab === item.key && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
                       e.preventDefault();
-                      setActiveTab('reminder');
+                      setActiveTab(item.key);
                     }}
                   >
-                    <ReminderIcon />
-                    <span className={cn(activeTab === 'reminder' && 'font-medium')}>
-                      {__('reminder')}
+                    {item.icon}
+                    <span
+                      style={
+                        activeTab === item.key
+                          ? {
+                              textShadow: '0 0 0.01px currentcolor',
+                            }
+                          : {}
+                      }
+                    >
+                      {item.label}
                     </span>
                   </Button>
-                )}
-                {addonReward && (
-                  <Button
-                    variant="link"
-                    className={cn(
-                      'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
-                      activeTab === 'review-reward' && 'border-[#2271B1] text-[#2271B1]',
-                    )}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveTab('review-reward');
-                    }}
-                  >
-                    <GiftIcon />
-                    <span className={cn(activeTab === 'review-reward' && 'font-medium')}>
-                      {__('review_reward')}
-                    </span>
-                  </Button>
-                )}
-                {(addonReminder || addonReward) && (
-                  <Button
-                    variant="link"
-                    className={cn(
-                      'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
-                      activeTab === 'emails' && 'border-[#2271B1] text-[#2271B1]',
-                    )}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveTab('emails');
-                    }}
-                  >
-                    <EmailIcon />
-                    <span className={cn(activeTab === 'emails' && 'font-medium')}>
-                      {__('emails')}
-                    </span>
-                  </Button>
-                )}
+                ))}
               </div>
             </div>
             <div className="flex items-center gap-2 p-2.5 pr-6">
