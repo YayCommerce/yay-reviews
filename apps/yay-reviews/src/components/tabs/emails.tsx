@@ -21,12 +21,12 @@ export default function EmailsTab() {
           <Tabs defaultValue={addonReminder ? 'reminder' : 'reward'} className="gap-6">
             <TabsList className={cn('w-1/4', addonReminder && addonReward && 'w-1/2')}>
               {addonReminder && (
-                <TabsTrigger value="reminder" className="w-1/2 cursor-pointer">
+                <TabsTrigger value="reminder" className="w-1/2">
                   {__('reminder')}
                 </TabsTrigger>
               )}
               {addonReward && (
-                <TabsTrigger value="reward" className="w-1/2 cursor-pointer">
+                <TabsTrigger value="reward" className="w-1/2">
                   {__('reward')}
                 </TabsTrigger>
               )}

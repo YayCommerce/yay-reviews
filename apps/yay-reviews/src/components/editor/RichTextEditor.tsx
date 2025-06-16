@@ -95,7 +95,7 @@ const RichTextEditor = ({
   }, [handleOnChange, ID]);
 
   return (
-    <div className="yay-reviews-editor-property yay-reviews-editor-property-rich-text" key={ID}>
+    <div className="yay-reviews-editor" key={ID}>
       <textarea id={ID} defaultValue={value} style={{ fontSize: '14px' }} />
     </div>
   );

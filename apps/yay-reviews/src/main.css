@@ -133,6 +133,10 @@
   margin: 0;
 }
 
+.yaycommerce_page_yay-reviews button {
+  cursor: pointer;
+}
+
 .yaycommerce_page_yay-reviews input,
 .yaycommerce_page_yay-reviews textarea {
   border-color: var(--input);
@@ -176,4 +180,13 @@
 .yay-reviews-collapsible-content hr {
   border-top: 1px solid #f0f0f0;
   border-bottom: none;
+}
+
+.yay-reviews-coupon-form h2[data-slot='drawer-title'] {
+  margin: 0;
+}
+
+.yay-reviews-editor #yay-reviews-email-content-reminder_ifr,
+.yay-reviews-editor #yay-reviews-email-content-reward_ifr {
+  height: 150px !important;
 }

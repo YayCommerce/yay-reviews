@@ -106,7 +106,7 @@ export default function App() {
                 <Button
                   variant="link"
                   className={cn(
-                    'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                     activeTab === 'dashboard' && 'border-[#2271B1] text-[#2271B1]',
                   )}
                   onClick={(e) => {
@@ -122,7 +122,7 @@ export default function App() {
                 <Button
                   variant="link"
                   className={cn(
-                    'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                     activeTab === 'review' && 'border-[#2271B1] text-[#2271B1]',
                   )}
                   onClick={(e) => {
@@ -139,7 +139,7 @@ export default function App() {
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'reminder' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -157,7 +157,7 @@ export default function App() {
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'review-reward' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -175,7 +175,7 @@ export default function App() {
                   <Button
                     variant="link"
                     className={cn(
-                      'flex h-[56px] cursor-pointer items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === 'emails' && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -192,7 +192,7 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-2 p-2.5 pr-6">
-              <Button type="submit" disabled={isLoading || !hasChanges} className="cursor-pointer">
+              <Button type="submit" disabled={isLoading || !hasChanges} className="">
                 {__('save')}
                 {isLoading && <Loader2Icon className="animate-spin" />}
               </Button>

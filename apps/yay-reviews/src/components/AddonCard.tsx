@@ -106,7 +106,7 @@ export default function AddonCard({
           <div className="border-border flex items-center justify-between border-t px-6 pt-4">
             <Button
               variant="outline"
-              className="cursor-pointer gap-2"
+              className="gap-2"
               disabled={!status}
               onClick={(e) => {
                 e.preventDefault();
@@ -118,7 +118,6 @@ export default function AddonCard({
             </Button>
             <div className="relative">
               <Switch
-                className="cursor-pointer"
                 checked={Boolean(value)}
                 disabled={isLoading}
                 loading={isLoading}

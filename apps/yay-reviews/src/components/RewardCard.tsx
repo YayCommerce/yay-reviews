@@ -45,7 +45,7 @@ export default function RewardCard({
 
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
-      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">
+      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-t-xl bg-white shadow-sm">
         <div className="flex items-center justify-between p-6">
           <div className="flex w-1/2 items-center gap-2">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
@@ -53,11 +53,7 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.enabled`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch
-                    className="cursor-pointer"
-                    checked={Boolean(value)}
-                    onCheckedChange={() => onChange(!value)}
-                  />
+                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
                 )}
               />
               <FormField
@@ -81,7 +77,6 @@ export default function RewardCard({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    className="cursor-pointer"
                     variant="ghost"
                     size="sm"
                     onClick={(e) => {
@@ -99,7 +94,6 @@ export default function RewardCard({
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
-                    className="cursor-pointer"
                     variant="ghost"
                     size="sm"
                     onClick={(e) => {
@@ -127,7 +121,7 @@ export default function RewardCard({
                 name={`rewards.${reward.id}.coupon_id`}
                 render={({ field: { value, onChange } }) => (
                   <Select value={value || ''} defaultValue={value || ''} onValueChange={onChange}>
-                    <SelectTrigger className="w-1/2 cursor-pointer bg-white">
+                    <SelectTrigger className="w-1/2 bg-white">
                       <SelectValue placeholder={__('select_coupon')} />
                     </SelectTrigger>
                     <SelectContent>
@@ -136,7 +130,7 @@ export default function RewardCard({
                           <SelectItem
                             key={coupon.id}
                             value={coupon.id}
-                            className="yay-reviews-coupon-select-item cursor-pointer"
+                            className="yay-reviews-coupon-select-item"
                           >
                             <div className="flex w-full items-center justify-between gap-2">
                               <span>{coupon.code}</span>
@@ -175,7 +169,7 @@ export default function RewardCard({
             <span className="text-slate-500 capitalize">{__('or')}</span>
             {` `}
             <NewCouponDrawer rewardId={reward.id}>
-              <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
+              <span className="text-foreground lowercase underline decoration-solid">
                 {__('create_new_coupon')}
               </span>
             </NewCouponDrawer>
@@ -189,7 +183,7 @@ export default function RewardCard({
               </span>
               {` `}
               <a
-                className="text-foreground cursor-pointer lowercase underline decoration-solid"
+                className="text-foreground lowercase underline decoration-solid"
                 href={coupons.find((c) => c.id === coupon)?.edit_url}
                 target="_blank"
                 rel="noreferrer"
@@ -210,11 +204,7 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.only_send_to_purchased_customers`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch
-                    className="cursor-pointer"
-                    checked={Boolean(value)}
-                    onCheckedChange={() => onChange(!value)}
-                  />
+                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
                 )}
               />
               <span>{__('only_send_coupon_for_reviews_from_purchased_customers')}</span>
@@ -226,11 +216,7 @@ export default function RewardCard({
                   control={control}
                   name={`rewards.${reward.id}.send_to_guests`}
                   render={({ field: { value, onChange } }) => (
-                    <Switch
-                      className="cursor-pointer"
-                      checked={Boolean(value)}
-                      onCheckedChange={() => onChange(!value)}
-                    />
+                    <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
                   )}
                 />
                 <span>{__('guests_can_receive_reward')}</span>

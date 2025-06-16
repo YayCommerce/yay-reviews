@@ -25,7 +25,7 @@ export default function OptionalFieldCard({
 }) {
   return (
     <Collapsible className="yay-reviews-collapsible">
-      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">
+      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-t-xl bg-white shadow-sm">
         <div className="flex items-center justify-between p-6">
           <div className="flex w-1/2 items-center gap-2">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>

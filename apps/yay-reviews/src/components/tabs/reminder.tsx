@@ -48,19 +48,13 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           name={`reminder.send_after_unit`}
                           render={({ field: { value, onChange } }) => (
                             <Select value={value} onValueChange={onChange}>
-                              <SelectTrigger className="min-w-40 cursor-pointer">
+                              <SelectTrigger className="min-w-40">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="minutes" className="cursor-pointer">
-                                  {__('minutes')}
-                                </SelectItem>
-                                <SelectItem value="hours" className="cursor-pointer">
-                                  {__('hours')}
-                                </SelectItem>
-                                <SelectItem value="days" className="cursor-pointer">
-                                  {__('days')}
-                                </SelectItem>
+                                <SelectItem value="minutes">{__('minutes')}</SelectItem>
+                                <SelectItem value="hours">{__('hours')}</SelectItem>
+                                <SelectItem value="days">{__('days')}</SelectItem>
                               </SelectContent>
                             </Select>
                           )}
@@ -95,32 +89,22 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           name={`reminder.products_type`}
                           render={({ field: { value, onChange } }) => (
                             <Select value={value} onValueChange={onChange}>
-                              <SelectTrigger className="w-full cursor-pointer">
+                              <SelectTrigger className="w-full">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="all" className="cursor-pointer">
-                                  {__('all_products')}
-                                </SelectItem>
-                                <SelectItem value="normal" className="cursor-pointer">
-                                  {__('normal_products')}
-                                </SelectItem>
-                                <SelectItem value="featured" className="cursor-pointer">
-                                  {__('featured_products')}
-                                </SelectItem>
-                                <SelectItem value="on_sale" className="cursor-pointer">
-                                  {__('on_sale_products')}
-                                </SelectItem>
-                                <SelectItem value="newest" className="cursor-pointer">
-                                  {__('newest_products')}
-                                </SelectItem>
-                                <SelectItem value="high_rated" className="cursor-pointer">
+                                <SelectItem value="all">{__('all_products')}</SelectItem>
+                                <SelectItem value="normal">{__('normal_products')}</SelectItem>
+                                <SelectItem value="featured">{__('featured_products')}</SelectItem>
+                                <SelectItem value="on_sale">{__('on_sale_products')}</SelectItem>
+                                <SelectItem value="newest">{__('newest_products')}</SelectItem>
+                                <SelectItem value="high_rated">
                                   {__('high_rated_products')}
                                 </SelectItem>
-                                <SelectItem value="low_rated" className="cursor-pointer">
+                                <SelectItem value="low_rated">
                                   {__('low_rated_products')}
                                 </SelectItem>
-                                <SelectItem value="best_selling" className="cursor-pointer">
+                                <SelectItem value="best_selling">
                                   {__('best_selling_products')}
                                 </SelectItem>
                               </SelectContent>

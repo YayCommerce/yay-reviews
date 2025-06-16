@@ -73,7 +73,7 @@ export default function ReviewRewardTab() {
                   {__('no_reward_added_description_second')}
                 </div>
                 <Button
-                  className="w-fit cursor-pointer gap-2"
+                  className="w-fit gap-2"
                   onClick={(e) => {
                     e.preventDefault();
                     handleCreateNewReward();
@@ -95,7 +95,7 @@ export default function ReviewRewardTab() {
                 </div>
                 <Button
                   variant="outline"
-                  className="cursor-pointer"
+                  className=""
                   onClick={(e) => {
                     e.preventDefault();
                     handleCreateNewReward();
@@ -115,7 +115,7 @@ export default function ReviewRewardTab() {
                 />
               ))}
               <Button
-                className="w-fit cursor-pointer self-center"
+                className="w-fit self-center"
                 variant="outline"
                 onClick={(e) => {
                   e.preventDefault();

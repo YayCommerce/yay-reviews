@@ -98,21 +98,21 @@ export default function EmailTemplateCard({
             </div>
 
             {/* Email content */}
-
-            <div className="flex flex-col gap-2">
-              <span>{__('email_content')}</span>
-
-              <FormField
-                control={control}
-                name={`email.${templateId}.content`}
-                render={({ field: { value, onChange } }) => (
-                  <RichTextEditor
-                    ID={`yay-reviews-email-content-${templateId}`}
-                    value={value}
-                    handleOnChange={onChange}
-                  />
-                )}
-              />
+            <div>
+              <div className="flex flex-col gap-2">
+                <span>{__('email_content')}</span>
+                <FormField
+                  control={control}
+                  name={`email.${templateId}.content`}
+                  render={({ field: { value, onChange } }) => (
+                    <RichTextEditor
+                      ID={`yay-reviews-email-content-${templateId}`}
+                      value={value}
+                      handleOnChange={onChange}
+                    />
+                  )}
+                />
+              </div>
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
                 <span>{__('customer_name_vars')}</span>
                 <span>{__('site_title_vars')}</span>
@@ -141,7 +141,7 @@ export default function EmailTemplateCard({
                 <div className="flex gap-1">
                   <Button
                     variant={device === 'desktop' ? 'default' : 'ghost'}
-                    className="size-9 cursor-pointer has-[>svg]:px-1 has-[>svg]:py-0"
+                    className="size-9 has-[>svg]:py-0"
                     onClick={(e) => {
                       e.preventDefault();
                       setDevice('desktop');
@@ -151,7 +151,7 @@ export default function EmailTemplateCard({
                   </Button>
                   <Button
                     variant={device === 'mobile' ? 'default' : 'ghost'}
-                    className="size-9 cursor-pointer has-[>svg]:px-1 has-[>svg]:py-0"
+                    className="size-9 has-[>svg]:px-1 has-[>svg]:py-0"
                     onClick={(e) => {
                       e.preventDefault();
                       setDevice('mobile');
@@ -162,7 +162,7 @@ export default function EmailTemplateCard({
                 </div>
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" className="cursor-pointer">
+                    <Button variant="outline" className="">
                       {__('send_test_mail')}
                     </Button>
                   </DialogTrigger>
@@ -187,7 +187,7 @@ export default function EmailTemplateCard({
                     <DialogFooter>
                       <Button
                         variant="outline"
-                        className="cursor-pointer"
+                        className=""
                         onClick={(e) => {
                           e.preventDefault();
                           setIsDialogOpen(false);
@@ -197,14 +197,13 @@ export default function EmailTemplateCard({
                       </Button>
                       <Button
                         variant="default"
-                        className="cursor-pointer"
+                        className=""
                         disabled={isSending}
                         onClick={(e) => {
                           e.preventDefault();
                           setIsSending(true);
                           sendTestMail(testEmail, subject, heading, content, footer)
                             .then((res: any) => {
-                              console.log(res);
                               if (res.message === 'Email sent successfully') {
                                 toast.success(__('email_sent_successfully'));
                               } else {

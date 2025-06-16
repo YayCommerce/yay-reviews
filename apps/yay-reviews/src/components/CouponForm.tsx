@@ -186,10 +186,10 @@ export const CouponForm = ({
                 <Checkbox name="free_shipping" checked={value} onCheckedChange={onChange} />
                 <Label htmlFor="free_shipping">
                   {__('allow_free_shipping')}{' '}
-                  <span className="cursor-pointer">
+                  <span>
                     <TooltipProvider>
                       <Tooltip delayDuration={0}>
-                        <TooltipTrigger className="cursor-pointer" asChild>
+                        <TooltipTrigger asChild>
                           <CircleHelpIcon size={16} />
                         </TooltipTrigger>
                         <TooltipContent align="center">
@@ -214,7 +214,7 @@ export const CouponForm = ({
           />
         </div>
         <div className="grid gap-2">
-          <Tabs defaultValue="usage_restriction" className="w-full">
+          <Tabs defaultValue="" className="w-full">
             <TabsList className="w-full">
               <TabsTrigger value="usage_restriction" className="w-1/2">
                 {__('usage_restriction')}
@@ -267,10 +267,10 @@ export const CouponForm = ({
                       <Checkbox name="individual_use" checked={value} onCheckedChange={onChange} />
                       <Label htmlFor="individual_use">
                         {__('individual_use')}
-                        <span className="cursor-pointer">
+                        <span>
                           <TooltipProvider>
                             <Tooltip delayDuration={0}>
-                              <TooltipTrigger className="cursor-pointer" asChild>
+                              <TooltipTrigger asChild>
                                 <CircleHelpIcon size={16} />
                               </TooltipTrigger>
                               <TooltipContent align="center">
@@ -297,10 +297,10 @@ export const CouponForm = ({
                       />
                       <Label htmlFor="exclude_sale_items">
                         {__('exclude_sale_items')}
-                        <span className="cursor-pointer">
+                        <span>
                           <TooltipProvider>
                             <Tooltip delayDuration={0}>
-                              <TooltipTrigger className="cursor-pointer" asChild>
+                              <TooltipTrigger asChild>
                                 <CircleHelpIcon size={16} />
                               </TooltipTrigger>
                               <TooltipContent align="center">
@@ -477,7 +477,6 @@ export const CouponForm = ({
           <Button
             type="submit"
             form="coupon-form"
-            className="cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               form.handleSubmit(onSubmit, (errors, e) => {

@@ -38,13 +38,13 @@ export const NewCouponDrawer = ({
   return (
     <Drawer open={open} onOpenChange={setOpen} direction="right">
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="mt-[32px]">
-        <DrawerHeader className="text-left">
-          <DrawerTitle>{__('create_new_coupon')}</DrawerTitle>
+      <DrawerContent className="yay-reviews-coupon-form mt-[32px]">
+        <DrawerHeader className="border-b text-left">
+          <DrawerTitle className="m-0">{__('create_new_coupon')}</DrawerTitle>
           <DrawerDescription className="hidden"></DrawerDescription>
         </DrawerHeader>
         <CouponForm
-          className="px-4"
+          className="px-4 pt-4"
           setOpen={setOpen}
           handleUpdateCouponId={handleUpdateCouponId}
         />

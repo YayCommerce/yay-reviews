@@ -114,6 +114,7 @@ class Admin {
 						'select_filter'                    => __( 'Select filter', 'yay-reviews' ),
 						'except_emails'                    => __( 'Except emails', 'yay-reviews' ),
 						'send_to_guests'                   => __( 'Send to guests?', 'yay-reviews' ),
+						'send_to'                          => __( 'Send to', 'yay-reviews' ),
 						'email_template'                   => __( 'Email template', 'yay-reviews' ),
 						'email_heading'                    => __( 'Email heading', 'yay-reviews' ),
 						'email_subject'                    => __( 'Email subject', 'yay-reviews' ),
