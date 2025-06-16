@@ -7,7 +7,6 @@
 .yay-reviews-medias .yay-reviews-media {
   width: 150px;
   height: 150px;
-  overflow: hidden;
   cursor: pointer;
   margin-right: 10px;
 }

@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { Calendar as CalendarIcon, Trash } from 'lucide-react';
+import { Calendar as CalendarIcon, Trash, X } from 'lucide-react';
 
 import { Button } from '../button';
 import { Calendar } from '../calendar';
@@ -38,7 +38,7 @@ export function DatePicker({
               role="button"
               aria-label="Clear date"
             >
-              <Trash className="text-muted-foreground hover:text-foreground h-4 w-4" />
+              <X className="text-muted-foreground hover:text-foreground h-4 w-4" />
             </span>
           )}
         </Button>

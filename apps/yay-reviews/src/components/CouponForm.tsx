@@ -215,287 +215,286 @@ export const CouponForm = ({
             )}
           />
         </div>
-        <div className="grid gap-2">
-          <Tabs defaultValue="" className="w-full">
-            <TabsList className="w-full">
-              <TabsTrigger value="usage_restriction" className="w-1/2">
-                {__('usage_restriction')}
-              </TabsTrigger>
-              <TabsTrigger value="usage_limits" className="w-1/2">
-                {__('usage_limits')}
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="usage_restriction" className="grid items-start gap-4 px-0">
-              <div className="grid gap-2">
-                <Label htmlFor="minimum_spend">{__('minimum_spend')}</Label>
-                <FormField
-                  control={control}
-                  name={`minimum_spend`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input
-                      name="minimum_spend"
-                      placeholder={__('no_minimum')}
-                      value={value}
-                      onChange={(e) => onChange(Number(e.target.value))}
-                      type="number"
-                      min={0}
+        <Tabs defaultValue="" className="w-full gap-4">
+          <TabsList className="w-full">
+            <TabsTrigger value="usage_restriction" className="w-1/2">
+              {__('usage_restriction')}
+            </TabsTrigger>
+            <TabsTrigger value="usage_limits" className="w-1/2">
+              {__('usage_limits')}
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="usage_restriction" className="grid items-start gap-4 px-0">
+            <div className="grid gap-2">
+              <Label htmlFor="minimum_spend">{__('minimum_spend')}</Label>
+              <FormField
+                control={control}
+                name={`minimum_spend`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    name="minimum_spend"
+                    placeholder={__('no_minimum')}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    type="number"
+                    min={0}
+                  />
+                )}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="maximum_spend">{__('maximum_spend')}</Label>
+              <FormField
+                control={control}
+                name={`maximum_spend`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    name="maximum_spend"
+                    placeholder={__('no_maximum')}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    type="number"
+                    min={0}
+                  />
+                )}
+              />
+            </div>
+            <div className="grid gap-2">
+              <FormField
+                control={control}
+                name={`individual_use`}
+                render={({ field: { value, onChange } }) => (
+                  <div className="flex items-center gap-2">
+                    <Checkbox name="individual_use" checked={value} onCheckedChange={onChange} />
+                    <Label htmlFor="individual_use">
+                      {__('individual_use')}
+                      <span>
+                        <TooltipProvider>
+                          <Tooltip delayDuration={0}>
+                            <TooltipTrigger asChild>
+                              <CircleHelpIcon size={16} />
+                            </TooltipTrigger>
+                            <TooltipContent align="center">
+                              {__('individual_use_description')}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </span>
+                    </Label>
+                  </div>
+                )}
+              />
+            </div>
+            <div className="grid gap-2">
+              <FormField
+                control={control}
+                name={`exclude_sale_items`}
+                render={({ field: { value, onChange } }) => (
+                  <div className="flex items-center gap-2">
+                    <Checkbox
+                      name="exclude_sale_items"
+                      checked={value}
+                      onCheckedChange={onChange}
                     />
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="maximum_spend">{__('maximum_spend')}</Label>
-                <FormField
-                  control={control}
-                  name={`maximum_spend`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input
-                      name="maximum_spend"
-                      placeholder={__('no_maximum')}
-                      value={value}
-                      onChange={(e) => onChange(Number(e.target.value))}
-                      type="number"
-                      min={0}
-                    />
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <FormField
-                  control={control}
-                  name={`individual_use`}
-                  render={({ field: { value, onChange } }) => (
-                    <div className="flex items-center gap-2">
-                      <Checkbox name="individual_use" checked={value} onCheckedChange={onChange} />
-                      <Label htmlFor="individual_use">
-                        {__('individual_use')}
-                        <span>
-                          <TooltipProvider>
-                            <Tooltip delayDuration={0}>
-                              <TooltipTrigger asChild>
-                                <CircleHelpIcon size={16} />
-                              </TooltipTrigger>
-                              <TooltipContent align="center">
-                                {__('individual_use_description')}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </span>
-                      </Label>
-                    </div>
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <FormField
-                  control={control}
-                  name={`exclude_sale_items`}
-                  render={({ field: { value, onChange } }) => (
-                    <div className="flex items-center gap-2">
-                      <Checkbox
-                        name="exclude_sale_items"
-                        checked={value}
-                        onCheckedChange={onChange}
-                      />
-                      <Label htmlFor="exclude_sale_items">
-                        {__('exclude_sale_items')}
-                        <span>
-                          <TooltipProvider>
-                            <Tooltip delayDuration={0}>
-                              <TooltipTrigger asChild>
-                                <CircleHelpIcon size={16} />
-                              </TooltipTrigger>
-                              <TooltipContent align="center">
-                                {__('exclude_sale_items_description')}
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        </span>
-                      </Label>
-                    </div>
-                  )}
-                />
-              </div>
+                    <Label htmlFor="exclude_sale_items">
+                      {__('exclude_sale_items')}
+                      <span>
+                        <TooltipProvider>
+                          <Tooltip delayDuration={0}>
+                            <TooltipTrigger asChild>
+                              <CircleHelpIcon size={16} />
+                            </TooltipTrigger>
+                            <TooltipContent align="center">
+                              {__('exclude_sale_items_description')}
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </span>
+                    </Label>
+                  </div>
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <SectionHorizontal label={__('and')} />
-                <Label htmlFor="products">{__('products')}</Label>
-                <FormField
-                  control={control}
-                  name={`products`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={productOptions}
-                      value={value}
-                      onChange={onChange}
-                      onSearch={(search) => handleProductSearch(search, setProductOptions)}
-                      placeholder={__('select_products')}
-                    />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <SectionHorizontal label={__('and')} />
+              <Label htmlFor="products">{__('products')}</Label>
+              <FormField
+                control={control}
+                name={`products`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={productOptions}
+                    value={value}
+                    onChange={onChange}
+                    onSearch={(search) => handleProductSearch(search, setProductOptions)}
+                    placeholder={__('select_products')}
+                  />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="exclude_products">{__('exclude_products')}</Label>
-                <FormField
-                  control={control}
-                  name={`exclude_products`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={excludeProductOptions}
-                      value={value}
-                      onChange={onChange}
-                      onSearch={(search) => handleProductSearch(search, setExcludeProductOptions)}
-                      placeholder={__('select_products')}
-                    />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <Label htmlFor="exclude_products">{__('exclude_products')}</Label>
+              <FormField
+                control={control}
+                name={`exclude_products`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={excludeProductOptions}
+                    value={value}
+                    onChange={onChange}
+                    onSearch={(search) => handleProductSearch(search, setExcludeProductOptions)}
+                    placeholder={__('select_products')}
+                  />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <SectionHorizontal label={__('and')} />
-                <Label htmlFor="product_categories">{__('product_categories')}</Label>
-                <FormField
-                  control={control}
-                  name={`product_categories`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={window.yayReviews.product_categories}
-                      value={value}
-                      onChange={onChange}
-                      placeholder={__('any_category')}
-                    />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <SectionHorizontal label={__('and')} />
+              <Label htmlFor="product_categories">{__('product_categories')}</Label>
+              <FormField
+                control={control}
+                name={`product_categories`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={window.yayReviews.product_categories}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={__('any_category')}
+                  />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="exclude_product_categories">
-                  {__('exclude_product_categories')}
-                </Label>
-                <FormField
-                  control={control}
-                  name={`exclude_product_categories`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={window.yayReviews.product_categories}
-                      value={value}
-                      onChange={onChange}
-                      placeholder={__('no_categories')}
-                    />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <Label htmlFor="exclude_product_categories">{__('exclude_product_categories')}</Label>
+              <FormField
+                control={control}
+                name={`exclude_product_categories`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={window.yayReviews.product_categories}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={__('no_categories')}
+                  />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <SectionHorizontal label={__('and')} />
-                <Label htmlFor="allowed_emails">{__('allowed_emails')}</Label>
-                <FormField
-                  control={control}
-                  name={`allowed_emails`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input name="allowed_emails" value={value} onChange={onChange} />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <SectionHorizontal label={__('and')} />
+              <Label htmlFor="allowed_emails">{__('allowed_emails')}</Label>
+              <FormField
+                control={control}
+                name={`allowed_emails`}
+                render={({ field: { value, onChange } }) => (
+                  <Input name="allowed_emails" value={value} onChange={onChange} />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <SectionHorizontal label={__('and')} />
-                <Label htmlFor="product_brands">{__('product_brands')}</Label>
-                <FormField
-                  control={control}
-                  name={`product_brands`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={window.yayReviews.product_brands}
-                      value={value}
-                      onChange={onChange}
-                      placeholder={__('any_brand')}
-                    />
-                  )}
-                />
-              </div>
+            <div className="grid gap-2">
+              <SectionHorizontal label={__('and')} />
+              <Label htmlFor="product_brands">{__('product_brands')}</Label>
+              <FormField
+                control={control}
+                name={`product_brands`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={window.yayReviews.product_brands}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={__('any_brand')}
+                  />
+                )}
+              />
+            </div>
 
-              <div className="grid gap-2">
-                <Label htmlFor="exclude_product_brands">{__('exclude_product_brands')}</Label>
-                <FormField
-                  control={control}
-                  name={`exclude_product_brands`}
-                  render={({ field: { value, onChange } }) => (
-                    <Combobox
-                      className="w-full"
-                      options={window.yayReviews.product_brands}
-                      value={value}
-                      onChange={onChange}
-                      placeholder={__('no_brands')}
-                    />
-                  )}
-                />
-              </div>
-            </TabsContent>
-            <TabsContent value="usage_limits" className="grid items-start gap-4 px-0">
-              <div className="grid gap-2">
-                <Label htmlFor="usage_limit_per_coupon">{__('usage_limit_per_coupon')}</Label>
-                <FormField
-                  control={control}
-                  name={`usage_limit_per_coupon`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input
-                      name="usage_limit_per_coupon"
-                      placeholder={__('unlimited_usage')}
-                      value={value}
-                      onChange={(e) => onChange(Number(e.target.value))}
-                      type="number"
-                      min={0}
-                    />
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="limit_usage_to_x_items">{__('limit_usage_to_x_items')}</Label>
-                <FormField
-                  control={control}
-                  name={`limit_usage_to_x_items`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input
-                      name="limit_usage_to_x_items"
-                      placeholder={__('limit_usage_to_x_items_placeholder')}
-                      value={value}
-                      onChange={(e) => onChange(Number(e.target.value))}
-                      type="number"
-                      min={0}
-                    />
-                  )}
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="usage_limit_per_user">{__('usage_limit_per_user')}</Label>
-                <FormField
-                  control={control}
-                  name={`usage_limit_per_user`}
-                  render={({ field: { value, onChange } }) => (
-                    <Input
-                      name="usage_limit_per_user"
-                      placeholder={__('unlimited_usage')}
-                      value={value}
-                      onChange={(e) => onChange(Number(e.target.value))}
-                      type="number"
-                      min={0}
-                    />
-                  )}
-                />
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
+            <div className="grid gap-2">
+              <Label htmlFor="exclude_product_brands">{__('exclude_product_brands')}</Label>
+              <FormField
+                control={control}
+                name={`exclude_product_brands`}
+                render={({ field: { value, onChange } }) => (
+                  <Combobox
+                    className="w-full"
+                    options={window.yayReviews.product_brands}
+                    value={value}
+                    onChange={onChange}
+                    placeholder={__('no_brands')}
+                  />
+                )}
+              />
+            </div>
+          </TabsContent>
+          <TabsContent value="usage_limits" className="grid items-start gap-4 px-0">
+            <div className="grid gap-2">
+              <Label htmlFor="usage_limit_per_coupon">{__('usage_limit_per_coupon')}</Label>
+              <FormField
+                control={control}
+                name={`usage_limit_per_coupon`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    name="usage_limit_per_coupon"
+                    placeholder={__('unlimited_usage')}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    type="number"
+                    min={0}
+                  />
+                )}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="limit_usage_to_x_items">{__('limit_usage_to_x_items')}</Label>
+              <FormField
+                control={control}
+                name={`limit_usage_to_x_items`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    name="limit_usage_to_x_items"
+                    placeholder={__('limit_usage_to_x_items_placeholder')}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    type="number"
+                    min={0}
+                  />
+                )}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="usage_limit_per_user">{__('usage_limit_per_user')}</Label>
+              <FormField
+                control={control}
+                name={`usage_limit_per_user`}
+                render={({ field: { value, onChange } }) => (
+                  <Input
+                    name="usage_limit_per_user"
+                    placeholder={__('unlimited_usage')}
+                    value={value}
+                    onChange={(e) => onChange(Number(e.target.value))}
+                    type="number"
+                    min={0}
+                  />
+                )}
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
         <div
           data-slot="drawer-footer"
           className="fixed right-0 bottom-0 left-0 flex flex-col gap-2 bg-white p-4"
+          style={{
+            boxShadow: '0 0 #0000, 0 0 #0000, 0 -1px 0 #edf3f9, 0 -5px 12px #00000008',
+          }}
         >
           <Button
             type="submit"

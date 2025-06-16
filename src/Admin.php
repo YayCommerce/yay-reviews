@@ -177,7 +177,6 @@ class Admin {
 						'products_in_order'                => __( 'Products in order', 'yay-reviews' ),
 						'completed'                        => __( 'Completed', 'yay-reviews' ),
 						'no_coupons_found'                 => __( 'No coupons found.', 'yay-reviews' ),
-						'create_coupon'                    => __( 'Create new coupon', 'yay-reviews' ),
 						'cancel'                           => __( 'Cancel', 'yay-reviews' ),
 						'email_sent_successfully'          => __( 'Email sent successfully', 'yay-reviews' ),
 						'email_sending_failed'             => __( 'Email sending failed', 'yay-reviews' ),

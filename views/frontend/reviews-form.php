@@ -96,15 +96,6 @@ if ( 'video_image' === $media_type ) {
 .yay-reviews-upload-card:hover {
 	border-color: #1890ff;
 }
-.yay-reviews-thumb-card {
-	position: relative;
-	width: 6rem;
-	height: 6rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	border: 1px dashed #e5e7eb;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
 .yay-reviews-thumb-card img {
 	width: 100%;
 	height: 100%;
@@ -114,7 +105,7 @@ if ( 'video_image' === $media_type ) {
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: rgba(0, 0, 0, 0.5) !important;
+	background-color: #757575;
 	color: #fff !important;
 	border: none !important;
 	border-radius: 9999px;
