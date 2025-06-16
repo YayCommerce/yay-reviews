@@ -169,7 +169,7 @@ export default function RewardCard({
             <span className="text-slate-500 capitalize">{__('or')}</span>
             {` `}
             <NewCouponDrawer rewardId={reward.id}>
-              <span className="text-foreground lowercase underline decoration-solid">
+              <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
                 {__('create_new_coupon')}
               </span>
             </NewCouponDrawer>
