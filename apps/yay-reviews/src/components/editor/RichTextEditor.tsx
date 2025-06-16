@@ -25,6 +25,9 @@ const RichTextEditor = ({
         forced_root_block: 'div',
         menubar: false,
         directionality: 'ltr',
+        formats: {
+          fontweight: { inline: 'span', styles: { 'font-weight': '%value' } },
+        },
         fontsize_formats:
           '8px 9px 10px 11px 12px 13px 14px 15px 16px 18px 20px 24px 30px 36px 40px',
         /** Set default font-side */
@@ -57,7 +60,8 @@ const RichTextEditor = ({
               { text: 'Extra Bold (800)', value: '800' },
             ],
             onselect: (e: any) => {
-              editor.execCommand('mceApplyStyle', false, { 'font-weight': e.control.value() });
+              editor.formatter.apply('fontweight', { value: e.control.value() });
+              handleOnChange(editor.getContent());
             },
           });
 
