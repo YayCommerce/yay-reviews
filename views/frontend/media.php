@@ -31,17 +31,17 @@ foreach ( $files as $key => $file ) {
 	$extension = pathinfo( $file, PATHINFO_EXTENSION );
 	if ( in_array( strtolower( $extension ), $image_extensions ) ) {
 		$html           = '<img class="rounded-lg" src="' . esc_url( $uploads['baseurl'] . $file ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
-		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item h-[78px] w-[78px]" data-index="' . esc_attr( $key ) . '" data-type="image">
-                        <div class="p-[5px] rounded-lg overflow-hidden relative group">
-                            <div class="absolute inset-0 bg-black opacity-5 group-hover:bg-[rgba(0,0,0,0.5)] group-hover:opacity-50 transition-opacity transition-background rounded-lg"></div>
+		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item h-[78px] w-[78px] rounded-lg overflow-hidden" data-index="' . esc_attr( $key ) . '" data-type="image">
+                        <div class="p-[5px] relative group">
+                            <div class="absolute inset-0 bg-black opacity-5 group-hover:bg-[rgba(0,0,0,0.5)] group-hover:opacity-50 transition-opacity transition-background"></div>
                             <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
                         </div>
                     </div>';
 	} elseif ( in_array( strtolower( $extension ), $video_extensions ) ) {
 		$html           = '<img class="rounded-lg" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" alt="" />';
-		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item h-[78px] w-[78px]" data-index="' . esc_attr( $key ) . '" data-type="video">
-                        <div class="p-[5px] rounded-lg overflow-hidden relative group">
-                            <div class="absolute inset-0 bg-black opacity-5 group-hover:bg-[rgba(0,0,0,0.5)] group-hover:opacity-50 transition-opacity transition-background rounded-lg"></div>
+		$comment_media .= '<div class="yay-reviews-modal-comment-medias-preview-item h-[78px] w-[78px] rounded-lg overflow-hidden" data-index="' . esc_attr( $key ) . '" data-type="video">
+                        <div class="p-[5px] relative group">
+                            <div class="absolute inset-0 bg-black opacity-5 group-hover:bg-[rgba(0,0,0,0.5)] group-hover:opacity-50 transition-opacity transition-background"></div>
                             <img class="h-[68px] w-[68px] object-contain" src="' . esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ) . '" alt="Media preview" data-src="' . esc_url( $uploads['baseurl'] . $file ) . '" />
                         </div>
                     </div>';

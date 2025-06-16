@@ -10,7 +10,7 @@ if ( 'video_image' === $media_type ) {
 
 ?>
 
-<div class="my-4 flex flex-col gap-[10px]">
+<div class="my-4">
 	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
 	<?php if ( ! empty( $upload_media ) ) : ?>
 		<?php if ( ! empty( $label ) ) : ?>
