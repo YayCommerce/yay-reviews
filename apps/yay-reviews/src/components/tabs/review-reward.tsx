@@ -56,8 +56,6 @@ export default function ReviewRewardTab() {
     setNewRewardIds((prev) => prev.filter((id) => id !== reward.id));
   };
 
-  console.log('coupons', coupons);
-
   return (
     <div className="flex w-2/3 flex-col gap-8">
       <div className="text-foreground text-3xl font-bold">{__('review_reward')}</div>

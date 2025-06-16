@@ -37,6 +37,7 @@ class Admin {
 
 			wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay_reviews', YAY_REVIEWS_PLUGIN_PATH . 'languages' );
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
+			wp_enqueue_editor();
 
 			wp_localize_script(
 				ScriptName::PAGE_SETTINGS,

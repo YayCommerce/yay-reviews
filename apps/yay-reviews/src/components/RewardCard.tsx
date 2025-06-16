@@ -43,9 +43,6 @@ export default function RewardCard({
         : '';
   }, [coupons, coupon]);
 
-  console.log('coupon', coupon);
-  console.log(reward);
-
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
       <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-t-xl bg-white shadow-sm">

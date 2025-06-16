@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
 import { Loader2Icon } from 'lucide-react';
-import ReactQuill from 'react-quill';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
 import { __, cn, getEmailSampleValues } from '@/lib/utils';
 
+import RichTextEditor from './editor/RichTextEditor';
 import DesktopIcon from './icons/Desktop';
 import MobileIcon from './icons/Mobile';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
@@ -98,15 +98,19 @@ export default function EmailTemplateCard({
             </div>
 
             {/* Email content */}
-            <div className="yay-reviews-email-content">
-              <div className="flex items-center justify-between">
-                <span>{__('email_content')}</span>
-              </div>
+
+            <div className="flex flex-col gap-2">
+              <span>{__('email_content')}</span>
+
               <FormField
                 control={control}
                 name={`email.${templateId}.content`}
                 render={({ field: { value, onChange } }) => (
-                  <ReactQuill theme="snow" value={value} onChange={onChange} />
+                  <RichTextEditor
+                    ID={`yay-reviews-email-content-${templateId}`}
+                    value={value}
+                    handleOnChange={onChange}
+                  />
                 )}
               />
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
@@ -238,7 +242,7 @@ export default function EmailTemplateCard({
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={'text-foreground flex flex-col items-center gap-5 text-center'}>
+                <div className={'text-foreground flex flex-col items-center gap-5'}>
                   <div className="text-base font-semibold">{heading}</div>
                   <div className="text-sm" dangerouslySetInnerHTML={{ __html: content }} />
                   <div className="text-base font-semibold">{footer}</div>

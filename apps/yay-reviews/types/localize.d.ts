@@ -24,6 +24,7 @@ declare global {
       product_brands: ComboboxOption[];
     };
     wp: AnyObject;
+    tinymce: any;
   }
 }
 
