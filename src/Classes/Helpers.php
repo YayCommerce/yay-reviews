@@ -367,4 +367,21 @@ class Helpers {
 
 		return count( $orders );
 	}
+
+	public static function get_wc_email_settings() {
+		// Load colors.
+		$bg          = get_option( 'woocommerce_email_background_color' );
+		$body        = get_option( 'woocommerce_email_body_background_color' );
+		$base        = get_option( 'woocommerce_email_base_color' );
+		$text        = get_option( 'woocommerce_email_text_color' );
+		$footer_text = get_option( 'woocommerce_email_footer_text_color' );
+
+		return array(
+			'bg'          => $bg,
+			'body'        => $body,
+			'base'        => $base,
+			'text'        => $text,
+			'footer_text' => $footer_text,
+		);
+	}
 }

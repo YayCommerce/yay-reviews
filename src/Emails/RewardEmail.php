@@ -18,10 +18,10 @@ class RewardEmail extends \WC_Email {
 		$this->template_plain = 'emails/plain/reward-email.php';
 		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
 		$this->placeholders   = array(
-			'{order_date}'    => '',
-			'{order_number}'  => '',
 			'{customer_name}' => '',
 			'{site_title}'    => '',
+			'{coupon_code}'   => '',
+			'{product_name}'  => '',
 		);
 
 		// Call parent constructor
@@ -138,7 +138,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_heading(),
 				'default'     => '',
 			),
@@ -156,7 +156,7 @@ class RewardEmail extends \WC_Email {
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_footer(),
 				'default'     => '',
 			),

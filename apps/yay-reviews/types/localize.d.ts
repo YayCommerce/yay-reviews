@@ -22,6 +22,7 @@ declare global {
       coupon_types: Record<string, string>;
       product_categories: ComboboxOption[];
       product_brands: ComboboxOption[];
+      wc_email_settings: Record<string, string>;
     };
     wp: AnyObject;
     tinymce: any;

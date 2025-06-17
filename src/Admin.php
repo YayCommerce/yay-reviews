@@ -239,6 +239,7 @@ class Admin {
 						'{product_name}'   => 'Sample Product',
 						'{products_table}' => Helpers::get_products_table( 'sample' ),
 					),
+					'wc_email_settings'  => Helpers::get_wc_email_settings(),
 					'coupon_types'       => wc_get_coupon_types(),
 					'product_categories' => Helpers::get_product_categories(),
 					'product_brands'     => Helpers::get_product_brands(),
