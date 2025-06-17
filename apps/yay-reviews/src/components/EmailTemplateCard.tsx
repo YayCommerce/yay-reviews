@@ -22,6 +22,7 @@ import {
 } from './ui/dialog';
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 export default function EmailTemplateCard({
   templateId,
@@ -77,23 +78,31 @@ export default function EmailTemplateCard({
           <div className="flex flex-col gap-4">
             {/* Email subject */}
             <div className="flex flex-col gap-2">
-              <span>{__('email_subject')}</span>
+              <span className="w-max">
+                <Label htmlFor={`email.${templateId}.subject`} className="font-normal">
+                  {__('email_subject')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`email.${templateId}.subject`}
                 render={({ field: { value, onChange } }) => (
-                  <Input value={value} onChange={onChange} />
+                  <Input id={`email.${templateId}.subject`} value={value} onChange={onChange} />
                 )}
               />
             </div>
             {/* Email heading */}
             <div className="flex flex-col gap-2">
-              <span>{__('email_heading')}</span>
+              <span className="w-max">
+                <Label htmlFor={`email.${templateId}.heading`} className="font-normal">
+                  {__('email_heading')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`email.${templateId}.heading`}
                 render={({ field: { value, onChange } }) => (
-                  <Input value={value} onChange={onChange} />
+                  <Input id={`email.${templateId}.heading`} value={value} onChange={onChange} />
                 )}
               />
             </div>
@@ -101,7 +110,11 @@ export default function EmailTemplateCard({
             {/* Email content */}
             <div>
               <div className="flex flex-col gap-2">
-                <span>{__('email_content')}</span>
+                <span className="w-max">
+                  <Label htmlFor={`email.${templateId}.content`} className="font-normal">
+                    {__('email_content')}
+                  </Label>
+                </span>
                 <FormField
                   control={control}
                   name={`email.${templateId}.content`}
@@ -125,12 +138,16 @@ export default function EmailTemplateCard({
 
             {/* Email footer */}
             <div className="flex flex-col gap-2">
-              <span>{__('email_footer')}</span>
+              <span className="w-max">
+                <Label htmlFor={`email.${templateId}.footer`} className="font-normal">
+                  {__('email_footer')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`email.${templateId}.footer`}
                 render={({ field: { value, onChange } }) => (
-                  <Input value={value} onChange={onChange} />
+                  <Input id={`email.${templateId}.footer`} value={value} onChange={onChange} />
                 )}
               />
             </div>

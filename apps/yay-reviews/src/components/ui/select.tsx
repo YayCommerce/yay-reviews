@@ -6,8 +6,25 @@ import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 
-function Select({ ...props }: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />;
+function Select({
+  id,
+  ...props
+}: React.ComponentProps<typeof SelectPrimitive.Root> & { id?: string }) {
+  const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleLabelClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'LABEL' && target.getAttribute('for') === id) {
+        setOpen(true);
+      }
+    };
+
+    document.addEventListener('click', handleLabelClick);
+    return () => document.removeEventListener('click', handleLabelClick);
+  }, [id]);
+
+  return <SelectPrimitive.Root open={open} onOpenChange={setOpen} data-slot="select" {...props} />;
 }
 
 function SelectGroup({ ...props }: React.ComponentProps<typeof SelectPrimitive.Group>) {
@@ -22,12 +39,15 @@ function SelectTrigger({
   className,
   size = 'default',
   children,
+  id,
   ...props
 }: React.ComponentProps<typeof SelectPrimitive.Trigger> & {
   size?: 'sm' | 'default';
+  id?: string;
 }) {
   return (
     <SelectPrimitive.Trigger
+      id={id}
       data-slot="select-trigger"
       data-size={size}
       className={cn(

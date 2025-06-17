@@ -29,6 +29,7 @@ export interface ComboboxProps {
   hasAll?: boolean;
   disabled?: boolean;
   onSearch?: (search: string) => void;
+  id?: string;
 }
 
 function Combobox({
@@ -41,6 +42,7 @@ function Combobox({
   hasAll = false,
   disabled = false,
   onSearch,
+  id,
 }: ComboboxProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,6 +64,7 @@ function Combobox({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
+          id={id}
           variant="outline"
           role="combobox"
           aria-expanded={open}

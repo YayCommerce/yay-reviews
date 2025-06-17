@@ -12,6 +12,7 @@ import { Button } from './ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
+import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Switch } from './ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
@@ -114,13 +115,22 @@ export default function RewardCard({
         <div className="flex flex-col gap-4 p-6">
           {/* Coupon selection */}
           <div className="flex flex-col gap-2">
-            <span className="text-sm">{__('select_coupon_to_be_sent')}</span>
+            <span className="w-max">
+              <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="font-normal">
+                {__('select_coupon_to_be_sent')}
+              </Label>
+            </span>
             <div>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.coupon_id`}
                 render={({ field: { value, onChange } }) => (
-                  <Select value={value || ''} defaultValue={value || ''} onValueChange={onChange}>
+                  <Select
+                    id={`rewards.${reward.id}.coupon_id`}
+                    value={value || ''}
+                    defaultValue={value || ''}
+                    onValueChange={onChange}
+                  >
                     <SelectTrigger className="w-1/2 bg-white">
                       <SelectValue placeholder={__('select_coupon')} />
                     </SelectTrigger>
@@ -204,10 +214,19 @@ export default function RewardCard({
                 control={control}
                 name={`rewards.${reward.id}.only_send_to_purchased_customers`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                  <Switch
+                    id={`rewards.${reward.id}.only_send_to_purchased_customers`}
+                    checked={Boolean(value)}
+                    onCheckedChange={() => onChange(!value)}
+                  />
                 )}
               />
-              <span>{__('only_send_coupon_for_reviews_from_purchased_customers')}</span>
+              <Label
+                htmlFor={`rewards.${reward.id}.only_send_to_purchased_customers`}
+                className="font-normal"
+              >
+                {__('only_send_coupon_for_reviews_from_purchased_customers')}
+              </Label>
             </div>
 
             {!onlySendToPurchasedCustomers && (
@@ -216,19 +235,33 @@ export default function RewardCard({
                   control={control}
                   name={`rewards.${reward.id}.send_to_guests`}
                   render={({ field: { value, onChange } }) => (
-                    <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                    <Switch
+                      id={`rewards.${reward.id}.send_to_guests`}
+                      checked={Boolean(value)}
+                      onCheckedChange={() => onChange(!value)}
+                    />
                   )}
                 />
-                <span>{__('guests_can_receive_reward')}</span>
+                <Label htmlFor={`rewards.${reward.id}.send_to_guests`} className="font-normal">
+                  {__('guests_can_receive_reward')}
+                </Label>
               </div>
             )}
             <div className="flex flex-col gap-2">
-              <label className="text-sm">{__('minimum_required_rating')}</label>
+              <span className="w-max">
+                <Label
+                  htmlFor={`rewards.${reward.id}.minimum_required_rating`}
+                  className="font-normal"
+                >
+                  {__('minimum_required_rating')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_rating`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id={`rewards.${reward.id}.minimum_required_rating`}
                     type="number"
                     className="w-16"
                     min={0}
@@ -241,12 +274,20 @@ export default function RewardCard({
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-sm">{__('minimum_media_files_uploaded')}</label>
+              <span className="w-max">
+                <Label
+                  htmlFor={`rewards.${reward.id}.minimum_media_files_uploaded`}
+                  className="font-normal"
+                >
+                  {__('minimum_media_files_uploaded')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_media_files_uploaded`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id={`rewards.${reward.id}.minimum_media_files_uploaded`}
                     type="number"
                     className="w-16"
                     min={0}
@@ -259,12 +300,20 @@ export default function RewardCard({
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-sm">{__('minimum_required_reviews')}</label>
+              <span className="w-max">
+                <Label
+                  htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
+                  className="font-normal"
+                >
+                  {__('minimum_required_reviews')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                     type="number"
                     className="w-16"
                     min={0}

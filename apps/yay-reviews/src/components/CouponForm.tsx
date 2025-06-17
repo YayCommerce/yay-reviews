@@ -118,37 +118,52 @@ export const CouponForm = ({
         })}
       >
         <div className="grid gap-2">
-          <Label htmlFor="code">{__('coupon_code')}</Label>
+          <span className="w-max">
+            <Label htmlFor="code" className="font-normal">
+              {__('coupon_code')}
+            </Label>
+          </span>
           <FormField
             control={control}
             name={`code`}
             render={({ field: { value, onChange }, fieldState: { error } }) => (
               <div className="space-y-1">
-                <Input name="code" value={value} onChange={onChange} />
+                <Input id="code" name="code" value={value} onChange={onChange} />
                 {error && <span className="text-sm text-red-500">{error.message}</span>}
               </div>
             )}
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="description">
-            {__('description')} ({__('optional')})
-          </Label>
+          <span className="w-max">
+            <Label htmlFor="description" className="font-normal">
+              {__('description')} ({__('optional')})
+            </Label>
+          </span>
           <FormField
             control={control}
             name={`description`}
             render={({ field: { value, onChange } }) => (
-              <Input name="description" value={value} onChange={onChange} />
+              <Input id="description" name="description" value={value} onChange={onChange} />
             )}
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="discount_type">{__('discount_type')}</Label>
+          <span className="w-max">
+            <Label htmlFor="discount_type" className="font-normal">
+              {__('discount_type')}
+            </Label>
+          </span>
           <FormField
             control={control}
             name={`discount_type`}
             render={({ field: { value, onChange } }) => (
-              <Select name="discount_type" value={value} onValueChange={onChange}>
+              <Select
+                id="discount_type"
+                name="discount_type"
+                value={value}
+                onValueChange={onChange}
+              >
                 <SelectTrigger className="w-full bg-white">
                   <SelectValue placeholder={__('select_type')} />
                 </SelectTrigger>
@@ -164,12 +179,17 @@ export const CouponForm = ({
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="amount">{__('coupon_amount')}</Label>
+          <span className="w-max">
+            <Label htmlFor="amount" className="font-normal">
+              {__('coupon_amount')}
+            </Label>
+          </span>
           <FormField
             control={control}
             name={`amount`}
             render={({ field: { value, onChange } }) => (
               <Input
+                id="amount"
                 name="amount"
                 value={value}
                 onChange={(e) => onChange(Number(e.target.value))}
@@ -185,8 +205,13 @@ export const CouponForm = ({
             name={`free_shipping`}
             render={({ field: { value, onChange } }) => (
               <div className="flex items-center gap-2">
-                <Checkbox name="free_shipping" checked={value} onCheckedChange={onChange} />
-                <Label htmlFor="free_shipping">
+                <Checkbox
+                  id="free_shipping"
+                  name="free_shipping"
+                  checked={value}
+                  onCheckedChange={onChange}
+                />
+                <Label htmlFor="free_shipping" className="font-normal">
                   {__('allow_free_shipping')}{' '}
                   <span>
                     <TooltipProvider>
@@ -206,12 +231,21 @@ export const CouponForm = ({
           />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="expiry_date">{__('coupon_expiry_date')}</Label>
+          <span className="w-max">
+            <Label htmlFor="expiry_date" className="font-normal">
+              {__('coupon_expiry_date')}
+            </Label>
+          </span>
           <FormField
             control={control}
             name={`expiry_date`}
             render={({ field: { value, onChange } }) => (
-              <DatePicker date={value} setDate={onChange} placeholder={__('no_expiry')} />
+              <DatePicker
+                id="expiry_date"
+                date={value}
+                setDate={onChange}
+                placeholder={__('no_expiry')}
+              />
             )}
           />
         </div>
@@ -226,12 +260,17 @@ export const CouponForm = ({
           </TabsList>
           <TabsContent value="usage_restriction" className="grid items-start gap-4 px-0">
             <div className="grid gap-2">
-              <Label htmlFor="minimum_spend">{__('minimum_spend')}</Label>
+              <span className="w-max">
+                <Label htmlFor="minimum_spend" className="font-normal">
+                  {__('minimum_spend')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`minimum_spend`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id="minimum_spend"
                     name="minimum_spend"
                     placeholder={__('no_minimum')}
                     value={value}
@@ -243,12 +282,17 @@ export const CouponForm = ({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="maximum_spend">{__('maximum_spend')}</Label>
+              <span className="w-max">
+                <Label htmlFor="maximum_spend" className="font-normal">
+                  {__('maximum_spend')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`maximum_spend`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id="maximum_spend"
                     name="maximum_spend"
                     placeholder={__('no_maximum')}
                     value={value}
@@ -265,8 +309,13 @@ export const CouponForm = ({
                 name={`individual_use`}
                 render={({ field: { value, onChange } }) => (
                   <div className="flex items-center gap-2">
-                    <Checkbox name="individual_use" checked={value} onCheckedChange={onChange} />
-                    <Label htmlFor="individual_use">
+                    <Checkbox
+                      id="individual_use"
+                      name="individual_use"
+                      checked={value}
+                      onCheckedChange={onChange}
+                    />
+                    <Label htmlFor="individual_use" className="font-normal">
                       {__('individual_use')}
                       <span>
                         <TooltipProvider>
@@ -292,11 +341,12 @@ export const CouponForm = ({
                 render={({ field: { value, onChange } }) => (
                   <div className="flex items-center gap-2">
                     <Checkbox
+                      id="exclude_sale_items"
                       name="exclude_sale_items"
                       checked={value}
                       onCheckedChange={onChange}
                     />
-                    <Label htmlFor="exclude_sale_items">
+                    <Label htmlFor="exclude_sale_items" className="font-normal">
                       {__('exclude_sale_items')}
                       <span>
                         <TooltipProvider>
@@ -318,12 +368,17 @@ export const CouponForm = ({
 
             <div className="grid gap-2">
               <SectionHorizontal label={__('and')} />
-              <Label htmlFor="products">{__('products')}</Label>
+              <span className="w-max">
+                <Label htmlFor="products" className="font-normal">
+                  {__('products')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`products`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="products"
                     className="w-full"
                     options={productOptions}
                     value={value}
@@ -336,12 +391,17 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="exclude_products">{__('exclude_products')}</Label>
+              <span className="w-max">
+                <Label htmlFor="exclude_products" className="font-normal">
+                  {__('exclude_products')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`exclude_products`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="exclude_products"
                     className="w-full"
                     options={excludeProductOptions}
                     value={value}
@@ -355,12 +415,17 @@ export const CouponForm = ({
 
             <div className="grid gap-2">
               <SectionHorizontal label={__('and')} />
-              <Label htmlFor="product_categories">{__('product_categories')}</Label>
+              <span className="w-max">
+                <Label htmlFor="product_categories" className="font-normal">
+                  {__('product_categories')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`product_categories`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="product_categories"
                     className="w-full"
                     options={window.yayReviews.product_categories}
                     value={value}
@@ -372,12 +437,17 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="exclude_product_categories">{__('exclude_product_categories')}</Label>
+              <span className="w-max">
+                <Label htmlFor="exclude_product_categories" className="font-normal">
+                  {__('exclude_product_categories')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`exclude_product_categories`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="exclude_product_categories"
                     className="w-full"
                     options={window.yayReviews.product_categories}
                     value={value}
@@ -390,24 +460,38 @@ export const CouponForm = ({
 
             <div className="grid gap-2">
               <SectionHorizontal label={__('and')} />
-              <Label htmlFor="allowed_emails">{__('allowed_emails')}</Label>
+              <span className="w-max">
+                <Label htmlFor="allowed_emails" className="font-normal">
+                  {__('allowed_emails')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`allowed_emails`}
                 render={({ field: { value, onChange } }) => (
-                  <Input name="allowed_emails" value={value} onChange={onChange} />
+                  <Input
+                    id="allowed_emails"
+                    name="allowed_emails"
+                    value={value}
+                    onChange={onChange}
+                  />
                 )}
               />
             </div>
 
             <div className="grid gap-2">
               <SectionHorizontal label={__('and')} />
-              <Label htmlFor="product_brands">{__('product_brands')}</Label>
+              <span className="w-max">
+                <Label htmlFor="product_brands" className="font-normal">
+                  {__('product_brands')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`product_brands`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="product_brands"
                     className="w-full"
                     options={window.yayReviews.product_brands}
                     value={value}
@@ -419,12 +503,17 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="exclude_product_brands">{__('exclude_product_brands')}</Label>
+              <span className="w-max">
+                <Label htmlFor="exclude_product_brands" className="font-normal">
+                  {__('exclude_product_brands')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`exclude_product_brands`}
                 render={({ field: { value, onChange } }) => (
                   <Combobox
+                    id="exclude_product_brands"
                     className="w-full"
                     options={window.yayReviews.product_brands}
                     value={value}
@@ -437,12 +526,17 @@ export const CouponForm = ({
           </TabsContent>
           <TabsContent value="usage_limits" className="grid items-start gap-4 px-0">
             <div className="grid gap-2">
-              <Label htmlFor="usage_limit_per_coupon">{__('usage_limit_per_coupon')}</Label>
+              <span className="w-max">
+                <Label htmlFor="usage_limit_per_coupon" className="font-normal">
+                  {__('usage_limit_per_coupon')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`usage_limit_per_coupon`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id="usage_limit_per_coupon"
                     name="usage_limit_per_coupon"
                     placeholder={__('unlimited_usage')}
                     value={value}
@@ -454,12 +548,17 @@ export const CouponForm = ({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="limit_usage_to_x_items">{__('limit_usage_to_x_items')}</Label>
+              <span className="w-max">
+                <Label htmlFor="limit_usage_to_x_items" className="font-normal">
+                  {__('limit_usage_to_x_items')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`limit_usage_to_x_items`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id="limit_usage_to_x_items"
                     name="limit_usage_to_x_items"
                     placeholder={__('limit_usage_to_x_items_placeholder')}
                     value={value}
@@ -471,12 +570,17 @@ export const CouponForm = ({
               />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="usage_limit_per_user">{__('usage_limit_per_user')}</Label>
+              <span className="w-max">
+                <Label htmlFor="usage_limit_per_user" className="font-normal">
+                  {__('usage_limit_per_user')}
+                </Label>
+              </span>
               <FormField
                 control={control}
                 name={`usage_limit_per_user`}
                 render={({ field: { value, onChange } }) => (
                   <Input
+                    id="usage_limit_per_user"
                     name="usage_limit_per_user"
                     placeholder={__('unlimited_usage')}
                     value={value}

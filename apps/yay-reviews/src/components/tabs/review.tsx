@@ -4,6 +4,7 @@ import { Badge } from '../ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
@@ -48,20 +49,28 @@ export default function ReviewTab() {
                     control={control}
                     name={`reviews.upload_required`}
                     render={({ field: { value, onChange } }) => (
-                      <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                      <Switch
+                        id="reviews.upload_required"
+                        checked={Boolean(value)}
+                        onCheckedChange={() => onChange(!value)}
+                      />
                     )}
                   />
-                  <span className="lowercase">{__('is_required')}</span>
+                  <Label htmlFor="reviews.upload_required" className="font-normal lowercase">
+                    {__('is_required')}
+                  </Label>
                 </div>
                 {/* Media Types */}
                 <div className="flex flex-col gap-1">
-                  <span>{__('media_types')}</span>
+                  <Label htmlFor="reviews.media_type" className="font-normal">
+                    {__('media_types')}
+                  </Label>
                   <FormField
                     control={control}
                     name={`reviews.media_type`}
                     render={({ field: { value, onChange } }) => (
                       <Select value={value} onValueChange={onChange}>
-                        <SelectTrigger className="w-1/2">
+                        <SelectTrigger id="reviews.media_type" className="w-1/2">
                           <SelectValue placeholder={__('select_types')} />
                         </SelectTrigger>
                         <SelectContent>
@@ -75,12 +84,15 @@ export default function ReviewTab() {
                 </div>
                 {/* Maximum Files */}
                 <div className="flex flex-col gap-1">
-                  <div>{__('maximum_files')}</div>
+                  <Label htmlFor="reviews.max_upload_file_qty" className="font-normal">
+                    {__('maximum_files')}
+                  </Label>
                   <FormField
                     control={control}
                     name={`reviews.max_upload_file_qty`}
                     render={({ field: { value, onChange } }) => (
                       <Input
+                        id="reviews.max_upload_file_qty"
                         type="number"
                         value={value}
                         onChange={(e) => onChange(Number(e.target.value))}
@@ -94,12 +106,15 @@ export default function ReviewTab() {
                 </div>
                 {/* Maximum File Size */}
                 <div className="flex flex-col gap-1">
-                  <div>{__('maximum_file_size')} (Kbs)</div>
+                  <Label htmlFor="reviews.max_upload_file_size" className="font-normal">
+                    {__('maximum_file_size')} (Kbs)
+                  </Label>
                   <FormField
                     control={control}
                     name={`reviews.max_upload_file_size`}
                     render={({ field: { value, onChange } }) => (
                       <Input
+                        id="reviews.max_upload_file_size"
                         type="number"
                         value={value}
                         onChange={(e) => onChange(Number(e.target.value))}
@@ -116,23 +131,34 @@ export default function ReviewTab() {
                 </div>
                 {/* Field Label */}
                 <div className="flex flex-col gap-1">
-                  <div>{__('field_label')}</div>
+                  <Label htmlFor="reviews.upload_file_label" className="font-normal">
+                    {__('field_label')}
+                  </Label>
                   <FormField
                     control={control}
                     name={`reviews.upload_file_label`}
                     render={({ field: { value, onChange } }) => (
-                      <Input type="text" value={value} onChange={onChange} className="w-full" />
+                      <Input
+                        id="reviews.upload_file_label"
+                        type="text"
+                        value={value}
+                        onChange={onChange}
+                        className="w-full"
+                      />
                     )}
                   />
                 </div>
                 {/* Field Description */}
                 <div className="flex w-full flex-col gap-1">
-                  <div>{__('field_description')}</div>
+                  <Label htmlFor="reviews.upload_file_description" className="font-normal">
+                    {__('field_description')}
+                  </Label>
                   <FormField
                     control={control}
                     name={`reviews.upload_file_description`}
                     render={({ field: { value, onChange } }) => (
                       <Textarea
+                        id="reviews.upload_file_description"
                         rows={3}
                         value={value}
                         onChange={onChange}
@@ -171,12 +197,15 @@ export default function ReviewTab() {
             <div className="flex flex-col gap-4">
               {/* GDPR message */}
               <div className="flex flex-col gap-1">
-                <div>{__('gdpr_message')}</div>
+                <Label htmlFor="reviews.gdpr_message" className="font-normal">
+                  {__('gdpr_message')}
+                </Label>
                 <FormField
                   control={control}
                   name={`reviews.gdpr_message`}
                   render={({ field: { value, onChange } }) => (
                     <Textarea
+                      id="reviews.gdpr_message"
                       rows={3}
                       value={value}
                       onChange={onChange}
@@ -187,12 +216,15 @@ export default function ReviewTab() {
               </div>
               {/* Before message */}
               <div className="flex flex-col gap-1">
-                <div>{__('before_message')}</div>
+                <Label htmlFor="reviews.before_message" className="font-normal">
+                  {__('before_message')}
+                </Label>
                 <FormField
                   control={control}
                   name={`reviews.before_message`}
                   render={({ field: { value, onChange } }) => (
                     <Textarea
+                      id="reviews.before_message"
                       rows={3}
                       value={value}
                       onChange={onChange}
@@ -203,12 +235,15 @@ export default function ReviewTab() {
               </div>
               {/* After message */}
               <div className="flex flex-col gap-1">
-                <div>{__('after_message')}</div>
+                <Label htmlFor="reviews.after_message" className="font-normal">
+                  {__('after_message')}
+                </Label>
                 <FormField
                   control={control}
                   name={`reviews.after_message`}
                   render={({ field: { value, onChange } }) => (
                     <Textarea
+                      id="reviews.after_message"
                       rows={3}
                       value={value}
                       onChange={onChange}

@@ -5,6 +5,7 @@ import { __ } from '@/lib/utils';
 import { Card, CardContent } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
@@ -27,13 +28,19 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                 <div className="w-full sm:w-1/2 md:w-1/2">
                   {/* Send a reminder email */}
                   <div className="flex flex-col gap-2">
-                    <span>{__('send_a_reminder_email')}</span>
+                    <span className="w-max">
+                      <Label htmlFor="reminder.send_after_value" className="font-normal">
+                        {__('send_a_reminder_email')}
+                      </Label>
+                    </span>
+
                     <div className="xs:flex-col flex w-full flex-row items-center gap-2">
                       <FormField
                         control={control}
                         name={`reminder.send_after_value`}
                         render={({ field: { value, onChange } }) => (
                           <Input
+                            id="reminder.send_after_value"
                             type="number"
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
@@ -47,7 +54,11 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           control={control}
                           name={`reminder.send_after_unit`}
                           render={({ field: { value, onChange } }) => (
-                            <Select value={value} onValueChange={onChange}>
+                            <Select
+                              id="reminder.send_after_unit"
+                              value={value}
+                              onValueChange={onChange}
+                            >
                               <SelectTrigger className="min-w-40">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
@@ -67,13 +78,18 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                 <div className="w-1/2">
                   {/* Max products  */}
                   <div className="flex flex-col gap-2">
-                    <span>{__('max_products_label')}</span>
+                    <span className="w-max">
+                      <Label htmlFor="reminder.max_products" className="font-normal">
+                        {__('max_products_label')}
+                      </Label>
+                    </span>
                     <div className="flex w-full items-center gap-2">
                       <FormField
                         control={control}
                         name={`reminder.max_products`}
                         render={({ field: { value, onChange } }) => (
                           <Input
+                            id="reminder.max_products"
                             disabled={productsType === 'all'}
                             type="number"
                             value={value}
@@ -88,7 +104,11 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                           control={control}
                           name={`reminder.products_type`}
                           render={({ field: { value, onChange } }) => (
-                            <Select value={value} onValueChange={onChange}>
+                            <Select
+                              id="reminder.products_type"
+                              value={value}
+                              onValueChange={onChange}
+                            >
                               <SelectTrigger className="w-full">
                                 <SelectValue placeholder={__('select_filter')} />
                               </SelectTrigger>
@@ -128,7 +148,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                 {/* Except emails */}
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-1">
-                    <span>{__('except_emails')}</span>
+                    <Label htmlFor="reminder.except_emails" className="font-normal">
+                      {__('except_emails')}
+                    </Label>
                     <span className="cursor-pointer">
                       <TooltipProvider>
                         <Tooltip delayDuration={0}>
@@ -147,6 +169,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     name={`reminder.except_emails`}
                     render={({ field: { value, onChange } }) => (
                       <Textarea
+                        id="reminder.except_emails"
                         placeholder={__('except_emails_description')}
                         rows={7}
                         className="w-1/2"
@@ -164,13 +187,16 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     name={`reminder.send_to_guests`}
                     render={({ field: { value, onChange } }) => (
                       <Switch
+                        id="reminder.send_to_guests"
                         className="cursor-pointer"
                         checked={value}
                         onCheckedChange={onChange}
                       />
                     )}
                   />
-                  <span>{__('send_to_guests')}</span>
+                  <Label htmlFor="reminder.send_to_guests" className="font-normal">
+                    {__('send_to_guests')}
+                  </Label>
                 </div>
               </div>
             </CardContent>
