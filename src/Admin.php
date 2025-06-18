@@ -72,7 +72,7 @@ class Admin {
 						'addon_optional_fields_description' => __( 'Adds custom fields to review forms, letting customers share tailored feedback for your needs.', 'yay-reviews' ),
 						'settings'                         => __( 'Settings', 'yay-reviews' ),
 						'upload_media'                     => __( 'Upload Media', 'yay-reviews' ),
-						'is_required'                      => __( 'Is Required?', 'yay-reviews' ),
+						'is_required'                      => __( 'Mark as required when submitting a review?', 'yay-reviews' ),
 						'select_types'                     => __( 'Select Types', 'yay-reviews' ),
 						'video_and_image'                  => __( 'Video & Image', 'yay-reviews' ),
 						'only_video'                       => __( 'Only Video', 'yay-reviews' ),
