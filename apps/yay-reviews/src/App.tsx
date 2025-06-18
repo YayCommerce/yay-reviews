@@ -142,7 +142,7 @@ export default function App() {
                 />
               </div>
               {/* Navigation */}
-              <div className="flex space-x-6">
+              <div className="flex space-x-6 flex-wrap">
                 {menuItems.map((item) => (
                   <Button
                     key={item.key}

@@ -40,7 +40,7 @@ export default function DashboardTab({
   };
 
   return (
-    <div className="flex w-2/3 flex-col gap-8">
+    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
       <div className="flex flex-col gap-4">
         <div className="text-foreground text-3xl font-bold">
           {__('Welcome to Yay Reviews', 'yay-reviews')}

@@ -14,10 +14,8 @@ export default function EmailsTab() {
 
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop');
   return (
-    <div className="flex w-2/3 flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">
-        {__('Email Templates', 'yay-reviews')}
-      </div>
+    <div className="flex w-[90%] flex-col gap-8">
+      <div className="text-foreground text-3xl font-bold">{__('Email Templates', 'yay-reviews')}</div>
       <div className="flex flex-col gap-4">
         {/* Email template */}
         <div className="flex flex-col gap-2">

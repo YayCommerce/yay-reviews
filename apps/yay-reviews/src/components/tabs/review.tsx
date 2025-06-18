@@ -17,10 +17,8 @@ export default function ReviewTab() {
   const enableGdpr = watch('reviews.enable_gdpr');
 
   return (
-    <div className="flex w-2/3 flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">
-        {__('Review Settings', 'yay-reviews')}
-      </div>
+    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
+      <div className="text-foreground text-3xl font-bold">{__('Review Settings', 'yay-reviews')}</div>
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader>

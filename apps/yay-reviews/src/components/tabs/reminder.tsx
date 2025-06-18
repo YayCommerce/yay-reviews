@@ -15,10 +15,8 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
   const productsType = watch('reminder.products_type');
 
   return (
-    <div className="flex w-2/3 flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">
-        {__('Reminder Settings', 'yay-reviews')}
-      </div>
+    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
+      <div className="text-foreground text-3xl font-bold">{__('Reminder Settings', 'yay-reviews')}</div>
       <div className="flex flex-col gap-6">
         {/* Send reminder when */}
         <div className="flex flex-col gap-2">
@@ -37,7 +35,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       </Label>
                     </span>
 
-                    <div className="xs:flex-col flex w-full flex-row items-center gap-2">
+                    <div className="xs:flex-col flex w-full flex-row items-center gap-2 flex-wrap">
                       <FormField
                         control={control}
                         name={`reminder.send_after_value`}
