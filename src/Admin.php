@@ -39,6 +39,8 @@ class Admin {
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 			wp_enqueue_editor();
 
+			$default_settings = Helpers::add_default_settings([]);
+
 			wp_localize_script(
 				ScriptName::PAGE_SETTINGS,
 				'yayReviews',
@@ -230,6 +232,8 @@ class Admin {
 						'no_expiry'                        => __( 'No expiry', 'yay-reviews' ),
 						'limit_usage_to_x_items'           => __( 'Limit usage to X items', 'yay-reviews' ),
 						'limit_usage_to_x_items_placeholder' => __( 'Apply to all qualifying items in cart', 'yay-reviews' ),
+						'reset_template'                     => __( 'Reset template', 'yay-reviews' ),
+						'reset_template_description'         => __( 'Reset the template to the default values.', 'yay-reviews' ),
 					),
 					'data_settings'      => Helpers::get_all_settings(),
 					'sample_values'      => array(
@@ -243,6 +247,7 @@ class Admin {
 					'coupon_types'       => wc_get_coupon_types(),
 					'product_categories' => Helpers::get_product_categories(),
 					'product_brands'     => Helpers::get_product_brands(),
+					'default_email_templates' => $default_settings['email'],
 				)
 			);
 

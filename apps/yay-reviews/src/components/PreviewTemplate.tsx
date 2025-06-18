@@ -103,7 +103,7 @@ const PreviewTemplate = ({
                                     >
                                       <div className="email-content">
                                         <div
-                                          className="mb-4 text-center text-base"
+                                          className="mb-4 text-base"
                                           style={{
                                             color: window.yayReviews.wc_email_settings.text,
                                           }}

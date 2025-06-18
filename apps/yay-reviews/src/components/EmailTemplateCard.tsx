@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Loader2Icon } from 'lucide-react';
+import { Loader2Icon, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
@@ -35,8 +35,9 @@ export default function EmailTemplateCard({
 }) {
   const [testEmail, setTestEmail] = useState(window.yayReviews.admin_email || '');
   const [isSending, setIsSending] = useState(false);
+  const [resetTemplateDialogOpen, setResetTemplateDialogOpen] = useState(false);
 
-  const { watch, control } = useFormContext();
+  const { watch, control, setValue } = useFormContext();
   const emailSubject = watch(`email.${templateId}.subject`);
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
@@ -70,6 +71,25 @@ export default function EmailTemplateCard({
   const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleResetTemplate = () => {
+    const resetKeys = ['subject', 'heading', 'content', 'footer'];
+    resetKeys.forEach((key) => {
+      if (!window.yayReviews?.default_email_templates?.[templateId]?.[key]) {
+        return;
+      }
+      if (key === 'content') {
+        const editor = window.tinymce?.get(`yay-reviews-email-content-${templateId}`);
+        if (editor) {
+          editor.setContent(window.yayReviews.default_email_templates[templateId].content);
+        }
+      }
+      setValue(
+        `email.${templateId}.${key}`,
+        window.yayReviews.default_email_templates[templateId][key],
+      );
+    });
+  };
 
   return (
     <Card>
@@ -150,6 +170,46 @@ export default function EmailTemplateCard({
                   <Input id={`email.${templateId}.footer`} value={value} onChange={onChange} />
                 )}
               />
+            </div>
+            <div className="flex flex-col gap-2">
+              <Dialog open={resetTemplateDialogOpen} onOpenChange={setResetTemplateDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-fit">
+                    <RefreshCcw className="size-4" />
+                    {__('reset_template')}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>{__('reset_template')}</DialogTitle>
+                  </DialogHeader>
+                  <div>{__('reset_template_description')}</div>
+                  <DialogFooter>
+                    <Button
+                      variant="outline"
+                      className=""
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setResetTemplateDialogOpen(false);
+                      }}
+                    >
+                      {__('cancel')}
+                    </Button>
+                    <Button
+                      variant="default"
+                      className=""
+                      disabled={isSending}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleResetTemplate();
+                        setResetTemplateDialogOpen(false);
+                      }}
+                    >
+                      {__('reset_template')}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           <div className="flex flex-col gap-4 rounded-md border p-4">

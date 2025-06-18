@@ -186,7 +186,6 @@
   margin: 0;
 }
 
-.yay-reviews-editor #yay-reviews-email-content-reminder_ifr,
-.yay-reviews-editor #yay-reviews-email-content-reward_ifr {
-  height: 150px !important;
+.yay-reviews-editor iframe {
+  min-height: 150px !important;
 }
