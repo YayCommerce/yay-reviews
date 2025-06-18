@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { Coupon } from 'types/coupon';
 
@@ -10,6 +10,14 @@ import { NewCouponDrawer } from './NewCouponDrawer';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './ui/dialog';
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -31,6 +39,9 @@ export default function RewardCard({
   isNew?: boolean;
 }) {
   const { control, watch } = useFormContext<SettingsFormData>();
+
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
   const onlySendToPurchasedCustomers = watch(
     `rewards.${reward.id}.only_send_to_purchased_customers`,
@@ -94,16 +105,54 @@ export default function RewardCard({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleDelete(reward);
-                    }}
-                  >
-                    <TrashIcon strokeWidth={1.5} />
-                  </Button>
+                  <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setDeleteDialogOpen(true);
+                        }}
+                      >
+                        <TrashIcon strokeWidth={1.5} />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent
+                      className="max-w-md"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <DialogHeader>
+                        <DialogTitle>{__('Delete reward', 'yay-reviews')}</DialogTitle>
+                      </DialogHeader>
+                      <div>{__('Are you sure you want to delete this reward?', 'yay-reviews')}</div>
+                      <DialogFooter>
+                        <Button
+                          variant="outline"
+                          className=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setDeleteDialogOpen(false);
+                          }}
+                        >
+                          {__('Cancel', 'yay-reviews')}
+                        </Button>
+                        <Button
+                          variant="default"
+                          className=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDelete(reward);
+                            setDeleteDialogOpen(false);
+                          }}
+                        >
+                          {__('Delete reward', 'yay-reviews')}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </TooltipTrigger>
                 <TooltipContent>{__('Delete', 'yay-reviews')}</TooltipContent>
               </Tooltip>
