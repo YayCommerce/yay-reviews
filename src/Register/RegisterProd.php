@@ -23,6 +23,7 @@ class RegisterProd {
 			YAY_REVIEWS_VERSION,
 			true
 		);
+		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAY_REVIEWS_PLUGIN_PATH . 'languages' );
 		wp_script_add_data( ScriptName::PAGE_SETTINGS, 'type', 'module' );
 	}
 }

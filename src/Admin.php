@@ -35,7 +35,6 @@ class Admin {
 
 		if ( 'yaycommerce_page_yay-reviews' === $screen_id ) {
 
-			wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAY_REVIEWS_PLUGIN_PATH . '/languages' );
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 			wp_enqueue_editor();
 

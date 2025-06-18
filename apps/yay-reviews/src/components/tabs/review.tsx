@@ -61,7 +61,7 @@ export default function ReviewTab() {
                     )}
                   />
                   <Label htmlFor="reviews.upload_required" className="font-normal lowercase">
-                    {__('is required', 'yay-reviews')}
+                    {__('Mark as required when submitting a review?', 'yay-reviews')}
                   </Label>
                 </div>
                 {/* Media Types */}

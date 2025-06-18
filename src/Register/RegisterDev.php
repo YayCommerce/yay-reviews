@@ -32,5 +32,6 @@ class RegisterDev {
 		$deps = array( 'react', 'react-dom', 'wp-hooks', 'wp-i18n' );
 
 		wp_register_script( ScriptName::PAGE_SETTINGS, 'http://localhost:3001/main.tsx', $deps, null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAY_REVIEWS_PLUGIN_PATH . 'languages' );
 	}
 }
