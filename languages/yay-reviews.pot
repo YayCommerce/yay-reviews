@@ -2,15 +2,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YayReviews\n"
-"POT-Creation-Date: 2025-06-18 14:56+0700\n"
-"PO-Revision-Date: 2025-06-18 14:56+0700\n"
+"POT-Creation-Date: 2025-06-18 10:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: yay-reviews.php\n"
@@ -21,6 +21,8 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: apps/yay-reviews/node_modules\n"
+"\n"
+"Language: "
 
 #: assets/admin/dist/main.js:1
 msgid "Reminder"
@@ -773,10 +775,10 @@ msgstr ""
 #: src/Emails/ReminderEmail.php:111 src/Emails/RewardEmail.php:74
 msgid ""
 "Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-"Lorem Ipsum has been the industry's standard dummy text ever since the "
-"1500s, when an unknown printer took a galley of type and scrambled it to "
-"make a type specimen book. It has survived not only five centuries, but also "
-"the leap into electronic typesetting, remaining essentially unchanged"
+"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
+" when an unknown printer took a galley of type and scrambled it to make a "
+"type specimen book. It has survived not only five centuries, but also the "
+"leap into electronic typesetting, remaining essentially unchanged"
 msgstr ""
 
 #: src/Emails/ReminderEmail.php:189 src/Emails/RewardEmail.php:122
@@ -1050,8 +1052,8 @@ msgstr ""
 #: src/YayCommerceMenu/views/other-plugins-content.php:217
 #, php-format
 msgid ""
-"<a href=\"%1$s\">Please update WordPress</a>, and then <a "
-"href=\"%2$s\">learn more about updating PHP</a>."
+"<a href=\"%1$s\">Please update WordPress</a>, and then <a href=\"%2$s\">"
+"learn more about updating PHP</a>."
 msgstr ""
 
 #. translators: %s: URL to WordPress Updates screen.
@@ -1122,4 +1124,7 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://yaycommerce.com"
+msgstr ""
+
+msgid "Mark as required when submitting a review?"
 msgstr ""
