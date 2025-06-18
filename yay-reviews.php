@@ -26,7 +26,7 @@ define( 'YAY_REVIEWS_VIEW_PATH', YAY_REVIEWS_PLUGIN_PATH . 'views/' );
 define( 'YAY_REVIEWS_REST_URL', 'yay-reviews/v1' );
 
 define( 'YAY_REVIEWS_VERSION', '1.0.0.3' );
-define( 'YAY_REVIEWS_IS_DEVELOPMENT', true );
+define( 'YAY_REVIEWS_IS_DEVELOPMENT', false );
 
 spl_autoload_register(
 	function ( $class ) {

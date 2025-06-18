@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { __ } from '@wordpress/i18n';
 import { Loader2Icon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -19,7 +20,7 @@ import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
-import { __, cn, getSettings } from './lib/utils';
+import { cn, getSettings } from './lib/utils';
 
 const queryClient = new QueryClient();
 
@@ -64,12 +65,12 @@ export default function App() {
       toast.dismiss();
       setIsLoading(true);
       await postSettings(data);
-      toast.success('Settings saved successfully');
+      toast.success(__('Settings saved successfully', 'yay-reviews'));
       form.reset(data); // Reset form with new values after successful save
       setDefaultValues(data);
       setHasChanges(false); // Reset changes state
     } catch (error) {
-      toast.error('Failed to save settings');
+      toast.error(__('Failed to save settings', 'yay-reviews'));
     } finally {
       setIsLoading(false);
     }
@@ -78,12 +79,12 @@ export default function App() {
   const menuItems = useMemo(() => {
     const result = [
       {
-        label: __('dashboard'),
+        label: __('Dashboard', 'yay-reviews'),
         icon: <HomeIcon />,
         key: 'dashboard',
       },
       {
-        label: __('review'),
+        label: __('Review', 'yay-reviews'),
         icon: <ReviewIcon />,
         key: 'review',
       },
@@ -91,7 +92,7 @@ export default function App() {
 
     if (addonReminder) {
       result.push({
-        label: __('reminder'),
+        label: __('Reminder', 'yay-reviews'),
         icon: <ReminderIcon />,
         key: 'reminder',
       });
@@ -99,7 +100,7 @@ export default function App() {
 
     if (addonReward) {
       result.push({
-        label: __('review_reward'),
+        label: __('Review Reward', 'yay-reviews'),
         icon: <GiftIcon />,
         key: 'review-reward',
       });
@@ -107,7 +108,7 @@ export default function App() {
 
     if (addonReminder || addonReward) {
       result.push({
-        label: __('emails'),
+        label: __('Emails', 'yay-reviews'),
         icon: <EmailIcon />,
         key: 'emails',
       });
@@ -135,7 +136,7 @@ export default function App() {
               <div className="border-r border-gray-100 p-2.5">
                 <img
                   src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
-                  alt="Yay Reviews"
+                  alt={__('Yay Reviews', 'yay-reviews')}
                   width={34}
                   height={34}
                 />
@@ -174,7 +175,7 @@ export default function App() {
             <div className="flex items-center gap-2 p-2.5 pr-6">
               <Button type="submit" disabled={isLoading || !hasChanges}>
                 {isLoading && <Loader2Icon className="animate-spin" />}
-                {__('save')}
+                {__('Save', 'yay-reviews')}
               </Button>
             </div>
           </div>

@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
+import { __ } from '@wordpress/i18n';
 import { createRoot } from 'react-dom/client';
-
-import { __ } from '@/lib/utils';
 
 import CustomRichTextColor from './CustomRichTextColor';
 
@@ -44,20 +43,20 @@ const RichTextEditor = ({
           });
           editor.addButton('customforecolor', {
             id: `yay-reviews-editor-custom-fore-color_${ID}`,
-            tooltip: __('Text color'),
+            tooltip: __('Text color', 'yay-reviews'),
           });
           editor.addButton('fontweight', {
             id: `yay-reviews-editor-font-weight_${ID}`,
-            tooltip: __('Font Weight'),
+            tooltip: __('Font Weight', 'yay-reviews'),
             type: 'listbox',
-            text: __('Font Weight'),
+            text: __('Font Weight', 'yay-reviews'),
             values: [
-              { text: 'Light (300)', value: '300' },
-              { text: 'Normal (400)', value: '400' },
-              { text: 'Medium (500)', value: '500' },
-              { text: 'Semi Bold (600)', value: '600' },
-              { text: 'Bold (700)', value: '700' },
-              { text: 'Extra Bold (800)', value: '800' },
+              { text: __('Light (300)', 'yay-reviews'), value: '300' },
+              { text: __('Normal (400)', 'yay-reviews'), value: '400' },
+              { text: __('Medium (500)', 'yay-reviews'), value: '500' },
+              { text: __('Semi Bold (600)', 'yay-reviews'), value: '600' },
+              { text: __('Bold (700)', 'yay-reviews'), value: '700' },
+              { text: __('Extra Bold (800)', 'yay-reviews'), value: '800' },
             ],
             onselect: (e: any) => {
               editor.formatter.apply('fontweight', { value: e.control.value() });

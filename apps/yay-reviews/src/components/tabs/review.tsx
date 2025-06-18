@@ -1,4 +1,6 @@
-import { __, cn } from '@/lib/utils';
+import { __ } from '@wordpress/i18n';
+
+import { cn } from '@/lib/utils';
 
 import { Badge } from '../ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
@@ -16,18 +18,18 @@ export default function ReviewTab() {
 
   return (
     <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('review_settings')}</div>
+      <div className="text-foreground text-3xl font-bold">{__('Review Settings', 'yay-reviews')}</div>
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader>
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
-                {__('upload_media')}{' '}
+                {__('Upload media', 'yay-reviews')}{' '}
                 <Badge
                   variant={uploadMedia ? 'default' : 'outline'}
                   className={cn('text-xs transition-none', uploadMedia && 'bg-green-600')}
                 >
-                  {uploadMedia ? __('active') : __('inactive')}
+                  {uploadMedia ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
                 </Badge>
               </span>
 
@@ -57,13 +59,13 @@ export default function ReviewTab() {
                     )}
                   />
                   <Label htmlFor="reviews.upload_required" className="font-normal lowercase">
-                    {__('is_required')}
+                    {__('is required', 'yay-reviews')}
                   </Label>
                 </div>
                 {/* Media Types */}
                 <div className="flex flex-col gap-1">
                   <Label htmlFor="reviews.media_type" className="font-normal">
-                    {__('media_types')}
+                    {__('Media types', 'yay-reviews')}
                   </Label>
                   <FormField
                     control={control}
@@ -71,12 +73,18 @@ export default function ReviewTab() {
                     render={({ field: { value, onChange } }) => (
                       <Select value={value} onValueChange={onChange}>
                         <SelectTrigger id="reviews.media_type" className="w-1/2">
-                          <SelectValue placeholder={__('select_types')} />
+                          <SelectValue placeholder={__('Select types', 'yay-reviews')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="video_image">{__('video_and_image')}</SelectItem>
-                          <SelectItem value="only_video">{__('only_video')}</SelectItem>
-                          <SelectItem value="only_image">{__('only_image')}</SelectItem>
+                          <SelectItem value="video_image">
+                            {__('Video and image', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="only_video">
+                            {__('Only video', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="only_image">
+                            {__('Only image', 'yay-reviews')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -85,7 +93,7 @@ export default function ReviewTab() {
                 {/* Maximum Files */}
                 <div className="flex flex-col gap-1">
                   <Label htmlFor="reviews.max_upload_file_qty" className="font-normal">
-                    {__('maximum_files')}
+                    {__('Maximum files', 'yay-reviews')}
                   </Label>
                   <FormField
                     control={control}
@@ -102,12 +110,14 @@ export default function ReviewTab() {
                       />
                     )}
                   />
-                  <span className="text-xs text-slate-500">{__('maximum_files_desc')}</span>
+                  <span className="text-xs text-slate-500">
+                    {__('Maximum files customer can upload', 'yay-reviews')}
+                  </span>
                 </div>
                 {/* Maximum File Size */}
                 <div className="flex flex-col gap-1">
                   <Label htmlFor="reviews.max_upload_file_size" className="font-normal">
-                    {__('maximum_file_size')} (Kbs)
+                    {__('Maximum file size (Kbs)', 'yay-reviews')}
                   </Label>
                   <FormField
                     control={control}
@@ -125,14 +135,14 @@ export default function ReviewTab() {
                     )}
                   />
                   <span className="text-xs text-slate-500">
-                    {__('maximum')} {window.yayReviews.upload_max_size}
-                    {__('Kbs')}
+                    {__('Maximum', 'yay-reviews')} {window.yayReviews.upload_max_size}
+                    {__('Kbs', 'yay-reviews')}
                   </span>
                 </div>
                 {/* Field Label */}
                 <div className="flex flex-col gap-1">
                   <Label htmlFor="reviews.upload_file_label" className="font-normal">
-                    {__('field_label')}
+                    {__('Field label (optional)', 'yay-reviews')}
                   </Label>
                   <FormField
                     control={control}
@@ -151,7 +161,7 @@ export default function ReviewTab() {
                 {/* Field Description */}
                 <div className="flex w-full flex-col gap-1">
                   <Label htmlFor="reviews.upload_file_description" className="font-normal">
-                    {__('field_description')}
+                    {__('Field description (optional)', 'yay-reviews')}
                   </Label>
                   <FormField
                     control={control}
@@ -162,7 +172,7 @@ export default function ReviewTab() {
                         rows={3}
                         value={value}
                         onChange={onChange}
-                        placeholder={__('field_description_default')}
+                        placeholder={__('...', 'yay-reviews')}
                         className="w-full"
                       />
                     )}
@@ -176,12 +186,12 @@ export default function ReviewTab() {
           <CardHeader>
             <CardTitle className="border-border flex items-center justify-between border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
-                {__('data_processing_consent')}
+                {__('Data processing consent', 'yay-reviews')}
                 <Badge
                   variant={enableGdpr ? 'default' : 'outline'}
                   className={cn('text-xs transition-none', enableGdpr && 'bg-green-600')}
                 >
-                  {enableGdpr ? __('active') : __('inactive')}
+                  {enableGdpr ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
                 </Badge>
               </span>
               <FormField
@@ -198,7 +208,7 @@ export default function ReviewTab() {
               {/* GDPR message */}
               <div className="flex flex-col gap-1">
                 <Label htmlFor="reviews.gdpr_message" className="font-normal">
-                  {__('gdpr_message')}
+                  {__('GDPR message', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}
@@ -209,7 +219,7 @@ export default function ReviewTab() {
                       rows={3}
                       value={value}
                       onChange={onChange}
-                      placeholder={__('gdpr_message_default')}
+                      placeholder={__('I agree with your policy,...', 'yay-reviews')}
                     />
                   )}
                 />
@@ -217,7 +227,7 @@ export default function ReviewTab() {
               {/* Before message */}
               <div className="flex flex-col gap-1">
                 <Label htmlFor="reviews.before_message" className="font-normal">
-                  {__('before_message')}
+                  {__('Before message', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}
@@ -228,7 +238,10 @@ export default function ReviewTab() {
                       rows={3}
                       value={value}
                       onChange={onChange}
-                      placeholder={__('before_message_default')}
+                      placeholder={__(
+                        'We value your privacy. By submitting this review, you consent to the processing of your personal data',
+                        'yay-reviews',
+                      )}
                     />
                   )}
                 />
@@ -236,7 +249,7 @@ export default function ReviewTab() {
               {/* After message */}
               <div className="flex flex-col gap-1">
                 <Label htmlFor="reviews.after_message" className="font-normal">
-                  {__('after_message')}
+                  {__('After message', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}
@@ -247,7 +260,10 @@ export default function ReviewTab() {
                       rows={3}
                       value={value}
                       onChange={onChange}
-                      placeholder={__('after_message_default')}
+                      placeholder={__(
+                        'We value your privacy. By submitting this review, you consent to the processing of your personal data',
+                        'yay-reviews',
+                      )}
                     />
                   )}
                 />

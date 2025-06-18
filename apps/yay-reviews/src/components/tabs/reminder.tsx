@@ -1,6 +1,5 @@
+import { __ } from '@wordpress/i18n';
 import { CircleHelpIcon } from 'lucide-react';
-
-import { __ } from '@/lib/utils';
 
 import { Card, CardContent } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
@@ -17,11 +16,13 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
 
   return (
     <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('reminder_settings')}</div>
+      <div className="text-foreground text-3xl font-bold">{__('Reminder Settings', 'yay-reviews')}</div>
       <div className="flex flex-col gap-6">
         {/* Send reminder when */}
         <div className="flex flex-col gap-2">
-          <div className="text-foreground text-lg font-semibold">{__('send_reminder_when')}</div>
+          <div className="text-foreground text-lg font-semibold">
+            {__('Send reminder when', 'yay-reviews')}
+          </div>
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
@@ -30,7 +31,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   <div className="flex flex-col gap-2">
                     <span className="w-max">
                       <Label htmlFor="reminder.send_after_value" className="font-normal">
-                        {__('send_a_reminder_email')}
+                        {__('Send a reminder email', 'yay-reviews')}
                       </Label>
                     </span>
 
@@ -60,17 +61,21 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                               onValueChange={onChange}
                             >
                               <SelectTrigger className="min-w-40">
-                                <SelectValue placeholder={__('select_filter')} />
+                                <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="minutes">{__('minutes')}</SelectItem>
-                                <SelectItem value="hours">{__('hours')}</SelectItem>
-                                <SelectItem value="days">{__('days')}</SelectItem>
+                                <SelectItem value="minutes">
+                                  {__('Minutes', 'yay-reviews')}
+                                </SelectItem>
+                                <SelectItem value="hours">{__('Hours', 'yay-reviews')}</SelectItem>
+                                <SelectItem value="days">{__('Days', 'yay-reviews')}</SelectItem>
                               </SelectContent>
                             </Select>
                           )}
                         />
-                        <div className="min-w-[150px] lowercase">{__('after_order_completed')}</div>
+                        <div className="min-w-[150px] lowercase">
+                          {__('After order completed', 'yay-reviews')}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -80,7 +85,10 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                   <div className="flex flex-col gap-2">
                     <span className="w-max">
                       <Label htmlFor="reminder.max_products" className="font-normal">
-                        {__('max_products_label')}
+                        {__(
+                          'Maximum products ( in order ) need to remind reviewing',
+                          'yay-reviews',
+                        )}
                       </Label>
                     </span>
                     <div className="flex w-full items-center gap-2">
@@ -110,22 +118,32 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                               onValueChange={onChange}
                             >
                               <SelectTrigger className="w-full">
-                                <SelectValue placeholder={__('select_filter')} />
+                                <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                               </SelectTrigger>
                               <SelectContent>
-                                <SelectItem value="all">{__('all_products')}</SelectItem>
-                                <SelectItem value="normal">{__('normal_products')}</SelectItem>
-                                <SelectItem value="featured">{__('featured_products')}</SelectItem>
-                                <SelectItem value="on_sale">{__('on_sale_products')}</SelectItem>
-                                <SelectItem value="newest">{__('newest_products')}</SelectItem>
+                                <SelectItem value="all">
+                                  {__('All products', 'yay-reviews')}
+                                </SelectItem>
+                                <SelectItem value="normal">
+                                  {__('Normal products', 'yay-reviews')}
+                                </SelectItem>
+                                <SelectItem value="featured">
+                                  {__('Featured products', 'yay-reviews')}
+                                </SelectItem>
+                                <SelectItem value="on_sale">
+                                  {__('On-sale products', 'yay-reviews')}
+                                </SelectItem>
+                                <SelectItem value="newest">
+                                  {__('Newest products', 'yay-reviews')}
+                                </SelectItem>
                                 <SelectItem value="high_rated">
-                                  {__('high_rated_products')}
+                                  {__('High-rated products', 'yay-reviews')}
                                 </SelectItem>
                                 <SelectItem value="low_rated">
-                                  {__('low_rated_products')}
+                                  {__('Low-rated products', 'yay-reviews')}
                                 </SelectItem>
                                 <SelectItem value="best_selling">
-                                  {__('best_selling_products')}
+                                  {__('Best selling products', 'yay-reviews')}
                                 </SelectItem>
                               </SelectContent>
                             </Select>
@@ -141,7 +159,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
         </div>
         {/* Send to */}
         <div className="flex flex-col gap-2">
-          <div className="text-foreground text-lg font-semibold">{__('send_to_customers')}</div>
+          <div className="text-foreground text-lg font-semibold">
+            {__('Send to customers', 'yay-reviews')}
+          </div>
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
@@ -149,7 +169,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-1">
                     <Label htmlFor="reminder.except_emails" className="font-normal">
-                      {__('except_emails')}
+                      {__('Except emails', 'yay-reviews')}
                     </Label>
                     <span className="cursor-pointer">
                       <TooltipProvider>
@@ -158,7 +178,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                             <CircleHelpIcon size={16} />
                           </TooltipTrigger>
                           <TooltipContent align="center">
-                            {__('except_emails_description')}
+                            {__('Enter email addresses, one per line.', 'yay-reviews')}
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
@@ -170,7 +190,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     render={({ field: { value, onChange } }) => (
                       <Textarea
                         id="reminder.except_emails"
-                        placeholder={__('except_emails_description')}
+                        placeholder={__('Enter email addresses, one per line.', 'yay-reviews')}
                         rows={7}
                         className="w-1/2"
                         value={value}
@@ -195,7 +215,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     )}
                   />
                   <Label htmlFor="reminder.send_to_guests" className="font-normal">
-                    {__('send_to_guests')}
+                    {__('Send to guests', 'yay-reviews')}
                   </Label>
                 </div>
               </div>
@@ -203,7 +223,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           </Card>
         </div>
         <div className="text-xs">
-          <span className="text-slate-500">{__('change')}</span>
+          <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
           {` `}
           <span
             className="text-foreground cursor-pointer lowercase underline decoration-solid"
@@ -212,7 +232,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
               setActiveTab('emails');
             }}
           >
-            {__('email_template')}
+            {__('email template', 'yay-reviews')}
           </span>
         </div>
       </div>
