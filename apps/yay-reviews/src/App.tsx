@@ -173,8 +173,8 @@ export default function App() {
             </div>
             <div className="flex items-center gap-2 p-2.5 pr-6">
               <Button type="submit" disabled={isLoading || !hasChanges}>
-                {__('save')}
                 {isLoading && <Loader2Icon className="animate-spin" />}
+                {__('save')}
               </Button>
             </div>
           </div>
