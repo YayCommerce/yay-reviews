@@ -10,20 +10,15 @@
 // Define arrays of image and video extensions
 $image_extensions = array( 'jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp' );
 $video_extensions = array( 'mp4', 'avi', 'mov', 'wmv', 'flv', 'mkv', 'quicktime' );
-$rating           = (float) get_comment_meta( $comment->comment_ID, 'rating', true );
 $comment_date     = get_comment_date( 'F j, Y', $comment );
 $comment_time     = get_comment_date( 'g:i A', $comment );
 $comment_media    = '';
 $verified         = wc_review_is_from_verified_owner( $comment->comment_ID );
+$rating           = intval( get_comment_meta( $comment->comment_ID, 'rating', true ) );
+$rating_stars     = '';
 
-
-$rating_stars = '';
-for ( $i = 1; $i <= 5; $i++ ) {
-	if ( $i <= $rating ) {
-		$rating_stars .= '<span class="yay-star filled">&#9733;</span>'; // filled star
-	} else {
-		$rating_stars .= '<span class="yay-star">&#9733;</span>'; // unfilled star
-	}
+if ( $rating && wc_review_ratings_enabled() ) {
+	$rating_stars = wc_get_rating_html( $rating ); // WPCS: XSS ok.
 }
 
 ob_start();
@@ -82,9 +77,7 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
                             </defs>
                         </svg></span>' : '' ) . '
                     </div>
-                    <div class="yay-reviews-modal-comment-rating">
-                        <div class="yay-reviews-modal-comment-rating-stars">' . wp_kses_post( $rating_stars ) . '</div>
-                    </div>
+                    <div class="yay-reviews-modal-comment-rating">' . wp_kses_post( $rating_stars ) . '</div>
                     <div class="text-[#64748B] text-sm">' . esc_html__( 'Reviewed in ', 'yay-reviews' ) . ' ' . esc_html( $comment_date ) . ' ' . esc_html__( 'at', 'yay-reviews' ) . ' ' . esc_html( $comment_time ) . '</div>
                 </div>
                 <div class="text-[#0F172A] text-sm">' . wp_kses_post( $comment->comment_content ) . '</div>
