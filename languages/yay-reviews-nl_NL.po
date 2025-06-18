@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YayReviews\n"
 "POT-Creation-Date: 2025-06-18 14:56+0700\n"
-"PO-Revision-Date: 2025-06-18 16:47+0700\n"
+"PO-Revision-Date: 2025-06-18 16:57+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_NL\n"
@@ -495,7 +495,7 @@ msgstr "Afgeprijsde artikelen uitsluiten"
 
 #: assets/admin/dist/main.js:1
 msgid "Check this box if the coupon should not apply to items on sale."
-msgstr "Vink dit aan als"
+msgstr "Vink dit aan als."
 
 #: assets/admin/dist/main.js:1
 msgid "And"
@@ -620,8 +620,8 @@ msgstr "of"
 #: assets/admin/dist/main.js:1
 msgid "coupon cannot be sent to customers as rewards. Please update its"
 msgstr ""
-"De coupon kan niet als beloning naar klanten worden verzonden. Werk de "
-"coupon bij"
+"e coupon kan niet als beloning naar klanten worden verzonden. Werk de coupon "
+"bij"
 
 #: assets/admin/dist/main.js:1
 msgid "restrictions"
@@ -938,7 +938,7 @@ msgstr "deze licentie verlengen"
 
 #: src/License/views/expired-license-notification.php:5
 msgid " to download this update. "
-msgstr "om deze update te downloaden"
+msgstr " om deze update te downloaden. "
 
 #: src/License/views/information-card.php:38
 msgid "Deactivate"
