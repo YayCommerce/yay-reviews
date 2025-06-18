@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
+import { __ } from '@wordpress/i18n';
 
 import { SettingsFormData } from '@/lib/schema';
-import { __, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 import GiftIcon from './icons/Gift';
 import NoteIcon from './icons/Note';
@@ -10,7 +11,7 @@ import SettingIcon from './icons/Setting';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { FormField, useFormContext } from './ui/form';
+import { useFormContext } from './ui/form';
 import { Switch } from './ui/switch';
 
 export default function AddonCard({
@@ -24,7 +25,7 @@ export default function AddonCard({
   onClick: (id: string) => void;
   onChangeStatus: (addon_id: 'reminder' | 'reward' | 'optional_fields', status: string) => void;
 }) {
-  const { control, watch } = useFormContext<SettingsFormData>();
+  const { watch } = useFormContext<SettingsFormData>();
   const [isLoading, setIsLoading] = useState(false);
 
   const nameAddon = useMemo(() => {
@@ -56,22 +57,31 @@ export default function AddonCard({
   const title = useMemo(() => {
     switch (id) {
       case 'reminder':
-        return __('reminder');
+        return __('Reminder', 'yay-reviews');
       case 'reward':
-        return __('review_reward');
+        return __('Review Reward', 'yay-reviews');
       case 'optional_fields':
-        return __('optional_fields');
+        return __('Optional Fields', 'yay-reviews');
     }
   }, [id]);
 
   const description = useMemo(() => {
     switch (id) {
       case 'reminder':
-        return __('addon_reminder_description');
+        return __(
+          'Sends reminders to customers after buying, encouraging reviews and increasing engagement.',
+          'yay-reviews',
+        );
       case 'reward':
-        return __('addon_review_reward_description');
+        return __(
+          'Sends discount coupons for quality reviews meeting set criteria, encouraging great feedback and repeat purchases.',
+          'yay-reviews',
+        );
       case 'optional_fields':
-        return __('addon_optional_fields_description');
+        return __(
+          'Adds custom fields to review forms, letting customers share tailored feedback for your needs.',
+          'yay-reviews',
+        );
     }
   }, [id]);
 
@@ -94,7 +104,7 @@ export default function AddonCard({
               variant={status ? 'default' : 'outline'}
               className={cn('text-xs transition-none', status && 'bg-green-600')}
             >
-              {status ? __('active') : __('inactive')}
+              {status ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
             </Badge>
           </div>
         </CardTitle>
@@ -114,7 +124,7 @@ export default function AddonCard({
               }}
             >
               <SettingIcon />
-              {__('settings')}
+              {__('Settings', 'yay-reviews')}
             </Button>
             <div className="relative">
               <Switch

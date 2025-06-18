@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Loader2Icon, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
-import { __, cn, getEmailSampleValues } from '@/lib/utils';
+import { cn, getEmailSampleValues } from '@/lib/utils';
 
 import RichTextEditor from './editor/RichTextEditor';
 import DesktopIcon from './icons/Desktop';
@@ -100,7 +101,7 @@ export default function EmailTemplateCard({
             <div className="flex flex-col gap-2">
               <span className="w-max">
                 <Label htmlFor={`email.${templateId}.subject`} className="font-normal">
-                  {__('email_subject')}
+                  {__('Email subject', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -115,7 +116,7 @@ export default function EmailTemplateCard({
             <div className="flex flex-col gap-2">
               <span className="w-max">
                 <Label htmlFor={`email.${templateId}.heading`} className="font-normal">
-                  {__('email_heading')}
+                  {__('Email heading', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -132,7 +133,7 @@ export default function EmailTemplateCard({
               <div className="flex flex-col gap-2">
                 <span className="w-max">
                   <Label htmlFor={`email.${templateId}.content`} className="font-normal">
-                    {__('email_content')}
+                    {__('Email content', 'yay-reviews')}
                   </Label>
                 </span>
                 <FormField
@@ -148,11 +149,19 @@ export default function EmailTemplateCard({
                 />
               </div>
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
-                <span>{__('customer_name_vars')}</span>
-                <span>{__('site_title_vars')}</span>
-                {templateId === 'reminder' && <span>{__('products_table_vars')}</span>}
-                {templateId === 'reward' && <span>{__('coupon_code_vars')}</span>}
-                {templateId === 'reward' && <span>{__('product_name_vars')}</span>}
+                <span>{__("{customer_name} - Customer's name", 'yay-reviews')}</span>
+                <span>{__('{site_title} - Your site title', 'yay-reviews')}</span>
+                {templateId === 'reminder' && (
+                  <span>
+                    {__('{products_table} - Table of products need review', 'yay-reviews')}
+                  </span>
+                )}
+                {templateId === 'reward' && (
+                  <span>{__('{coupon_code} - Coupon code', 'yay-reviews')}</span>
+                )}
+                {templateId === 'reward' && (
+                  <span>{__('{product_name} - Product name', 'yay-reviews')}</span>
+                )}
               </div>
             </div>
 
@@ -160,7 +169,7 @@ export default function EmailTemplateCard({
             <div className="flex flex-col gap-2">
               <span className="w-max">
                 <Label htmlFor={`email.${templateId}.footer`} className="font-normal">
-                  {__('email_footer')}
+                  {__('Email footer', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -176,14 +185,14 @@ export default function EmailTemplateCard({
                 <DialogTrigger asChild>
                   <Button variant="outline" className="w-fit">
                     <RefreshCcw className="size-4" />
-                    {__('reset_template')}
+                    {__('Reset template', 'yay-reviews')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-md">
                   <DialogHeader>
-                    <DialogTitle>{__('reset_template')}</DialogTitle>
+                    <DialogTitle>{__('Reset template', 'yay-reviews')}</DialogTitle>
                   </DialogHeader>
-                  <div>{__('reset_template_description')}</div>
+                  <div>{__('Reset the template to the default values.', 'yay-reviews')}</div>
                   <DialogFooter>
                     <Button
                       variant="outline"
@@ -193,7 +202,7 @@ export default function EmailTemplateCard({
                         setResetTemplateDialogOpen(false);
                       }}
                     >
-                      {__('cancel')}
+                      {__('Cancel', 'yay-reviews')}
                     </Button>
                     <Button
                       variant="default"
@@ -205,7 +214,7 @@ export default function EmailTemplateCard({
                         setResetTemplateDialogOpen(false);
                       }}
                     >
-                      {__('reset_template')}
+                      {__('Reset template', 'yay-reviews')}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -214,7 +223,7 @@ export default function EmailTemplateCard({
           </div>
           <div className="flex flex-col gap-4 rounded-md border p-4">
             <div className="flex items-center justify-between gap-2">
-              <span>{__('preview')}</span>
+              <span>{__('Preview', 'yay-reviews')}</span>
               <div className="flex gap-2">
                 <div className="flex gap-1">
                   <Button
@@ -241,18 +250,23 @@ export default function EmailTemplateCard({
                 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
                     <Button variant="outline" className="">
-                      {__('send_test_mail')}
+                      {__('Send test mail', 'yay-reviews')}
                     </Button>
                   </DialogTrigger>
                   <DialogContent className="max-w-md">
                     <DialogHeader>
-                      <DialogTitle>{__('send_test_mail_title')}</DialogTitle>
+                      <DialogTitle>{__('Send a test email', 'yay-reviews')}</DialogTitle>
                     </DialogHeader>
 
                     <div className="flex flex-col gap-4">
-                      <span>{__('send_test_mail_description')}</span>
+                      <span>
+                        {__(
+                          'Send yourself a test email to check how your email looks in different email apps.',
+                          'yay-reviews',
+                        )}
+                      </span>
                       <div className="flex flex-col gap-2">
-                        <span className="uppercase">{__('send_to')}</span>
+                        <span className="uppercase">{__('Send to', 'yay-reviews')}</span>
                         <Input
                           value={testEmail}
                           onChange={(e) => {
@@ -271,7 +285,7 @@ export default function EmailTemplateCard({
                           setIsDialogOpen(false);
                         }}
                       >
-                        {__('cancel')}
+                        {__('Cancel', 'yay-reviews')}
                       </Button>
                       <Button
                         variant="default"
@@ -283,21 +297,21 @@ export default function EmailTemplateCard({
                           sendTestMail(testEmail, subject, heading, content, footer)
                             .then((res: any) => {
                               if (res.message === 'Email sent successfully') {
-                                toast.success(__('email_sent_successfully'));
+                                toast.success(__('Email sent successfully', 'yay-reviews'));
                               } else {
-                                toast.error(__('email_sending_failed'));
+                                toast.error(__('Email sending failed', 'yay-reviews'));
                               }
                             })
                             .catch((err: any) => {
                               console.log(err);
-                              toast.error(__('email_sending_failed'));
+                              toast.error(__('Email sending failed', 'yay-reviews'));
                             })
                             .finally(() => {
                               setIsSending(false);
                             });
                         }}
                       >
-                        {__('send_test_mail')}
+                        {__('Send test mail', 'yay-reviews')}
                         {isSending && <Loader2Icon className="animate-spin" />}
                       </Button>
                     </DialogFooter>

@@ -1,8 +1,9 @@
 import { useCallback, useState } from 'react';
+import { __ } from '@wordpress/i18n';
 import { debounce } from 'lodash';
 import { CheckIcon, ChevronsUpDown, Loader2 } from 'lucide-react';
 
-import { __, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import {
   Command,
@@ -33,8 +34,8 @@ export interface ComboboxProps {
 }
 
 function Combobox({
-  placeholder = __('select_values'),
-  searchPlaceholder = __('search_value'),
+  placeholder = __('Select values', 'yay-reviews'),
+  searchPlaceholder = __('Search value', 'yay-reviews'),
   options,
   value,
   onChange,
@@ -87,7 +88,7 @@ function Combobox({
       <PopoverContent className="w-[300px] p-0" align="start">
         <Command>
           <CommandInput
-            placeholder={searchPlaceholder || __('search_value')}
+            placeholder={searchPlaceholder || __('Search value', 'yay-reviews')}
             onValueChange={debouncedSearch}
           />
           <CommandList>
@@ -97,12 +98,12 @@ function Combobox({
               </div>
             ) : (
               <>
-                <CommandEmpty>{__('no_value_found')}</CommandEmpty>
+                <CommandEmpty>{__('No value found', 'yay-reviews')}</CommandEmpty>
                 <CommandGroup>
                   {hasAll && (
                     <CommandItem
                       key="select-all"
-                      value={__('all')}
+                      value={__('All', 'yay-reviews')}
                       onSelect={() => {
                         onChange(options);
                       }}
@@ -113,7 +114,7 @@ function Combobox({
                       >
                         <CheckIcon className="size-3.5 text-current" />
                       </div>
-                      {__('all')}
+                      {__('All', 'yay-reviews')}
                     </CommandItem>
                   )}
                   {options.map((option) => (

@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
+import { __ } from '@wordpress/i18n';
 import { Coupon } from 'types/coupon';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
-import { __ } from '@/lib/utils';
 
 import DuplicateIcon from './icons/Duplicate';
 import TrashIcon from './icons/Trash';
@@ -38,9 +38,9 @@ export default function RewardCard({
 
   const selectedCouponStatus = useMemo(() => {
     return coupons.find((c) => c.id === coupon)?.expired
-      ? __('expired')
+      ? __('Expired', 'yay-reviews')
       : coupons.find((c) => c.id === coupon)?.out_of_usage
-        ? __('out_of_usage')
+        ? __('Out of usage', 'yay-reviews')
         : '';
   }, [coupons, coupon]);
 
@@ -88,7 +88,7 @@ export default function RewardCard({
                     <DuplicateIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{__('duplicate')}</TooltipContent>
+                <TooltipContent>{__('Duplicate', 'yay-reviews')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
             <TooltipProvider>
@@ -105,7 +105,7 @@ export default function RewardCard({
                     <TrashIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{__('delete')}</TooltipContent>
+                <TooltipContent>{__('Delete', 'yay-reviews')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
@@ -117,7 +117,7 @@ export default function RewardCard({
           <div className="flex flex-col gap-2">
             <span className="w-max">
               <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="font-normal">
-                {__('select_coupon_to_be_sent')}
+                {__('Select coupon to be sent', 'yay-reviews')}
               </Label>
             </span>
             <div>
@@ -132,7 +132,7 @@ export default function RewardCard({
                     onValueChange={onChange}
                   >
                     <SelectTrigger className="w-1/2 bg-white">
-                      <SelectValue placeholder={__('select_coupon')} />
+                      <SelectValue placeholder={__('Select coupon', 'yay-reviews')} />
                     </SelectTrigger>
                     <SelectContent>
                       {coupons.length > 0 ? (
@@ -147,14 +147,14 @@ export default function RewardCard({
                               <span>
                                 {coupon.expired ? (
                                   <Badge variant="destructive" className="px-1 py-0">
-                                    {__('expired')}
+                                    {__('expired', 'yay-reviews')}
                                   </Badge>
                                 ) : (
                                   ''
                                 )}{' '}
                                 {coupon.out_of_usage ? (
                                   <Badge variant="secondary" className="px-1 py-0">
-                                    {__('out_of_usage')}
+                                    {__('out of usage', 'yay-reviews')}
                                   </Badge>
                                 ) : (
                                   ''
@@ -165,7 +165,7 @@ export default function RewardCard({
                         ))
                       ) : (
                         <div className="text-muted-foreground mt-2 mb-2 flex items-center justify-center text-sm">
-                          {__('no_coupons_found')}
+                          {__('No coupons found', 'yay-reviews')}
                         </div>
                       )}
                     </SelectContent>
@@ -180,7 +180,7 @@ export default function RewardCard({
             {` `}
             <NewCouponDrawer rewardId={reward.id}>
               <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
-                {__('create_new_coupon')}
+                {__('Create new coupon', 'yay-reviews')}
               </span>
             </NewCouponDrawer>
           </div>
@@ -189,7 +189,10 @@ export default function RewardCard({
             <span>
               <span className="text-slate-500">
                 {selectedCouponStatus + ` `}
-                {__('coupon_not_available')}
+                {__(
+                  'coupon cannot be sent to customers as rewards. Please update its',
+                  'yay-reviews',
+                )}
               </span>
               {` `}
               <a
@@ -198,7 +201,7 @@ export default function RewardCard({
                 target="_blank"
                 rel="noreferrer"
               >
-                {__('restrictions')}
+                {__('restrictions', 'yay-reviews')}
               </a>
             </span>
           )}
@@ -207,7 +210,7 @@ export default function RewardCard({
           {/* Review criteria */}
           <div className="flex flex-col gap-2">
             <div className="text-foreground mb-2 text-lg font-semibold">
-              {__('review_criteria')}
+              {__('Review criteria', 'yay-reviews')}
             </div>
             <div className="mb-2 flex items-center gap-2">
               <FormField
@@ -225,7 +228,7 @@ export default function RewardCard({
                 htmlFor={`rewards.${reward.id}.only_send_to_purchased_customers`}
                 className="font-normal"
               >
-                {__('only_send_coupon_for_reviews_from_purchased_customers')}
+                {__('Only send coupon for reviews from purchased customers.', 'yay-reviews')}
               </Label>
             </div>
 
@@ -243,7 +246,7 @@ export default function RewardCard({
                   )}
                 />
                 <Label htmlFor={`rewards.${reward.id}.send_to_guests`} className="font-normal">
-                  {__('guests_can_receive_reward')}
+                  {__('Guests can receive reward?', 'yay-reviews')}
                 </Label>
               </div>
             )}
@@ -253,7 +256,7 @@ export default function RewardCard({
                   htmlFor={`rewards.${reward.id}.minimum_required_rating`}
                   className="font-normal"
                 >
-                  {__('minimum_required_rating')}
+                  {__('Minimum required rating', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -279,7 +282,7 @@ export default function RewardCard({
                   htmlFor={`rewards.${reward.id}.minimum_media_files_uploaded`}
                   className="font-normal"
                 >
-                  {__('minimum_media_files_uploaded')}
+                  {__('Minimum media files uploaded', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -305,7 +308,7 @@ export default function RewardCard({
                   htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                   className="font-normal"
                 >
-                  {__('minimum_required_reviews')}
+                  {__('Minimum required reviews posted since the last reward?', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -325,7 +328,7 @@ export default function RewardCard({
                 )}
               />
               <span className="text-slate-500">
-                {__('leave_empty_to_receive_reward_after_every_review')}
+                {__('Leave empty to receive reward after every review', 'yay-reviews')}
               </span>
             </div>
           </div>

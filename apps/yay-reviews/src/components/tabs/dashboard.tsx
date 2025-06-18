@@ -1,8 +1,8 @@
+import { __ } from '@wordpress/i18n';
 import { toast } from 'sonner';
 
 import { changeAddonStatus } from '@/lib/ajax';
 import { SettingsFormData } from '@/lib/schema';
-import { __ } from '@/lib/utils';
 import { useFormContext } from '@/components/ui/form';
 
 import AddonCard from '../AddonCard';
@@ -35,29 +35,37 @@ export default function DashboardTab({
         });
       }
     } catch (error) {
-      console.error(error);
-      toast.error(__('Something went wrong'));
+      toast.error(__('Something went wrong', 'yay-reviews'));
     }
   };
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
       <div className="flex flex-col gap-4">
-        <div className="text-foreground text-3xl font-bold">{__('welcome_to_yay_reviews')}</div>
+        <div className="text-foreground text-3xl font-bold">
+          {__('Welcome to Yay Reviews', 'yay-reviews')}
+        </div>
         <div className="text-base leading-relaxed text-slate-600">
-          <span>{__('welcome_to_yay_reviews_description')}</span>
+          <span>
+            {__(
+              'Your central hub for managing review forms, reminders, and coupons, providing an intuitive interface to monitor and optimize customer feedback.',
+              'yay-reviews',
+            )}
+          </span>
           <br />
-          <span>{__('Go to')} </span>
+          <span>{__('Go to', 'yay-reviews')} </span>
           <span
             className="cursor-pointer lowercase underline decoration-solid"
             onClick={() => setActiveTab('review')}
           >
-            {__('review_settings')}
+            {__('Review Settings', 'yay-reviews')}
           </span>
         </div>
       </div>
       <div className="flex flex-col gap-4">
-        <div className="text-foreground text-xl font-semibold">{__('addon_settings')}</div>
+        <div className="text-foreground text-xl font-semibold">
+          {__('Addon Settings', 'yay-reviews')}
+        </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-2">
           {Object.entries(addons)
             .filter(([key, value]) => key !== 'optional_fields')

@@ -1,4 +1,4 @@
-import { __ } from '@/lib/utils';
+import { __ } from '@wordpress/i18n';
 
 import DuplicateIcon from './icons/Duplicate';
 import TrashIcon from './icons/Trash';
@@ -41,7 +41,7 @@ export default function OptionalFieldCard({
                     <DuplicateIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{__('duplicate')}</TooltipContent>
+                <TooltipContent>{__('Duplicate', 'yay-reviews')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
             <TooltipProvider>
@@ -51,7 +51,7 @@ export default function OptionalFieldCard({
                     <TrashIcon strokeWidth={1.5} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>{__('delete')}</TooltipContent>
+                <TooltipContent>{__('Delete', 'yay-reviews')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
           </div>
@@ -61,31 +61,33 @@ export default function OptionalFieldCard({
         <div className="flex flex-col gap-4 p-6">
           {/* Field Label */}
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('label')}</span>
+            <span className="text-sm font-medium text-black">{__('Label', 'yay-reviews')}</span>
             <Input className="w-1/2 bg-white" value={item.name} />
           </div>
           {/* Field Description */}
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('description')}</span>
+            <span className="text-sm font-medium text-black">
+              {__('Description', 'yay-reviews')}
+            </span>
             <Textarea rows={7} className="w-1/2" value={item.description} />
           </div>
           <div className="mb-2 flex items-center gap-2">
             <Switch checked={item.is_required} />
-            <span className="lowercase">{__('is_required')}</span>
+            <span className="lowercase">{__('Is required', 'yay-reviews')}</span>
           </div>
           {/* Field Type */}
           <div className="flex flex-col gap-2">
-            <span className="text-sm font-medium text-black">{__('type')}</span>
+            <span className="text-sm font-medium text-black">{__('Type', 'yay-reviews')}</span>
             <Select value={item.type}>
               <SelectTrigger className="w-1/2 bg-white">
-                <SelectValue placeholder={__('select_type')} />
+                <SelectValue placeholder={__('Select type', 'yay-reviews')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="text">{__('text')}</SelectItem>
-                <SelectItem value="textarea">{__('multi_line_text')}</SelectItem>
-                <SelectItem value="dropdown">{__('dropdown')}</SelectItem>
-                <SelectItem value="rating">{__('rating')}</SelectItem>
-                <SelectItem value="checkbox">{__('multiple_choice')}</SelectItem>
+                <SelectItem value="text">{__('Text', 'yay-reviews')}</SelectItem>
+                <SelectItem value="textarea">{__('Multi-line text', 'yay-reviews')}</SelectItem>
+                <SelectItem value="dropdown">{__('Dropdown', 'yay-reviews')}</SelectItem>
+                <SelectItem value="rating">{__('Rating', 'yay-reviews')}</SelectItem>
+                <SelectItem value="checkbox">{__('Multiple choice', 'yay-reviews')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -93,20 +95,24 @@ export default function OptionalFieldCard({
           {/* Field Values */}
           {(item.type === 'text' || item.type === 'textarea') && (
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-black">{__('values')}</span>
+              <span className="text-sm font-medium text-black">{__('Values', 'yay-reviews')}</span>
               <Input className="w-1/2 bg-white" value={item.values} />
             </div>
           )}
           {(item.type === 'dropdown' || item.type === 'checkbox') && (
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-black">{__('values')}</span>
+              <span className="text-sm font-medium text-black">{__('Values', 'yay-reviews')}</span>
               <Textarea rows={7} className="w-1/2" value={item.values} />
-              <span className="text-xs text-slate-500">{__('values_description')}</span>
+              <span className="text-xs text-slate-500">
+                {__('Enter each value in a single row', 'yay-reviews')}
+              </span>
             </div>
           )}
           {item.type === 'rating' && (
             <div className="flex flex-col gap-2">
-              <span className="text-sm font-medium text-black">{__('total_starts_points')}</span>
+              <span className="text-sm font-medium text-black">
+                {__('Total starts/points', 'yay-reviews')}
+              </span>
               <Input className="w-1/2 bg-white" value={5} />
             </div>
           )}

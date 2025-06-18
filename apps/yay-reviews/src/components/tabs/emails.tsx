@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { __ } from '@wordpress/i18n';
 
-import { __, cn } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 import EmailTemplateCard from '../EmailTemplateCard';
 import { useFormContext } from '../ui/form';
@@ -14,7 +15,9 @@ export default function EmailsTab() {
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop');
   return (
     <div className="flex w-2/3 flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('email_templates')}</div>
+      <div className="text-foreground text-3xl font-bold">
+        {__('Email Templates', 'yay-reviews')}
+      </div>
       <div className="flex flex-col gap-4">
         {/* Email template */}
         <div className="flex flex-col gap-2">
@@ -22,12 +25,12 @@ export default function EmailsTab() {
             <TabsList className={cn('w-1/4', addonReminder && addonReward && 'w-1/2')}>
               {addonReminder && (
                 <TabsTrigger value="reminder" className="w-1/2">
-                  {__('reminder')}
+                  {__('Reminder', 'yay-reviews')}
                 </TabsTrigger>
               )}
               {addonReward && (
                 <TabsTrigger value="reward" className="w-1/2">
-                  {__('reward')}
+                  {__('Reward', 'yay-reviews')}
                 </TabsTrigger>
               )}
             </TabsList>

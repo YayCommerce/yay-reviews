@@ -10,11 +10,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const __ = (text: string): string => {
-  const translations = window.yayReviews.i18n || {};
-  return translations[text] || text;
-};
-
 export const getSettings = (): SettingsFormData => {
   let settings = window.yayReviews.data_settings;
   if (settings.rewards.length === 0) {

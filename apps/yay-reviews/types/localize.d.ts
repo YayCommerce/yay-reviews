@@ -16,7 +16,6 @@ declare global {
       ajax_url: string;
       rest_base: string;
       rest_nonce: string;
-      i18n: Record<string, string>;
       data_settings: SettingsFormData;
       upload_max_size: number;
       upload_max_qty: number;

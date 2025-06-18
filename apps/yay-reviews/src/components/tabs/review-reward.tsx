@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { __ } from '@wordpress/i18n';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getCoupons } from '@/lib/queries';
 import { Reward } from '@/lib/schema';
-import { __ } from '@/lib/utils';
 
 import InboxIcon from '../icons/Inbox';
 import RewardCard from '../RewardCard';
@@ -28,7 +28,7 @@ export default function ReviewRewardTab() {
     const newId = uuidv4();
     const newReward = {
       id: newId,
-      name: 'Reward for reviewing the product',
+      name: __('Reward for reviewing the product', 'yay-reviews'),
       enabled: true,
       coupon_id: coupons.length > 0 ? coupons[0].id : '',
       only_send_to_purchased_customers: false,
@@ -58,7 +58,7 @@ export default function ReviewRewardTab() {
 
   return (
     <div className="flex w-2/3 flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('review_reward')}</div>
+      <div className="text-foreground text-3xl font-bold">{__('Review Reward', 'yay-reviews')}</div>
       <div className="flex flex-col gap-4">
         {/* No reward added */}
         {Object.values(rewards).length === 0 && (
@@ -66,11 +66,16 @@ export default function ReviewRewardTab() {
             <CardContent className="p-0">
               <div className="flex flex-col items-center gap-2 pb-4">
                 <InboxIcon strokeWidth={1} size={100} />
-                <div className="px-6 text-lg font-semibold">{__('no_reward_added')}</div>
+                <div className="px-6 text-lg font-semibold">
+                  {__('No reward added', 'yay-reviews')}
+                </div>
                 <div className="text-muted-foreground px-6 pb-4 text-sm leading-5 font-normal">
-                  {__('no_reward_added_description_first')}
+                  {__(
+                    'Sends discount coupons for quality reviews meeting set criteria,',
+                    'yay-reviews',
+                  )}
                   <br />
-                  {__('no_reward_added_description_second')}
+                  {__('encouraging great feedback and repeat purchases.', 'yay-reviews')}
                 </div>
                 <Button
                   className="w-fit gap-2"
@@ -79,7 +84,7 @@ export default function ReviewRewardTab() {
                     handleCreateNewReward();
                   }}
                 >
-                  {__('create_new')}
+                  {__('Create new', 'yay-reviews')}
                 </Button>
               </div>
             </CardContent>
@@ -91,7 +96,8 @@ export default function ReviewRewardTab() {
             <div className="flex flex-col gap-6">
               <div className="flex items-center justify-between">
                 <div className="text-foreground text-lg font-semibold">
-                  {__('you_have')} {Object.values(rewards).length} {__('reward_set')}
+                  {__('You have', 'yay-reviews')} {Object.values(rewards).length}{' '}
+                  {__('reward set', 'yay-reviews')}
                 </div>
                 <Button
                   variant="outline"
@@ -101,7 +107,7 @@ export default function ReviewRewardTab() {
                     handleCreateNewReward();
                   }}
                 >
-                  {__('add_new')}
+                  {__('Add new', 'yay-reviews')}
                 </Button>
               </div>
               {Object.values(rewards).map((reward: Reward) => (
@@ -122,7 +128,7 @@ export default function ReviewRewardTab() {
                   handleCreateNewReward();
                 }}
               >
-                {__('add_new')}
+                {__('Add new', 'yay-reviews')}
               </Button>
             </div>
           </div>

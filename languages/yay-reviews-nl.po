@@ -1,0 +1,1171 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: YayReviews\n"
+"POT-Creation-Date: 2025-06-18 14:56+0700\n"
+"PO-Revision-Date: 2025-06-18 15:32+0700\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: yay-reviews.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: apps/yay-reviews/node_modules\n"
+
+#: assets/admin/dist/main.js:1
+msgid "Reminder"
+msgstr "Herinnering"
+
+#: assets/admin/dist/main.js:1 src/Emails/RewardEmail.php:15
+msgid "Review Reward"
+msgstr "Beoordelingsbeloning"
+
+#: assets/admin/dist/main.js:1
+msgid "Optional Fields"
+msgstr "Optionele velden"
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Sends reminders to customers after buying, encouraging reviews and "
+"increasing engagement."
+msgstr ""
+"Stuurt herinneringen naar klanten na een aankoop, stimuleert het schrijven "
+"van recensies en vergroot de betrokkenheid."
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Sends discount coupons for quality reviews meeting set criteria, encouraging "
+"great feedback and repeat purchases."
+msgstr ""
+"Verstuurt kortingsbonnen voor kwaliteitsbeoordelingen die aan de gestelde "
+"criteria voldoen, en stimuleert zo goede feedback en herhaalaankopen."
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Adds custom fields to review forms, letting customers share tailored "
+"feedback for your needs."
+msgstr ""
+"Voeg aangepaste velden toe aan beoordelingsformulieren, zodat klanten "
+"feedback op maat kunnen delen, afgestemd op uw behoeften."
+
+#: assets/admin/dist/main.js:1
+msgid "Active"
+msgstr "Actief"
+
+#: assets/admin/dist/main.js:1
+msgid "Inactive"
+msgstr "Inactief"
+
+#: assets/admin/dist/main.js:1
+msgid "Settings"
+msgstr "Instellingen"
+
+#: assets/admin/dist/main.js:1
+msgid "Something went wrong"
+msgstr "Er ging iets mis"
+
+#: assets/admin/dist/main.js:1
+msgid "Welcome to Yay Reviews"
+msgstr "Welkom bij Yay Reviews"
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Your central hub for managing review forms, reminders, and coupons, "
+"providing an intuitive interface to monitor and optimize customer feedback."
+msgstr ""
+"Uw centrale hub voor het beheren van beoordelingsformulieren, herinneringen "
+"en kortingsbonnen, met een intuïtieve interface om de feedback van klanten "
+"te bewaken en optimaliseren."
+
+#: assets/admin/dist/main.js:1
+msgid "Go to"
+msgstr "Ga naar"
+
+#: assets/admin/dist/main.js:1
+msgid "Review Settings"
+msgstr "Beoordelingen instellingen"
+
+#: assets/admin/dist/main.js:1
+msgid "Addon Settings"
+msgstr "Addon-instellingen"
+
+#: assets/admin/dist/main.js:1
+msgid "Text color"
+msgstr "Tekstkleur"
+
+#: assets/admin/dist/main.js:1
+msgid "Font Weight"
+msgstr "Lettertype dikte"
+
+#: assets/admin/dist/main.js:1
+msgid "Light (300)"
+msgstr "Licht (300)"
+
+#: assets/admin/dist/main.js:1
+msgid "Normal (400)"
+msgstr "Normaal (400)"
+
+#: assets/admin/dist/main.js:1
+msgid "Medium (500)"
+msgstr "Medium (500)"
+
+#: assets/admin/dist/main.js:1
+msgid "Semi Bold (600)"
+msgstr "Semi Bold (600)"
+
+#: assets/admin/dist/main.js:1
+msgid "Bold (700)"
+msgstr "Vet 700"
+
+#: assets/admin/dist/main.js:1
+msgid "Extra Bold (800)"
+msgstr "Extra vet (800)"
+
+#: assets/admin/dist/main.js:1
+msgid "Email subject"
+msgstr "E-mailonderwerp"
+
+#: assets/admin/dist/main.js:1
+msgid "Email heading"
+msgstr "E-mail kop"
+
+#: assets/admin/dist/main.js:1
+msgid "Email content"
+msgstr "Email inhoud"
+
+#: assets/admin/dist/main.js:1
+msgid "{customer_name} - Customer's name"
+msgstr "{customer_name} - Naam van de klant"
+
+#: assets/admin/dist/main.js:1
+msgid "{site_title} - Your site title"
+msgstr "{site_title} - Uw sitetitel"
+
+#: assets/admin/dist/main.js:1
+msgid "{products_table} - Table of products need review"
+msgstr "{products_table} - Tabel met producten die beoordeeld moeten worden"
+
+#: assets/admin/dist/main.js:1
+msgid "{coupon_code} - Coupon code"
+msgstr "{coupon_code} - Kortingscode"
+
+#: assets/admin/dist/main.js:1
+msgid "{product_name} - Product name"
+msgstr "{product_name} - Productnaam"
+
+#: assets/admin/dist/main.js:1
+msgid "Email footer"
+msgstr "E-mailvoettekst"
+
+#: assets/admin/dist/main.js:1
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: assets/admin/dist/main.js:1
+msgid "Send test mail"
+msgstr "Stuur testmail"
+
+#: assets/admin/dist/main.js:1
+msgid "Send a test email"
+msgstr "Stuur een test-e-mail"
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Send yourself a test email to check how your email looks in different email "
+"apps."
+msgstr ""
+"Stuur uzelf een test-e-mail om te controleren hoe uw e-mail eruitziet in "
+"verschillende e-mailapps."
+
+#: assets/admin/dist/main.js:1
+msgid "Send to"
+msgstr "Verstuur naar"
+
+#: assets/admin/dist/main.js:1
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: assets/admin/dist/main.js:1
+msgid "Email sent successfully"
+msgstr "E-mail succesvol verzonden"
+
+#: assets/admin/dist/main.js:1
+msgid "Email sending failed"
+msgstr "E-mail verzenden mislukt"
+
+#: assets/admin/dist/main.js:1
+msgid "Email Templates"
+msgstr "Email Templates"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward"
+msgstr "Beloning"
+
+#: assets/admin/dist/main.js:1
+msgid "Reminder Settings"
+msgstr "Herinnerings instellingen"
+
+#: assets/admin/dist/main.js:1
+msgid "Send reminder when"
+msgstr "Stuur een herinnering wanneer"
+
+#: assets/admin/dist/main.js:1
+msgid "Send a reminder email"
+msgstr "Stuur een herinneringsmail"
+
+#: assets/admin/dist/main.js:1
+msgid "Select filter"
+msgstr "Filter selecteren"
+
+#: assets/admin/dist/main.js:1
+msgid "Minutes"
+msgstr "Minuten"
+
+#: assets/admin/dist/main.js:1
+msgid "Hours"
+msgstr "Uren"
+
+#: assets/admin/dist/main.js:1
+msgid "Days"
+msgstr "Dagen"
+
+#: assets/admin/dist/main.js:1
+msgid "After order completed"
+msgstr "Nadat de bestelling is voltooid"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum products ( in order ) need to remind reviewing"
+msgstr ""
+"Maximale producten (in volgorde) moeten worden herinnerd aan het beoordelen"
+
+#: assets/admin/dist/main.js:1
+msgid "All products"
+msgstr "Alle producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Normal products"
+msgstr "Normale producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Featured products"
+msgstr "Uitgelichte producten"
+
+#: assets/admin/dist/main.js:1
+msgid "On-sale products"
+msgstr "Afgeprijsde producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Newest products"
+msgstr "Nieuwste producten"
+
+#: assets/admin/dist/main.js:1
+msgid "High-rated products"
+msgstr "Hoog gewaardeerde producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Low-rated products"
+msgstr "Producten met een lage beoordeling"
+
+#: assets/admin/dist/main.js:1
+msgid "Best selling products"
+msgstr "Best verkochte producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Send to customers"
+msgstr "Verzenden naar klanten"
+
+#: assets/admin/dist/main.js:1
+msgid "Except emails"
+msgstr "Behalve e-mails"
+
+#: assets/admin/dist/main.js:1
+msgid "Enter email addresses, one per line."
+msgstr "Voer e-mailadressen in, één per regel."
+
+#: assets/admin/dist/main.js:1
+msgid "Send to guests"
+msgstr "Stuur naar gasten"
+
+#: assets/admin/dist/main.js:1
+msgid "Change"
+msgstr "Wijzigen"
+
+#: assets/admin/dist/main.js:1
+msgid "email template"
+msgstr "e-mailsjabloon"
+
+#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:62
+msgid "Upload media"
+msgstr "Media uploaden"
+
+#: assets/admin/dist/main.js:1
+msgid "is required"
+msgstr "is verplicht"
+
+#: assets/admin/dist/main.js:1
+msgid "Media types"
+msgstr "Media types"
+
+#: assets/admin/dist/main.js:1
+msgid "Select types"
+msgstr "Selecteer typen"
+
+#: assets/admin/dist/main.js:1
+msgid "Video and image"
+msgstr "Video en beeld"
+
+#: assets/admin/dist/main.js:1
+msgid "Only video"
+msgstr "Alleen video"
+
+#: assets/admin/dist/main.js:1
+msgid "Only image"
+msgstr "Alleen afbeelding"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum files"
+msgstr "Maximaal aantal bestanden"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum files customer can upload"
+msgstr "Maximaal aantal bestanden dat de klant kan uploaden"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum file size (Kbs)"
+msgstr "Maximale bestandsgrootte (Kbs)"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum"
+msgstr "Maximum"
+
+#: assets/admin/dist/main.js:1
+msgid "Kbs"
+msgstr "Kbs"
+
+#: assets/admin/dist/main.js:1
+msgid "Field label (optional)"
+msgstr "Veldlabel (optioneel)"
+
+#: assets/admin/dist/main.js:1
+msgid "Field description (optional)"
+msgstr "Veldomschrijving (optioneel)"
+
+#: assets/admin/dist/main.js:1
+msgid "..."
+msgstr "..."
+
+#: assets/admin/dist/main.js:1
+msgid "Data processing consent"
+msgstr "Toestemming voor gegevensverwerking"
+
+#: assets/admin/dist/main.js:1
+msgid "GDPR message"
+msgstr "AVG-bericht"
+
+#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:65
+msgid "I agree with your policy,..."
+msgstr "Ik ben het eens met uw beleid,…"
+
+#: assets/admin/dist/main.js:1
+msgid "Before message"
+msgstr "Voor bericht"
+
+#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:66
+#: src/Classes/Helpers.php:67
+msgid ""
+"We value your privacy. By submitting this review, you consent to the "
+"processing of your personal data"
+msgstr ""
+"Wij hechten waarde aan uw privacy. Door deze beoordeling in te dienen, stemt "
+"u in met de verwerking van uw persoonsgegevens."
+
+#: assets/admin/dist/main.js:1
+msgid "After message"
+msgstr "Na bericht"
+
+#: assets/admin/dist/main.js:1
+msgid "Select values"
+msgstr "Waarden selecteren"
+
+#: assets/admin/dist/main.js:1
+msgid "Search value"
+msgstr "Zoekwaarde"
+
+#: assets/admin/dist/main.js:1
+msgid "No value found"
+msgstr "Geen waarde gevonden"
+
+#: assets/admin/dist/main.js:1
+msgid "All"
+msgstr "Alle"
+
+#: assets/admin/dist/main.js:1
+msgid "Error fetching products:"
+msgstr "Fout bij het ophalen van producten:"
+
+#: assets/admin/dist/main.js:1
+msgid "Failed to create coupon"
+msgstr "Coupon aanmaken mislukt"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon code"
+msgstr "Kortingscode"
+
+#: assets/admin/dist/main.js:1
+msgid "Description ( optional )"
+msgstr "Beschrijving (optioneel)"
+
+#: assets/admin/dist/main.js:1
+msgid "Discount type"
+msgstr "Kortingstype"
+
+#: assets/admin/dist/main.js:1
+msgid "Select type"
+msgstr "Selecteer type"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon amount"
+msgstr "Waarde van kortingscode"
+
+#: assets/admin/dist/main.js:1
+msgid "Allow free shipping"
+msgstr "Gratis verzending toestaan"
+
+#: assets/admin/dist/main.js:1
+msgid "Check this box if the coupon grants free shipping."
+msgstr "Vink dit vakje aan als de kortingsbon gratis verzending toestaat."
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon expiry date"
+msgstr "Vervaldatum kortingscode"
+
+#: assets/admin/dist/main.js:1
+msgid "No expiry"
+msgstr "Geen vervaldatum"
+
+#: assets/admin/dist/main.js:1
+msgid "Usage restriction"
+msgstr "Gebruiksbeperking"
+
+#: assets/admin/dist/main.js:1
+msgid "Usage limits"
+msgstr "Gebruikslimieten"
+
+#: assets/admin/dist/main.js:1
+msgid "Minimum spend"
+msgstr "Minimale besteding"
+
+#: assets/admin/dist/main.js:1
+msgid "No minimum"
+msgstr "Geen minimum"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum spend"
+msgstr "Maximale besteding"
+
+#: assets/admin/dist/main.js:1
+msgid "No maximum"
+msgstr "Geen maximum"
+
+#: assets/admin/dist/main.js:1
+msgid "Individual use only"
+msgstr "Alleen voor individueel gebruik"
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Check this box if the coupon cannot be used in conjunction with other "
+"coupons."
+msgstr ""
+"Vink aan als deze kortingsbon niet in combinatie met andere kortingsbonnen "
+"gebruikt kan worden."
+
+#: assets/admin/dist/main.js:1
+msgid "Exclude sale items"
+msgstr "Afgeprijsde artikelen uitsluiten"
+
+#: assets/admin/dist/main.js:1
+msgid "Check this box if the coupon should not apply to items on sale."
+msgstr "Vink dit aan als:"
+
+#: assets/admin/dist/main.js:1
+msgid "And"
+msgstr "En"
+
+#: assets/admin/dist/main.js:1
+msgid "Products"
+msgstr "Producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Select products"
+msgstr "Selecteer producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Exclude products"
+msgstr "Uitgesloten producten"
+
+#: assets/admin/dist/main.js:1
+msgid "Product categories"
+msgstr "Productcategorieën"
+
+#: assets/admin/dist/main.js:1
+msgid "Any category"
+msgstr "Elke categorie"
+
+#: assets/admin/dist/main.js:1
+msgid "Exclude product categories"
+msgstr "Productcategorieën uitsluiten"
+
+#: assets/admin/dist/main.js:1
+msgid "No categories"
+msgstr "Geen categorieën"
+
+#: assets/admin/dist/main.js:1
+msgid "Allowed emails"
+msgstr "Toegestane e-mails"
+
+#: assets/admin/dist/main.js:1
+msgid "Product brands"
+msgstr "Product merken"
+
+#: assets/admin/dist/main.js:1
+msgid "Any brand"
+msgstr "Elk merk"
+
+#: assets/admin/dist/main.js:1
+msgid "Exclude product brands"
+msgstr "Productmerken uitsluiten"
+
+#: assets/admin/dist/main.js:1
+msgid "No brands"
+msgstr "Geen merken"
+
+#: assets/admin/dist/main.js:1
+msgid "Usage limit per coupon"
+msgstr "Gebruikslimiet per kortingscode"
+
+#: assets/admin/dist/main.js:1
+msgid "Unlimited usage"
+msgstr "Onbeperkt gebruik"
+
+#: assets/admin/dist/main.js:1
+msgid "Limit usage to X items"
+msgstr "Beperk gebruik tot X artikelen"
+
+#: assets/admin/dist/main.js:1
+msgid "Apply to all qualifying items in cart"
+msgstr "Pas toe op alle in aanmerking komende items in de winkelwagen"
+
+#: assets/admin/dist/main.js:1
+msgid "Usage limit per user"
+msgstr "Gebruikslimiet per klant"
+
+#: assets/admin/dist/main.js:1
+msgid "Add coupon"
+msgstr "Kortingscode toevoegen"
+
+#: assets/admin/dist/main.js:1
+msgid "Create new coupon"
+msgstr "Nieuwe coupon maken"
+
+#: assets/admin/dist/main.js:1
+msgid "Expired"
+msgstr "Verlopen"
+
+#: assets/admin/dist/main.js:1
+msgid "Out of usage"
+msgstr "Buiten gebruik"
+
+#: assets/admin/dist/main.js:1
+msgid "Duplicate"
+msgstr "Kopiëren"
+
+#: assets/admin/dist/main.js:1
+msgid "Delete"
+msgstr "Verwijderen"
+
+#: assets/admin/dist/main.js:1
+msgid "Select coupon to be sent"
+msgstr "Selecteer de te verzenden coupon"
+
+#: assets/admin/dist/main.js:1
+msgid "Select coupon"
+msgstr "Selecteer coupon"
+
+#: assets/admin/dist/main.js:1
+msgid "expired"
+msgstr "verlopen"
+
+#: assets/admin/dist/main.js:1
+msgid "out of usage"
+msgstr "buiten gebruik"
+
+#: assets/admin/dist/main.js:1
+msgid "No coupons found"
+msgstr "Geen kortingscodes gevonden"
+
+#: assets/admin/dist/main.js:1
+msgid "or"
+msgstr "of"
+
+#: assets/admin/dist/main.js:1
+msgid "coupon cannot be sent to customers as rewards. Please update its"
+msgstr ""
+"De coupon kan niet als beloning naar klanten worden verzonden. Werk de "
+"coupon bij."
+
+#: assets/admin/dist/main.js:1
+msgid "restrictions"
+msgstr "beperkingen"
+
+#: assets/admin/dist/main.js:1
+msgid "Review criteria"
+msgstr "Beoordelingscriteria"
+
+#: assets/admin/dist/main.js:1
+msgid "Only send coupon for reviews from purchased customers."
+msgstr ""
+"Stuur alleen een kortingsbon als u een beoordeling krijgt van een kopende "
+"klant."
+
+#: assets/admin/dist/main.js:1
+msgid "Guests can receive reward?"
+msgstr "Kunnen gasten een beloning ontvangen?"
+
+#: assets/admin/dist/main.js:1
+msgid "Minimum required rating"
+msgstr "Minimaal vereiste beoordeling"
+
+#: assets/admin/dist/main.js:1
+msgid "Minimum media files uploaded"
+msgstr "Minimaal aantal geüploade mediabestanden"
+
+#: assets/admin/dist/main.js:1
+msgid "Minimum required reviews posted since the last reward?"
+msgstr ""
+"Hoeveel minimaal vereiste beoordelingen zijn er geplaatst sinds de laatste "
+"beloning?"
+
+#: assets/admin/dist/main.js:1
+msgid "Leave empty to receive reward after every review"
+msgstr "Laat dit veld leeg om na elke beoordeling een beloning te ontvangen"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward for reviewing the product"
+msgstr "Beloning voor het beoordelen van het product"
+
+#: assets/admin/dist/main.js:1
+msgid "No reward added"
+msgstr "Geen beloning toegevoegd"
+
+#: assets/admin/dist/main.js:1
+msgid "Sends discount coupons for quality reviews meeting set criteria,"
+msgstr ""
+"Verstuurt kortingsbonnen voor kwaliteitsbeoordelingen die voldoen aan de "
+"gestelde criteria,"
+
+#: assets/admin/dist/main.js:1
+msgid "encouraging great feedback and repeat purchases."
+msgstr "wat positieve feedback en herhaalaankopen stimuleert."
+
+#: assets/admin/dist/main.js:1
+msgid "Create new"
+msgstr "Maak nieuwe"
+
+#: assets/admin/dist/main.js:1
+msgid "You have"
+msgstr "Je hebt"
+
+#: assets/admin/dist/main.js:1
+msgid "reward set"
+msgstr "beloningsset"
+
+#: assets/admin/dist/main.js:1
+msgid "Add new"
+msgstr "Nieuwe toevoegen"
+
+#: assets/admin/dist/main.js:1
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: assets/admin/dist/main.js:1
+msgid "Review"
+msgstr "Beoordeling"
+
+#: assets/admin/dist/main.js:1
+msgid "Emails"
+msgstr "E-mails"
+
+#: assets/admin/dist/main.js:1
+msgid "Settings saved successfully"
+msgstr "Instellingen opgeslagen"
+
+#: assets/admin/dist/main.js:1
+msgid "Failed to save settings"
+msgstr "Instellingen opslaan mislukt"
+
+#: assets/admin/dist/main.js:1
+msgid "Yay Reviews"
+msgstr "Yay Reviews"
+
+#: assets/admin/dist/main.js:1
+msgid "Save"
+msgstr "Opslaan"
+
+#: src/Admin.php:22
+msgid "Media"
+msgstr "Media"
+
+#: src/AdminMenu.php:22
+msgid "Yay Reviews Settings"
+msgstr "Yay Reviews Instellingen"
+
+#. Plugin Name of the plugin/theme
+#: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:176
+msgid "YayReviews"
+msgstr "YayReviews"
+
+#: src/Ajax.php:22
+msgid "Verify nonce failed"
+msgstr "Controleer of nonce mislukt is"
+
+#: src/Ajax.php:38
+msgid "Invalid addon id or status"
+msgstr "Ongeldige add-on-id of -status"
+
+#: src/Classes/Helpers.php:63
+msgid "You can upload jpg/png & video (maximum 2000Kbs)"
+msgstr "Je kunt jpg/png en video uploaden (maximaal 2000Kbs)"
+
+#: src/Classes/Helpers.php:81 src/Emails/ReminderEmail.php:95
+msgid "Reminder email"
+msgstr "Herinneringsmail"
+
+#: src/Classes/Helpers.php:82
+msgid "Thank you for your purchase!"
+msgstr "Hartelijk dank voor uw aankoop!"
+
+#: src/Classes/Helpers.php:83
+msgid ""
+"Thank you for your recent purchase! Please take a moment to share your "
+"thoughts by reviewing these products. Your feedback helps us improve and "
+"earns you reward! {products_table}"
+msgstr ""
+"Bedankt voor je recente aankoop! Neem even de tijd om je mening te delen "
+"door deze producten te beoordelen. Je feedback helpt ons om te verbeteren en "
+"levert je een beloning op! {products_table}"
+
+#: src/Classes/Helpers.php:84 src/Classes/Helpers.php:90
+msgid "{site_title} — Built with YayReviews"
+msgstr "{site_title} — Gebouwd met YayReviews"
+
+#: src/Classes/Helpers.php:87
+msgid "Review reward email"
+msgstr "Beloningsmail beoordelen"
+
+#: src/Classes/Helpers.php:88 src/Emails/ReminderEmail.php:119
+#: src/Emails/RewardEmail.php:82
+msgid "Thank you for your review!"
+msgstr "Bedankt voor je beoordeling!"
+
+#: src/Classes/Helpers.php:89
+msgid ""
+"Thank you for reviewing {product_name}! As a token of our appreciation, "
+"we've sent you coupon: {coupon_code} to use on your next purchase."
+msgstr ""
+"Bedankt voor je beoordeling van {product_name}! Als blijk van waardering "
+"sturen we je kortingsbon: {coupon_code}, te gebruiken bij je volgende "
+"aankoop."
+
+#: src/Emails/ReminderEmail.php:15
+msgid "Review Reminder"
+msgstr "Beoordelingsverzoek"
+
+#: src/Emails/ReminderEmail.php:16
+msgid ""
+"This email is sent to customers to remind them to review their purchased "
+"products."
+msgstr ""
+"Deze e-mail wordt naar klanten verzonden om hen eraan te herinneren hun "
+"gekochte producten te beoordelen."
+
+#: src/Emails/ReminderEmail.php:103
+msgid "Reminder email for you"
+msgstr "Herinneringsmail voor jou"
+
+#: src/Emails/ReminderEmail.php:111 src/Emails/RewardEmail.php:74
+msgid ""
+"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
+"Lorem Ipsum has been the industry's standard dummy text ever since the "
+"1500s, when an unknown printer took a galley of type and scrambled it to "
+"make a type specimen book. It has survived not only five centuries, but also "
+"the leap into electronic typesetting, remaining essentially unchanged"
+msgstr ""
+"Lorem Ipsum is slechts een proeftekst voor de druk- en zetindustrie. Lorem "
+"Ipsum is al sinds de 16e eeuw de standaard proeftekst in de branche, toen "
+"een onbekende drukker een galerij met letters nam en deze door elkaar haalde "
+"om een ​​type-specimenboek te maken. Het heeft niet alleen vijf eeuwen "
+"overleefd, maar ook de overstap naar elektronische zetkunst, en is in wezen "
+"onveranderd gebleven."
+
+#: src/Emails/ReminderEmail.php:189 src/Emails/RewardEmail.php:122
+msgid "Enable/Disable"
+msgstr "Inschakelen/Uitschakelen"
+
+#: src/Emails/ReminderEmail.php:191 src/Emails/RewardEmail.php:124
+msgid "Enable this email notification"
+msgstr "Deze e-mailnotificatie inschakelen"
+
+#: src/Emails/ReminderEmail.php:195 src/Emails/RewardEmail.php:128
+msgid "Subject"
+msgstr "Onderwerp"
+
+#. translators: %s: site title placeholder
+#. translators: %s: list of available placeholders
+#. translators: %s: site title placeholder
+#. translators: %s: list of available placeholders
+#. translators: %s: site title placeholder
+#: src/Emails/ReminderEmail.php:199 src/Emails/ReminderEmail.php:208
+#: src/Emails/ReminderEmail.php:217 src/Emails/ReminderEmail.php:226
+#: src/Emails/RewardEmail.php:132 src/Emails/RewardEmail.php:141
+#: src/Emails/RewardEmail.php:150 src/Emails/RewardEmail.php:159
+#, php-format
+msgid "Available placeholders: %s"
+msgstr "Beschikbare placeholders: %s"
+
+#: src/Emails/ReminderEmail.php:204 src/Emails/RewardEmail.php:137
+msgid "Email Heading"
+msgstr "E-mailkop"
+
+#: src/Emails/ReminderEmail.php:213 src/Emails/RewardEmail.php:146
+msgid "Email Content"
+msgstr "Email inhoud"
+
+#: src/Emails/ReminderEmail.php:222 src/Emails/RewardEmail.php:155
+msgid "Email Footer"
+msgstr "E-mail Voettekst"
+
+#: src/Emails/ReminderEmail.php:231 src/Emails/RewardEmail.php:164
+msgid "Email type"
+msgstr "E-mail type"
+
+#: src/Emails/ReminderEmail.php:233 src/Emails/RewardEmail.php:166
+msgid "Choose which format of email to send."
+msgstr "Kies de te versturen e-mailindeling."
+
+#: src/Emails/RewardEmail.php:16
+msgid "This email is sent to customers to reward them for their reviews."
+msgstr ""
+"Deze e-mail wordt naar klanten verzonden als beloning voor hun beoordelingen."
+
+#: src/Emails/RewardEmail.php:58
+msgid "Reward email"
+msgstr "Beloningsmail"
+
+#: src/Emails/RewardEmail.php:66
+msgid "Reward email for you"
+msgstr "Beloningsmail voor jou"
+
+#. translators: %s: media type (image or video, video, image)
+#: src/Frontend.php:123
+#, php-format
+msgid "Please upload at least 1 %s."
+msgstr "Upload minimaal 1 %s."
+
+#: src/Frontend.php:125
+msgid "image or video"
+msgstr "afbeelding of video"
+
+#: src/Frontend.php:127
+msgid "video"
+msgstr "video"
+
+#: src/Frontend.php:128
+msgid "image"
+msgstr "afbeelding"
+
+#: src/Frontend.php:142
+msgid "Please check GDPR checkbox."
+msgstr "Vink het AVG-selectievakje aan."
+
+#. translators: %1$s: file name, %2$s: max upload size
+#: src/Frontend.php:145
+#, php-format
+msgid ""
+"The size of the file %1$s is too large; the maximum allowed size is %2$sKB."
+msgstr ""
+"De grootte van het bestand %1$s is te groot; de maximaal toegestane grootte "
+"is %2$sKB."
+
+#. translators: %1$s: max upload quantity
+#: src/Frontend.php:147
+#, php-format
+msgid "You can only upload a maximum of %1$s files."
+msgstr "Je kunt maximaal %1$s bestanden uploaden."
+
+#: src/License/EDD_SL_Plugin_Updater.php:501
+msgid "You do not have permission to install plugin updates"
+msgstr "U heeft onvoldoende rechten om deze plug-in te installeren"
+
+#: src/License/EDD_SL_Plugin_Updater.php:501
+msgid "Error"
+msgstr "Fout"
+
+#: src/License/views/expired-admin-notice.php:18
+msgid ""
+"Please click here to renew your license key and continue receiving automatic "
+"updates."
+msgstr ""
+"Klik hier om uw licentiesleutel te verlengen en automatische updates te "
+"blijven ontvangen."
+
+#: src/License/views/expired-license-notification.php:3
+msgid "Your license has expired, please "
+msgstr "Uw licentie is verlopen, alstublieft"
+
+#: src/License/views/expired-license-notification.php:4
+msgid "renew this license"
+msgstr "deze licentie verlengen"
+
+#: src/License/views/expired-license-notification.php:5
+msgid " to download this update. "
+msgstr "om deze update te downloaden."
+
+#: src/License/views/information-card.php:38
+msgid "Deactivate"
+msgstr "Deactiveren"
+
+#: src/License/views/information-card.php:54
+msgid "Expiration Date:"
+msgstr "Vervaldatum:"
+
+#: src/License/views/information-card.php:78
+msgid "Need more licenses?"
+msgstr "Meer licenties nodig?"
+
+#: src/License/views/information-card.php:78
+msgid "Upgrade to unlimited"
+msgstr "Upgrade naar onbeperkt"
+
+#: src/License/views/not-activate-license-notification.php:3
+msgid ""
+"Please activate your license for access to premium features and automatic "
+"updates"
+msgstr ""
+"Activeer uw licentie voor toegang tot premiumfuncties en automatische updates"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:122
+msgid "Other Plugins"
+msgstr "Andere plug-ins"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:292
+#: src/YayCommerceMenu/OtherPluginsMenu.php:341
+#: src/YayCommerceMenu/OtherPluginsMenu.php:389
+msgid "Nonce is invalid"
+msgstr "Nonce is ongeldig"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:310
+msgid "Get data success"
+msgstr "Gegevens ophalen succesvol"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:318
+#: src/YayCommerceMenu/OtherPluginsMenu.php:362
+#: src/YayCommerceMenu/OtherPluginsMenu.php:472
+msgid "Error exception."
+msgstr "Foutuitzondering."
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:327
+#: src/YayCommerceMenu/OtherPluginsMenu.php:371
+#: src/YayCommerceMenu/OtherPluginsMenu.php:481
+msgid "Error."
+msgstr "Fout."
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:355
+msgid "Activate success"
+msgstr "Activeren succesvol"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:438
+msgid "Install success"
+msgstr "Installeren succesvol"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:462
+msgid "Update success"
+msgstr "Update succesvol"
+
+#: src/YayCommerceMenu/RegisterMenu.php:80
+msgid "Help"
+msgstr "Help"
+
+#: src/YayCommerceMenu/RegisterMenu.php:118
+msgid "Licenses"
+msgstr "Licenties"
+
+#: src/YayCommerceMenu/RegisterMenu.php:127
+msgid "Other plugins"
+msgstr "Andere plugins"
+
+#. translators: %s: Plugin name and version.
+#: src/YayCommerceMenu/views/other-plugins-content.php:76
+#: src/YayCommerceMenu/views/other-plugins-content.php:84
+#, php-format
+msgctxt "plugin"
+msgid "Install %s now"
+msgstr "Installeer %s"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:77
+#: src/YayCommerceMenu/views/other-plugins-content.php:85
+msgid "Install Now"
+msgstr "Installeer Nu"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:91
+msgctxt "plugin"
+msgid "Cannot Install"
+msgstr "Kan niet installeren"
+
+#. translators: %s: Plugin name and version.
+#: src/YayCommerceMenu/views/other-plugins-content.php:108
+#: src/YayCommerceMenu/views/other-plugins-content.php:119
+#, php-format
+msgctxt "plugin"
+msgid "Update %s now"
+msgstr "%s bijwerken"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:110
+#: src/YayCommerceMenu/views/other-plugins-content.php:121
+msgid "Update Now"
+msgstr "Nu updaten"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:127
+msgctxt "plugin"
+msgid "Cannot Update"
+msgstr "Kan niet updaten"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:144
+msgctxt "plugin"
+msgid "Activated"
+msgstr "Geactiveerd"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:149
+msgid "Activate"
+msgstr "Activeren"
+
+#. translators: %s: Plugin name.
+#: src/YayCommerceMenu/views/other-plugins-content.php:151
+#, php-format
+msgctxt "plugin"
+msgid "Activate %s"
+msgstr "Activeer %s"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:162
+msgid "Network Activate"
+msgstr "Netwerk Activeren"
+
+#. translators: %s: Plugin name.
+#: src/YayCommerceMenu/views/other-plugins-content.php:164
+#, php-format
+msgctxt "plugin"
+msgid "Network Activate %s"
+msgstr "Netwerk-wijd activeren %s"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:177
+msgctxt "plugin"
+msgid "Cannot Activate"
+msgstr "Kan niet activeren"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:183
+msgctxt "plugin"
+msgid "Installed"
+msgstr "Geïnstalleerd"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:213
+msgid "This plugin doesn&#8217;t work with your versions of WordPress and PHP."
+msgstr "Deze plugin werkt niet met uw versies van WordPress en PHP."
+
+#. translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
+#: src/YayCommerceMenu/views/other-plugins-content.php:217
+#, php-format
+msgid ""
+"<a href=\"%1$s\">Please update WordPress</a>, and then <a "
+"href=\"%2$s\">learn more about updating PHP</a>."
+msgstr ""
+"<a href=\"%1$s\">Update WordPress</a>en lees meer <a href=\"%2$s\">over het "
+"updaten van PHP.</a>."
+
+#. translators: %s: URL to WordPress Updates screen.
+#: src/YayCommerceMenu/views/other-plugins-content.php:225
+#: src/YayCommerceMenu/views/other-plugins-content.php:241
+#, php-format
+msgid "<a href=\"%s\">Please update WordPress</a>."
+msgstr "<a href=\"%s\">Werk WordPress bij.</a>."
+
+#. translators: %s: URL to Update PHP page.
+#: src/YayCommerceMenu/views/other-plugins-content.php:231
+#: src/YayCommerceMenu/views/other-plugins-content.php:250
+#, php-format
+msgid "<a href=\"%s\">Learn more about updating PHP</a>."
+msgstr "<a href=\"%s\">Leer meer over het updaten van PHP</a>."
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:237
+msgid "This plugin doesn&#8217;t work with your version of WordPress."
+msgstr "Deze plugin werkt niet met uw versie van WordPress."
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:246
+msgid "This plugin doesn&#8217;t work with your version of PHP."
+msgstr "Deze plugin werkt niet met uw versie van PHP."
+
+#: views/emails/products-table.php:14
+msgid "Product"
+msgstr "Product"
+
+#: views/emails/products-table.php:15
+msgid "Short Description"
+msgstr "Korte omschrijving"
+
+#: views/emails/products-table.php:16
+msgid "Price"
+msgstr "Prijs"
+
+#: views/frontend/media.php:56
+msgid "Review Details"
+msgstr "Beoordeling details"
+
+#: views/frontend/media.php:76
+msgid "Reviewed in "
+msgstr "Beoordeeld in"
+
+#: views/frontend/media.php:76
+msgid "at"
+msgstr "op"
+
+#: views/frontend/media.php:80
+msgid "Medias in this review"
+msgstr "Media in deze recensie"
+
+#: views/frontend/reviews-form.php:30
+msgid "Upload"
+msgstr "Uploaden"
+
+#: yay-reviews.php:59
+msgid "Please activate WooCommerce to activate Yay Reviews"
+msgstr "Activeer WooCommerce om Yay Reviews te activeren"
+
+#. Description of the plugin/theme
+msgid "YayReviews helps you to do more things with WooCommerce reviews."
+msgstr "Met YayReviews kunt u meer doen met WooCommerce-beoordelingen."
+
+#. Author of the plugin/theme
+msgid "YayCommerce"
+msgstr "YayCommerce"
+
+#. Author URI of the plugin/theme
+msgid "https://yaycommerce.com"
+msgstr "https://yaycommerce.com"

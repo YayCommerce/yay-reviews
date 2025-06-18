@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
+import { __ } from '@wordpress/i18n';
 import { CircleHelpIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { getProducts, postCoupon } from '@/lib/queries';
 import { CouponFormData, couponSchema } from '@/lib/schema';
-import { __, cn, updateQueryCache } from '@/lib/utils';
+import { cn, updateQueryCache } from '@/lib/utils';
 
 import { SectionHorizontal } from './SectionHorizontal';
 import { Button } from './ui/button';
@@ -47,7 +48,7 @@ export const CouponForm = ({
       const products = await getProducts(search, 10);
       setOptions(products);
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error(__('Error fetching products:', 'yay-reviews'), error);
       setOptions([]);
     }
   };
@@ -100,7 +101,7 @@ export const CouponForm = ({
         toast.error(response.message);
       }
     } catch (error) {
-      toast.error('Failed to create coupon');
+      toast.error(__('Failed to create coupon', 'yay-reviews'));
       console.error(error);
     }
   }
@@ -120,7 +121,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="code" className="font-normal">
-              {__('coupon_code')}
+              {__('Coupon code', 'yay-reviews')}
             </Label>
           </span>
           <FormField
@@ -137,7 +138,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="description" className="font-normal">
-              {__('description')} ({__('optional')})
+              {__('Description ( optional )', 'yay-reviews')}
             </Label>
           </span>
           <FormField
@@ -151,7 +152,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="discount_type" className="font-normal">
-              {__('discount_type')}
+              {__('Discount type', 'yay-reviews')}
             </Label>
           </span>
           <FormField
@@ -165,7 +166,7 @@ export const CouponForm = ({
                 onValueChange={onChange}
               >
                 <SelectTrigger className="w-full bg-white">
-                  <SelectValue placeholder={__('select_type')} />
+                  <SelectValue placeholder={__('Select type', 'yay-reviews')} />
                 </SelectTrigger>
                 <SelectContent>
                   {couponTypes.map((type) => (
@@ -181,7 +182,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="amount" className="font-normal">
-              {__('coupon_amount')}
+              {__('Coupon amount', 'yay-reviews')}
             </Label>
           </span>
           <FormField
@@ -212,7 +213,7 @@ export const CouponForm = ({
                   onCheckedChange={onChange}
                 />
                 <Label htmlFor="free_shipping" className="font-normal">
-                  {__('allow_free_shipping')}{' '}
+                  {__('Allow free shipping', 'yay-reviews')}{' '}
                   <span>
                     <TooltipProvider>
                       <Tooltip delayDuration={0}>
@@ -220,7 +221,7 @@ export const CouponForm = ({
                           <CircleHelpIcon size={16} />
                         </TooltipTrigger>
                         <TooltipContent align="center">
-                          {__('allow_free_shipping_description')}
+                          {__('Check this box if the coupon grants free shipping.', 'yay-reviews')}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -233,7 +234,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="expiry_date" className="font-normal">
-              {__('coupon_expiry_date')}
+              {__('Coupon expiry date', 'yay-reviews')}
             </Label>
           </span>
           <FormField
@@ -244,7 +245,7 @@ export const CouponForm = ({
                 id="expiry_date"
                 date={value}
                 setDate={onChange}
-                placeholder={__('no_expiry')}
+                placeholder={__('No expiry', 'yay-reviews')}
               />
             )}
           />
@@ -252,17 +253,17 @@ export const CouponForm = ({
         <Tabs defaultValue="" className="w-full gap-4">
           <TabsList className="w-full">
             <TabsTrigger value="usage_restriction" className="w-1/2">
-              {__('usage_restriction')}
+              {__('Usage restriction', 'yay-reviews')}
             </TabsTrigger>
             <TabsTrigger value="usage_limits" className="w-1/2">
-              {__('usage_limits')}
+              {__('Usage limits', 'yay-reviews')}
             </TabsTrigger>
           </TabsList>
           <TabsContent value="usage_restriction" className="grid items-start gap-4 px-0">
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="minimum_spend" className="font-normal">
-                  {__('minimum_spend')}
+                  {__('Minimum spend', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -272,7 +273,7 @@ export const CouponForm = ({
                   <Input
                     id="minimum_spend"
                     name="minimum_spend"
-                    placeholder={__('no_minimum')}
+                    placeholder={__('No minimum', 'yay-reviews')}
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                     type="number"
@@ -284,7 +285,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="maximum_spend" className="font-normal">
-                  {__('maximum_spend')}
+                  {__('Maximum spend', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -294,7 +295,7 @@ export const CouponForm = ({
                   <Input
                     id="maximum_spend"
                     name="maximum_spend"
-                    placeholder={__('no_maximum')}
+                    placeholder={__('No maximum', 'yay-reviews')}
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                     type="number"
@@ -316,7 +317,7 @@ export const CouponForm = ({
                       onCheckedChange={onChange}
                     />
                     <Label htmlFor="individual_use" className="font-normal">
-                      {__('individual_use')}
+                      {__('Individual use only', 'yay-reviews')}
                       <span>
                         <TooltipProvider>
                           <Tooltip delayDuration={0}>
@@ -324,7 +325,10 @@ export const CouponForm = ({
                               <CircleHelpIcon size={16} />
                             </TooltipTrigger>
                             <TooltipContent align="center">
-                              {__('individual_use_description')}
+                              {__(
+                                'Check this box if the coupon cannot be used in conjunction with other coupons.',
+                                'yay-reviews',
+                              )}
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -347,7 +351,7 @@ export const CouponForm = ({
                       onCheckedChange={onChange}
                     />
                     <Label htmlFor="exclude_sale_items" className="font-normal">
-                      {__('exclude_sale_items')}
+                      {__('Exclude sale items', 'yay-reviews')}
                       <span>
                         <TooltipProvider>
                           <Tooltip delayDuration={0}>
@@ -355,7 +359,10 @@ export const CouponForm = ({
                               <CircleHelpIcon size={16} />
                             </TooltipTrigger>
                             <TooltipContent align="center">
-                              {__('exclude_sale_items_description')}
+                              {__(
+                                'Check this box if the coupon should not apply to items on sale.',
+                                'yay-reviews',
+                              )}
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -367,10 +374,10 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('and')} />
+              <SectionHorizontal label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="products" className="font-normal">
-                  {__('products')}
+                  {__('Products', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -384,7 +391,7 @@ export const CouponForm = ({
                     value={value}
                     onChange={onChange}
                     onSearch={(search) => handleProductSearch(search, setProductOptions)}
-                    placeholder={__('select_products')}
+                    placeholder={__('Select products', 'yay-reviews')}
                   />
                 )}
               />
@@ -393,7 +400,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="exclude_products" className="font-normal">
-                  {__('exclude_products')}
+                  {__('Exclude products', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -407,17 +414,17 @@ export const CouponForm = ({
                     value={value}
                     onChange={onChange}
                     onSearch={(search) => handleProductSearch(search, setExcludeProductOptions)}
-                    placeholder={__('select_products')}
+                    placeholder={__('Select products', 'yay-reviews')}
                   />
                 )}
               />
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('and')} />
+              <SectionHorizontal label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="product_categories" className="font-normal">
-                  {__('product_categories')}
+                  {__('Product categories', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -430,7 +437,7 @@ export const CouponForm = ({
                     options={window.yayReviews.product_categories}
                     value={value}
                     onChange={onChange}
-                    placeholder={__('any_category')}
+                    placeholder={__('Any category', 'yay-reviews')}
                   />
                 )}
               />
@@ -439,7 +446,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="exclude_product_categories" className="font-normal">
-                  {__('exclude_product_categories')}
+                  {__('Exclude product categories', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -452,17 +459,17 @@ export const CouponForm = ({
                     options={window.yayReviews.product_categories}
                     value={value}
                     onChange={onChange}
-                    placeholder={__('no_categories')}
+                    placeholder={__('No categories', 'yay-reviews')}
                   />
                 )}
               />
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('and')} />
+              <SectionHorizontal label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="allowed_emails" className="font-normal">
-                  {__('allowed_emails')}
+                  {__('Allowed emails', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -480,10 +487,10 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('and')} />
+              <SectionHorizontal label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="product_brands" className="font-normal">
-                  {__('product_brands')}
+                  {__('Product brands', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -496,7 +503,7 @@ export const CouponForm = ({
                     options={window.yayReviews.product_brands}
                     value={value}
                     onChange={onChange}
-                    placeholder={__('any_brand')}
+                    placeholder={__('Any brand', 'yay-reviews')}
                   />
                 )}
               />
@@ -505,7 +512,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="exclude_product_brands" className="font-normal">
-                  {__('exclude_product_brands')}
+                  {__('Exclude product brands', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -518,7 +525,7 @@ export const CouponForm = ({
                     options={window.yayReviews.product_brands}
                     value={value}
                     onChange={onChange}
-                    placeholder={__('no_brands')}
+                    placeholder={__('No brands', 'yay-reviews')}
                   />
                 )}
               />
@@ -528,7 +535,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="usage_limit_per_coupon" className="font-normal">
-                  {__('usage_limit_per_coupon')}
+                  {__('Usage limit per coupon', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -538,7 +545,7 @@ export const CouponForm = ({
                   <Input
                     id="usage_limit_per_coupon"
                     name="usage_limit_per_coupon"
-                    placeholder={__('unlimited_usage')}
+                    placeholder={__('Unlimited usage', 'yay-reviews')}
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                     type="number"
@@ -550,7 +557,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="limit_usage_to_x_items" className="font-normal">
-                  {__('limit_usage_to_x_items')}
+                  {__('Limit usage to X items', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -560,7 +567,7 @@ export const CouponForm = ({
                   <Input
                     id="limit_usage_to_x_items"
                     name="limit_usage_to_x_items"
-                    placeholder={__('limit_usage_to_x_items_placeholder')}
+                    placeholder={__('Apply to all qualifying items in cart', 'yay-reviews')}
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                     type="number"
@@ -572,7 +579,7 @@ export const CouponForm = ({
             <div className="grid gap-2">
               <span className="w-max">
                 <Label htmlFor="usage_limit_per_user" className="font-normal">
-                  {__('usage_limit_per_user')}
+                  {__('Usage limit per user', 'yay-reviews')}
                 </Label>
               </span>
               <FormField
@@ -582,7 +589,7 @@ export const CouponForm = ({
                   <Input
                     id="usage_limit_per_user"
                     name="usage_limit_per_user"
-                    placeholder={__('unlimited_usage')}
+                    placeholder={__('Unlimited usage', 'yay-reviews')}
                     value={value}
                     onChange={(e) => onChange(Number(e.target.value))}
                     type="number"
@@ -610,7 +617,7 @@ export const CouponForm = ({
               })();
             }}
           >
-            {__('add_coupon')}
+            {__('Add coupon', 'yay-reviews')}
             {form.formState.isSubmitting && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
           </Button>
         </div>

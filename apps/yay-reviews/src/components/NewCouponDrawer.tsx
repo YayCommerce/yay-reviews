@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { __ } from '@wordpress/i18n';
 
-import { __ } from '@/lib/utils';
 import {
   Drawer,
   DrawerContent,
@@ -40,7 +40,7 @@ export const NewCouponDrawer = ({
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent className="yay-reviews-coupon-form mt-[32px]">
         <DrawerHeader className="border-b text-left">
-          <DrawerTitle className="m-0">{__('create_new_coupon')}</DrawerTitle>
+          <DrawerTitle className="m-0">{__('Create new coupon', 'yay-reviews')}</DrawerTitle>
           <DrawerDescription className="hidden"></DrawerDescription>
         </DrawerHeader>
         <CouponForm
