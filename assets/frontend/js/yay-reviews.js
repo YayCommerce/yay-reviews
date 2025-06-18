@@ -18,6 +18,12 @@ jQuery(document).ready(function ($) {
   let yayReviewsFilesArr = [];
   let renderedFilesCount = 0;
 
+  function formatDuration(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  }
+
   function createVideoThumbnail(file) {
     return new Promise((resolve) => {
       const video = document.createElement("video");
@@ -27,13 +33,14 @@ jQuery(document).ready(function ($) {
       };
       video.onseeked = function () {
         const canvas = document.createElement("canvas");
-        canvas.width = 96; // 6rem = 96px
+        canvas.width = 96;
         canvas.height = 96;
         const ctx = canvas.getContext("2d");
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const thumbnailUrl = canvas.toDataURL();
+        const duration = formatDuration(video.duration);
         URL.revokeObjectURL(video.src);
-        resolve(thumbnailUrl);
+        resolve({ thumbnailUrl, duration });
       };
       video.src = URL.createObjectURL(file);
     });
@@ -43,27 +50,42 @@ jQuery(document).ready(function ($) {
     if (file.type.startsWith("video/")) {
       return await createVideoThumbnail(file);
     } else {
-      return URL.createObjectURL(file);
+      return { thumbnailUrl: URL.createObjectURL(file) };
     }
   }
 
   async function renderThumbnails() {
-    // Only render new thumbnails
     for (let i = renderedFilesCount; i < yayReviewsFilesArr.length; i++) {
       const file = yayReviewsFilesArr[i];
-      const thumbnailUrl = await createThumbnail(file);
+      const { thumbnailUrl, duration } = await createThumbnail(file);
+
+      let overlay = "";
+      if (file.type.startsWith("video/")) {
+        overlay = `
+          <div class="absolute bottom-0 left-0 w-full flex items-center justify-between px-2 py-1 bg-black bg-opacity-60 rounded-b-[5px]">
+            <span class="inline-block">
+              <!-- Play icon SVG -->
+              <svg width="20" height="20" fill="white" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>
+            </span>
+            <span class="text-white text-xs font-semibold">${
+              duration || "0:00"
+            }</span>
+          </div>
+        `;
+      }
 
       const card = document.createElement("div");
       card.className =
         "yay-reviews-thumb-card relative w-24 h-24 flex items-center justify-center cursor-pointer group";
       card.innerHTML = `
         <div class="relative w-full h-full rounded-[8px] border border-[#D4DBE2] group-hover:border-[#757575] p-[4px] transition-all duration-200">
-          <div class="rounded-[5px] bg-[#F5F5F5] p-[1px] flex w-full h-full">
+          <div class="rounded-[5px] bg-[#F5F5F5] p-[1px] flex w-full h-full relative">
             <img src="${thumbnailUrl}" class="object-contain w-full h-full rounded-[5px]" alt="preview" data-file-type="${file.type}">
+            ${overlay}
           </div>
         </div>
         <button type="button" class="z-10 invisible opacity-0 absolute top-0 right-0 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-md transition-all duration-200" data-index="${i}">&times;</button>
-        `;
+      `;
       grid.insertBefore(card, grid.lastElementChild);
     }
     renderedFilesCount = yayReviewsFilesArr.length;

@@ -34,7 +34,14 @@
   margin-bottom: 0;
 }
 
-#review_form_wrapper #review_form textarea {
+#review_form_wrapper #review_form textarea,
+#review_form_wrapper #review_form input[type="text"],
+#review_form_wrapper #review_form input[type="email"],
+#review_form_wrapper #review_form input[type="number"],
+#review_form_wrapper #review_form input[type="tel"],
+#review_form_wrapper #review_form input[type="url"],
+#review_form_wrapper #review_form input[type="search"],
+#review_form_wrapper #review_form input[type="password"] {
   border-width: 1px;
   border-radius: 4px;
 }

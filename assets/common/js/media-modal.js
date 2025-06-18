@@ -1,4 +1,48 @@
 jQuery(document).ready(function ($) {
+  // Helper function to format duration
+  function formatDuration(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  }
+
+  // Create video thumbnail for video media
+  const videoThumbnails = $(".yay-reviews-video_thumbnail");
+
+  videoThumbnails.each(function () {
+    const videoThumbnail = $(this);
+    const parent = videoThumbnail.parent();
+    const video = document.createElement("video");
+    video.src = videoThumbnail.attr("data-src");
+    video.preload = "metadata";
+    video.onloadedmetadata = function () {
+      video.currentTime = 1;
+    };
+    video.onseeked = function () {
+      const canvas = document.createElement("canvas");
+      canvas.width = 96; // 6rem = 96px
+      canvas.height = 96;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const thumbnailUrl = canvas.toDataURL();
+      const duration = formatDuration(video.duration);
+      videoThumbnail.attr("src", thumbnailUrl);
+      let overlay = `
+          <span class="inline-block">
+            <!-- Play icon SVG -->
+            <svg width="20" height="20" fill="white" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>
+          </span>
+          <span class="text-white text-xs font-semibold pr-1">${
+            duration || "0:00"
+          }</span>
+      `;
+      const videoOverlay = $(parent).find(".yay-reviews-video-overlay");
+      if (videoOverlay.length > 0) {
+        $(videoOverlay[0]).html(overlay);
+      }
+    };
+  });
+
   // Open modal when clicking on media
   $(".yay-reviews-media").on("click", function () {
     const mediaType = $(this).data("type");
@@ -63,7 +107,7 @@ jQuery(document).ready(function ($) {
   }
 
   $(".yay-reviews-modal-comment-medias-preview-item").on("click", function () {
-    if ( $(this).hasClass("active") ) {
+    if ($(this).hasClass("active")) {
       return;
     }
 

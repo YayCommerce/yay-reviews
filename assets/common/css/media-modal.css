@@ -183,3 +183,8 @@
 .yay-reviews-modal-media-item {
   border-radius: 4px;
 }
+
+.yay-reviews-video-overlay {
+  left: 1px;
+  width: calc(100% - 2px);
+}
