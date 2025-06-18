@@ -62,10 +62,24 @@ jQuery(document).ready(function ($) {
       let overlay = "";
       if (file.type.startsWith("video/")) {
         overlay = `
-          <div class="absolute bottom-0 left-0 w-full flex items-center justify-between px-2 py-1 bg-black bg-opacity-60 rounded-b-[5px]">
+          <div class="absolute bottom-0 left-0 w-full flex items-center justify-between p-[4px] bg-[#404040cc] rounded-b-[5px]">
             <span class="inline-block">
               <!-- Play icon SVG -->
-              <svg width="20" height="20" fill="white" viewBox="0 0 20 20"><path d="M6 4l10 6-10 6V4z"/></svg>
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_d_39_626)">
+              <path d="M13.4167 0.504904C13.0636 0.359374 12.6572 0.439757 12.3868 0.70873L10.5865 2.50045V1.40838C10.5865 0.630678 9.95286 0 9.17123 0H1.41532C0.633717 0 0 0.630678 0 1.40838V6.59162C0 7.36932 0.633717 8 1.41532 8H9.17123C9.95286 8 10.5865 7.36932 10.5865 6.59162V5.49951L12.3868 7.29124C12.5678 7.4712 12.8093 7.56685 13.0553 7.56685C13.177 7.56685 13.2998 7.54327 13.4167 7.4951C13.7697 7.34953 14 7.00668 14 6.6263V1.37367C14 0.993287 13.7697 0.650435 13.4167 0.504904ZM6.6517 4.36487L4.72266 5.83976C4.64038 5.90278 4.54091 5.93499 4.44095 5.93499C4.37136 5.93499 4.30149 5.91941 4.23662 5.88758C4.07867 5.81016 3.97867 5.65019 3.97867 5.47489V2.52508C3.97867 2.34974 4.07867 2.18981 4.23662 2.11242C4.39463 2.03492 4.58303 2.05343 4.72263 2.16024L6.65167 3.6351C6.76561 3.72219 6.83237 3.85704 6.83237 3.99997C6.8324 4.14292 6.76565 4.27777 6.6517 4.36487Z" fill="white"/>
+              </g>
+              <defs>
+              <filter id="filter0_d_39_626" x="0" y="0" width="14" height="9" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feOffset dy="1"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_39_626"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_39_626" result="shape"/>
+              </filter>
+              </defs>
+              </svg>
             </span>
             <span class="text-white text-xs font-semibold">${
               duration || "0:00"
@@ -79,7 +93,7 @@ jQuery(document).ready(function ($) {
         "yay-reviews-thumb-card relative w-24 h-24 flex items-center justify-center cursor-pointer group";
       card.innerHTML = `
         <div class="relative w-full h-full rounded-[8px] border border-[#D4DBE2] group-hover:border-[#757575] p-[4px] transition-all duration-200">
-          <div class="rounded-[5px] bg-[#F5F5F5] p-[1px] flex w-full h-full relative">
+          <div class="rounded-[5px] bg-[#F5F5F5] flex w-full h-full relative">
             <img src="${thumbnailUrl}" class="object-contain w-full h-full rounded-[5px]" alt="preview" data-file-type="${file.type}">
             ${overlay}
           </div>

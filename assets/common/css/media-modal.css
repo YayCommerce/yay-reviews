@@ -95,6 +95,7 @@
   font-size: 22px;
   line-height: 2.27272727;
   margin: 0;
+  font-weight: 600;
 }
 
 .yay-reviews-modal-media-frame-content {
@@ -185,6 +186,9 @@
 }
 
 .yay-reviews-video-overlay {
-  left: 1px;
-  width: calc(100% - 2px);
+  width: 100%
+}
+
+.yay-reviews-video-overlay:empty {
+  display: none;
 }
