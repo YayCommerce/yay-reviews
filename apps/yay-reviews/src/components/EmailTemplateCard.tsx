@@ -94,8 +94,8 @@ export default function EmailTemplateCard({
   return (
     <Card>
       <CardContent className="w-full">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-12 gap-4">
+          <div className="col-span-12 flex flex-col gap-4 lg:col-span-5">
             {/* Email subject */}
             <div className="flex flex-col gap-2">
               <span className="w-max">
@@ -212,7 +212,7 @@ export default function EmailTemplateCard({
               </Dialog>
             </div>
           </div>
-          <div className="flex flex-col gap-4 rounded-md border p-4">
+          <div className="col-span-12 flex flex-col gap-4 rounded-md border p-4 lg:col-span-7">
             <div className="flex items-center justify-between gap-2">
               <span>{__('preview')}</span>
               <div className="flex gap-2">
@@ -318,7 +318,7 @@ export default function EmailTemplateCard({
                   </div>
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-1">
                 <PreviewTemplate heading={heading} content={content} footer={footer} />
               </CardContent>
             </Card>
