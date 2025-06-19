@@ -9,6 +9,7 @@ class Frontend {
 		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
+		add_filter( 'woocommerce_reviews_title', array( $this, 'reviews_title' ), 100, 3 );
 	}
 
 	public function add_reviews_form( $comment_form ) {
@@ -128,9 +129,10 @@ class Frontend {
 					__( 'image', 'yay-reviews' )
 				)
 		);
-		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), null, true );
-		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/yay-reviews.js', array( 'jquery' ), null, true );
-		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/js/media-modal.js', array( 'jquery' ), null, true );
+		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-slider', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/js/slider.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_localize_script(
 			'yay-reviews-script',
 			'yay_reviews',
@@ -147,7 +149,35 @@ class Frontend {
 				'file_quantity_notice' => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 			)
 		);
-		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/yay-reviews.css', array(), '1.0' );
-		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/css/media-modal.css', array(), '1.0' );
+		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . '/assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
+		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . '/assets/common/css/media-modal.css', array(), YAY_REVIEWS_VERSION );
+	}
+
+	public function reviews_title( $reviews_title, $count, $product ) {
+		$has_media = false;
+		// Get all reviews from product
+		$reviews = get_comments(
+			array(
+				'post_id' => $product->get_id(),
+				'status'  => 'approve',
+			)
+		);
+
+		foreach ( $reviews as $review ) {
+			$media = get_comment_meta( $review->comment_ID, 'yay_reviews_files', true );
+			if ( is_array( $media ) && count( $media ) > 0 ) {
+				$has_media = true;
+				break;
+			}
+		}
+		if ( $has_media ) {
+			$html  = '<div class="yay-reviews-title-wrap">';
+			$html .= '<div class="yay-reviews-title">' . $reviews_title . '</div>';
+			$html .= '<div class="yay-reviews-slider pt-4 pb-10 px-10 relative"><div class="banner" data-height="500" data-width="100%" data-slide-speed="900" data-autoslide="5000"><div class="links"></div></div></div>';
+			$html .= '</div>';
+			return $html;
+		}
+		return $reviews_title;
+
 	}
 }

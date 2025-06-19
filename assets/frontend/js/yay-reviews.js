@@ -397,4 +397,79 @@ jQuery(document).ready(function ($) {
       $(this).attr("title", text);
     });
   });
+
+  setTimeout(function () {
+    const slider = $(".yay-reviews-slider");
+    if (slider !== undefined) {
+      const banner = slider.find(".banner");
+      const links = slider.find(".links");
+      // get all media reviews
+      const mediaReviews = $(".yay-reviews-medias .yay-reviews-media img");
+
+      mediaReviews.each(function (index) {
+        const img = $(this);
+        const media = img.closest(".yay-reviews-media");
+        const commentId = media.data("comment-id");
+        const imageIndex = media.data("index");
+        const mediaType = media.data("type");
+        const mediaSrc = img.data("src");
+        const src = img.attr("src");
+        // Add to first position
+        banner.prepend(
+          `<img src="${src}" class="slider" data-index="${
+            index + 1
+          }" data-comment-id="${commentId}" data-image-index="${imageIndex}" data-type="${mediaType}" data-src="${mediaSrc}">`
+        );
+        links.append(
+          `<span class="link-item" data-index="${index + 1}"></span>`
+        );
+      });
+    }
+  }, 500);
+
+  $(document).on("click", ".yay-reviews-slider .banner", function (e) {
+    if (e.target.classList.contains("link-item")) {
+      return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    const currentImgNumber = $(this).attr("data-current-img-number");
+    const image = $(this).find(`img[data-index="${currentImgNumber}"]`);
+    const index = image.data("index");
+    const commentId = image.data("comment-id");
+    const imageIndex = image.data("image-index");
+    const mediaType = image.data("type");
+    const mediaSrc = image.data("src");
+
+    // get modal with comment id
+    const modal = $(
+      `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+    );
+
+    const backdrop = $(
+      `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
+    );
+
+    const thumbnail = modal.find(
+      ".yay-reviews-modal-media-frame-content .thumbnail"
+    );
+
+    if (mediaType === "video") {
+      thumbnail.html(
+        `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+      );
+    } else {
+      thumbnail.html(
+        `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+      );
+    }
+
+    const commentMediasPreview = modal.find(
+      `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
+    );
+    commentMediasPreview.addClass("active");
+
+    modal.fadeIn(300);
+    backdrop.fadeIn(300);
+  });
 });
