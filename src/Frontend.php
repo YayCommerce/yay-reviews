@@ -137,7 +137,7 @@ class Frontend {
 			$index = 0;
 			foreach ( $attributes as $attribute_name => $attribute_value ) {
 				if ( ! empty( $attribute_value ) ) {
-					if ( $index !== 0 ) {
+					if ( 0 !== $index ) {
 						echo '<span class="yay-reviews-attribute-value-divider">|</span>';
 					}
 					echo '<span class="yay-reviews-attribute-value">' . esc_html( wc_attribute_label( $attribute_name ) ) . ': ' . esc_html( $attribute_value ) . '</span>';
@@ -167,7 +167,6 @@ class Frontend {
 		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-		wp_enqueue_script( 'yay-reviews-slider', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/js/slider.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_localize_script(
 			'yay-reviews-script',
 			'yay_reviews',

@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
   const reviewsSection = $("#reviews");
   if (reviewsSection) {
     reviewsSection.prepend(
-      `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="banner" data-height="500" data-width="100%" data-slide-speed="900" data-autoslide="5000"><div class="links"></div></div></div></div>`
+      `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper flex items-center justify-center gap-2"><div><button class="yay-reviews-slider-arrow left-arrow" disabled><svg viewBox="0 0 24 24"><polyline points="15 6 9 12 15 18" /></svg></button></div><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div><button class="yay-reviews-slider-arrow right-arrow"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg></button></div</div></div></div>`
     );
   }
   // Helper function to validate file type
@@ -404,12 +404,34 @@ jQuery(document).ready(function ($) {
     });
   });
 
+  function updateArrowStates() {
+    const track = $(".yay-reviews-slider-track")[0];
+    if (!track) return;
+
+    const wrapper = $(".yay-reviews-slider-wrapper");
+    const leftArrow = wrapper.find(".left-arrow");
+    const rightArrow = wrapper.find(".right-arrow");
+
+    // A small tolerance to handle sub-pixel rendering issues
+    const scrollEnd =
+      Math.abs(track.scrollWidth - track.clientWidth - track.scrollLeft) < 1;
+    const scrollStart = track.scrollLeft < 1;
+    const isOverflowing = track.scrollWidth > track.clientWidth;
+
+    if (!isOverflowing) {
+      leftArrow.prop("disabled", true);
+      rightArrow.prop("disabled", true);
+    } else {
+      leftArrow.prop("disabled", scrollStart);
+      rightArrow.prop("disabled", scrollEnd);
+    }
+  }
+
   setTimeout(function () {
     const slider = $(".yay-reviews-slider");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     if (slider !== undefined) {
-      const banner = slider.find(".banner");
-      const links = slider.find(".links");
+      const track = slider.find(".yay-reviews-slider-track");
       // get all media reviews
       const mediaReviews = $(".yay-reviews-medias .yay-reviews-media img");
 
@@ -432,24 +454,26 @@ jQuery(document).ready(function ($) {
 
       mediaReviews.each(function (index) {
         const img = $(this);
-        const media = img.closest(".yay-reviews-media");
-        const commentId = media.data("comment-id");
-        const imageIndex = media.data("index");
-        const mediaType = media.data("type");
-        const mediaSrc = img.data("src");
-        const src = img.attr("src");
+        const imageWrap = img.closest(".yay-reviews-media");
         // Add to first position
-        banner.prepend(
-          `<img src="${src}" class="slider" data-index="${
-            index + 1
-          }" data-comment-id="${commentId}" data-image-index="${imageIndex}" data-type="${mediaType}" data-src="${mediaSrc}">`
-        );
-        links.append(
-          `<span class="link-item" data-index="${index + 1}"></span>`
-        );
+        track.prepend(imageWrap.clone().addClass("yay-reviews-media"));
       });
+
+      // // Initial state check
+      // updateArrowStates();
+      // Update on scroll
+      track.on("scroll", updateArrowStates);
+      // Update on resize
+      $(window).on("resize", updateArrowStates);
     }
   }, 500);
+
+  setTimeout(function () {
+    const track = $(".yay-reviews-slider-track");
+    if (track.length > 0) {
+      track.css("flex", "1");
+    }
+  }, 1000);
 
   $(document).on("click", ".yay-reviews-slider .banner", function (e) {
     if (e.target.classList.contains("link-item")) {
@@ -520,4 +544,20 @@ jQuery(document).ready(function ($) {
       allMediaDialogBackdrop.fadeOut(300);
     }
   );
+
+  $(document).on("click", ".yay-reviews-slider-arrow", function () {
+    const track = $(".yay-reviews-slider-track")[0];
+    if (!track || !track.children.length) return;
+
+    const style = window.getComputedStyle(track);
+    const gap = parseFloat(style.gap) || 0;
+    const cardWidth = track.children[0].offsetWidth;
+    const scrollAmount = cardWidth + gap;
+
+    if ($(this).hasClass("left-arrow")) {
+      track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    } else {
+      track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  });
 });
