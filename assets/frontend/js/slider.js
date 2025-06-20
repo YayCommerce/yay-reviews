@@ -1,6 +1,9 @@
 setTimeout(function () {
   // Elements
   var bannerEl = document.querySelector(".banner");
+  if (!bannerEl) {
+    return;
+  }
   var sliderEl = document.querySelectorAll(".slider");
   var linksEl = document.querySelector(".links");
   var imgLinks = linksEl.querySelectorAll(".link-item");
@@ -9,7 +12,6 @@ setTimeout(function () {
   var height = bannerEl.getAttribute("data-height");
   var width = bannerEl.getAttribute("data-width");
   var slideSpeed = bannerEl.getAttribute("data-slide-speed");
-  var autoSlide = bannerEl.getAttribute("data-autoslide");
 
   // Helper function to find image by data-index
   function findImageByDataIndex(dataIndex) {
@@ -120,11 +122,6 @@ setTimeout(function () {
       fadeTo(currentImg, slideSpeed, 1);
     }
 
-    function nextImgFade() {
-      fadeTo(currentImg, slideSpeed, 0);
-      fadeTo(nextImg, slideSpeed, 1);
-    }
-
     function randomImgFade() {
       fadeTo(currentImg, slideSpeed, 0);
       fadeTo(randomImg, slideSpeed, 1);
@@ -172,25 +169,10 @@ setTimeout(function () {
       refreshImgs();
     }
 
-    function restartInterval() {
-      clearInterval(interval);
-      interval = setInterval(autoAdvanceImage, autoSlide);
-    }
-
-    // New function to auto-advance to next image without using
-    function autoAdvanceImage() {
-      if (totalImgs > 1) {
-        nextImgFade();
-        currentImgNumber = nextImgNumber;
-        callFunctions();
-      }
-    }
-
     // Iterate over all links
     // On link click, restart interval, and fade in that image
     for (var i = 0; i < imgLinks.length; i++) {
       imgLinks[i].onclick = function () {
-        restartInterval();
         randomImgNumber = parseInt(this.getAttribute("data-index"));
         randomImg = findImageByDataIndex(randomImgNumber);
         randomImgFade();
@@ -202,10 +184,5 @@ setTimeout(function () {
 
     boldText();
     loadImg();
-
-    // Only set interval if there is more than 1 image
-    if (totalImgs > 1) {
-      var interval = setInterval(autoAdvanceImage, autoSlide);
-    }
   })();
 }, 1000);

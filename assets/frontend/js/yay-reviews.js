@@ -1,4 +1,10 @@
 jQuery(document).ready(function ($) {
+  const reviewsSection = $("#reviews");
+  if (reviewsSection) {
+    reviewsSection.prepend(
+      `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="banner" data-height="500" data-width="100%" data-slide-speed="900" data-autoslide="5000"><div class="links"></div></div></div></div>`
+    );
+  }
   // Helper function to validate file type
   function isValidFileType(file, acceptTypes) {
     const fileType = file.type;
@@ -400,11 +406,29 @@ jQuery(document).ready(function ($) {
 
   setTimeout(function () {
     const slider = $(".yay-reviews-slider");
+    const allMediaDialog = $(".yay-reviews-all-media-dialog");
     if (slider !== undefined) {
       const banner = slider.find(".banner");
       const links = slider.find(".links");
       // get all media reviews
       const mediaReviews = $(".yay-reviews-medias .yay-reviews-media img");
+
+      const mediaReviewsThumbnails = $(
+        ".yay-reviews-modal-comment-medias-preview-item"
+      );
+
+      mediaReviewsThumbnails.each(function () {
+        // const html = $(this).html();
+        const clone = $(this).clone();
+        allMediaDialog
+          .find(".yay-reviews-all-media-dialog-content-wrapper")
+          .append(clone);
+      });
+
+      if (mediaReviews.length === 0) {
+        slider.remove();
+        return;
+      }
 
       mediaReviews.each(function (index) {
         const img = $(this);
@@ -435,7 +459,6 @@ jQuery(document).ready(function ($) {
     e.stopPropagation();
     const currentImgNumber = $(this).attr("data-current-img-number");
     const image = $(this).find(`img[data-index="${currentImgNumber}"]`);
-    const index = image.data("index");
     const commentId = image.data("comment-id");
     const imageIndex = image.data("image-index");
     const mediaType = image.data("type");
@@ -472,4 +495,29 @@ jQuery(document).ready(function ($) {
     modal.fadeIn(300);
     backdrop.fadeIn(300);
   });
+
+  $(document).on("click", ".yay-reviews-see-all-media", function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const allMediaDialog = $(".yay-reviews-all-media-dialog");
+    const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
+    allMediaDialog.fadeIn(300);
+    allMediaDialogBackdrop.fadeIn(300);
+    // show all media in modal
+  });
+
+  $(document).on(
+    "click",
+    ".yay-reviews-all-media-dialog-backdrop",
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const allMediaDialog = $(".yay-reviews-all-media-dialog");
+      const allMediaDialogBackdrop = $(
+        ".yay-reviews-all-media-dialog-backdrop"
+      );
+      allMediaDialog.fadeOut(300);
+      allMediaDialogBackdrop.fadeOut(300);
+    }
+  );
 });

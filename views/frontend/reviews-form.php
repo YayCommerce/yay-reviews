@@ -1,4 +1,16 @@
 <?php
+global $product;
+
+// Check if variable product
+if ( isset( $product ) && $product->is_type( 'variable' ) ) {
+	// get all attributes
+	$attributes = $product->get_attributes();
+	foreach ( $attributes as $attribute ) {
+		$attribute_name   = $attribute->get_name();
+		$attribute_values = $attribute->get_options();
+		echo $attribute_name;
+	}
+}
 
 if ( 'video_image' === $media_type ) {
 	$accept = 'image/gif,image/jpeg,image/jpg,image/png,image/webp,image/bmp,video/mp4,video/avi,video/mov,video/wmv,video/flv,video/mkv,video/quicktime';

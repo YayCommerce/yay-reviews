@@ -21,6 +21,12 @@ if ( $rating && wc_review_ratings_enabled() ) {
 	$rating_stars = wc_get_rating_html( $rating ); // WPCS: XSS ok.
 }
 
+if ( is_admin() ) {
+	$is_frontend = false;
+} else {
+	$is_frontend = true;
+}
+
 ob_start();
 $uploads = wp_upload_dir();
 echo '<div class="yay-reviews-medias">';
@@ -49,8 +55,9 @@ echo '</div>';
 echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr( $comment->comment_ID ) . '">
     <div class="yay-reviews-modal-content">
     <div class="yay-reviews-modal-comment-details">
-    <div class="yay-reviews-modal-media-frame-title">
+    <div class="yay-reviews-modal-media-frame-title flex items-center justify-between">
         <h1>' . esc_html__( 'Review Details', 'yay-reviews' ) . '</h1>
+        ' . ( $is_frontend ? '<button class="yay-reviews-see-all-media-button cursor-pointer inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*=\'size - \'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 h-9 px-4 py-2 w-fit gap-2">' . esc_html__( 'All media', 'yay-reviews' ) . '</button>' : '' ) . '
     </div>
     <div class="yay-reviews-modal-media-frame-content">
         <div class="yay-reviews-modal-media-frame-content-left">

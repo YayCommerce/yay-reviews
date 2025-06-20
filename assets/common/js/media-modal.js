@@ -103,8 +103,18 @@ jQuery(document).ready(function ($) {
 
   // Close modal when clicking outside the content
   $(".yay-reviews-modal-backdrop").on("click", function (e) {
-    console.log("click");
     closeModal();
+  });
+
+  $(".yay-reviews-see-all-media-button").on("click", function () {
+    const currentModal = $(".yay-reviews-preview-media-modal");
+    const currentBackdrop = $(".yay-reviews-modal-backdrop");
+    const allMediaDialog = $(".yay-reviews-all-media-dialog");
+    const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
+    currentModal.fadeOut(300);
+    currentBackdrop.fadeOut(300);
+    allMediaDialog.fadeIn(300);
+    allMediaDialogBackdrop.fadeIn(300);
   });
 
   // Close modal with escape key
@@ -115,8 +125,9 @@ jQuery(document).ready(function ($) {
   });
 
   function closeModal() {
-    $(".yay-reviews-preview-media-modal").fadeOut(300);
-    $(".yay-reviews-modal-backdrop").fadeOut(300);
+    $(
+      ".yay-reviews-preview-media-modal, .yay-reviews-modal-backdrop, .yay-reviews-all-media-dialog, .yay-reviews-all-media-dialog-backdrop"
+    ).fadeOut(300);
     $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
   }
 
