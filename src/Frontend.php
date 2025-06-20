@@ -7,6 +7,7 @@ class Frontend {
 	public function __construct() {
 		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ) );
 		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
+		add_action( 'woocommerce_review_meta', array( $this, 'add_attribute_values_to_review_meta' ), 10 );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 	}
@@ -31,8 +32,11 @@ class Frontend {
 	}
 
 	public function save_custom_review_fields( $comment_id ) {
+		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+			return;
+		}
 		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
-			if ( isset( $_FILES['yay_reviews_media'] ) && isset( $_POST['yay_reviews_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+			if ( isset( $_FILES['yay_reviews_media'] ) ) {
 				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files = count( $files['name'] );
 				if ( $total_files > Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ) {
@@ -75,6 +79,18 @@ class Frontend {
 				add_comment_meta( $comment_id, 'yay_reviews_files', $paths );
 			}
 		}
+		// save attribute values
+		if ( isset( $_POST['yay_reviews_attributes'] ) ) {
+			$attributes = $_POST['yay_reviews_attributes']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			// check attribute has value not empty
+			$attributes_values = array();
+			foreach ( $attributes as $attribute_name => $attribute_value ) {
+				if ( ! empty( $attribute_value ) ) {
+					$attributes_values[ $attribute_name ] = $attribute_value;
+				}
+			}
+			add_comment_meta( $comment_id, 'yay_reviews_attributes', $attributes_values );
+		}
 		// Check and send reward email
 		$reward_addon = Helpers::get_settings( 'addons', 'reward' );
 		$rewards      = Helpers::get_settings( 'rewards' );
@@ -109,6 +125,26 @@ class Frontend {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) && count( $media ) > 0 ) {
 			Helpers::print_media( $media, $comment );
+		}
+	}
+
+	public function add_attribute_values_to_review_meta( $comment ) {
+		global $comment;
+		$attributes = get_comment_meta( $comment->comment_ID, 'yay_reviews_attributes', true );
+		if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
+			// print attributes
+			echo '<p class="meta yay-reviews-attribute-list">';
+			$index = 0;
+			foreach ( $attributes as $attribute_name => $attribute_value ) {
+				if ( ! empty( $attribute_value ) ) {
+					if ( $index !== 0 ) {
+						echo '<span class="yay-reviews-attribute-value-divider">|</span>';
+					}
+					echo '<span class="yay-reviews-attribute-value">' . esc_html( wc_attribute_label( $attribute_name ) ) . ': ' . esc_html( $attribute_value ) . '</span>';
+					++$index;
+				}
+			}
+			echo '</p>';
 		}
 	}
 

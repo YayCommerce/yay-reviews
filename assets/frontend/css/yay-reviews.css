@@ -85,3 +85,9 @@
 label[for="yay-reviews-file-input"] {
   margin-bottom: 0;
 }
+
+.yay-reviews-attribute-list {
+  display: flex;
+  gap: 10px; /* Adjust space as needed */
+  align-items: center;
+}
