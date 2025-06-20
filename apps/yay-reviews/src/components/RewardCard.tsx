@@ -58,8 +58,8 @@ export default function RewardCard({
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
       <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-t-xl bg-white shadow-sm">
-        <div className="flex items-center justify-between p-6">
-          <div className="flex w-1/2 items-center gap-2">
+        <div className="flex items-center justify-between gap-2 p-6">
+          <div className="flex w-full max-w-[400px] items-center gap-3">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
               <FormField
                 control={control}
@@ -84,7 +84,7 @@ export default function RewardCard({
               />
             </div>
           </div>
-          <div>
+          <div className="flex items-center gap-2">
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -163,13 +163,13 @@ export default function RewardCard({
       <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl bg-white">
         <div className="flex flex-col gap-4 p-6">
           {/* Coupon selection */}
-          <div className="flex flex-col gap-2">
-            <span className="w-max">
+          <div className="flex max-w-[400px] flex-col gap-2">
+            <span className="w-full">
               <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="font-normal">
                 {__('Select coupon to be sent', 'yay-reviews')}
               </Label>
             </span>
-            <div>
+            <div className="w-full">
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.coupon_id`}
@@ -180,7 +180,7 @@ export default function RewardCard({
                     defaultValue={value || ''}
                     onValueChange={onChange}
                   >
-                    <SelectTrigger className="w-1/2 bg-white">
+                    <SelectTrigger className="w-full bg-white">
                       <SelectValue placeholder={__('Select coupon', 'yay-reviews')} />
                     </SelectTrigger>
                     <SelectContent>
@@ -257,7 +257,7 @@ export default function RewardCard({
 
           <hr className="border-t border-[#f0f0f0]" />
           {/* Review criteria */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <div className="text-foreground mb-2 text-lg font-semibold">
               {__('Review criteria', 'yay-reviews')}
             </div>

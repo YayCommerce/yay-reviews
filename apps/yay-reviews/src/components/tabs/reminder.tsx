@@ -16,7 +16,9 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
 
   return (
     <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('Reminder Settings', 'yay-reviews')}</div>
+      <div className="text-foreground text-3xl font-bold">
+        {__('Reminder Settings', 'yay-reviews')}
+      </div>
       <div className="flex flex-col gap-6">
         {/* Send reminder when */}
         <div className="flex flex-col gap-2">
@@ -26,7 +28,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
-                <div className="w-full sm:w-1/2 md:w-1/2">
+                <div className="w-full max-w-[500px]">
                   {/* Send a reminder email */}
                   <div className="flex flex-col gap-2">
                     <span className="w-max">
@@ -35,7 +37,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       </Label>
                     </span>
 
-                    <div className="xs:flex-col flex w-full flex-row items-center gap-2 flex-wrap">
+                    <div className="flex flex-wrap items-center gap-2">
                       <FormField
                         control={control}
                         name={`reminder.send_after_value`}
@@ -45,12 +47,12 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                             type="number"
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
-                            className="w-1/4"
+                            className="max-w-[60px]"
                             min={1}
                           />
                         )}
                       />
-                      <div className="flex w-3/4 flex-row items-center gap-2">
+                      <div className="flex flex-row flex-wrap items-center gap-2">
                         <FormField
                           control={control}
                           name={`reminder.send_after_unit`}
@@ -80,17 +82,12 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     </div>
                   </div>
                 </div>
-                <div className="w-1/2">
+                <div className="w-full max-w-[500px]">
                   {/* Max products  */}
                   <div className="flex flex-col gap-2">
-                    <span className="w-max">
-                      <Label htmlFor="reminder.max_products" className="font-normal">
-                        {__(
-                          'Maximum products ( in order ) need to remind reviewing',
-                          'yay-reviews',
-                        )}
-                      </Label>
-                    </span>
+                    <Label htmlFor="reminder.max_products" className="font-normal">
+                      {__('Maximum products ( in order ) need to remind reviewing', 'yay-reviews')}
+                    </Label>
                     <div className="flex w-full items-center gap-2">
                       <FormField
                         control={control}
@@ -102,54 +99,52 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                             type="number"
                             value={value}
                             onChange={(e) => onChange(Number(e.target.value))}
-                            className="w-1/4"
+                            className="max-w-[60px]"
                             min={1}
                           />
                         )}
                       />
-                      <div className="w-3/4">
-                        <FormField
-                          control={control}
-                          name={`reminder.products_type`}
-                          render={({ field: { value, onChange } }) => (
-                            <Select
-                              id="reminder.products_type"
-                              value={value}
-                              onValueChange={onChange}
-                            >
-                              <SelectTrigger className="w-full">
-                                <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="all">
-                                  {__('All products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="normal">
-                                  {__('Normal products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="featured">
-                                  {__('Featured products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="on_sale">
-                                  {__('On-sale products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="newest">
-                                  {__('Newest products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="high_rated">
-                                  {__('High-rated products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="low_rated">
-                                  {__('Low-rated products', 'yay-reviews')}
-                                </SelectItem>
-                                <SelectItem value="best_selling">
-                                  {__('Best selling products', 'yay-reviews')}
-                                </SelectItem>
-                              </SelectContent>
-                            </Select>
-                          )}
-                        />
-                      </div>
+                      <FormField
+                        control={control}
+                        name={`reminder.products_type`}
+                        render={({ field: { value, onChange } }) => (
+                          <Select
+                            id="reminder.products_type"
+                            value={value}
+                            onValueChange={onChange}
+                          >
+                            <SelectTrigger className="w-full max-w-[300px]">
+                              <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="all">
+                                {__('All products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="normal">
+                                {__('Normal products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="featured">
+                                {__('Featured products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="on_sale">
+                                {__('On-sale products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="newest">
+                                {__('Newest products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="high_rated">
+                                {__('High-rated products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="low_rated">
+                                {__('Low-rated products', 'yay-reviews')}
+                              </SelectItem>
+                              <SelectItem value="best_selling">
+                                {__('Best selling products', 'yay-reviews')}
+                              </SelectItem>
+                            </SelectContent>
+                          </Select>
+                        )}
+                      />
                     </div>
                   </div>
                 </div>
@@ -192,7 +187,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                         id="reminder.except_emails"
                         placeholder={__('Enter email addresses, one per line.', 'yay-reviews')}
                         rows={7}
-                        className="w-1/2"
+                        className="max-w-[500px]"
                         value={value}
                         onChange={onChange}
                       />

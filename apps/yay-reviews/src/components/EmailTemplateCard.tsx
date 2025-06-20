@@ -223,7 +223,7 @@ export default function EmailTemplateCard({
           </div>
           <div className="col-span-12 flex flex-col gap-4 rounded-md border p-4 lg:col-span-7">
             <div className="flex items-center justify-between gap-2">
-              <span>{__('Preview', 'yay-reviews')}</span>
+              <h3>{__('Preview', 'yay-reviews')}</h3>
               <div className="flex gap-2">
                 <div className="flex gap-1">
                   <Button
@@ -319,8 +319,8 @@ export default function EmailTemplateCard({
                 </Dialog>
               </div>
             </div>
-            <Card className={cn(device === 'mobile' && 'yay-reviews-email-preview-mobile')}>
-              <CardHeader className="border-border border-b">
+            <Card className={cn(device === 'mobile' && 'yay-reviews-email-preview-mobile', 'p-0')}>
+              <CardHeader className="border-border border-b p-6">
                 <CardTitle className="text-foreground flex flex-col gap-2">
                   <div className="text-base">{subject}</div>
                   <div className="flex items-center gap-2 text-sm font-normal">

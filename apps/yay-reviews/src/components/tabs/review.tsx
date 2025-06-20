@@ -18,11 +18,13 @@ export default function ReviewTab() {
 
   return (
     <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
-      <div className="text-foreground text-3xl font-bold">{__('Review Settings', 'yay-reviews')}</div>
+      <div className="text-foreground text-3xl font-bold">
+        {__('Review Settings', 'yay-reviews')}
+      </div>
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="border-border flex items-center justify-between border-b pb-4">
+            <CardTitle className="border-border flex items-center justify-between border-b pb-4 gap-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('Upload media', 'yay-reviews')}{' '}
                 <Badge
@@ -43,7 +45,7 @@ export default function ReviewTab() {
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-2">
-            <div className="w-full sm:w-1/2">
+            <div className="w-full max-w-[500px]">
               <div className="flex w-full flex-col gap-4">
                 {/* Is Required */}
                 <div className="flex items-center gap-2">
@@ -63,7 +65,7 @@ export default function ReviewTab() {
                   </Label>
                 </div>
                 {/* Media Types */}
-                <div className="flex flex-col gap-1">
+                <div className="flex max-w-[200px] flex-col gap-2">
                   <Label htmlFor="reviews.media_type" className="font-normal">
                     {__('Media types', 'yay-reviews')}
                   </Label>
@@ -72,7 +74,7 @@ export default function ReviewTab() {
                     name={`reviews.media_type`}
                     render={({ field: { value, onChange } }) => (
                       <Select value={value} onValueChange={onChange}>
-                        <SelectTrigger id="reviews.media_type" className="w-1/2">
+                        <SelectTrigger id="reviews.media_type" className="w-full">
                           <SelectValue placeholder={__('Select types', 'yay-reviews')} />
                         </SelectTrigger>
                         <SelectContent>
@@ -91,7 +93,7 @@ export default function ReviewTab() {
                   />
                 </div>
                 {/* Maximum Files */}
-                <div className="flex flex-col gap-1">
+                <div className="flex max-w-[200px] flex-col gap-2">
                   <Label htmlFor="reviews.max_upload_file_qty" className="font-normal">
                     {__('Maximum files', 'yay-reviews')}
                   </Label>
@@ -104,7 +106,7 @@ export default function ReviewTab() {
                         type="number"
                         value={value}
                         onChange={(e) => onChange(Number(e.target.value))}
-                        className="w-1/2"
+                        className="w-full"
                         min={1}
                         max={window.yayReviews.upload_max_qty}
                       />
@@ -115,7 +117,7 @@ export default function ReviewTab() {
                   </span>
                 </div>
                 {/* Maximum File Size */}
-                <div className="flex flex-col gap-1">
+                <div className="flex max-w-[200px] flex-col gap-2">
                   <Label htmlFor="reviews.max_upload_file_size" className="font-normal">
                     {__('Maximum file size (Kbs)', 'yay-reviews')}
                   </Label>
@@ -128,7 +130,7 @@ export default function ReviewTab() {
                         type="number"
                         value={value}
                         onChange={(e) => onChange(Number(e.target.value))}
-                        className="w-1/2"
+                        className="w-full"
                         min={1}
                         max={window.yayReviews.upload_max_size}
                       />
@@ -140,7 +142,7 @@ export default function ReviewTab() {
                   </span>
                 </div>
                 {/* Field Label */}
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-2">
                   <Label htmlFor="reviews.upload_file_label" className="font-normal">
                     {__('Field label (optional)', 'yay-reviews')}
                   </Label>
@@ -159,7 +161,7 @@ export default function ReviewTab() {
                   />
                 </div>
                 {/* Field Description */}
-                <div className="flex w-full flex-col gap-1">
+                <div className="flex w-full flex-col gap-2">
                   <Label htmlFor="reviews.upload_file_description" className="font-normal">
                     {__('Field description (optional)', 'yay-reviews')}
                   </Label>
@@ -184,7 +186,7 @@ export default function ReviewTab() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="border-border flex items-center justify-between border-b pb-4">
+            <CardTitle className="border-border flex items-center justify-between border-b pb-4 gap-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('Data processing consent', 'yay-reviews')}
                 <Badge
@@ -204,9 +206,9 @@ export default function ReviewTab() {
             </CardTitle>
           </CardHeader>
           <CardContent className="w-full">
-            <div className="flex flex-col gap-4">
+            <div className="flex w-full max-w-[500px] flex-col gap-4">
               {/* GDPR message */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.gdpr_message" className="font-normal">
                   {__('GDPR message', 'yay-reviews')}
                 </Label>
@@ -225,7 +227,7 @@ export default function ReviewTab() {
                 />
               </div>
               {/* Before message */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.before_message" className="font-normal">
                   {__('Before message', 'yay-reviews')}
                 </Label>
@@ -247,7 +249,7 @@ export default function ReviewTab() {
                 />
               </div>
               {/* After message */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.after_message" className="font-normal">
                   {__('After message', 'yay-reviews')}
                 </Label>

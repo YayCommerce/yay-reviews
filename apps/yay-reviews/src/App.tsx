@@ -142,13 +142,13 @@ export default function App() {
                 />
               </div>
               {/* Navigation */}
-              <div className="flex flex-wrap space-x-6">
+              <div className="flex flex-wrap space-x-7">
                 {menuItems.map((item) => (
                   <Button
                     key={item.key}
                     variant="link"
                     className={cn(
-                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none p-1',
                       activeTab === item.key && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
