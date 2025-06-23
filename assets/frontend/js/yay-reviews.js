@@ -17,7 +17,7 @@ jQuery(document).ready(function ($) {
             <div class="yay-reviews-summary-item-progress-bar">
               <div class="yay-reviews-summary-item-progress" style="width: ${percentage}%"></div>
             </div>
-            <span class="yay-reviews-summary-item-count">${count}</span>
+            <span class="yay-reviews-summary-item-count yay-reviews-filter-rating cursor-pointer hover:underline" data-rating="${i}" >${count}</span>
           </div>
         `;
       }
@@ -633,5 +633,13 @@ jQuery(document).ready(function ($) {
     } else {
       track.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
+  });
+
+  $(document).on("click", ".yay-reviews-filter-rating", function () {
+    var rating = $(this).data("rating");
+    // Replace with your actual product page URL and query param
+    var url =
+      window.location.pathname + "?rating_filter=" + rating + "#tab-reviews";
+    window.location.href = url;
   });
 });

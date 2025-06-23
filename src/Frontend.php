@@ -10,6 +10,7 @@ class Frontend {
 		add_action( 'woocommerce_review_meta', array( $this, 'add_custom_review_meta' ), 10 );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
+		add_filter( 'comments_clauses', array( $this, 'filter_reviews_by_rating' ), 10, 2 );
 	}
 
 	public function add_reviews_form( $comment_form ) {
@@ -194,5 +195,20 @@ class Frontend {
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
 		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/media-modal.css', array(), YAY_REVIEWS_VERSION );
+	}
+
+	public function filter_reviews_by_rating( $clauses, $comment_query ) {
+		if ( ! is_product() ) {
+			return $clauses;
+		}
+		if ( isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ) {
+			global $wpdb;
+			$rating = intval( $_GET['rating_filter'] );
+			if ( ! empty( $comment_query->query_vars['post_id'] ) ) {
+				$clauses['join']  .= " LEFT JOIN {$wpdb->commentmeta} AS ratingmeta ON {$wpdb->comments}.comment_ID = ratingmeta.comment_id ";
+				$clauses['where'] .= $wpdb->prepare( " AND ratingmeta.meta_key = 'rating' AND ratingmeta.meta_value = %d", $rating );
+			}
+		}
+		return $clauses;
 	}
 }

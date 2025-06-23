@@ -406,12 +406,10 @@ class Helpers {
 		if ( 0 === $total_reviews ) {
 			return array();
 		}
-		$reviews = get_comments(
-			array(
-				'post_id'      => $product_id,
-				'comment_type' => 'review',
-			)
-		);
+
+		global $wpdb;
+		$sql     = "SELECT * FROM {$wpdb->comments} WHERE comment_post_ID = %d AND comment_type = 'review' AND comment_approved = '1'";
+		$reviews = $wpdb->get_results( $wpdb->prepare( $sql, $product_id ) );
 
 		// count 1->5 stars
 		$stars_count = array();
