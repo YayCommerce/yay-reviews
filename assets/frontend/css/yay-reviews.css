@@ -107,6 +107,7 @@ label[for="yay-reviews-file-input"] {
 
 .yay-reviews-slider-track .yay-reviews-media {
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .yay-reviews-slider-track img {

@@ -142,10 +142,6 @@ jQuery(document).ready(function ($) {
       .data("comment-id");
     const mediaType = $(this).data("type");
 
-    console.log("mediaSrc", mediaSrc);
-    console.log("commentId", commentId);
-    console.log("mediaType", mediaType);
-
     const modal = $(
       `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
     );

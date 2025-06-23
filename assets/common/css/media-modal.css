@@ -135,12 +135,6 @@ select {
   border-radius: 6px;
 }
 
-.yay-reviews-all-media-dialog-content
-  .yay-reviews-modal-comment-medias-preview-item:hover {
-  border: 1px solid #d4dbe2;
-  cursor: auto;
-}
-
 .yay-reviews-modal-comment-details {
   display: block;
   height: 100%;

@@ -430,6 +430,7 @@ jQuery(document).ready(function ($) {
   setTimeout(function () {
     const slider = $(".yay-reviews-slider");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
+    const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
     if (slider !== undefined) {
       const track = slider.find(".yay-reviews-slider-track");
       // get all media reviews
@@ -440,8 +441,45 @@ jQuery(document).ready(function ($) {
       );
 
       mediaReviewsThumbnails.each(function () {
-        // const html = $(this).html();
+        const commentId = $(this)
+          .closest(".yay-reviews-preview-media-modal")
+          .data("comment-id");
+        const imageIndex = $(this).data("index");
+        const mediaType = $(this).data("type");
+        const mediaSrc = $(this).find("img").data("src");
         const clone = $(this).clone();
+        $(clone).click(function () {
+          const modal = $(
+            `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+          );
+
+          const backdrop = $(
+            `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
+          );
+
+          const thumbnail = modal.find(
+            ".yay-reviews-modal-media-frame-content .thumbnail"
+          );
+
+          if (mediaType === "video") {
+            thumbnail.html(
+              `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+            );
+          } else {
+            thumbnail.html(
+              `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+            );
+          }
+
+          const commentMediasPreview = modal.find(
+            `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
+          );
+          commentMediasPreview.addClass("active");
+          allMediaDialog.fadeOut(300);
+          allMediaDialogBackdrop.fadeOut(300);
+          modal.fadeIn(300);
+          backdrop.fadeIn(300);
+        });
         allMediaDialog
           .find(".yay-reviews-all-media-dialog-content-wrapper")
           .append(clone);
@@ -452,73 +490,58 @@ jQuery(document).ready(function ($) {
         return;
       }
 
-      mediaReviews.each(function (index) {
+      mediaReviews.each(function () {
         const img = $(this);
         const imageWrap = img.closest(".yay-reviews-media");
+        const imageClone = imageWrap.clone();
+        imageClone.addClass("yay-reviews-media-wrap");
+        imageClone.click(function () {
+          const commentId = imageWrap.data("comment-id");
+          const mediaType = imageWrap.data("type");
+          const imageIndex = imageWrap.data("index");
+          const mediaSrc = img.data("src");
+
+          // get modal with comment id
+          const modal = $(
+            `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+          );
+
+          const backdrop = $(
+            `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
+          );
+
+          const thumbnail = modal.find(
+            ".yay-reviews-modal-media-frame-content .thumbnail"
+          );
+
+          if (mediaType === "video") {
+            thumbnail.html(
+              `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+            );
+          } else {
+            thumbnail.html(
+              `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+            );
+          }
+
+          const commentMediasPreview = modal.find(
+            `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
+          );
+          commentMediasPreview.addClass("active");
+
+          modal.fadeIn(300);
+          backdrop.fadeIn(300);
+        });
         // Add to first position
-        track.prepend(imageWrap.clone().addClass("yay-reviews-media"));
+        track.append(imageClone);
       });
 
-      // // Initial state check
-      // updateArrowStates();
       // Update on scroll
       track.on("scroll", updateArrowStates);
       // Update on resize
       $(window).on("resize", updateArrowStates);
     }
-  }, 500);
-
-  setTimeout(function () {
-    const track = $(".yay-reviews-slider-track");
-    if (track.length > 0) {
-      track.css("flex", "1");
-    }
-  }, 1000);
-
-  $(document).on("click", ".yay-reviews-slider .banner", function (e) {
-    if (e.target.classList.contains("link-item")) {
-      return;
-    }
-    e.preventDefault();
-    e.stopPropagation();
-    const currentImgNumber = $(this).attr("data-current-img-number");
-    const image = $(this).find(`img[data-index="${currentImgNumber}"]`);
-    const commentId = image.data("comment-id");
-    const imageIndex = image.data("image-index");
-    const mediaType = image.data("type");
-    const mediaSrc = image.data("src");
-
-    // get modal with comment id
-    const modal = $(
-      `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
-    );
-
-    const backdrop = $(
-      `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
-    );
-
-    const thumbnail = modal.find(
-      ".yay-reviews-modal-media-frame-content .thumbnail"
-    );
-
-    if (mediaType === "video") {
-      thumbnail.html(
-        `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
-      );
-    } else {
-      thumbnail.html(
-        `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
-      );
-    }
-
-    const commentMediasPreview = modal.find(
-      `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
-    );
-    commentMediasPreview.addClass("active");
-
-    modal.fadeIn(300);
-    backdrop.fadeIn(300);
-  });
+  }, 700);
 
   $(document).on("click", ".yay-reviews-see-all-media", function (e) {
     e.preventDefault();
