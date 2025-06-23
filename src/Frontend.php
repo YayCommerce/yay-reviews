@@ -134,10 +134,6 @@ class Frontend {
 	public function add_custom_review_meta( $comment ) {
 		global $comment;
 		$attributes = get_comment_meta( $comment->comment_ID, 'yay_reviews_attributes', true );
-		$title      = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
-		if ( $title ) {
-			echo '<p class="meta yay-reviews-title">' . esc_html( $title ) . '</p>';
-		}
 		if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
 			// print attributes
 			echo '<p class="meta yay-reviews-attribute-list">';

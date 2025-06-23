@@ -392,8 +392,13 @@ class Helpers {
 		if ( ! $addons['overview'] ) {
 			return array();
 		}
-		global $product;
-		$product_id = $product->get_id();
+		global $post;
+		// check if post is a product
+		if ( ! $post || 'product' !== $post->post_type ) {
+			return array();
+		}
+
+		$product_id = $post->ID;
 
 		$average_rating = get_post_meta( $product_id, '_wc_average_rating', true );
 		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
