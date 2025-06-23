@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 import GiftIcon from './icons/Gift';
 import NoteIcon from './icons/Note';
+import OverviewIcon from './icons/Overview';
 import ReminderIcon from './icons/Reminder';
 import SettingIcon from './icons/Setting';
 import { Badge } from './ui/badge';
@@ -20,10 +21,13 @@ export default function AddonCard({
   onClick,
   onChangeStatus,
 }: {
-  id: 'reminder' | 'reward' | 'optional_fields';
+  id: 'reminder' | 'reward' | 'optional_fields' | 'overview';
   status: boolean;
   onClick: (id: string) => void;
-  onChangeStatus: (addon_id: 'reminder' | 'reward' | 'optional_fields', status: string) => void;
+  onChangeStatus: (
+    addon_id: 'reminder' | 'reward' | 'optional_fields' | 'overview',
+    status: string,
+  ) => void;
 }) {
   const { watch } = useFormContext<SettingsFormData>();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +40,8 @@ export default function AddonCard({
         return 'addons.reward';
       case 'optional_fields':
         return 'addons.optional_fields';
+      case 'overview':
+        return 'addons.overview';
       default:
         return 'addons.reminder';
     }
@@ -51,6 +57,8 @@ export default function AddonCard({
         return <GiftIcon size={30} />;
       case 'optional_fields':
         return <NoteIcon size={30} />;
+      case 'overview':
+        return <OverviewIcon size={30} />;
     }
   }, [id]);
 
@@ -62,6 +70,8 @@ export default function AddonCard({
         return __('Review Reward', 'yay-reviews');
       case 'optional_fields':
         return __('Optional Fields', 'yay-reviews');
+      case 'overview':
+        return __('Overview', 'yay-reviews');
     }
   }, [id]);
 
@@ -80,6 +90,11 @@ export default function AddonCard({
       case 'optional_fields':
         return __(
           'Adds custom fields to review forms, letting customers share tailored feedback for your needs.',
+          'yay-reviews',
+        );
+      case 'overview':
+        return __(
+          'Displays a summary of user ratings, helping customers make informed decisions.',
           'yay-reviews',
         );
     }
@@ -114,18 +129,21 @@ export default function AddonCard({
           <div className="px-6 text-base font-semibold">{title}</div>
           <div className="px-6 pb-4 text-sm font-normal">{description}</div>
           <div className="border-border flex items-center justify-between border-t px-6 pt-4">
-            <Button
-              variant="outline"
-              className="gap-2"
-              disabled={!status}
-              onClick={(e) => {
-                e.preventDefault();
-                onClick(id);
-              }}
-            >
-              <SettingIcon />
-              {__('Settings', 'yay-reviews')}
-            </Button>
+            {id !== 'overview' && (
+              <Button
+                variant="outline"
+                className="gap-2"
+                disabled={!status}
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClick(id);
+                }}
+              >
+                <SettingIcon />
+                {__('Settings', 'yay-reviews')}
+              </Button>
+            )}
+            {id === 'overview' && <div>&nbsp;</div>}
             <div className="relative">
               <Switch
                 checked={Boolean(value)}

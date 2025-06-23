@@ -18,9 +18,12 @@ export default function DashboardTab({
 }) {
   const { watch, setValue } = useFormContext<SettingsFormData>();
   const addons = watch('addons');
+  if (!addons.overview) {
+    addons.overview = false;
+  }
 
   const handleChangeAddonStatus = async (
-    addon_id: 'reminder' | 'reward' | 'optional_fields',
+    addon_id: 'reminder' | 'reward' | 'optional_fields' | 'overview',
     status: string,
   ) => {
     try {
@@ -72,7 +75,7 @@ export default function DashboardTab({
             .map(([key, value]) => (
               <AddonCard
                 key={key}
-                id={key as 'reminder' | 'reward' | 'optional_fields'}
+                id={key as 'reminder' | 'reward' | 'optional_fields' | 'overview'}
                 status={value as boolean}
                 onClick={() => setActiveTab(key)}
                 onChangeStatus={handleChangeAddonStatus}

@@ -52,6 +52,7 @@ class Helpers {
 					'reminder'        => false,
 					'reward'          => false,
 					'optional_fields' => false,
+					'overview'        => false,
 				),
 				'reviews'         => array(
 					'upload_media'            => true,
@@ -382,6 +383,49 @@ class Helpers {
 			'base'        => $base,
 			'text'        => $text,
 			'footer_text' => $footer_text,
+		);
+	}
+
+	public static function get_overview_data() {
+		$all_settings = self::get_all_settings();
+		$addons       = $all_settings['addons'];
+		if ( ! $addons['overview'] ) {
+			return array();
+		}
+		global $product;
+		$product_id = $product->get_id();
+
+		$average_rating = get_post_meta( $product_id, '_wc_average_rating', true );
+		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
+
+		if ( 0 === $total_reviews ) {
+			return array();
+		}
+		$reviews = get_comments(
+			array(
+				'post_id'      => $product_id,
+				'comment_type' => 'review',
+			)
+		);
+
+		// count 1->5 stars
+		$stars_count = array();
+		for ( $i = 1; $i <= 5; $i++ ) {
+			$stars_count[ $i ] = count(
+				array_filter(
+					$reviews,
+					function ( $comment ) use ( $i ) {
+						$rating = (float) get_comment_meta( $comment->comment_ID, 'rating', true );
+						return abs( $rating - $i ) < 0.01; // Use tolerance for floating point comparison
+					}
+				)
+			);
+		}
+
+		return array(
+			'total_reviews'  => $total_reviews,
+			'average_rating' => $average_rating,
+			'stars_count'    => $stars_count,
 		);
 	}
 }

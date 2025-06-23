@@ -26,13 +26,11 @@ class Ajax {
 			$status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
 
 			if ( ! empty( $addon_id ) && ! empty( $status ) ) {
-				$settings = Helpers::get_all_settings();
-				$addons   = $settings['addons'];
-				if ( isset( $addons[ $addon_id ] ) ) {
-					$addons[ $addon_id ] = 'active' === $status ? true : false;
-					$settings['addons']  = $addons;
-					Helpers::update_settings( $settings );
-				}
+				$settings            = Helpers::get_all_settings();
+				$addons              = $settings['addons'];
+				$addons[ $addon_id ] = 'active' === $status ? true : false;
+				$settings['addons']  = $addons;
+				Helpers::update_settings( $settings );
 				wp_send_json_success( array( 'status' => $status ) );
 			}
 			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay_reviews' ) ) );

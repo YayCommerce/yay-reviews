@@ -4,6 +4,7 @@ const addonsSchema = z.object({
   reminder: z.boolean(),
   reward: z.boolean(),
   optional_fields: z.boolean(),
+  overview: z.boolean(),
 });
 
 const reviewsSchema = z.object({

@@ -161,3 +161,97 @@ label[for="yay-reviews-file-input"] {
   cursor: not-allowed;
   background-color: #ccc;
 }
+
+.yay-reviews-stars-container {
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+}
+
+.yay-reviews-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yay-reviews-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.yay-reviews-summary-item-label {
+  flex-basis: 50px;
+  text-align: right;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.yay-reviews-summary-item-progress-bar {
+  flex-grow: 1;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  height: 8px;
+}
+
+.yay-reviews-summary-item-progress {
+  height: 100%;
+  background-color: #a0a0a0;
+  border-radius: 5px;
+}
+
+.yay-reviews-summary-item-count {
+  flex-basis: 30px;
+  text-align: left;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.yay-reviews-average-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.yay-reviews-average-rating-value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #555;
+  line-height: 1;
+}
+
+.yay-reviews-average-rating-count-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.yay-reviews-average-rating-count,
+.yay-reviews-average-rating-text {
+  font-size: 0.875rem;
+  color: #555;
+  font-weight: 700;
+}
+
+.yay-reviews-average-rating-card,
+.yay-reviews-summary-card {
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 400px;
+  margin-bottom: 1rem;
+}
+
+.yay-reviews-average-rating-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
