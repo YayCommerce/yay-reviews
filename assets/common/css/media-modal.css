@@ -114,7 +114,7 @@ select {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
-  padding: 16px;
+  padding: 20px;
 }
 
 .yay-reviews-all-media-dialog-content-wrapper
@@ -147,7 +147,14 @@ select {
   z-index: 200;
 }
 
-.yay-reviews-modal-media-frame-title h1 {
+.yay-reviews-modal-all-media-frame-title {
+  padding: 0 24px;
+  border-bottom: 1px solid #e4e4e7;
+  z-index: 200;
+}
+
+.yay-reviews-modal-media-frame-title h1,
+.yay-reviews-modal-all-media-frame-title h1 {
   padding: 0;
   font-size: 22px;
   line-height: 2.27272727;
@@ -225,8 +232,4 @@ select {
 
 .yay-reviews-video-overlay:empty {
   display: none;
-}
-
-.yay-reviews-see-all-media-button {
-  box-sizing: border-box;
 }

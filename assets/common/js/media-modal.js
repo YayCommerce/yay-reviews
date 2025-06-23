@@ -106,7 +106,7 @@ jQuery(document).ready(function ($) {
     closeModal();
   });
 
-  $(".yay-reviews-see-all-media-button").on("click", function () {
+  $(".yay-reviews-see-all-media").on("click", function () {
     const currentModal = $(".yay-reviews-preview-media-modal");
     const currentBackdrop = $(".yay-reviews-modal-backdrop");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");

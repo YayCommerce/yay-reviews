@@ -189,6 +189,7 @@ class Frontend {
 				'see_all_media'                  => __( 'See all media', 'yay-reviews' ),
 				'overview_data'                  => Helpers::get_overview_data(),
 				'reviews_text'                   => __( 'reviews', 'yay-reviews' ),
+				'all_media_text'                 => __( 'All media', 'yay-reviews' ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
