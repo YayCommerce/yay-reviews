@@ -12,6 +12,7 @@ class Admin {
 
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ), 30 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_filter( 'comment_text', array( $this, 'comment_text' ), 10, 2 );
 	}
 
 	public function add_meta_boxes() {
@@ -19,9 +20,11 @@ class Admin {
 		$screen_id = $screen ? $screen->id : '';
 
 		if ( 'comment' === $screen_id && isset( $_GET['c'] ) && metadata_exists( 'comment', wc_clean( wp_unslash( $_GET['c'] ) ), 'rating' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			add_meta_box( 'woocommerce-rating-yay-reviews-title', __( 'Title', 'yayreviews' ), array( $this, 'reviews_title_metabox_callback' ), 'comment', 'normal', 'high' );
 			add_meta_box( 'woocommerce-rating-yay-reviews', __( 'Media', 'yayreviews' ), array( $this, 'reviews_metabox_callback' ), 'comment', 'normal', 'high' );
 		}
 	}
+
 	public function reviews_metabox_callback( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) ) {
@@ -78,6 +81,21 @@ class Admin {
 			wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 			wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/media-modal.css', array(), YAY_REVIEWS_VERSION );
 			wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+		}
+	}
+
+	public function comment_text( $comment_text, $comment ) {
+		$title = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
+		if ( $title ) {
+			$comment_text = '<p class="meta yay-reviews-title"><strong>' . esc_html( $title ) . '</strong></p>' . $comment_text;
+		}
+		return $comment_text;
+	}
+
+	public function reviews_title_metabox_callback( $comment ) {
+		$title = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
+		if ( $title ) {
+			echo '<p class="meta yay-reviews-title">' . esc_html( $title ) . '</p>';
 		}
 	}
 }

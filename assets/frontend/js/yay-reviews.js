@@ -5,6 +5,12 @@ jQuery(document).ready(function ($) {
       `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper flex items-center justify-center gap-2"><div><button class="yay-reviews-slider-arrow left-arrow" disabled><svg viewBox="0 0 24 24"><polyline points="15 6 9 12 15 18" /></svg></button></div><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div><button class="yay-reviews-slider-arrow right-arrow"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18" /></svg></button></div</div></div></div>`
     );
   }
+  const reviewTitleInput = $(".yay-reviews-review-title");
+  const commentInput = $(".comment-form-comment");
+  // swap review title and comment input
+  if (reviewTitleInput.length && commentInput.length) {
+    reviewTitleInput.after(commentInput);
+  }
   // Helper function to validate file type
   function isValidFileType(file, acceptTypes) {
     const fileType = file.type;
@@ -216,6 +222,14 @@ jQuery(document).ready(function ($) {
     ) {
       e.preventDefault();
       alert(yay_reviews.file_required_notice);
+      return false;
+    }
+
+    // Review title validation max length 60
+    var reviewTitle = $("#yay-reviews-title").val();
+    if (reviewTitle && reviewTitle.length > 60) {
+      e.preventDefault();
+      alert(yay_reviews.review_title_max_length_notice);
       return false;
     }
 

@@ -5,15 +5,15 @@ use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
 class Frontend {
 	public function __construct() {
-		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ) );
+		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ), 100, 1 );
 		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
-		add_action( 'woocommerce_review_meta', array( $this, 'add_attribute_values_to_review_meta' ), 10 );
+		add_action( 'woocommerce_review_meta', array( $this, 'add_custom_review_meta' ), 10 );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 	}
 
 	public function add_reviews_form( $comment_form ) {
-		$data = array(
+		$data                           = array(
 			'upload_media'    => Helpers::get_settings( 'reviews', 'upload_media', false ),
 			'upload_required' => Helpers::get_settings( 'reviews', 'upload_required', false ),
 			'label'           => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
@@ -25,7 +25,6 @@ class Frontend {
 			'gdpr_message'    => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
 			'before'          => Helpers::get_settings( 'reviews', 'before_message', '' ),
 			'after'           => Helpers::get_settings( 'reviews', 'after_message', '' ),
-
 		);
 		$comment_form['comment_field'] .= View::load( 'frontend.reviews-form', $data, false );
 		return $comment_form;
@@ -79,6 +78,10 @@ class Frontend {
 				add_comment_meta( $comment_id, 'yay_reviews_files', $paths );
 			}
 		}
+		// save review title
+		if ( isset( $_POST['yay-reviews-title'] ) ) {
+			add_comment_meta( $comment_id, 'yay_reviews_title', sanitize_text_field( wp_unslash( $_POST['yay-reviews-title'] ) ) );
+		}
 		// save attribute values
 		if ( isset( $_POST['yay_reviews_attributes'] ) ) {
 			$attributes = $_POST['yay_reviews_attributes']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -128,9 +131,13 @@ class Frontend {
 		}
 	}
 
-	public function add_attribute_values_to_review_meta( $comment ) {
+	public function add_custom_review_meta( $comment ) {
 		global $comment;
 		$attributes = get_comment_meta( $comment->comment_ID, 'yay_reviews_attributes', true );
+		$title      = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
+		if ( $title ) {
+			echo '<p class="meta yay-reviews-title">' . esc_html( $title ) . '</p>';
+		}
 		if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
 			// print attributes
 			echo '<p class="meta yay-reviews-attribute-list">';
@@ -171,18 +178,19 @@ class Frontend {
 			'yay-reviews-script',
 			'yay_reviews',
 			array(
-				'ajax_url'             => admin_url( 'admin-ajax.php' ),
-				'nonce'                => wp_create_nonce( 'yay-reviews-nonce' ),
-				'max_upload_qty'       => intval( Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
-				'max_upload_size'      => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
-				'gdpr_notice'          => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
-				'file_required_notice' => $file_required_notice,
+				'ajax_url'                       => admin_url( 'admin-ajax.php' ),
+				'nonce'                          => wp_create_nonce( 'yay-reviews-nonce' ),
+				'max_upload_qty'                 => intval( Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'max_upload_size'                => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
+				'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
+				'file_required_notice'           => $file_required_notice,
 				// translators: %1$s: file name, %2$s: max upload size
-				'file_size_notice'     => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
+				'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
 				// translators: %1$s: max upload quantity
-				'file_quantity_notice' => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
-				'reviews_with_media'   => __( 'Reviews with media', 'yay-reviews' ),
-				'see_all_media'        => __( 'See all media', 'yay-reviews' ),
+				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
+				'reviews_with_media'             => __( 'Reviews with media', 'yay-reviews' ),
+				'see_all_media'                  => __( 'See all media', 'yay-reviews' ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );

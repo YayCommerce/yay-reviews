@@ -40,6 +40,11 @@ if ( 'video_image' === $media_type ) {
 
 ?>
 
+<div class="yay-reviews-review-title mb-4">
+	<label for="yay-reviews-title"><?php echo esc_html__( 'Title (optional)', 'yay-reviews' ); ?></label>
+	<input type="text" name="yay-reviews-title" id="yay-reviews-title" class="w-full border rounded-md focus:outline-none focus:ring-2" maxlength="60">
+	<p class="description"><?php echo esc_html__( 'Maximum 60 characters', 'yay-reviews' ); ?></p>
+</div>
 <div class="my-4">
 	<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
 	
