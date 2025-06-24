@@ -28,13 +28,9 @@ jQuery(document).ready(function ($) {
       starsElement = `
         <div class="yay-reviews-average-rating-card">
           <svg class="yay-reviews-average-rating-star" width="40" height="40" viewBox="0 0 24 24" fill="#FFC700" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
-          <div class="yay-reviews-average-rating-value">${averageRating}</div>
-          <div class="yay-reviews-average-rating-count-wrapper">
-            <div class="yay-reviews-average-rating-count">${totalReviews}</div>
-            <div class="yay-reviews-average-rating-text">${
-              yay_reviews.reviews_text || "reviews"
-            }</div>
-          </div>
+          <div class="yay-reviews-average-rating-value">${averageRating}/${totalReviews} ${
+        yay_reviews.reviews_text || "reviews"
+      }</div>
         </div>
         <div class="yay-reviews-summary-card">
           <div class="yay-reviews-summary">
