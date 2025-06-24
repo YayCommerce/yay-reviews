@@ -201,6 +201,13 @@ class Frontend {
 		if ( ! is_product() ) {
 			return $clauses;
 		}
+
+		$addons = Helpers::get_settings( 'addons' );
+		// check if overview addon is enabled
+		if ( ! isset( $addons['overview'] ) || ! $addons['overview'] ) {
+			return $clauses;
+		}
+
 		if ( isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ) {
 			global $wpdb;
 			$rating = intval( $_GET['rating_filter'] );

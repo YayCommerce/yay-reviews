@@ -90,7 +90,7 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
                 <div class="text-[#0F172A] text-sm">' . wp_kses_post( $comment->comment_content ) . '</div>
                 <div class="yay-reviews-modal-comment-medias-preview">
                     <div class="text-[#18181B] text-lg font-medium mb-2">' . esc_html__( 'Medias in this review', 'yay-reviews' ) . '</div>
-                    <div class="grid gap-2" style="    grid-template-columns: repeat(auto-fill, minmax(max(80px), 1fr));">' . wp_kses_post( $comment_media ) . '</div>
+                    <div class="grid gap-2" style="grid-template-columns: repeat(auto-fill, minmax(max(80px), 1fr));">' . wp_kses_post( $comment_media ) . '</div>
                 </div>
             </div>
         </div>

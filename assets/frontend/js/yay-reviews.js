@@ -9,15 +9,19 @@ jQuery(document).ready(function ($) {
       const starsCount = overviewData.stars_count;
       let summaryItems = "";
       for (let i = 5; i >= 1; i--) {
-        const count = starsCount[i] || 0;
+        const count = Number(starsCount[i]) || 0;
         const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
+        const clickableClasses =
+          count > 0
+            ? "yay-reviews-filter-rating cursor-pointer hover:underline"
+            : "";
         summaryItems += `
           <div class="yay-reviews-summary-item">
             <span class="yay-reviews-summary-item-label">${i} ★</span>
             <div class="yay-reviews-summary-item-progress-bar">
               <div class="yay-reviews-summary-item-progress" style="width: ${percentage}%"></div>
             </div>
-            <span class="yay-reviews-summary-item-count yay-reviews-filter-rating cursor-pointer hover:underline" data-rating="${i}" >${count}</span>
+            <span class="yay-reviews-summary-item-count ${clickableClasses}" data-rating="${i}" >${count}</span>
           </div>
         `;
       }
@@ -638,8 +642,10 @@ jQuery(document).ready(function ($) {
   $(document).on("click", ".yay-reviews-filter-rating", function () {
     var rating = $(this).data("rating");
     // Replace with your actual product page URL and query param
+    var searchParams = new URLSearchParams(window.location.search);
+    searchParams.set("rating_filter", rating);
     var url =
-      window.location.pathname + "?rating_filter=" + rating + "#tab-reviews";
+      window.location.pathname + "?" + searchParams.toString() + "#tab-reviews";
     window.location.href = url;
   });
 });
