@@ -162,4 +162,6 @@ jQuery(document).ready(function ($) {
     $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
     $(this).addClass("active");
   });
+
+  tippy("[data-tippy-content]");
 });

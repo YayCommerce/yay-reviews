@@ -440,12 +440,12 @@ jQuery(document).ready(function ($) {
     </defs>
   </svg>`;
   verifiedOwnerBadge.each(function () {
-    const text = $(this).html();
+    const text = yay_reviews.verified_owner_text;
     const parent = $(this).parent();
     const author = parent.find(".woocommerce-review__author");
     $(this).remove();
     const newBadge = $(
-      `<span class="inline-block align-top">${verifiedOwnerBadgeHtml}</span>`
+      `<span class="yay-reviews-verified-badge inline-block align-top cursor-pointer" data-tippy-content="${text}">${verifiedOwnerBadgeHtml}</span>`
     );
     author.after(newBadge);
 
