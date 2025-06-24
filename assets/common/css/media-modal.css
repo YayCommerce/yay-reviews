@@ -178,6 +178,7 @@ select {
 }
 
 .yay-reviews-modal-media-frame-content-left {
+  position: relative;
   float: left;
   width: 65%;
   height: 100%;
@@ -232,4 +233,56 @@ select {
 
 .yay-reviews-video-overlay:empty {
   display: none;
+}
+
+/* Navigation Arrows */
+.yay-reviews-nav-arrow {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  min-height: 30px;
+  transform: translateY(-50%);
+}
+
+.yay-reviews-nav-arrow:hover {
+  /* transform: translateY(-50%) scale(1.1); */
+}
+
+.yay-reviews-nav-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Show arrows when there are multiple media items */
+.yay-reviews-modal-media-frame-content-left:has(.yay-reviews-nav-arrow)
+  .yay-reviews-nav-arrow {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.yay-reviews-modal-media-frame-content-left:hover .yay-reviews-nav-arrow {
+  opacity: 1;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .yay-reviews-nav-arrow {
+    min-width: 24px;
+    min-height: 24px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .yay-reviews-nav-prev {
+    left: 8px;
+  }
+
+  .yay-reviews-nav-next {
+    right: 8px;
+  }
 }

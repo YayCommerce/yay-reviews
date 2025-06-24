@@ -478,6 +478,61 @@ jQuery(document).ready(function ($) {
     }
   }
 
+  // Function to navigate to specific media
+  function navigateToMedia(modal, commentId, mediaIndex) {
+    const mediaItem = modal.find(
+      `.yay-reviews-modal-comment-medias-preview-item[data-index="${mediaIndex}"]`
+    );
+    const mediaType = mediaItem.data("type");
+    const mediaSrc = mediaItem.find("img").data("src");
+
+    const thumbnail = modal.find(
+      ".yay-reviews-modal-media-frame-content .thumbnail"
+    );
+
+    if (mediaType === "video") {
+      thumbnail.html(
+        `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+      );
+    } else {
+      thumbnail.html(
+        `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+      );
+    }
+
+    // Update active state
+    modal
+      .find(".yay-reviews-modal-comment-medias-preview-item")
+      .removeClass("active");
+    mediaItem.addClass("active");
+
+    // Update current index
+    modal.data("current-index", mediaIndex);
+
+    // Update navigation arrows state
+    updateNavigationArrows(modal, commentId);
+  }
+
+  // Function to update navigation arrows state
+  function updateNavigationArrows(modal, commentId) {
+    const currentIndex = parseInt(modal.data("current-index")) || 0;
+    const totalMedia = modal.find(
+      ".yay-reviews-modal-comment-medias-preview-item"
+    ).length;
+
+    const prevArrow = modal.find(".yay-reviews-nav-prev");
+    const nextArrow = modal.find(".yay-reviews-nav-next");
+
+    // Show/hide arrows based on media count
+    if (totalMedia <= 1) {
+      prevArrow.hide();
+      nextArrow.hide();
+    } else {
+      prevArrow.show();
+      nextArrow.show();
+    }
+  }
+
   setTimeout(function () {
     const slider = $(".yay-reviews-slider");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
@@ -530,6 +585,7 @@ jQuery(document).ready(function ($) {
           allMediaDialogBackdrop.fadeOut(300);
           modal.fadeIn(300);
           backdrop.fadeIn(300);
+          navigateToMedia(modal, commentId, imageIndex);
         });
         allMediaDialog
           .find(".yay-reviews-all-media-dialog-content-wrapper")
@@ -582,6 +638,7 @@ jQuery(document).ready(function ($) {
 
           modal.fadeIn(300);
           backdrop.fadeIn(300);
+          navigateToMedia(modal, commentId, imageIndex);
         });
         // Add to first position
         track.append(imageClone);
