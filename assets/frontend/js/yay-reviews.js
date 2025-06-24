@@ -599,6 +599,7 @@ jQuery(document).ready(function ($) {
     e.stopPropagation();
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
+    $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
     allMediaDialog.fadeIn(300);
     allMediaDialogBackdrop.fadeIn(300);
     // show all media in modal
