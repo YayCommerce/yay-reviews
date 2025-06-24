@@ -65,14 +65,14 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
     </div>
     <div class="yay-reviews-modal-media-frame-content">
         <div class="yay-reviews-modal-media-frame-content-left">
-            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-prev absolute left-4 top-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Previous media">
+            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-prev absolute left-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Previous media">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="#374151"/>
+                    <path d="M15.41 7.41L14 6L8 12L14 18L15.41 16.59L10.83 12L15.41 7.41Z" fill="currentColor"/>
                 </svg>
             </button>' : '' ) . '<div class="thumbnail thumbnail-image flex items-center justify-center h-full bg-gray-50 relative group"></div>
-            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-next absolute right-4 top-1/2 z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Next media">
+            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-next absolute right-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Next media">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="#374151"/>
+                    <path d="M8.59 16.59L10 18L16 12L10 6L8.59 7.41L13.17 12L8.59 16.59Z" fill="currentColor"/>
                 </svg>
             </button>' : '' ) . '
         </div>

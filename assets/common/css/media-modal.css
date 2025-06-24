@@ -262,7 +262,7 @@ select {
 .yay-reviews-modal-media-frame-content-left:has(.yay-reviews-nav-arrow)
   .yay-reviews-nav-arrow {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out, background 0.3s ease-in-out;
 }
 
 .yay-reviews-modal-media-frame-content-left:hover .yay-reviews-nav-arrow {
