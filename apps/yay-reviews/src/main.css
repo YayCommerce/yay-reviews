@@ -142,6 +142,9 @@
 .yaycommerce_page_yay-reviews textarea {
   border-color: var(--input);
   border-radius: calc(var(--radius) - 2px);
+  padding: 4px 12px;
+  color: inherit;
+  font-weight: inherit;
 }
 
 .yaycommerce_page_yay-reviews input:focus,
