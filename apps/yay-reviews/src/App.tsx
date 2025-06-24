@@ -9,12 +9,14 @@ import { Form, useForm } from '@/components/ui/form';
 import { toast, Toaster } from '@/components/ui/sonner';
 
 import EmailIcon from './components/icons/Email';
+import EmailQueueIcon from './components/icons/EmailQueue';
 import GiftIcon from './components/icons/Gift';
 import HomeIcon from './components/icons/Home';
 import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
 import EmailsTab from './components/tabs/emails';
+import EmailsQueueTab from './components/tabs/emails-queue';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
@@ -102,7 +104,7 @@ export default function App() {
       result.push({
         label: __('Review Reward', 'yay-reviews'),
         icon: <GiftIcon />,
-        key: 'review-reward',
+        key: 'reward',
       });
     }
 
@@ -148,7 +150,7 @@ export default function App() {
                     key={item.key}
                     variant="link"
                     className={cn(
-                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none p-1',
+                      'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent p-1 text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                       activeTab === item.key && 'border-[#2271B1] text-[#2271B1]',
                     )}
                     onClick={(e) => {
@@ -190,7 +192,7 @@ export default function App() {
             )}
             {activeTab === 'review' && <ReviewTab />}
             {activeTab === 'reminder' && <ReminderTab setActiveTab={setActiveTab} />}
-            {activeTab === 'review-reward' && <ReviewRewardTab />}
+            {activeTab === 'reward' && <ReviewRewardTab />}
             {activeTab === 'emails' && <EmailsTab />}
           </div>
         </form>
