@@ -48,15 +48,21 @@ export default function EmailTemplateCard({
 
   const sampleValues = useMemo(() => {
     if (templateId === 'reward') {
-      return { ...defaultSampleValues, '{products_table}': '{products_table}' };
+      return {
+        ...defaultSampleValues,
+        '{products_table}': '{products_table}',
+        '{site_title}': window.yayReviews.site_title,
+      };
     }
     if (templateId === 'reminder') {
       return {
         ...defaultSampleValues,
         '{coupon_code}': '{coupon_code}',
         '{product_name}': '{product_name}',
+        '{site_title}': window.yayReviews.site_title,
       };
     }
+
     return defaultSampleValues;
   }, [templateId]);
 
