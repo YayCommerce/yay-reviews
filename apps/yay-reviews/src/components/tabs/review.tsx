@@ -232,7 +232,7 @@ export default function ReviewTab() {
               {/* GDPR message */}
               <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.gdpr_message" className="font-normal">
-                  {__('GDPR message', 'yay-reviews')}
+                  {__('Inline GDPR message', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}

@@ -159,6 +159,7 @@ export default function RewardCard({
       </CollapsibleTrigger>
       <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl bg-white">
         <div className="flex flex-col gap-4 p-6">
+          <div className="text-foreground text-lg font-semibold">{__('Coupon', 'yay-reviews')}</div>
           {/* Coupon selection */}
           <div className="flex max-w-[400px] flex-col gap-2">
             <span className="w-full">

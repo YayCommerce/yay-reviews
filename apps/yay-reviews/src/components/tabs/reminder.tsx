@@ -161,7 +161,10 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
                 {/* Send to customers */}
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="reminder.send_to" className="font-normal">
+                    {__('Send to', 'yay-reviews')}
+                  </Label>
                   <FormField
                     control={control}
                     name={`reminder.send_to`}
