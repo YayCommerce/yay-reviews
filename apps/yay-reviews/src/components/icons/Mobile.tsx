@@ -4,22 +4,34 @@ import BaseIcon, { BaseIconProps } from './BaseIcon';
 
 const MobileIcon = forwardRef<SVGSVGElement, BaseIconProps>(({ ...props }, ref) => (
   <BaseIcon ref={ref} {...props}>
-    <g clipPath="url(#clip0_4418_7552)">
+    <g clipPath="url(#clip0_4482_313)">
       <path
-        d="M15 22.75H9C4.59 22.75 3.25 21.41 3.25 17V7C3.25 2.59 4.59 1.25 9 1.25H15C19.41 1.25 20.75 2.59 20.75 7V17C20.75 21.41 19.41 22.75 15 22.75ZM9 2.75C5.42 2.75 4.75 3.43 4.75 7V17C4.75 20.57 5.42 21.25 9 21.25H15C18.58 21.25 19.25 20.57 19.25 17V7C19.25 3.43 18.58 2.75 15 2.75H9Z"
-        fill={props.fill || 'currentColor'}
+        d="M15.5 22H8.5C6.03 22 4 19.98 4 17.5V6.5C4 4.03 6.03 2 8.5 2H15.5C17.98 2 20 4.03 20 6.5V17.5C20 19.98 17.98 22 15.5 22Z"
+        stroke={props.stroke || 'currentColor'}
+        strokeWidth={props.strokeWidth || 1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill={props.fill || 'transparent'}
       />
       <path
-        d="M14 6.25H10C9.59 6.25 9.25 5.91 9.25 5.5C9.25 5.09 9.59 4.75 10 4.75H14C14.41 4.75 14.75 5.09 14.75 5.5C14.75 5.91 14.41 6.25 14 6.25Z"
-        fill={props.fill || 'currentColor'}
+        d="M10 6H14"
+        stroke={props.stroke || 'currentColor'}
+        strokeWidth={props.strokeWidth || 1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill={props.fill || 'transparent'}
       />
       <path
-        d="M12 19.8598C10.73 19.8598 9.69995 18.8298 9.69995 17.5598C9.69995 16.2898 10.73 15.2598 12 15.2598C13.27 15.2598 14.3 16.2898 14.3 17.5598C14.3 18.8298 13.27 19.8598 12 19.8598ZM12 16.7498C11.56 16.7498 11.2 17.1098 11.2 17.5498C11.2 17.9898 11.56 18.3498 12 18.3498C12.44 18.3498 12.8 17.9898 12.8 17.5498C12.8 17.1098 12.44 16.7498 12 16.7498Z"
-        fill={props.fill || 'currentColor'}
+        d="M11.9902 18H12.0102"
+        stroke={props.stroke || 'currentColor'}
+        strokeWidth={props.strokeWidth || 2.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill={props.fill || 'transparent'}
       />
     </g>
     <defs>
-      <clipPath id="clip0_4418_7552">
+      <clipPath id="clip0_4482_313">
         <rect width={props.size || 24} height={props.size || 24} fill="currentColor" />
       </clipPath>
     </defs>
