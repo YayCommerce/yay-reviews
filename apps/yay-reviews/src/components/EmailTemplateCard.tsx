@@ -233,7 +233,7 @@ export default function EmailTemplateCard({
             <div className="flex flex-col gap-4 rounded-sm border border-solid border-[#e0e0e0] bg-[#f0f0f0] p-4">
               <div className="flex items-center justify-end gap-2">
                 <div className="flex gap-2">
-                  <div className="flex items-center gap-1 rounded-sm border border-solid border-[#e5e7eb] bg-white p-1">
+                  <div className="flex items-center gap-[3px] rounded-sm border border-solid border-[#e5e7eb] bg-white p-[3px]">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger>
