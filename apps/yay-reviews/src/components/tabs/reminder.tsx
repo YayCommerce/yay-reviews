@@ -1,14 +1,11 @@
 import { __ } from '@wordpress/i18n';
-import { CircleHelpIcon } from 'lucide-react';
 
 import { Card, CardContent } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
-import { Switch } from '../ui/switch';
 import { Textarea } from '../ui/textarea';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 
 export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
   const { control, watch } = useFormContext();
@@ -196,18 +193,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                     <Label htmlFor="reminder.except_emails" className="font-normal">
                       {__("Don't send to", 'yay-reviews')}
                     </Label>
-                    <span className="cursor-pointer">
-                      <TooltipProvider>
-                        <Tooltip delayDuration={0}>
-                          <TooltipTrigger className="cursor-pointer" asChild>
-                            <CircleHelpIcon size={16} />
-                          </TooltipTrigger>
-                          <TooltipContent align="center">
-                            {__('Enter email addresses, one per line.', 'yay-reviews')}
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                    </span>
                   </div>
                   <FormField
                     control={control}
