@@ -73,7 +73,7 @@ class Helpers {
 					'max_products'     => 3,
 					'products_type'    => 'normal',
 					'except_emails'    => '',
-					'send_to_guests'   => false,
+					'send_to'          => 'registered_customers',
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),

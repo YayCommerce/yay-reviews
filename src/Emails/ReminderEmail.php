@@ -53,7 +53,7 @@ class ReminderEmail extends \WC_Email {
 		$reminder_settings = $settings['reminder'];
 
 		// Check if sending to guests is disabled
-		if ( ! $reminder_settings['send_to_guests'] ) {
+		if ( ! isset( $reminder_settings['send_to'] ) || 'registered_customers' === $reminder_settings['send_to'] ) {
 			$customer_id = $order->get_customer_id();
 			if ( ! $customer_id ) {
 				return;

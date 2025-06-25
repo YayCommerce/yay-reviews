@@ -15,6 +15,9 @@ export const getSettings = (): SettingsFormData => {
   if (settings.rewards.length === 0) {
     settings.rewards = {};
   }
+  if (settings.reminder.send_to === undefined) {
+    settings.reminder.send_to = 'registered_customers';
+  }
   return settings;
 };
 

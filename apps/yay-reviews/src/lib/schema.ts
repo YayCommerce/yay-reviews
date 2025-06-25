@@ -27,7 +27,7 @@ const reminderSchema = z.object({
   except_emails: z.string(),
   max_products: z.number(),
   products_type: z.string(),
-  send_to_guests: z.boolean(),
+  send_to: z.string(),
 });
 
 const rewardSchema = z.object({

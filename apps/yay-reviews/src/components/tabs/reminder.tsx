@@ -155,16 +155,43 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
         {/* Send to */}
         <div className="flex flex-col gap-2">
           <div className="text-foreground text-lg font-semibold">
-            {__('Send to customers', 'yay-reviews')}
+            {__('Send to', 'yay-reviews')}
           </div>
           <Card>
             <CardContent className="w-full">
               <div className="flex flex-col gap-4">
+                {/* Send to customers */}
+                <div className="flex items-center gap-2">
+                  <FormField
+                    control={control}
+                    name={`reminder.send_to`}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        defaultValue="registered_customers"
+                        id="reminder.send_to"
+                        value={value}
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger className="w-full max-w-[500px]">
+                          <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="registered_customers">
+                            {__('Only registered customers', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="all_customers">
+                            {__('Customers ( include guest users )', 'yay-reviews')}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
                 {/* Except emails */}
                 <div className="flex flex-col gap-2">
                   <div className="flex items-center gap-1">
                     <Label htmlFor="reminder.except_emails" className="font-normal">
-                      {__('Except emails', 'yay-reviews')}
+                      {__("Don't send to", 'yay-reviews')}
                     </Label>
                     <span className="cursor-pointer">
                       <TooltipProvider>
@@ -193,25 +220,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                       />
                     )}
                   />
-                </div>
-
-                {/* Send to guest */}
-                <div className="flex items-center gap-2">
-                  <FormField
-                    control={control}
-                    name={`reminder.send_to_guests`}
-                    render={({ field: { value, onChange } }) => (
-                      <Switch
-                        id="reminder.send_to_guests"
-                        className="cursor-pointer"
-                        checked={value}
-                        onCheckedChange={onChange}
-                      />
-                    )}
-                  />
-                  <Label htmlFor="reminder.send_to_guests" className="font-normal">
-                    {__('Send to guests', 'yay-reviews')}
-                  </Label>
                 </div>
               </div>
             </CardContent>
