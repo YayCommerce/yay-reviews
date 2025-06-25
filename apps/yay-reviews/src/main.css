@@ -176,6 +176,10 @@
   margin-top: 0;
 }
 
+.yay-reviews-email-preview-device-button {
+  border-radius: 4px;
+}
+
 .yay-reviews-email-preview-subject {
   margin-top: 0px;
   margin-bottom: 10px;

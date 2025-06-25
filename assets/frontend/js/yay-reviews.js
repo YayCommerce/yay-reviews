@@ -26,15 +26,20 @@ jQuery(document).ready(function ($) {
         `;
       }
       starsElement = `
-        <div class="yay-reviews-average-rating-card">
-          <svg class="yay-reviews-average-rating-star" width="40" height="40" viewBox="0 0 24 24" fill="#FFC700" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
-          <div class="yay-reviews-average-rating-value">${averageRating}/${totalReviews} ${
+        <div class="yay-reviews-summary-card flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <svg class="yay-reviews-average-rating-star" width="40" height="40" viewBox="0 0 24 24" fill="#FFC700" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
+            <div class="flex flex-col items-center gap-0.5">
+              <span class="text-[40px] font-bold leading-[36px]">${averageRating}</span>
+              <span class="text-[20px] font-semibold">${totalReviews} ${
         yay_reviews.reviews_text || "reviews"
-      }</div>
-        </div>
-        <div class="yay-reviews-summary-card">
+      }</span>
+            </div>
+          </div>
+          <div class="block w-full">
           <div class="yay-reviews-summary">
             ${summaryItems}
+          </div>
           </div>
         </div>
       `;
