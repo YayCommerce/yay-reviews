@@ -172,6 +172,18 @@
   min-height: 150px;
 }
 
+.yay-reviews-email-preview-title {
+  margin-top: 0;
+}
+
+.yay-reviews-email-preview-subject {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
 .yay-reviews-email-preview-mobile {
   margin: auto;
   max-width: 450px;

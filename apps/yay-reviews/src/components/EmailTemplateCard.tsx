@@ -9,8 +9,8 @@ import { cn, getEmailSampleValues } from '@/lib/utils';
 import RichTextEditor from './editor/RichTextEditor';
 import DesktopIcon from './icons/Desktop';
 import MobileIcon from './icons/Mobile';
+import UserIcon from './icons/UserIcon';
 import PreviewTemplate from './PreviewTemplate';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import {
@@ -24,6 +24,7 @@ import {
 import { FormField, useFormContext } from './ui/form';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 export default function EmailTemplateCard({
   templateId,
@@ -227,121 +228,144 @@ export default function EmailTemplateCard({
               </Dialog>
             </div>
           </div>
-          <div className="col-span-12 flex flex-col gap-4 rounded-md border p-4 lg:col-span-7">
-            <div className="flex items-center justify-between gap-2">
-              <h3>{__('Preview', 'yay-reviews')}</h3>
-              <div className="flex gap-2">
-                <div className="flex gap-1">
-                  <Button
-                    variant={device === 'desktop' ? 'default' : 'ghost'}
-                    className="size-9 has-[>svg]:py-0"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setDevice('desktop');
-                    }}
-                  >
-                    <DesktopIcon className="size-5" />
-                  </Button>
-                  <Button
-                    variant={device === 'mobile' ? 'default' : 'ghost'}
-                    className="size-9 has-[>svg]:px-1 has-[>svg]:py-0"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setDevice('mobile');
-                    }}
-                  >
-                    <MobileIcon className="size-5" />
-                  </Button>
-                </div>
-                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                  <DialogTrigger asChild>
-                    <Button variant="outline" className="">
-                      {__('Send test mail', 'yay-reviews')}
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-md">
-                    <DialogHeader>
-                      <DialogTitle>{__('Send a test email', 'yay-reviews')}</DialogTitle>
-                    </DialogHeader>
-
-                    <div className="flex flex-col gap-4">
-                      <span>
-                        {__(
-                          'Send yourself a test email to check how your email looks in different email apps.',
-                          'yay-reviews',
-                        )}
-                      </span>
-                      <div className="flex flex-col gap-2">
-                        <span className="uppercase">{__('Send to', 'yay-reviews')}</span>
-                        <Input
-                          value={testEmail}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setTestEmail(e.target.value);
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <DialogFooter>
-                      <Button
-                        variant="outline"
-                        className=""
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setIsDialogOpen(false);
-                        }}
-                      >
-                        {__('Cancel', 'yay-reviews')}
-                      </Button>
-                      <Button
-                        variant="default"
-                        className=""
-                        disabled={isSending}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setIsSending(true);
-                          sendTestMail(testEmail, subject, heading, content, footer)
-                            .then((res: any) => {
-                              if (res.message === 'Email sent successfully') {
-                                toast.success(__('Email sent successfully', 'yay-reviews'));
-                              } else {
-                                toast.error(__('Email sending failed', 'yay-reviews'));
-                              }
-                            })
-                            .catch((err: any) => {
-                              console.log(err);
-                              toast.error(__('Email sending failed', 'yay-reviews'));
-                            })
-                            .finally(() => {
-                              setIsSending(false);
-                            });
-                        }}
-                      >
-                        {__('Send test mail', 'yay-reviews')}
-                        {isSending && <Loader2Icon className="animate-spin" />}
-                      </Button>
-                    </DialogFooter>
-                  </DialogContent>
-                </Dialog>
-              </div>
-            </div>
-            <Card className={cn(device === 'mobile' && 'yay-reviews-email-preview-mobile', 'p-0')}>
-              <CardHeader className="border-border border-b p-6">
-                <CardTitle className="text-foreground flex flex-col gap-2">
-                  <div className="text-base">{subject}</div>
-                  <div className="flex items-center gap-2 text-sm font-normal">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src="https://github.com/shadcn.png" />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    {window.yayReviews.site_title}
+          <div className="col-span-12 lg:col-span-7">
+            <h3 className="yay-reviews-email-preview-title">{__('Preview', 'yay-reviews')}</h3>
+            <div className="flex flex-col gap-4 rounded-sm border border-solid border-[#e0e0e0] bg-[#f0f0f0] p-4">
+              <div className="flex items-center justify-end gap-2">
+                <div className="flex gap-2">
+                  <div className="flex items-center gap-1 rounded-sm border border-solid border-[#e5e7eb] bg-white p-1">
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button
+                            variant={device === 'desktop' ? 'default' : 'ghost'}
+                            className="h-[26px] w-[26px] has-[>svg]:px-3 has-[>svg]:py-0"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setDevice('desktop');
+                            }}
+                          >
+                            <DesktopIcon className="size-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{__('Desktop preview', 'yay-reviews')}</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Button
+                            variant={device === 'mobile' ? 'default' : 'ghost'}
+                            className="h-[26px] w-[26px] has-[>svg]:px-3 has-[>svg]:py-0"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setDevice('mobile');
+                            }}
+                          >
+                            <MobileIcon className="size-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>{__('Mobile preview', 'yay-reviews')}</TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-1">
-                <PreviewTemplate heading={heading} content={content} footer={footer} />
-              </CardContent>
-            </Card>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="outline" className="w-fit">
+                        {__('Send test mail', 'yay-reviews')}
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-md">
+                      <DialogHeader>
+                        <DialogTitle>{__('Send a test email', 'yay-reviews')}</DialogTitle>
+                      </DialogHeader>
+
+                      <div className="flex flex-col gap-4">
+                        <span>
+                          {__(
+                            'Send yourself a test email to check how your email looks in different email apps.',
+                            'yay-reviews',
+                          )}
+                        </span>
+                        <div className="flex flex-col gap-2">
+                          <span className="uppercase">{__('Send to', 'yay-reviews')}</span>
+                          <Input
+                            value={testEmail}
+                            onChange={(e) => {
+                              e.preventDefault();
+                              setTestEmail(e.target.value);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <DialogFooter>
+                        <Button
+                          variant="outline"
+                          className=""
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsDialogOpen(false);
+                          }}
+                        >
+                          {__('Cancel', 'yay-reviews')}
+                        </Button>
+                        <Button
+                          variant="default"
+                          className=""
+                          disabled={isSending}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setIsSending(true);
+                            sendTestMail(testEmail, subject, heading, content, footer)
+                              .then((res: any) => {
+                                if (res.message === 'Email sent successfully') {
+                                  toast.success(__('Email sent successfully', 'yay-reviews'));
+                                } else {
+                                  toast.error(__('Email sending failed', 'yay-reviews'));
+                                }
+                              })
+                              .catch((err: any) => {
+                                console.log(err);
+                                toast.error(__('Email sending failed', 'yay-reviews'));
+                              })
+                              .finally(() => {
+                                setIsSending(false);
+                              });
+                          }}
+                        >
+                          {__('Send test mail', 'yay-reviews')}
+                          {isSending && <Loader2Icon className="animate-spin" />}
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+              </div>
+              <Card
+                className={cn(
+                  device === 'mobile' && 'yay-reviews-email-preview-mobile',
+                  'm-auto rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
+                )}
+              >
+                <CardHeader className="border-border block border-b p-4 [.border-b]:pb-4">
+                  <CardTitle>
+                    <h2 className="yay-reviews-email-preview-subject mt-0 text-base">{subject}</h2>
+                    <div className="flex items-center gap-2 text-sm font-normal">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-[#cbbeff4d]">
+                        <UserIcon />
+                      </div>
+                      <p className="flex flex-wrap items-center" style={{ margin: 0 }}>
+                        <span className="mr-1 font-bold">{window.yayReviews.site_title}</span>
+                        <span>{`<${testEmail}>`}</span>
+                      </p>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className={cn('p-8', device === 'mobile' && 'p-4')}>
+                  <PreviewTemplate heading={heading} content={content} footer={footer} />
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </CardContent>
