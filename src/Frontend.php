@@ -23,9 +23,8 @@ class Frontend {
 			'max_files_qty'   => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
 			'max_file_size'   => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
 			'enable_gdpr'     => Helpers::get_settings( 'reviews', 'enable_gdpr', false ),
-			'gdpr_message'    => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
 			'before'          => Helpers::get_settings( 'reviews', 'before_message', '' ),
-			'after'           => Helpers::get_settings( 'reviews', 'after_message', '' ),
+			'gdpr_message'    => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
 		);
 		$comment_form['comment_field'] .= View::load( 'frontend.reviews-form', $data, false );
 		return $comment_form;

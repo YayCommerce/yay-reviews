@@ -129,9 +129,6 @@ if ( 'video_image' === $media_type ) {
 					</label>
 				</div>
 			<?php endif; ?>
-			<?php if ( ! empty( $after ) ) : ?>
-				<span class="description"><?php echo esc_html( $after ); ?></span>
-			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 </div>

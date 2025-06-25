@@ -24,7 +24,7 @@ export default function ReviewTab() {
       <div className="flex flex-col gap-4">
         <Card>
           <CardHeader>
-            <CardTitle className="border-border flex items-center justify-between border-b pb-4 gap-4">
+            <CardTitle className="border-border flex items-center justify-between gap-4 border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('Upload media', 'yay-reviews')}{' '}
                 <Badge
@@ -186,7 +186,7 @@ export default function ReviewTab() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle className="border-border flex items-center justify-between border-b pb-4 gap-4">
+            <CardTitle className="border-border flex items-center justify-between gap-4 border-b pb-4">
               <span className="flex items-center gap-3 text-lg">
                 {__('Data processing consent', 'yay-reviews')}
                 <Badge
@@ -207,25 +207,6 @@ export default function ReviewTab() {
           </CardHeader>
           <CardContent className="w-full">
             <div className="flex w-full max-w-[500px] flex-col gap-4">
-              {/* GDPR message */}
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="reviews.gdpr_message" className="font-normal">
-                  {__('GDPR message', 'yay-reviews')}
-                </Label>
-                <FormField
-                  control={control}
-                  name={`reviews.gdpr_message`}
-                  render={({ field: { value, onChange } }) => (
-                    <Textarea
-                      id="reviews.gdpr_message"
-                      rows={3}
-                      value={value}
-                      onChange={onChange}
-                      placeholder={__('I agree with your policy,...', 'yay-reviews')}
-                    />
-                  )}
-                />
-              </div>
               {/* Before message */}
               <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.before_message" className="font-normal">
@@ -241,31 +222,28 @@ export default function ReviewTab() {
                       value={value}
                       onChange={onChange}
                       placeholder={__(
-                        'We value your privacy. By submitting this review, you consent to the processing of your personal data',
+                        'We respect your privacy and need your consent to continue.',
                         'yay-reviews',
                       )}
                     />
                   )}
                 />
               </div>
-              {/* After message */}
+              {/* GDPR message */}
               <div className="flex flex-col gap-2">
-                <Label htmlFor="reviews.after_message" className="font-normal">
-                  {__('After message', 'yay-reviews')}
+                <Label htmlFor="reviews.gdpr_message" className="font-normal">
+                  {__('GDPR message', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}
-                  name={`reviews.after_message`}
+                  name={`reviews.gdpr_message`}
                   render={({ field: { value, onChange } }) => (
                     <Textarea
-                      id="reviews.after_message"
+                      id="reviews.gdpr_message"
                       rows={3}
                       value={value}
                       onChange={onChange}
-                      placeholder={__(
-                        'We value your privacy. By submitting this review, you consent to the processing of your personal data',
-                        'yay-reviews',
-                      )}
+                      placeholder={__('I agree to the Privacy Policy.', 'yay-reviews')}
                     />
                   )}
                 />

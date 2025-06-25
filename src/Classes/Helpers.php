@@ -63,9 +63,8 @@ class Helpers {
 					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
 					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
 					'enable_gdpr'             => false,
-					'gdpr_message'            => __( 'I agree with your policy,...', 'yay-reviews' ),
-					'before_message'          => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay-reviews' ),
-					'after_message'           => __( 'We value your privacy. By submitting this review, you consent to the processing of your personal data', 'yay-reviews' ),
+					'gdpr_message'            => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
+					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
 					'send_after_value' => 5,
