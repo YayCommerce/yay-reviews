@@ -264,7 +264,12 @@ export default function RewardCard({
               control={control}
               name={`rewards.${reward.id}.send_to`}
               render={({ field: { value, onChange } }) => (
-                <Select defaultValue="purchased_customers" value={value} onValueChange={onChange}>
+                <Select
+                  id={`rewards.${reward.id}.send_to`}
+                  defaultValue="purchased_customers"
+                  value={value}
+                  onValueChange={onChange}
+                >
                   <SelectTrigger className="w-full bg-white">
                     <SelectValue placeholder={__('Select value', 'yay-reviews')} />
                   </SelectTrigger>
