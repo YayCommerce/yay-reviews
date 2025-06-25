@@ -1,5 +1,15 @@
 jQuery(document).ready(function ($) {
   const reviewsSection = $("#reviews");
+  const commentSection = $("#comments");
+  if (commentSection) {
+    const hasFilterRating = yay_reviews.has_filter_rating;
+    const filterRatingText = yay_reviews.filter_rating_text;
+    if (hasFilterRating) {
+      commentSection
+        .find(".woocommerce-Reviews-title")
+        .append(`<div class="py-3 text-lg font-md">${filterRatingText}</div>`);
+    }
+  }
   if (reviewsSection) {
     let starsElement = "";
     const overviewData = yay_reviews.overview_data;
@@ -47,6 +57,7 @@ jQuery(document).ready(function ($) {
     const sliderElement = `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-modal-all-media-frame-title flex items-center justify-between"><h1>${yay_reviews.all_media_text}</h1></div><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper relative"><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div class="yay-reviews-slider-buttons flex gap-1 items-center "><button class="yay-reviews-slider-arrow left-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button class="yay-reviews-slider-arrow right-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div></div></div>`;
     reviewsSection.prepend(starsElement + sliderElement);
   }
+
   const reviewTitleInput = $(".yay-reviews-review-title");
   const commentInput = $(".comment-form-comment");
   // swap review title and comment input

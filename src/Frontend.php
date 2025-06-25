@@ -192,6 +192,9 @@ class Frontend {
 				'reviews_text'                   => __( 'reviews', 'yay-reviews' ),
 				'all_media_text'                 => __( 'All media', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
+				'has_filter_rating'              => isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? true : false,
+				// translators: %s: rating
+				'filter_rating_text'             => sprintf( __( 'You are currently viewing the reviews that provided a rating of %1$s stars. <a href="%2$s">See all reviews</a>', 'yay-reviews' ), isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? intval( $_GET['rating_filter'] ) : 0, remove_query_arg( 'rating_filter' ) . '#tab-reviews' ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
