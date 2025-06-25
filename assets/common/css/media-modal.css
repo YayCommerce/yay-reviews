@@ -243,13 +243,28 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 30px;
-  min-height: 30px;
+  width: 32px;
+  height: 32px;
   transform: translateY(-50%);
+  box-shadow: 0px 10px 25px 0px #377e620d;
+  transition: all 0.2s ease-in-out;
 }
 
 .yay-reviews-nav-arrow:hover {
-  /* transform: translateY(-50%) scale(1.1); */
+  background: #edf3f9;
+  box-shadow: 0px 10px 25px 0px #12294026;
+  border: none;
+}
+
+.yay-reviews-nav-arrow svg path {
+  stroke: #808890;
+  fill: transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+.yay-reviews-nav-arrow:hover svg path {
+  stroke: #122940;
+  fill: transparent;
 }
 
 .yay-reviews-nav-arrow:disabled {
@@ -262,7 +277,7 @@ select {
 .yay-reviews-modal-media-frame-content-left:has(.yay-reviews-nav-arrow)
   .yay-reviews-nav-arrow {
   opacity: 0;
-  transition: opacity 0.2s ease-in-out, background 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .yay-reviews-modal-media-frame-content-left:hover .yay-reviews-nav-arrow {
@@ -272,8 +287,8 @@ select {
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .yay-reviews-nav-arrow {
-    min-width: 24px;
-    min-height: 24px;
+    width: 24px;
+    height: 24px;
     left: 8px;
     right: 8px;
   }
