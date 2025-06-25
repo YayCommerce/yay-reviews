@@ -239,7 +239,7 @@ export default function EmailTemplateCard({
                         <TooltipTrigger>
                           <Button
                             variant={device === 'desktop' ? 'default' : 'ghost'}
-                            className="h-[26px] w-[26px] has-[>svg]:px-3 has-[>svg]:py-0"
+                            className="h-[26px] w-[26px] has-[>svg]:px-4 has-[>svg]:py-0"
                             onClick={(e) => {
                               e.preventDefault();
                               setDevice('desktop');
@@ -256,7 +256,7 @@ export default function EmailTemplateCard({
                         <TooltipTrigger>
                           <Button
                             variant={device === 'mobile' ? 'default' : 'ghost'}
-                            className="h-[26px] w-[26px] has-[>svg]:px-3 has-[>svg]:py-0"
+                            className="h-[26px] w-[26px] has-[>svg]:px-4 has-[>svg]:py-0"
                             onClick={(e) => {
                               e.preventDefault();
                               setDevice('mobile');
