@@ -361,7 +361,7 @@ export default function EmailTemplateCard({
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className={cn('p-8', device === 'mobile' && 'p-4')}>
+                <CardContent className={cn('px-8 py-2', device === 'mobile' && 'px-4 py-2')}>
                   <PreviewTemplate heading={heading} content={content} footer={footer} />
                 </CardContent>
               </Card>
