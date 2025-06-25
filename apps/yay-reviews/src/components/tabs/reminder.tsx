@@ -173,7 +173,7 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
                         onValueChange={onChange}
                       >
                         <SelectTrigger className="w-full max-w-[500px]">
-                          <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
+                          <SelectValue placeholder={__('Select value', 'yay-reviews')} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="registered_customers">
@@ -224,19 +224,19 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
               </div>
             </CardContent>
           </Card>
-        </div>
-        <div className="text-xs">
-          <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
-          {` `}
-          <span
-            className="text-foreground cursor-pointer lowercase underline decoration-solid"
-            onClick={(e) => {
-              e.preventDefault();
-              setActiveTab('emails');
-            }}
-          >
-            {__('email template', 'yay-reviews')}
-          </span>
+          <div className="text-xs">
+            <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
+            {` `}
+            <span
+              className="text-foreground cursor-pointer lowercase underline decoration-solid"
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab('emails');
+              }}
+            >
+              {__('email template', 'yay-reviews')}
+            </span>
+          </div>
         </div>
       </div>
     </div>

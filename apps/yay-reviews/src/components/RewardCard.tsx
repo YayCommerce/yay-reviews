@@ -43,9 +43,6 @@ export default function RewardCard({
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
-  const onlySendToPurchasedCustomers = watch(
-    `rewards.${reward.id}.only_send_to_purchased_customers`,
-  );
 
   const selectedCouponStatus = useMemo(() => {
     return coupons.find((c) => c.id === coupon)?.expired
@@ -255,50 +252,40 @@ export default function RewardCard({
             </span>
           )}
 
+          {/* Send to */}
+          <div className="flex max-w-[400px] flex-col gap-2">
+            <span className="w-max">
+              <Label htmlFor={`rewards.${reward.id}.send_to`} className="font-normal">
+                {__('Send to', 'yay-reviews')}
+              </Label>
+            </span>
+            <FormField
+              control={control}
+              name={`rewards.${reward.id}.send_to`}
+              render={({ field: { value, onChange } }) => (
+                <Select defaultValue="purchased_customers" value={value} onValueChange={onChange}>
+                  <SelectTrigger className="w-full bg-white">
+                    <SelectValue placeholder={__('Select value', 'yay-reviews')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="purchased_customers">
+                      {__('Only purchased customers', 'yay-reviews')}
+                    </SelectItem>
+                    <SelectItem value="all_reviewers">
+                      {__('All reviewers ( include guest users )', 'yay-reviews')}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </div>
+
           <hr className="border-t border-[#f0f0f0]" />
           {/* Review criteria */}
           <div className="flex flex-col gap-4">
             <div className="text-foreground mb-2 text-lg font-semibold">
               {__('Review criteria', 'yay-reviews')}
             </div>
-            <div className="mb-2 flex items-center gap-2">
-              <FormField
-                control={control}
-                name={`rewards.${reward.id}.only_send_to_purchased_customers`}
-                render={({ field: { value, onChange } }) => (
-                  <Switch
-                    id={`rewards.${reward.id}.only_send_to_purchased_customers`}
-                    checked={Boolean(value)}
-                    onCheckedChange={() => onChange(!value)}
-                  />
-                )}
-              />
-              <Label
-                htmlFor={`rewards.${reward.id}.only_send_to_purchased_customers`}
-                className="font-normal"
-              >
-                {__('Only send coupon for reviews from purchased customers.', 'yay-reviews')}
-              </Label>
-            </div>
-
-            {!onlySendToPurchasedCustomers && (
-              <div className="mb-2 flex items-center gap-2">
-                <FormField
-                  control={control}
-                  name={`rewards.${reward.id}.send_to_guests`}
-                  render={({ field: { value, onChange } }) => (
-                    <Switch
-                      id={`rewards.${reward.id}.send_to_guests`}
-                      checked={Boolean(value)}
-                      onCheckedChange={() => onChange(!value)}
-                    />
-                  )}
-                />
-                <Label htmlFor={`rewards.${reward.id}.send_to_guests`} className="font-normal">
-                  {__('Guests can receive reward?', 'yay-reviews')}
-                </Label>
-              </div>
-            )}
             <div className="flex flex-col gap-2">
               <span className="w-max">
                 <Label

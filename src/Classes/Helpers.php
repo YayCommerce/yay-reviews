@@ -303,13 +303,12 @@ class Helpers {
 		$media           = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		$comment_user_id = $comment->user_id;
 
-		$only_send_to_purchased_customers           = $reward['only_send_to_purchased_customers'];
-		$send_to_guests                             = $reward['send_to_guests'];
+		$send_to                                    = $reward['send_to'];
 		$minimum_required_rating                    = (float) $reward['minimum_required_rating'];
 		$minimum_media_files_uploaded               = (int) $reward['minimum_media_files_uploaded'];
 		$minimum_required_reviews_since_last_reward = (int) $reward['minimum_required_reviews_since_last_reward'];
 
-		if ( $only_send_to_purchased_customers ) {
+		if ( 'purchased_customers' === $send_to ) {
 			if ( empty( $comment_user_id ) ) {
 				$valid = false;
 			} else {
@@ -317,12 +316,6 @@ class Helpers {
 				if ( 0 === $total_orders ) {
 					$valid = false;
 				}
-			}
-		}
-
-		if ( $send_to_guests && empty( $comment_user_id ) ) {
-			if ( ! isset( $_POST['email'] ) || empty( $_POST['email'] ) ) { //phpcs:ignore
-				$valid = false;
 			}
 		}
 
