@@ -1,4 +1,7 @@
+import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
+
+import useAppContext from '@/hooks/use-app-context';
 
 import { Card, CardContent } from '../ui/card';
 import { FormField, useFormContext } from '../ui/form';
@@ -7,12 +10,13 @@ import { Label } from '../ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 
-export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: string) => void }) {
+export default function ReminderTab() {
+  const { setActiveTab } = useAppContext();
   const { control, watch } = useFormContext();
   const productsType = watch('reminder.products_type');
 
   return (
-    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
+    <PageLayout>
       <div className="text-foreground text-3xl font-bold">
         {__('Reminder Settings', 'yay-reviews')}
       </div>
@@ -227,6 +231,6 @@ export default function ReminderTab({ setActiveTab }: { setActiveTab: (tab: stri
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
 
 import EmailTemplateCard from '../EmailTemplateCard';
@@ -12,7 +13,7 @@ export default function EmailsTab() {
 
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop');
   return (
-    <div className="flex w-[90%] flex-col gap-8">
+    <PageLayout className="w-[90%]">
       <div className="text-foreground text-3xl font-bold">
         {__('Email Templates', 'yay-reviews')}
       </div>
@@ -41,6 +42,6 @@ export default function EmailsTab() {
           </Tabs>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 }

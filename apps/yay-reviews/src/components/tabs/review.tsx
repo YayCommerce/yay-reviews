@@ -1,3 +1,4 @@
+import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
 
 import { cn } from '@/lib/utils';
@@ -17,7 +18,7 @@ export default function ReviewTab() {
   const enableGdpr = watch('reviews.enable_gdpr');
 
   return (
-    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
+    <PageLayout>
       <div className="text-foreground text-3xl font-bold">
         {__('Review Settings', 'yay-reviews')}
       </div>
@@ -252,6 +253,6 @@ export default function ReviewTab() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </PageLayout>
   );
 }

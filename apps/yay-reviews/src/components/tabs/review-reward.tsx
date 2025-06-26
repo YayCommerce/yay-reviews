@@ -11,6 +11,7 @@ import RewardCard from '../RewardCard';
 import { Button } from '../ui/button';
 import { Card, CardContent } from '../ui/card';
 import { useFormContext } from '../ui/form';
+import PageLayout from '@/layouts/page-layout';
 
 export default function ReviewRewardTab() {
   const { watch, setValue } = useFormContext();
@@ -56,7 +57,7 @@ export default function ReviewRewardTab() {
   };
 
   return (
-    <div className="flex w-[1100px] max-w-[90%] flex-col gap-8">
+    <PageLayout>
       <div className="text-foreground text-3xl font-bold">{__('Review Reward', 'yay-reviews')}</div>
       <div className="flex flex-col gap-4">
         {/* No reward added */}
@@ -133,6 +134,6 @@ export default function ReviewRewardTab() {
           </div>
         )}
       </div>
-    </div>
+    </PageLayout>
   );
 }
