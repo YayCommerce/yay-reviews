@@ -5,14 +5,9 @@ import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
 import { cn, getEmailSampleValues } from '@/lib/utils';
-
-import RichTextEditor from './editor/RichTextEditor';
-import DesktopIcon from './icons/Desktop';
-import MobileIcon from './icons/Mobile';
-import UserIcon from './icons/UserIcon';
-import PreviewTemplate from './PreviewTemplate';
-import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import useEmailsContext from '@/hooks/use-emails-context';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -20,21 +15,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog';
-import { FormField, useFormContext } from './ui/form';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+} from '@/components/ui/dialog';
+import { FormField, useFormContext } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import RichTextEditor from '@/components/editor/rich-text-editor';
+import DesktopIcon from '@/components/icons/Desktop';
+import MobileIcon from '@/components/icons/Mobile';
+import UserIcon from '@/components/icons/UserIcon';
 
-export default function EmailTemplateCard({
-  templateId,
-  device,
-  setDevice,
-}: {
-  templateId: string;
-  device: 'desktop' | 'mobile';
-  setDevice: (device: 'desktop' | 'mobile') => void;
-}) {
+import EmailPreviewer from './email-previewer';
+
+export default function TemplateCard({ templateId }: { templateId: string }) {
+  const { currentDevice, setCurrentDevice } = useEmailsContext();
   const [testEmail, setTestEmail] = useState(window.yayReviews.admin_email || '');
   const [isSending, setIsSending] = useState(false);
   const [resetTemplateDialogOpen, setResetTemplateDialogOpen] = useState(false);
@@ -105,12 +99,10 @@ export default function EmailTemplateCard({
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 flex flex-col gap-4 lg:col-span-5">
             {/* Email subject */}
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label htmlFor={`email.${templateId}.subject`} className="font-normal">
-                  {__('Email subject', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label htmlFor={`email.${templateId}.subject`} className="mb-2 w-max font-normal">
+                {__('Email subject', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`email.${templateId}.subject`}
@@ -120,12 +112,10 @@ export default function EmailTemplateCard({
               />
             </div>
             {/* Email heading */}
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label htmlFor={`email.${templateId}.heading`} className="font-normal">
-                  {__('Email heading', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label htmlFor={`email.${templateId}.heading`} className="mb-2 w-max font-normal">
+                {__('Email heading', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`email.${templateId}.heading`}
@@ -137,12 +127,10 @@ export default function EmailTemplateCard({
 
             {/* Email content */}
             <div>
-              <div className="flex flex-col gap-2">
-                <span className="w-max">
-                  <Label htmlFor={`email.${templateId}.content`} className="font-normal">
-                    {__('Email content', 'yay-reviews')}
-                  </Label>
-                </span>
+              <Label htmlFor={`email.${templateId}.content`} className="mb-2 w-max font-normal">
+                {__('Email content', 'yay-reviews')}
+              </Label>
+              <div>
                 <FormField
                   control={control}
                   name={`email.${templateId}.content`}
@@ -173,12 +161,10 @@ export default function EmailTemplateCard({
             </div>
 
             {/* Email footer */}
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label htmlFor={`email.${templateId}.footer`} className="font-normal">
-                  {__('Email footer', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label htmlFor={`email.${templateId}.footer`} className="mb-2 w-max font-normal">
+                {__('Email footer', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`email.${templateId}.footer`}
@@ -238,11 +224,11 @@ export default function EmailTemplateCard({
                       <Tooltip>
                         <TooltipTrigger>
                           <Button
-                            variant={device === 'desktop' ? 'default' : 'ghost'}
+                            variant={currentDevice === 'desktop' ? 'default' : 'ghost'}
                             className="yay-reviews-email-preview-device-button h-[26px] w-[26px] py-0 has-[>svg]:px-4"
                             onClick={(e) => {
                               e.preventDefault();
-                              setDevice('desktop');
+                              setCurrentDevice('desktop');
                             }}
                           >
                             <DesktopIcon className="size-4" />
@@ -255,11 +241,11 @@ export default function EmailTemplateCard({
                       <Tooltip>
                         <TooltipTrigger>
                           <Button
-                            variant={device === 'mobile' ? 'default' : 'ghost'}
+                            variant={currentDevice === 'mobile' ? 'default' : 'ghost'}
                             className="yay-reviews-email-preview-device-button h-[26px] w-[26px] has-[>svg]:px-4 has-[>svg]:py-0"
                             onClick={(e) => {
                               e.preventDefault();
-                              setDevice('mobile');
+                              setCurrentDevice('mobile');
                             }}
                           >
                             <MobileIcon className="size-4" />
@@ -288,9 +274,9 @@ export default function EmailTemplateCard({
                           )}
                         </span>
                         <div className="flex flex-col gap-2">
-                          <span className="uppercase">{__('Send to', 'yay-reviews')}</span>
                           <Input
                             value={testEmail}
+                            placeholder={__('Enter your email address', 'yay-reviews')}
                             onChange={(e) => {
                               e.preventDefault();
                               setTestEmail(e.target.value);
@@ -343,7 +329,7 @@ export default function EmailTemplateCard({
               </div>
               <Card
                 className={cn(
-                  device === 'mobile' && 'yay-reviews-email-preview-mobile',
+                  currentDevice === 'mobile' && 'yay-reviews-email-preview-mobile',
                   'm-auto rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
                 )}
               >
@@ -361,8 +347,8 @@ export default function EmailTemplateCard({
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className={cn('px-8 py-2', device === 'mobile' && 'px-4 py-2')}>
-                  <PreviewTemplate heading={heading} content={content} footer={footer} />
+                <CardContent className={cn('px-8 py-2', currentDevice === 'mobile' && 'px-4 py-2')}>
+                  <EmailPreviewer heading={heading} content={content} footer={footer} />
                 </CardContent>
               </Card>
             </div>

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import { createRoot } from 'react-dom/client';
 
-import CustomRichTextColor from './CustomRichTextColor';
+import CustomRichTextColor from './custom-rich-text-color';
 
 import './index.scss';
 

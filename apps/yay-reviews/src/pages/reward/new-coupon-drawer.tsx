@@ -9,9 +9,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/components/ui/drawer';
+import { useFormContext } from '@/components/ui/form';
 
-import { CouponForm } from './CouponForm';
-import { useFormContext } from './ui/form';
+import { CouponForm } from './coupon-form';
 
 export const NewCouponDrawer = ({
   children,
@@ -45,7 +45,7 @@ export const NewCouponDrawer = ({
         </DrawerHeader>
         <CouponForm
           className="px-4 pt-4"
-          setOpen={setOpen}
+          onCreated={() => setOpen(false)}
           handleUpdateCouponId={handleUpdateCouponId}
         />
       </DrawerContent>

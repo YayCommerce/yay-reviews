@@ -8,26 +8,30 @@ import { toast } from 'sonner';
 import { getProducts, postCoupon } from '@/lib/queries';
 import { CouponFormData, couponSchema } from '@/lib/schema';
 import { cn, updateQueryCache } from '@/lib/utils';
-
-import { SectionHorizontal } from './SectionHorizontal';
-import { Button } from './ui/button';
-import { Checkbox } from './ui/checkbox';
-import Combobox, { ComboboxOption } from './ui/combobox';
-import { DatePicker } from './ui/date-picker';
-import { Form, FormField, useForm } from './ui/form';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import Combobox, { ComboboxOption } from '@/components/ui/combobox';
+import { DatePicker } from '@/components/ui/date-picker';
+import { Form, FormField, useForm } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 export const CouponForm = ({
   className,
-  setOpen,
+  onCreated,
   handleUpdateCouponId,
 }: {
   className: string;
-  setOpen: (open: boolean) => void;
+  onCreated: () => void;
   handleUpdateCouponId: (couponId: string) => void;
 }) => {
   const [productOptions, setProductOptions] = useState<ComboboxOption[]>([]);
@@ -96,7 +100,7 @@ export const CouponForm = ({
         toast.success(response.message);
         form.reset(data); // Reset form with new values after successful save
         // close drawer
-        setOpen(false);
+        onCreated();
       } else {
         toast.error(response.message);
       }
@@ -374,7 +378,7 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('And', 'yay-reviews')} />
+              <ConditionDivider label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="products" className="font-normal">
                   {__('Products', 'yay-reviews')}
@@ -390,7 +394,9 @@ export const CouponForm = ({
                     options={productOptions}
                     value={value}
                     onChange={onChange}
-                    onSearch={(search) => handleProductSearch(search, setProductOptions)}
+                    onSearch={(search) => {
+                      handleProductSearch(search, setProductOptions);
+                    }}
                     placeholder={__('Select products', 'yay-reviews')}
                   />
                 )}
@@ -421,7 +427,7 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('And', 'yay-reviews')} />
+              <ConditionDivider label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="product_categories" className="font-normal">
                   {__('Product categories', 'yay-reviews')}
@@ -466,7 +472,7 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('And', 'yay-reviews')} />
+              <ConditionDivider label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="allowed_emails" className="font-normal">
                   {__('Allowed emails', 'yay-reviews')}
@@ -487,7 +493,7 @@ export const CouponForm = ({
             </div>
 
             <div className="grid gap-2">
-              <SectionHorizontal label={__('And', 'yay-reviews')} />
+              <ConditionDivider label={__('And', 'yay-reviews')} />
               <span className="w-max">
                 <Label htmlFor="product_brands" className="font-normal">
                   {__('Product brands', 'yay-reviews')}
@@ -610,7 +616,7 @@ export const CouponForm = ({
           <Button
             type="submit"
             form="coupon-form"
-            onClick={(e) => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
               form.handleSubmit(onSubmit, (errors, e) => {
                 console.log(errors, e);
@@ -627,3 +633,13 @@ export const CouponForm = ({
 };
 
 export default CouponForm;
+
+function ConditionDivider({ label }: { label: string }) {
+  return (
+    <div className="my-0 flex items-center gap-2">
+      <div className="w-2/3 border-t" />
+      <span className="text-right text-xs uppercase">{label}</span>
+      <div className="w-1/3 border-t" />
+    </div>
+  );
+}

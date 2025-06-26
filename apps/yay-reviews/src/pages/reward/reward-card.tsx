@@ -1,15 +1,12 @@
 import { useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Coupon } from 'types/coupon';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
-
-import DuplicateIcon from './icons/Duplicate';
-import TrashIcon from './icons/Trash';
-import { NewCouponDrawer } from './NewCouponDrawer';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
+import useRewardsContext from '@/hooks/use-rewards-context';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   Dialog,
   DialogContent,
@@ -17,32 +14,44 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from './ui/dialog';
-import { FormField, useFormContext } from './ui/form';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { Switch } from './ui/switch';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
+} from '@/components/ui/dialog';
+import { FormField, useFormContext } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import DuplicateIcon from '@/components/icons/Duplicate';
+import TrashIcon from '@/components/icons/Trash';
 
-export default function RewardCard({
-  reward,
-  coupons,
-  handleDuplicate,
-  handleDelete,
-  isNew = false,
-}: {
-  reward: Reward;
-  coupons: Coupon[];
-  handleDuplicate: (reward: Reward) => void;
-  handleDelete: (reward: Reward) => void;
-  isNew?: boolean;
-}) {
-  const { control, watch } = useFormContext<SettingsFormData>();
+import { NewCouponDrawer } from './new-coupon-drawer';
+
+export default function RewardCard({ reward }: { reward: Reward }) {
+  const { control, watch, setValue, unregister } = useFormContext<SettingsFormData>();
+  const { coupons } = useRewardsContext();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
+  const rewards = watch('rewards');
+
+  const handleDuplicate = (reward: Reward) => {
+    const newId = uuidv4();
+    const duplicateReward = { ...reward, id: newId, is_open: true };
+    setValue('rewards', { ...rewards, [newId]: duplicateReward });
+  };
+
+  const handleDelete = (reward: Reward) => {
+    const updatedRewards = { ...rewards };
+    delete updatedRewards[reward.id as keyof typeof updatedRewards];
+    setValue('rewards', updatedRewards);
+  };
 
   const selectedCouponStatus = useMemo(() => {
     return coupons.find((c) => c.id === coupon)?.expired
@@ -53,8 +62,11 @@ export default function RewardCard({
   }, [coupons, coupon]);
 
   return (
-    <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
-      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-md bg-white shadow-sm">
+    <Collapsible className="yay-reviews-collapsible" defaultOpen={reward.is_open}>
+      <CollapsibleTrigger
+        asChild
+        className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-md bg-white shadow-sm"
+      >
         <div className="flex items-center justify-between gap-2 p-6">
           <div className="flex w-full max-w-[400px] items-center gap-3">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
@@ -73,6 +85,7 @@ export default function RewardCard({
                     value={value}
                     onChange={(e) => {
                       e.preventDefault();
+                      e.stopPropagation();
                       onChange(e.target.value);
                     }}
                     className="w-full"
@@ -161,12 +174,10 @@ export default function RewardCard({
         <div className="flex flex-col gap-4 p-6">
           <div className="text-foreground text-lg font-semibold">{__('Coupon', 'yay-reviews')}</div>
           {/* Coupon selection */}
-          <div className="flex max-w-[400px] flex-col gap-2">
-            <span className="w-full">
-              <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="font-normal">
-                {__('Select coupon to be sent', 'yay-reviews')}
-              </Label>
-            </span>
+          <div className="max-w-[400px]">
+            <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="mb-2 w-full font-normal">
+              {__('Select coupon to be sent', 'yay-reviews')}
+            </Label>
             <div className="w-full">
               <FormField
                 control={control}
@@ -254,12 +265,10 @@ export default function RewardCard({
           )}
 
           {/* Send to */}
-          <div className="flex max-w-[400px] flex-col gap-2">
-            <span className="w-max">
-              <Label htmlFor={`rewards.${reward.id}.send_to`} className="font-normal">
-                {__('Send to', 'yay-reviews')}
-              </Label>
-            </span>
+          <div className="max-w-[400px]">
+            <Label htmlFor={`rewards.${reward.id}.send_to`} className="mb-2 w-max font-normal">
+              {__('Send to', 'yay-reviews')}
+            </Label>
             <FormField
               control={control}
               name={`rewards.${reward.id}.send_to`}
@@ -292,15 +301,13 @@ export default function RewardCard({
             <div className="text-foreground mb-2 text-lg font-semibold">
               {__('Review criteria', 'yay-reviews')}
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label
-                  htmlFor={`rewards.${reward.id}.minimum_required_rating`}
-                  className="font-normal"
-                >
-                  {__('Minimum required rating', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label
+                htmlFor={`rewards.${reward.id}.minimum_required_rating`}
+                className="mb-2 w-max font-normal"
+              >
+                {__('Minimum required rating', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_rating`}
@@ -318,15 +325,13 @@ export default function RewardCard({
                 )}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label
-                  htmlFor={`rewards.${reward.id}.minimum_media_files_uploaded`}
-                  className="font-normal"
-                >
-                  {__('Minimum media files uploaded', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label
+                htmlFor={`rewards.${reward.id}.minimum_media_files_uploaded`}
+                className="mb-2 w-max font-normal"
+              >
+                {__('Minimum media files uploaded', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_media_files_uploaded`}
@@ -344,15 +349,13 @@ export default function RewardCard({
                 )}
               />
             </div>
-            <div className="flex flex-col gap-2">
-              <span className="w-max">
-                <Label
-                  htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
-                  className="font-normal"
-                >
-                  {__('Minimum required reviews posted since the last reward?', 'yay-reviews')}
-                </Label>
-              </span>
+            <div>
+              <Label
+                htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
+                className="mb-2 w-max font-normal"
+              >
+                {__('Minimum required reviews posted since the last reward?', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
@@ -369,7 +372,7 @@ export default function RewardCard({
                   />
                 )}
               />
-              <span className="text-slate-500">
+              <span className="mt-2 flex text-slate-500">
                 {__('Leave empty to receive reward after every review', 'yay-reviews')}
               </span>
             </div>
