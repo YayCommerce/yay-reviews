@@ -110,36 +110,50 @@ export default function Nav() {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden items-center gap-7 md:flex!">
-            {menuItems.map((item, index) => (
-              <Button
-                key={index}
-                variant="ghost"
-                className={`flex items-center gap-2 ${
-                  activeTab === item.key ? 'text-primary' : 'text-foreground'
-                }`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  changeTab(item.key);
-                }}
-              >
-                {item.icon}
-                <span className="text-sm">{item.label}</span>
-              </Button>
-            ))}
+          <div className="hidden items-center gap-4 md:flex!">
+            {/* Navigation */}
+            <div className="flex flex-wrap space-x-6">
+              {menuItems.map((item) => (
+                <Button
+                  key={item.key}
+                  variant="link"
+                  className={cn(
+                    'flex h-[56px] text-sm! items-center gap-2 rounded-none border-b-2 border-transparent p-1 text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    activeTab === item.key && 'border-[#2271B1] text-[#2271B1]',
+                  )}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changeTab(item.key);
+                  }}
+                >
+                  {item.icon}
+                  <span
+                    style={
+                      activeTab === item.key
+                        ? {
+                            textShadow: '0 0 0.01px currentcolor',
+                          }
+                        : {}
+                    }
+                  >
+                    {item.label}
+                  </span>
+                </Button>
+              ))}
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-5 w-5" />
+                <Button variant="ghost" className='p-0 px-2'>
+                  <Menu className="h-5! w-5!" />
                 </Button>
               </SheetTrigger>
               <SheetContent className="max-w-[200px]">
                 <div
-                  className="flex flex-col gap-4"
+                  className="flex flex-col gap-2"
                   style={{
                     paddingTop: 'calc(var(--wpadminbar-height) + 10px)',
                   }}
@@ -148,8 +162,8 @@ export default function Nav() {
                     <Button
                       key={index}
                       variant="ghost"
-                      className={`flex items-center justify-start gap-2 ${
-                        activeTab === item.key ? 'text-primary' : 'text-foreground'
+                      className={`flex items-center justify-start gap-2 rounded-none ${
+                        activeTab === item.key ? 'bg-foreground text-background' : 'text-foreground'
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
