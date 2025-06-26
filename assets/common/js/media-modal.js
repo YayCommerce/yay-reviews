@@ -196,13 +196,15 @@ jQuery(document).ready(function ($) {
     closeModal();
   });
 
-  $(".yay-reviews-see-all-media").on("click", function () {
+  $(".yay-reviews-modal-see-all-media").on("click", function () {
     const currentModal = $(".yay-reviews-preview-media-modal");
     const currentBackdrop = $(".yay-reviews-modal-backdrop");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
     currentModal.fadeOut(300);
     currentBackdrop.fadeOut(300);
+    allMediaDialog.removeClass("hidden");
+    allMediaDialogBackdrop.removeClass("hidden");
     allMediaDialog.fadeIn(300);
     allMediaDialogBackdrop.fadeIn(300);
   });

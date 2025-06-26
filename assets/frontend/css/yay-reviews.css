@@ -2,6 +2,17 @@ h2 {
   margin-bottom: 1rem;
 }
 
+#yay-reviews-gdpr-checkbox {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
 .yay-reviews-loading-icon {
   width: 24px;
   height: 24px;
@@ -181,7 +192,7 @@ label[for="yay-reviews-file-input"] {
 }
 
 .yay-reviews-summary-item-label {
-  flex-basis: 50px;
+  flex-basis: 40px;
   text-align: right;
   color: #555;
   flex-shrink: 0;

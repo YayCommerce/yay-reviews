@@ -18,7 +18,20 @@ $rating           = intval( get_comment_meta( $comment->comment_ID, 'rating', tr
 $rating_stars     = '';
 
 if ( $rating && wc_review_ratings_enabled() ) {
-	$rating_stars = wc_get_rating_html( $rating ); // WPCS: XSS ok.
+	if ( wp_get_theme()->get_template() === 'brandy' ) {
+		$rating_stars = wc_get_template_html(
+			'template-parts/rating.php',
+			array(
+				'rating'          => $rating,
+				'rating_count'    => 5,
+				'show_only_stars' => true,
+				'show_overall'    => false,
+				'review_count'    => false,
+			)
+		);
+	} else {
+		$rating_stars = wc_get_rating_html( $rating ); // WPCS: XSS ok.
+	}
 }
 
 if ( is_admin() ) {
@@ -61,16 +74,16 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
     <div class="yay-reviews-modal-comment-details">
     <div class="yay-reviews-modal-media-frame-title flex items-center justify-between">
         <h1>' . esc_html__( 'Review Details', 'yay-reviews' ) . '</h1>
-        ' . ( $is_frontend ? '<span class="yay-reviews-see-all-media text-sm cursor-pointer hover:underline">' . esc_html__( 'See all media', 'yay-reviews' ) . '</span>' : '' ) . '
+        ' . ( $is_frontend ? '<span class="yay-reviews-modal-see-all-media text-sm cursor-pointer hover:underline">' . esc_html__( 'See all media', 'yay-reviews' ) . '</span>' : '' ) . '
     </div>
     <div class="yay-reviews-modal-media-frame-content">
         <div class="yay-reviews-modal-media-frame-content-left">
-            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-prev absolute left-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Previous media">
+            ' . ( $has_multiple_media ? '<div class="yay-reviews-nav-arrow yay-reviews-nav-prev absolute left-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Previous media">
                 <svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>' : '' ) . '<div class="thumbnail thumbnail-image flex items-center justify-center h-full bg-gray-50 relative group"></div>
-            ' . ( $has_multiple_media ? '<button class="yay-reviews-nav-arrow yay-reviews-nav-next absolute right-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Next media">
+            </div>' : '' ) . '<div class="thumbnail thumbnail-image flex items-center justify-center h-full bg-gray-50 relative group"></div>
+            ' . ( $has_multiple_media ? '<div class="yay-reviews-nav-arrow yay-reviews-nav-next absolute right-4 top-1/2 z-10 bg-white bg-opacity-90 text-[#808890] hover:text-[#000000] hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200 opacity-0 group-hover:opacity-100 hover:bg-[#eff2f4]" aria-label="Next media">
                 <svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-            </button>' : '' ) . '
+            </div>' : '' ) . '
         </div>
         <div class="yay-reviews-modal-media-frame-content-right">
             <div class="flex gap-4 flex-col">
@@ -91,7 +104,7 @@ echo '<div class="yay-reviews-preview-media-modal" data-comment-id="' . esc_attr
                             </defs>
                         </svg></span>' : '' ) . '
                     </div>
-                    <div class="yay-reviews-modal-comment-rating">' . wp_kses_post( $rating_stars ) . '</div>
+                    <div class="yay-reviews-modal-comment-rating">' . $rating_stars . '</div> 
                     <div class="text-[#64748B] text-sm">' . esc_html__( 'Reviewed in ', 'yay-reviews' ) . ' ' . esc_html( $comment_date ) . ' ' . esc_html__( 'at', 'yay-reviews' ) . ' ' . esc_html( $comment_time ) . '</div>
                 </div>
                 <div class="text-[#0F172A] text-sm">' . wp_kses_post( $comment->comment_content ) . '</div>

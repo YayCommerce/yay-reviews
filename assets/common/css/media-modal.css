@@ -32,7 +32,7 @@ select {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding-bottom: 15px;
+  padding: 15px 0;
 }
 .yay-reviews-medias .yay-reviews-media {
   width: 150px;
@@ -61,7 +61,7 @@ select {
   height: 80%;
   width: 60%;
   margin: auto;
-  z-index: 1600;
+  z-index: 160000;
 }
 
 .yay-reviews-all-media-dialog {
@@ -73,7 +73,7 @@ select {
   width: 80%;
   height: 80%;
   margin: auto;
-  z-index: 1600;
+  z-index: 160000;
 }
 
 .yay-reviews-preview-media-modal *,
@@ -92,7 +92,7 @@ select {
   min-height: 360px;
   background: #000;
   opacity: 0.7;
-  z-index: 1590;
+  z-index: 159900;
 }
 
 .yay-reviews-modal-content,
@@ -107,7 +107,7 @@ select {
   background: #fff;
   border-radius: 8px;
   -webkit-font-smoothing: subpixel-antialiased;
-  z-index: 1601;
+  z-index: 160001;
 }
 
 .yay-reviews-all-media-dialog-content-wrapper {

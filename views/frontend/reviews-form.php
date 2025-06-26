@@ -97,13 +97,13 @@ if ( 'video_image' === $media_type ) {
 		</div>
 	<?php endif; ?>
 	<?php if ( ! empty( $enable_gdpr ) ) : ?>
-		<div class="space-y-2">
+		<div class="flex flex-col gap-1 mt-2">
 			<?php if ( ! empty( $before ) ) : ?>
 				<span class="description"><?php echo wp_kses_post( $before ); ?></span>
 			<?php endif; ?>
 			<?php if ( ! empty( $gdpr_message ) ) : ?>
-				<div class="flex items-center space-x-2 yay-reviews-gdpr-checkbox-wrap">
-					<label for="yay-reviews-gdpr-checkbox" class="flex items-center gap-2 cursor-pointer select-none">
+				<div class="flex items-center py-2 yay-reviews-gdpr-checkbox-wrap">
+					<label for="yay-reviews-gdpr-checkbox" class="inline-flex flex items-center gap-2 cursor-pointer select-none">
 						<input
 							type="checkbox"
 							class="peer sr-only"
@@ -123,7 +123,7 @@ if ( 'video_image' === $media_type ) {
 								<polyline points="20 6 9 17 4 12" />
 							</svg>
 						</div>
-						<span>
+						<span class="font-normal">
 							<?php echo wp_kses_post( $gdpr_message ); ?>
 						</span>
 					</label>
@@ -134,6 +134,10 @@ if ( 'video_image' === $media_type ) {
 </div>
 
 <style>
+.woocommerce-Reviews #review_form_wrapper #commentform .yay-reviews-gdpr-checkbox-wrap label {
+	display: inline-flex;
+}
+
 .yay-reviews-picture-card-grid {
 	display: flex;
 	flex-wrap: wrap;
