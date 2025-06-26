@@ -54,7 +54,7 @@ export default function RewardCard({
 
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={isNew}>
-      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-t-xl bg-white shadow-sm">
+      <CollapsibleTrigger className="yay-reviews-collapsible-trigger w-full rounded-md bg-white shadow-sm">
         <div className="flex items-center justify-between gap-2 p-6">
           <div className="flex w-full max-w-[400px] items-center gap-3">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>

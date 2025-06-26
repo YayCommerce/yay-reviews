@@ -166,13 +166,19 @@
     var(--tw-ring-shadow), var(--tw-shadow);
 }
 
+.yaycommerce_page_yay-reviews div[data-slot='card'] {
+  border-radius: 0.5rem;
+}
+
 .yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='closed'] {
-  border-radius: calc(var(--radius) + 4px);
+  border-radius: 0.5rem;
 }
 
 .yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
   border-bottom: 1px solid #f0f0f0;
   box-shadow: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .yay-reviews-coupon-select-item span[id^='radix-'] {

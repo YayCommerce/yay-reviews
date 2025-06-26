@@ -7,7 +7,9 @@ jQuery(document).ready(function ($) {
     if (hasFilterRating) {
       commentSection
         .find(".woocommerce-Reviews-title")
-        .append(`<div class="py-3 text-lg font-md">${filterRatingText}</div>`);
+        .append(
+          `<div class="py-3 text-lg font-medium">${filterRatingText}</div>`
+        );
     }
   }
   if (reviewsSection) {
@@ -36,12 +38,12 @@ jQuery(document).ready(function ($) {
         `;
       }
       starsElement = `
-        <div class="yay-reviews-summary-card flex items-center gap-4">
-          <div class="flex items-center gap-2">
+        <div class="yay-reviews-summary-card flex items-center gap-2">
+          <div class="flex items-center gap-1">
             <svg class="yay-reviews-average-rating-star" width="40" height="40" viewBox="0 0 24 24" fill="#FFC700" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
             <div class="flex flex-col items-center gap-0.5">
               <span class="text-[40px] font-bold leading-[36px]">${averageRating}</span>
-              <span class="text-[20px] font-semibold">${totalReviews} ${
+              <span class="text-[20px] font-semibold whitespace-pre">${totalReviews} ${
         yay_reviews.reviews_text || "reviews"
       }</span>
             </div>
@@ -54,7 +56,7 @@ jQuery(document).ready(function ($) {
         </div>
       `;
     }
-    const sliderElement = `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-modal-all-media-frame-title flex items-center justify-between"><h1>${yay_reviews.all_media_text}</h1></div><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper relative"><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div class="yay-reviews-slider-buttons flex gap-1 items-center "><button class="yay-reviews-slider-arrow left-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button><button class="yay-reviews-slider-arrow right-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></button></div></div></div></div>`;
+    const sliderElement = `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-modal-all-media-frame-title flex items-center justify-between"><h1>${yay_reviews.all_media_text}</h1></div><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper relative"><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div class="yay-reviews-slider-buttons flex gap-1 items-center "><div class="yay-reviews-slider-arrow left-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="yay-reviews-slider-arrow right-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div></div>`;
     reviewsSection.prepend(starsElement + sliderElement);
   }
 
@@ -673,6 +675,8 @@ jQuery(document).ready(function ($) {
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
     $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
+    allMediaDialog.removeClass("hidden");
+    allMediaDialogBackdrop.removeClass("hidden");
     allMediaDialog.fadeIn(300);
     allMediaDialogBackdrop.fadeIn(300);
     // show all media in modal

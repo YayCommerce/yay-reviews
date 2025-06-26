@@ -172,10 +172,10 @@ export default function ReviewTab() {
                     render={({ field: { value, onChange } }) => (
                       <Textarea
                         id="reviews.upload_file_description"
-                        rows={3}
+                        rows={4}
                         value={value}
                         onChange={onChange}
-                        placeholder={__('...', 'yay-reviews')}
+                        placeholder={__('Type your description here', 'yay-reviews')}
                         className="w-full"
                       />
                     )}
@@ -207,7 +207,7 @@ export default function ReviewTab() {
             </CardTitle>
           </CardHeader>
           <CardContent className="w-full">
-            <div className="flex w-full max-w-[500px] flex-col gap-4">
+            <div className="flex w-full flex-col gap-4">
               {/* Before message */}
               <div className="flex flex-col gap-2">
                 <Label htmlFor="reviews.before_message" className="font-normal">
@@ -219,7 +219,7 @@ export default function ReviewTab() {
                   render={({ field: { value, onChange } }) => (
                     <Textarea
                       id="reviews.before_message"
-                      rows={3}
+                      rows={4}
                       value={value}
                       onChange={onChange}
                       placeholder={__(
@@ -241,7 +241,7 @@ export default function ReviewTab() {
                   render={({ field: { value, onChange } }) => (
                     <Textarea
                       id="reviews.gdpr_message"
-                      rows={3}
+                      rows={4}
                       value={value}
                       onChange={onChange}
                       placeholder={__('I agree to the Privacy Policy.', 'yay-reviews')}
