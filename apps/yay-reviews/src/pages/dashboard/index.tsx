@@ -1,17 +1,11 @@
 import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
-import { Settings } from 'lucide-react';
 
 import { SettingsFormData } from '@/lib/schema';
 import useAppContext from '@/hooks/use-app-context';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { useFormContext } from '@/components/ui/form';
-import { Switch } from '@/components/ui/switch';
 import GiftIcon from '@/components/icons/Gift';
-import NoteIcon from '@/components/icons/Note';
 import OverviewIcon from '@/components/icons/Overview';
 import ReminderIcon from '@/components/icons/Reminder';
 import PageTitle from '@/components/page-title';
