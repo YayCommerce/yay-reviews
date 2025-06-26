@@ -9,14 +9,12 @@ import { Form, useForm } from '@/components/ui/form';
 import { toast, Toaster } from '@/components/ui/sonner';
 
 import EmailIcon from './components/icons/Email';
-import EmailQueueIcon from './components/icons/EmailQueue';
 import GiftIcon from './components/icons/Gift';
 import HomeIcon from './components/icons/Home';
 import ReminderIcon from './components/icons/Reminder';
 import ReviewIcon from './components/icons/Review';
 import DashboardTab from './components/tabs/dashboard';
 import EmailsTab from './components/tabs/emails';
-import EmailsQueueTab from './components/tabs/emails-queue';
 import ReminderTab from './components/tabs/reminder';
 import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';

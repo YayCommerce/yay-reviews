@@ -99,7 +99,7 @@ if ( 'video_image' === $media_type ) {
 	<?php if ( ! empty( $enable_gdpr ) ) : ?>
 		<div class="space-y-2">
 			<?php if ( ! empty( $before ) ) : ?>
-				<span class="description"><?php echo esc_html( $before ); ?></span>
+				<span class="description"><?php echo wp_kses_post( $before ); ?></span>
 			<?php endif; ?>
 			<?php if ( ! empty( $gdpr_message ) ) : ?>
 				<div class="flex items-center space-x-2 yay-reviews-gdpr-checkbox-wrap">
@@ -124,7 +124,7 @@ if ( 'video_image' === $media_type ) {
 							</svg>
 						</div>
 						<span>
-							<?php echo esc_html( $gdpr_message ); ?>
+							<?php echo wp_kses_post( $gdpr_message ); ?>
 						</span>
 					</label>
 				</div>
