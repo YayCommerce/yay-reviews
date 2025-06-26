@@ -247,4 +247,12 @@
   .yay-reviews-email-preview-content .yay-reviews-email-preview-footer {
     padding: 8px 8px 0 8px;
   }
+
+  .yay-reviews-email-preview-footer-wrapper {
+    width: 75%;
+  }
+
+  .yay-reviews-email-preview-mobile {
+    transform: scale(0.8);
+  }
 }

@@ -132,7 +132,12 @@ const EmailPreviewer = ({
         </tr>
         <tr>
           <td align="center" valign="top">
-            <table border={0} cellPadding={10} cellSpacing={0} className="w-full">
+            <table
+              border={0}
+              cellPadding={10}
+              cellSpacing={0}
+              className="yay-reviews-email-preview-footer-wrapper w-full"
+            >
               <tbody>
                 <tr>
                   <td valign="top" className="rounded-none p-0">
