@@ -8,13 +8,13 @@ import { toast, Toaster } from '@/components/ui/sonner';
 import Nav from './components/nav';
 import EmailsTab from './components/tabs/emails';
 import ReminderTab from './components/tabs/reminder';
-import ReviewTab from './components/tabs/review';
 import ReviewRewardTab from './components/tabs/review-reward';
 import useAppContext from './hooks/use-app-context';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
 import { getSettings } from './lib/utils';
 import DashboardPage from './pages/dashboard';
+import ReviewPage from './pages/review';
 
 export default function App() {
   const form = useForm<SettingsFormData>({
@@ -59,7 +59,7 @@ function PageContent() {
       case 'dashboard':
         return <DashboardPage />;
       case 'review':
-        return <ReviewTab />;
+        return <ReviewPage />;
       case 'reminder':
         return <ReminderTab />;
       case 'reward':
