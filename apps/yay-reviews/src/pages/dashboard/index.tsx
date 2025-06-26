@@ -14,6 +14,7 @@ import GiftIcon from '@/components/icons/Gift';
 import NoteIcon from '@/components/icons/Note';
 import OverviewIcon from '@/components/icons/Overview';
 import ReminderIcon from '@/components/icons/Reminder';
+import PageTitle from '@/components/page-title';
 
 import AddonCard, { Addon } from './addon-card';
 
@@ -61,7 +62,7 @@ const addonsInformation = [
 ];
 
 export default function DashboardPage() {
-  const { setActiveTab } = useAppContext();
+  const { changeTab } = useAppContext();
   const { watch } = useFormContext<SettingsFormData>();
 
   const addonStatus = watch('addons');
@@ -75,12 +76,10 @@ export default function DashboardPage() {
 
   return (
     <PageLayout>
-      <div className="container mx-auto flex flex-col gap-3.5 p-7">
-        <div className="flex flex-col gap-2 font-light">
-          <div className="text-foreground text-3xl leading-9 font-bold">
-            {__('Welcome to Yay Reviews', 'yay-reviews')}
-          </div>
-          <div className="text-base leading-6 text-slate-600">
+      <PageTitle
+        title={__('Welcome to Yay Reviews', 'yay-reviews')}
+        description={
+          <>
             <span>
               {__(
                 'Your central hub for managing review forms, reminders, and coupons, providing an intuitive interface to monitor and optimize customer feedback.',
@@ -91,13 +90,13 @@ export default function DashboardPage() {
             <span>{__('Go to', 'yay-reviews')} </span>
             <span
               className="cursor-pointer lowercase underline decoration-solid"
-              onClick={() => setActiveTab('review')}
+              onClick={() => changeTab('review')}
             >
               {__('Review Settings', 'yay-reviews')}
             </span>
-          </div>
-        </div>
-      </div>
+          </>
+        }
+      />
       <div className="container mx-auto px-7 py-0">
         <div className="text-foreground mb-6 text-xl font-semibold">Addon-on settings</div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

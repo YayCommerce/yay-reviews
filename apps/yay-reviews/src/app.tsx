@@ -6,15 +6,15 @@ import { Form, useForm } from '@/components/ui/form';
 import { toast, Toaster } from '@/components/ui/sonner';
 
 import Nav from './components/nav';
-import EmailsTab from './components/tabs/emails';
-import ReminderTab from './components/tabs/reminder';
-import ReviewRewardTab from './components/tabs/review-reward';
 import useAppContext from './hooks/use-app-context';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
 import { getSettings } from './lib/utils';
 import DashboardPage from './pages/dashboard';
+import EmailsPage from './pages/emails';
+import ReminderPage from './pages/reminder';
 import ReviewPage from './pages/review';
+import RewardPage from './pages/reward';
 
 export default function App() {
   const form = useForm<SettingsFormData>({
@@ -61,11 +61,11 @@ function PageContent() {
       case 'review':
         return <ReviewPage />;
       case 'reminder':
-        return <ReminderTab />;
+        return <ReminderPage />;
       case 'reward':
-        return <ReviewRewardTab />;
+        return <RewardPage />;
       case 'emails':
-        return <EmailsTab />;
+        return <EmailsPage />;
       default:
         return <DashboardPage />;
     }

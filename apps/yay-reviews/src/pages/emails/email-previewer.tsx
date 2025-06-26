@@ -1,4 +1,4 @@
-const PreviewTemplate = ({
+const EmailPreviewer = ({
   heading,
   content,
   footer,
@@ -164,4 +164,4 @@ const PreviewTemplate = ({
   );
 };
 
-export default PreviewTemplate;
+export default EmailPreviewer;

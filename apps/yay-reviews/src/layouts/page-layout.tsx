@@ -12,6 +12,7 @@ export default function PageLayout({
     <div
       className={cn(
         'm-auto flex w-[1000px] max-w-[90%] flex-col items-center justify-center gap-8 py-8',
+        className,
       )}
       {...rest}
     >

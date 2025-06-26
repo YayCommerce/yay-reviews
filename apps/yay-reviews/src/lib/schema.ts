@@ -39,6 +39,7 @@ const rewardSchema = z.object({
   minimum_required_rating: z.number(),
   minimum_media_files_uploaded: z.number(),
   minimum_required_reviews_since_last_reward: z.number(),
+  is_open: z.boolean().optional(),
 });
 
 const rewardsSchema = z.record(z.string(), rewardSchema);
@@ -72,7 +73,7 @@ const emailSchema = z.object({
 });
 
 export const couponSchema = z.object({
-  code: z.string().min(1, { message: "Coupon code is required" }),
+  code: z.string().min(1, { message: 'Coupon code is required' }),
   description: z.string(),
   discount_type: z.string(),
   amount: z.number(),
@@ -82,31 +83,43 @@ export const couponSchema = z.object({
   maximum_spend: z.number().optional(),
   individual_use: z.boolean(),
   exclude_sale_items: z.boolean(),
-  products: z.array(z.object({
-    value: z.string(),
-    label: z.string(),
-  })),
-  exclude_products: z.array(z.object({
-    value: z.string(),
-    label: z.string(),
-  })),
-  product_categories: z.array(z.object({
-    value: z.number(),
-    label: z.string(),
-  })),
-  exclude_product_categories: z.array(z.object({
-    value: z.number(),
-    label: z.string(),
-  })),
+  products: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    }),
+  ),
+  exclude_products: z.array(
+    z.object({
+      value: z.string(),
+      label: z.string(),
+    }),
+  ),
+  product_categories: z.array(
+    z.object({
+      value: z.number(),
+      label: z.string(),
+    }),
+  ),
+  exclude_product_categories: z.array(
+    z.object({
+      value: z.number(),
+      label: z.string(),
+    }),
+  ),
   allowed_emails: z.string(),
-  product_brands: z.array(z.object({
-    value: z.number(),
-    label: z.string(),
-  })),
-  exclude_product_brands: z.array(z.object({
-    value: z.number(),
-    label: z.string(),
-  })),
+  product_brands: z.array(
+    z.object({
+      value: z.number(),
+      label: z.string(),
+    }),
+  ),
+  exclude_product_brands: z.array(
+    z.object({
+      value: z.number(),
+      label: z.string(),
+    }),
+  ),
   usage_limit_per_coupon: z.number().optional(),
   usage_limit_per_user: z.number().optional(),
   limit_usage_to_x_items: z.number().optional(),
@@ -133,4 +146,3 @@ export type Rewards = z.infer<typeof rewardsSchema>;
 export type OptionalField = z.infer<typeof optionalFieldSchema>;
 export type OptionalFields = z.infer<typeof optionalFieldsSchema>;
 export type Email = z.infer<typeof emailSchema>;
-

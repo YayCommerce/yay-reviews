@@ -70,6 +70,7 @@ class Admin {
 					'product_categories'      => Helpers::get_product_categories(),
 					'product_brands'          => Helpers::get_product_brands(),
 					'default_email_templates' => $default_settings['email'],
+					'coupons'                 => Helpers::get_coupons(),
 				)
 			);
 

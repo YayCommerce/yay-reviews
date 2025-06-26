@@ -423,4 +423,35 @@ class Helpers {
 			'stars_count'    => $stars_count,
 		);
 	}
+
+	public static function get_coupons() {
+		$args = array(
+			'post_type'      => 'shop_coupon',
+			'posts_per_page' => -1,
+			's'              => '',
+			'post_status'    => 'publish',
+		);
+
+		$query = new \WP_Query( $args );
+
+		$coupons = array();
+		if ( $query->have_posts() ) {
+			while ( $query->have_posts() ) {
+				$query->the_post();
+				$coupon = new \WC_Coupon( get_the_ID() );
+				if ( ! empty( $coupon->get_code() ) ) {
+					$coupons[] = array(
+						'id'           => (string) $coupon->get_id(),
+						'code'         => $coupon->get_code(),
+						'expired'      => Helpers::is_coupon_expired( $coupon ),
+						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
+						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
+					);
+				}
+			}
+		}
+		wp_reset_postdata();
+
+		return $coupons;
+	}
 }

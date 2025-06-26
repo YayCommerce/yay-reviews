@@ -149,23 +149,6 @@
   cursor: pointer;
 }
 
-.yaycommerce_page_yay-reviews input,
-.yaycommerce_page_yay-reviews textarea {
-  border-color: var(--input);
-  border-radius: calc(var(--radius) - 2px);
-  padding: 4px 12px;
-  color: inherit;
-  font-weight: inherit;
-}
-
-.yaycommerce_page_yay-reviews input:focus,
-.yaycommerce_page_yay-reviews textarea:focus {
-  border-color: var(--ring);
-  box-shadow:
-    var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow),
-    var(--tw-ring-shadow), var(--tw-shadow);
-}
-
 .yaycommerce_page_yay-reviews div[data-slot='card'] {
   border-radius: 0.5rem;
 }
@@ -227,4 +210,23 @@
 
 .yay-reviews-editor iframe {
   min-height: 150px !important;
+}
+
+@media screen and (max-width: 782px) {
+
+  input[type=date],
+  input[type=datetime-local],
+  input[type=datetime],
+  input[type=email],
+  input[type=month],
+  input[type=number],
+  input[type=password],
+  input[type=search],
+  input[type=tel],
+  input[type=text],
+  input[type=time],
+  input[type=url],
+  input[type=week] {
+    min-height: unset;
+  }
 }

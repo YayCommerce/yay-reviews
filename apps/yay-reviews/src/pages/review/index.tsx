@@ -16,15 +16,12 @@ import {
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
+import PageTitle from '@/components/page-title';
 
 export default function ReviewPage() {
   return (
     <PageLayout>
-      <div className="container mx-auto flex flex-col gap-3.5 p-7">
-        <div className="text-foreground text-3xl font-bold">
-          {__('Review Settings', 'yay-reviews')}
-        </div>
-      </div>
+      <PageTitle title={__('Review Settings', 'yay-reviews')} />
       <div className="container mx-auto px-7 py-0">
         <div className="flex flex-col gap-4">
           <UploadMediaCard />

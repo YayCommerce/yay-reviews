@@ -23,7 +23,7 @@ export type Addon = {
 };
 
 export default function AddonCard({ id, title, description, icon, enabled }: Addon) {
-  const { setActiveTab } = useAppContext();
+  const { changeTab } = useAppContext();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -65,7 +65,7 @@ export default function AddonCard({ id, title, description, icon, enabled }: Add
         </CardHeader>
       </CardContent>
       <CardContent className="flex items-center justify-between border-t p-4">
-        <Button variant="outline" size="sm" onClick={() => setActiveTab(id)}>
+        <Button variant="outline" size="sm" onClick={() => changeTab(id)}>
           <SettingIcon />
           {__('Settings', 'yay-reviews')}
         </Button>

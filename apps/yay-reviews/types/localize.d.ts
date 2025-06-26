@@ -2,6 +2,7 @@ import jQuery from '@types/jquery';
 
 import { SettingsFormData } from '../lib/schema';
 import { ComboboxOption } from '../src/components/ui/combobox';
+import { Coupon } from './coupon';
 
 declare global {
   interface Window {
@@ -25,6 +26,7 @@ declare global {
       product_brands: ComboboxOption[];
       wc_email_settings: Record<string, string>;
       default_email_templates: Record<string, Record<string, string>>;
+      coupons: Coupon[];
     };
     wp: AnyObject;
     tinymce: any;

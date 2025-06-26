@@ -18,7 +18,7 @@ import ReviewIcon from './icons/Review';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 
 export default function Nav() {
-  const { activeTab, setActiveTab } = useAppContext();
+  const { activeTab, changeTab } = useAppContext();
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,10 +80,25 @@ export default function Nav() {
   return (
     <nav
       className={cn(
-        'bg-background sticky top-[32px] z-50 w-full transition-shadow duration-200',
+        'bg-background sticky z-50 w-full transition-shadow duration-200',
         isScrolling && 'shadow-[0px_12px_24px_-20px_rgba(0,0,0,0.5)]',
+        'yay-reviews-nav',
       )}
+      style={{
+        top: 'var(--wpadminbar-height)',
+      }}
     >
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @media screen and (max-width: 600px) {
+          .yay-reviews-nav {
+            top: 0 !important;
+          }
+        }
+        `,
+        }}
+      ></style>
       <div className="mx-auto flex h-[54px] items-center justify-between pe-6">
         <div className="flex h-full items-center gap-7">
           {/* Logo */}
@@ -105,7 +120,7 @@ export default function Nav() {
                 }`}
                 onClick={(e) => {
                   e.preventDefault();
-                  setActiveTab(item.key);
+                  changeTab(item.key);
                 }}
               >
                 {item.icon}
@@ -138,7 +153,7 @@ export default function Nav() {
                       }`}
                       onClick={(e) => {
                         e.preventDefault();
-                        setActiveTab(item.key);
+                        changeTab(item.key);
                       }}
                     >
                       {item.icon}
