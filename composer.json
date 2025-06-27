@@ -1,4 +1,5 @@
 {
+  "name": "yay-reviews/yay-reviews",
   "minimum-stability": "dev",
   "prefer-dist": true,
   "optimize-autoloader": true,
