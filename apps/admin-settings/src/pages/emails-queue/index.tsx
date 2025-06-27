@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PageLayout from '@/layouts/page-layout';
 import { useQuery } from '@tanstack/react-query';
 import { __ } from '@wordpress/i18n';
@@ -11,11 +12,22 @@ import PageTitle from '@/components/page-title';
 import EmailsQueueTable from './emails-queue-table';
 
 export default function EmailsQueuePage() {
-  const { data: emails = [], isFetching } = useQuery({
-    queryKey: ['emails-queue'],
-    queryFn: () => getEmailsQueue(),
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
+  const { data, isFetching } = useQuery({
+    queryKey: ['emails-queue', currentPage, itemsPerPage],
+    queryFn: () => getEmailsQueue(currentPage, itemsPerPage),
     staleTime: 5 * 60 * 1000,
   });
+
+  const emails = data?.emails || [];
+  const pagination = data?.pagination;
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   return (
     <PageLayout>
       <PageTitle title={__('Emails Queue', 'yay-reviews')} />
@@ -36,7 +48,13 @@ export default function EmailsQueuePage() {
             </CardContent>
           </Card>
         ) : (
-          <EmailsQueueTable emails={emails} />
+          <EmailsQueueTable
+            emails={emails}
+            pagination={pagination}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            itemsPerPage={itemsPerPage}
+          />
         )}
       </div>
     </PageLayout>

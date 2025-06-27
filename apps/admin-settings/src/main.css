@@ -212,6 +212,14 @@
   min-height: 150px !important;
 }
 
+.yay-reviews-pagination-table a {
+  color: var(--foreground);
+}
+
+.yay-reviews-pagination-table a:focus {
+  box-shadow: none;
+}
+
 @media screen and (max-width: 782px) {
   input[type='date'],
   input[type='datetime-local'],

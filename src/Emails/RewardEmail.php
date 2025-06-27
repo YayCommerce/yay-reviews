@@ -45,19 +45,19 @@ class RewardEmail extends \WC_Email {
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-			if ( ! empty( $email_id ) ) {
-				Helpers::modify_email_logs(
-					true,
-					array(
-						'type'           => 'reward',
-						'subject'        => $this->get_subject(),
-						'body'           => $this->get_content(),
-						'status'         => $result ? 1 : 2,
-						'customer_email' => $recipient_email,
-						'created_at'     => current_time( 'mysql' ),
-					)
-				);
-			}
+
+			Helpers::modify_email_logs(
+				true,
+				array(
+					'type'           => 'reward',
+					'subject'        => $this->get_subject(),
+					'body'           => $this->get_content(),
+					'status'         => $result ? 1 : 2,
+					'customer_email' => $recipient_email,
+					'created_at'     => current_time( 'mysql' ),
+				)
+			);
+
 		}
 
 		$this->restore_locale();

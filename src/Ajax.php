@@ -65,28 +65,23 @@ class Ajax {
 							$email = new \YayReviews\Emails\RewardEmail();
 						}
 						$result = $email->send( $email_log->customer_email, $email_log->subject, $email_log->body, $email->get_headers(), $email->get_attachments() );
-						$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
 						if ( $result ) {
 							wp_send_json_success(
 								array(
-									'mess'   => __( 'Email sent successfully', 'yay-reviews' ),
-									'emails' => $emails,
+									'mess' => __( 'Email sent successfully', 'yay-reviews' ),
 								)
 							);
 						} else {
 							wp_send_json_error(
 								array(
-									'mess'   => __( 'Email sending failed', 'yay-reviews' ),
-									'emails' => $emails,
+									'mess' => __( 'Email sending failed', 'yay-reviews' ),
 								)
 							);
 						}
 					}
-					$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
 					wp_send_json_success(
 						array(
-							'mess'   => __( 'Email sent successfully', 'yay-reviews' ),
-							'emails' => $emails,
+							'mess' => __( 'Email sent successfully', 'yay-reviews' ),
 						)
 					);
 				}
@@ -109,12 +104,10 @@ class Ajax {
 				$wpdb->prefix . 'yay_reviews_email_logs',
 				array( 'id' => $email_id )
 			);
-			$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
 
 			wp_send_json_success(
 				array(
-					'mess'   => __( 'Email dismissed successfully', 'yay-reviews' ),
-					'emails' => $emails,
+					'mess' => __( 'Email dismissed successfully', 'yay-reviews' ),
 				)
 			);
 		} catch ( \Exception $e ) {

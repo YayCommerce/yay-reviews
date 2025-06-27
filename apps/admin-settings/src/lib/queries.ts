@@ -56,7 +56,22 @@ export async function sendTestMail(
   return response.json();
 }
 
-export async function getEmailsQueue() {
-  const response = await api.get('emails-queue');
-  return response.json() as Promise<EmailQueue[]>;
+export async function getEmailsQueue(page: number = 1, perPage: number = 10) {
+  const response = await api.get('emails-queue', {
+    searchParams: {
+      page,
+      per_page: perPage,
+    },
+  });
+  return response.json() as Promise<{
+    emails: EmailQueue[];
+    pagination: {
+      current_page: number;
+      per_page: number;
+      total_items: number;
+      total_pages: number;
+      has_next_page: boolean;
+      has_prev_page: boolean;
+    };
+  }>;
 }

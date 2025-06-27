@@ -299,8 +299,42 @@ class RestAPI {
 
 	public function get_emails_queue( \WP_REST_Request $request ) {
 		global $wpdb;
-		$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
-		return rest_ensure_response( $emails );
+
+		// Get pagination parameters
+		$page     = absint( $request->get_param( 'page' ) ) ?: 1;
+		$per_page = absint( $request->get_param( 'per_page' ) ) ?: 10;
+
+		// Calculate offset
+		$offset = ( $page - 1 ) * $per_page;
+
+		// Get total count
+		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_logs" );
+
+		// Get paginated results
+		$emails = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC LIMIT %d OFFSET %d",
+				$per_page,
+				$offset
+			)
+		);
+
+		// Calculate pagination info
+		$total_pages = ceil( $total_count / $per_page );
+
+		return rest_ensure_response(
+			array(
+				'emails'     => $emails,
+				'pagination' => array(
+					'current_page'  => $page,
+					'per_page'      => $per_page,
+					'total_items'   => (int) $total_count,
+					'total_pages'   => $total_pages,
+					'has_next_page' => $page < $total_pages,
+					'has_prev_page' => $page > 1,
+				),
+			)
+		);
 	}
 
 	public function permission_callback() {
