@@ -201,11 +201,6 @@ class Frontend {
 				// translators: %1$s: max upload quantity
 				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
-				'reviews_with_media'             => __( 'Reviews with media', 'yay-reviews' ),
-				'see_all_media'                  => __( 'See all media', 'yay-reviews' ),
-				'overview_data'                  => Helpers::get_overview_data(),
-				'reviews_text'                   => __( 'reviews', 'yay-reviews' ),
-				'all_media_text'                 => __( 'All media', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
 			)
 		);
