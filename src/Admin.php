@@ -7,6 +7,8 @@ use YayReviews\Register\ScriptName;
 
 class Admin {
 
+	use SingletonTrait;
+
 	public function __construct() {
 		new AdminMenu();
 

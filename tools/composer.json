@@ -1,0 +1,24 @@
+{
+  "name": "yay-reviews/tools",
+  "authors": [
+    {
+      "name": "yaycommerce"
+    }
+  ],
+  "require-dev": {
+    "10up/phpcs-composer": "dev-master"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "scripts": {
+    "lint": [
+      "phpcs --report=xml ../ > log.xml"
+    ],
+    "lint-fix": [
+      "phpcbf ../"
+    ]
+  }
+}

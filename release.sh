@@ -8,7 +8,7 @@ rm -rf "$RELEASE_PATH"
 mkdir -p "$DEST_PATH"
 
 echo "Installing PHP and JS dependencies..."
-cd apps/yay-reviews
+cd apps/admin-settings
 pnpm install
 echo "Running JS Build..."
 pnpm run build

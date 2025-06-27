@@ -1,0 +1,147 @@
+{
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "[php]": {
+    "editor.defaultFormatter": "wongjn.php-sniffer"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
+  "editor.autoClosingOvertype": "auto",
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": false,
+  "editor.lineNumbers": "on",
+  "editor.suggestSelection": "first",
+  "editor.tabSize": 4,
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  "files.associations": {
+    "*.php": "php"
+  },
+  "github.gitAuthentication": false,
+  "material-icon-theme.folders.theme": "specific",
+  "php.validate.executablePath": "/opt/homebrew/bin/php",
+  "prettier.singleQuote": false,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "workbench.colorTheme": "Default Dark Modern",
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "workbench.iconTheme": "material-icon-theme",
+  "[scss]": {
+    "editor.defaultFormatter": "vscode.css-language-features"
+  },
+  "workbench.startupEditor": "none",
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "intelephense.stubs": [
+    "apache",
+    "bcmath",
+    "bz2",
+    "calendar",
+    "com_dotnet",
+    "Core",
+    "ctype",
+    "curl",
+    "date",
+    "dba",
+    "dom",
+    "enchant",
+    "exif",
+    "FFI",
+    "fileinfo",
+    "filter",
+    "fpm",
+    "ftp",
+    "gd",
+    "gettext",
+    "gmp",
+    "hash",
+    "iconv",
+    "imap",
+    "intl",
+    "json",
+    "ldap",
+    "libxml",
+    "mbstring",
+    "meta",
+    "mysqli",
+    "oci8",
+    "odbc",
+    "openssl",
+    "pcntl",
+    "pcre",
+    "PDO",
+    "pdo_ibm",
+    "pdo_mysql",
+    "pdo_pgsql",
+    "pdo_sqlite",
+    "pgsql",
+    "Phar",
+    "posix",
+    "pspell",
+    "random",
+    "readline",
+    "Reflection",
+    "session",
+    "shmop",
+    "SimpleXML",
+    "snmp",
+    "soap",
+    "sockets",
+    "sodium",
+    "SPL",
+    "sqlite3",
+    "standard",
+    "superglobals",
+    "sysvmsg",
+    "sysvsem",
+    "sysvshm",
+    "tidy",
+    "tokenizer",
+    "xml",
+    "xmlreader",
+    "xmlrpc",
+    "xmlwriter",
+    "xsl",
+    "Zend OPcache",
+    "zip",
+    "zlib",
+    "wordpress"
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "phpSniffer.executablesFolder": "tools/vendor/squizlabs/php_codesniffer/bin",
+  "phpSniffer.autoDetect": true,
+  "editor.formatOnSave": false
+}

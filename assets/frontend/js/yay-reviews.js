@@ -7,9 +7,7 @@ jQuery(document).ready(function ($) {
     if (hasFilterRating) {
       commentSection
         .find(".woocommerce-Reviews-title")
-        .append(
-          `<div class="py-3 text-lg font-medium">${filterRatingText}</div>`
-        );
+        .append(`<div class="py-3 text-base">${filterRatingText}</div>`);
     }
   }
   if (reviewsSection) {
@@ -28,22 +26,21 @@ jQuery(document).ready(function ($) {
             ? "yay-reviews-filter-rating cursor-pointer hover:underline"
             : "";
         summaryItems += `
-          <div class="yay-reviews-summary-item">
+          <div class="yay-reviews-summary-item ${clickableClasses}" data-rating="${i}">
             <span class="yay-reviews-summary-item-label">${i} ★</span>
             <div class="yay-reviews-summary-item-progress-bar">
               <div class="yay-reviews-summary-item-progress" style="width: ${percentage}%"></div>
             </div>
-            <span class="yay-reviews-summary-item-count ${clickableClasses}" data-rating="${i}" >${count}</span>
+            <span class="yay-reviews-summary-item-count">${count}</span>
           </div>
         `;
       }
       starsElement = `
-        <div class="yay-reviews-summary-card flex items-center gap-2">
+        <div class="yay-reviews-summary-card flex items-center gap-6">
           <div class="flex items-center gap-1">
-            <svg class="yay-reviews-average-rating-star" width="40" height="40" viewBox="0 0 24 24" fill="#FFC700" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
             <div class="flex flex-col items-center gap-0.5">
-              <span class="text-[40px] font-bold leading-[36px]">${averageRating}</span>
-              <span class="text-[20px] font-semibold whitespace-pre">${totalReviews} ${
+              <span class="text-[40px] font-semibold leading-[36px]">${averageRating}</span>
+              <span class="text-[16px] font-regular whitespace-pre">${totalReviews} ${
         yay_reviews.reviews_text || "reviews"
       }</span>
             </div>
@@ -81,7 +78,7 @@ jQuery(document).ready(function ($) {
   }
 
   const fileInput = document.getElementById("yay-reviews-file-input");
-  const grid = document.querySelector(".yay-reviews-picture-card-grid");
+  const grid = document.querySelector(".yay-reviews-upload-media__upload-list");
   let yayReviewsFilesArr = [];
   let renderedFilesCount = 0;
 
