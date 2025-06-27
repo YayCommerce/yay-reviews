@@ -5,3 +5,4 @@ release
 build
 apps/admin-settings/package-lock.json
 yay-reviews.zip
+vendor/

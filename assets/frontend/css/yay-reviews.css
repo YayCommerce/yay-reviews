@@ -1,11 +1,46 @@
 /** ---------------------------- Reviews Form ---------------------------- */
 
+.woocommerce-Reviews #review_form_wrapper #commentform label {
+  display: inline-flex !important;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
 /* Review Title */
 .yay-reviews-review-title input {
   display: block;
 }
 .yay-reviews-review-title__description {
   font-size: 1rem;
+}
+
+/** GDPR */
+.yay-reviews-gdpr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+
+.yay-reviews-gdpr__message label {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: normal !important;
+}
+
+.yay-reviews-gdpr-checkbox {
+  user-select: none;
+}
+
+/** Product Attributes */
+.yay-reviews-product-attributes__select {
+  display: block;
+  max-width: 200px;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
 }
 
 /* Upload Media Form */
@@ -28,33 +63,7 @@
   gap: 0.5rem;
 }
 
-/** GDPR */
-.yay-reviews-gdpr {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-block-start: 0.5rem;
-}
-
-.yay-reviews-gdpr__message label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  cursor: pointer;
-}
-
-/** Product Attributes */
-.yay-reviews-product-attributes__select {
-  display: block;
-  max-width: 200px;
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
-}
-
-/** Upload Card */
-
-.yay-reviews-upload-card {
+.yay-reviews-upload-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -64,29 +73,43 @@
   border: 1px dashed #e5e7eb;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-upload-card:hover {
-  border-color: #1890ff;
+.yay-reviews-upload-button:hover {
+  border-color: #000 !important;
 }
 
-.yay-reviews-upload-card > :first-child {
+.yay-reviews-upload-button:hover span {
+  color: #000 !important;
+}
+
+.yay-reviews-upload-button > :first-child {
   color: #9ca3af;
 }
 
-.yay-reviews-upload-card > :last-child {
+.yay-reviews-upload-button > :last-child {
   font-size: 0.75rem;
   color: #6b7280;
   margin-top: 0.25rem;
 }
 
-.yay-reviews-thumb-card img {
+.yay-reviews-upload-media__upload-item {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.yay-reviews-upload-media__upload-item img {
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
 }
-.yay-reviews-thumb-card button {
+.yay-reviews-upload-media__upload-item-remove {
   position: absolute;
   top: 0;
   right: 0;
@@ -101,6 +124,67 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s;
+  font-size: 18px;
+  top: -7px;
+  right: -7px;
+  z-index: 10;
+}
+
+.yay-reviews-upload-media__upload-item:hover {
+  border-color: #000;
+}
+
+.yay-reviews-upload-media__upload-item:hover
+  .yay-reviews-upload-media__upload-item-remove {
+  visibility: visible;
+  opacity: 1;
+}
+
+#yay-reviews-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2147483647;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+}
+
+#yay-reviews-modal.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+#yay-reviews-modal-close {
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.yay-reviews-modal-wrapper {
+  padding: 1rem;
+  border-radius: 1rem;
+  max-width: 50rem;
+  width: 90%;
+  position: relative;
+}
+
+#yay-reviews-modal-content img,
+#yay-reviews-modal-content video {
+  width: 100%;
+  max-height: 70vh;
+}
+
+#yay-reviews-modal-content img {
+  object-fit: contain;
 }
 
 .woocommerce-Reviews-title {
@@ -129,19 +213,6 @@
   }
 }
 
-.yay-reviews-preview-media {
-  max-width: 400px;
-  margin-top: 10px;
-  max-height: 400px;
-  overflow: auto;
-}
-
-.yay-reviews-preview-media > img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 #review_form_wrapper #review_form textarea,
 #review_form_wrapper #review_form input[type="text"],
 #review_form_wrapper #review_form input[type="email"],
@@ -154,41 +225,6 @@
   border-radius: 4px;
 }
 
-#yay-reviews-modal-close {
-  background: transparent;
-}
-
-.yay-reviews-upload-card {
-  transition: all 0.2s ease-in-out;
-}
-
-.yay-reviews-upload-card span {
-  transition: all 0.2s ease-in-out;
-}
-
-.yay-reviews-upload-card:hover {
-  border-color: #000 !important;
-}
-
-.yay-reviews-upload-card:hover span {
-  color: #000 !important;
-}
-
-.yay-reviews-thumb-card button[type="button"] {
-  font-size: 18px;
-  top: -7px;
-  right: -7px;
-  z-index: 10;
-}
-
-.yay-reviews-thumb-card:hover {
-  border-color: #000;
-}
-
-.yay-reviews-thumb-card:hover button[type="button"] {
-  visibility: visible;
-  opacity: 1;
-}
 .yay-reviews-attribute-list {
   display: flex;
   gap: 10px;
@@ -196,7 +232,119 @@
   align-items: center;
 }
 
-.yay-reviews-slider-track {
+/** Review Overview */
+
+.yay-reviews-reviews-overview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border: 1px solid #e0e0e0;
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: 500px;
+  margin-bottom: 1rem;
+}
+
+.yay-reviews-reviews-overview__summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.yay-reviews-reviews-overview__summary-avg-rating {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.yay-reviews-reviews-overview__summary-total-reviews {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  white-space: pre;
+}
+
+.yay-reviews-reviews-overview__filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.yay-reviews-reviews-overview__filters-item {
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.yay-reviews-reviews-overview__filters-item.filterable {
+  cursor: pointer;
+  text-underline-offset: 3px;
+}
+
+.yay-reviews-reviews-overview__filters-item.filterable:hover {
+  text-decoration: underline;
+}
+
+.yay-reviews-reviews-overview__filters-item__label {
+  flex-basis: 40px;
+  text-align: right;
+  color: #555;
+  flex-shrink: 0;
+}
+
+.yay-reviews-reviews-overview__filters-item__progress-bar {
+  flex-grow: 1;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  height: 8px;
+}
+
+.yay-reviews-reviews-overview__filters-item__progress {
+  height: 100%;
+  background-color: #a0a0a0;
+  border-radius: 5px;
+}
+
+.yay-reviews-reviews-overview__filters-item__count {
+  flex-basis: 30px;
+  text-align: left;
+  color: #555;
+  flex-shrink: 0;
+}
+
+/** All Media Slider */
+
+.yay-reviews-all-media {
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+}
+
+.yay-reviews-all-media-wrapper {
+  position: relative;
+}
+
+.yay-reviews-all-media__title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.yay-reviews-see-all-media {
+  cursor: pointer;
+  text-underline-offset: 3px;
+}
+.yay-reviews-see-all-media:hover {
+  text-decoration: underline;
+}
+
+.yay-reviews-all-media-track {
   display: flex;
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -205,19 +353,26 @@
   /* Firefox */
   flex: 1;
   min-width: 0;
+  gap: 10px;
 }
 
-.yay-reviews-slider-track::-webkit-scrollbar {
+.yay-reviews-all-media-track::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari and Opera */
 }
 
-.yay-reviews-slider-track .yay-reviews-media {
+.yay-reviews-all-media-buttons {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.yay-reviews-all-media-track .yay-reviews-review__media-item {
   flex-shrink: 0;
   cursor: pointer;
 }
 
-.yay-reviews-slider-track img {
+.yay-reviews-all-media-track img {
   display: block;
   width: 140px;
   height: 140px;
@@ -225,12 +380,7 @@
   flex-shrink: 0;
 }
 
-.yay-reviews-slider {
-  position: relative;
-  width: 100%;
-}
-
-.yay-reviews-slider-arrow {
+.yay-reviews-all-media-arrow {
   cursor: pointer;
   border: none;
   outline: none;
@@ -242,83 +392,49 @@
   transform: translateY(-50%);
   box-shadow: 0px 10px 25px 0px #377e620d;
   transition: all 0.2s ease-in-out;
+  position: absolute;
+  z-index: 10;
+  background-color: rgb(255, 255, 255);
+  border-radius: 9999px;
+  padding: 0.25rem;
+  box-shadow: 0px 10px 25px 0px #377e620d;
+  transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-slider-arrow:hover {
+.yay-reviews-all-media-arrow:hover {
   background: #edf3f9;
   box-shadow: 0px 10px 25px 0px #12294026;
   border: none;
 }
 
-.yay-reviews-slider-arrow svg path {
+.yay-reviews-all-media-arrow svg {
+  width: 14px;
+  height: 14px;
+}
+
+.yay-reviews-all-media-arrow svg path {
   stroke: #808890;
   fill: transparent;
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-slider-arrow:hover svg path {
+.yay-reviews-all-media-arrow:hover svg path {
   stroke: #122940;
   fill: transparent;
 }
 
-.yay-reviews-slider-arrow.left-arrow {
+.yay-reviews-all-media-arrow.left-arrow {
   left: -20px;
   top: 50%;
 }
 
-.yay-reviews-slider-arrow.right-arrow {
+.yay-reviews-all-media-arrow.right-arrow {
   right: -20px;
   top: 50%;
 }
 
-.yay-reviews-summary {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.yay-reviews-summary-item {
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.yay-reviews-filter-rating {
-  text-underline-offset: 3px;
-}
-
-.yay-reviews-summary-item-label {
-  flex-basis: 40px;
-  text-align: right;
-  color: #555;
-  flex-shrink: 0;
-}
-
-.yay-reviews-summary-item-progress-bar {
-  flex-grow: 1;
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  height: 8px;
-}
-
-.yay-reviews-summary-item-progress {
-  height: 100%;
-  background-color: #a0a0a0;
-  border-radius: 5px;
-}
-
-.yay-reviews-summary-item-count {
-  flex-basis: 30px;
-  text-align: left;
-  color: #555;
-  flex-shrink: 0;
-}
-
-.yay-reviews-summary-card {
-  border: 1px solid #e0e0e0;
-  padding: 1rem;
-  border-radius: 8px;
-  max-width: 500px;
-  margin-bottom: 1rem;
+/** Verify badge */
+.yay-reviews-verified-badge {
+  display: inline-block;
+  vertical-align: top;
 }

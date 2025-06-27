@@ -48,7 +48,7 @@ $accept = implode( ',', $accept_mime_types );
 	<!-- Upload area -->
 	<div class="yay-reviews-upload-media__upload-list">
 		<!-- Thumbnails will be inserted here by JS -->
-		<div class="yay-reviews-upload-card"
+		<div class="yay-reviews-upload-button"
 			data-accept="<?php echo esc_attr( $accept ); ?>"	
 			onclick="document.getElementById('yay-reviews-file-input').click();" ondragover="event.preventDefault(); this.classList.add('border-blue-500');"
 			ondragleave="this.classList.remove('border-blue-500');"
