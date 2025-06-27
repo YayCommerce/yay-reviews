@@ -284,10 +284,15 @@
 .yay-reviews-reviews-overview__filters-item.filterable {
   cursor: pointer;
   text-underline-offset: 3px;
+  text-decoration: none !important;
+}
+
+.yay-reviews-reviews-overview__filters-item.active {
+  text-decoration: underline !important;
 }
 
 .yay-reviews-reviews-overview__filters-item.filterable:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 .yay-reviews-reviews-overview__filters-item__label {
@@ -315,6 +320,11 @@
   text-align: left;
   color: #555;
   flex-shrink: 0;
+}
+
+.yay-reviews-filter-message {
+  padding: 0.5rem 0;
+  font-size: 16px;
 }
 
 /** All Media Slider */
