@@ -2,6 +2,7 @@ import { ComboboxOption } from '@/components/ui/combobox';
 import { api } from './api';
 import { CouponFormData, SettingsFormData } from './schema';
 import { Coupon } from 'types/coupon';
+import { EmailQueue } from 'types/email-queue';
 
 export async function postSettings(data: SettingsFormData) {
   const response = await api.post('settings', { json: data });
@@ -53,4 +54,9 @@ export async function sendTestMail(
     },
   });
   return response.json();
+}
+
+export async function getEmailsQueue() {
+  const response = await api.get('emails-queue');
+  return response.json() as Promise<EmailQueue[]>;
 }

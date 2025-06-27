@@ -82,4 +82,5 @@ add_action(
 	}
 );
 
-
+register_activation_hook( __FILE__, array( 'YayReviews\ActDeact', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'YayReviews\ActDeact', 'deactivate' ) );

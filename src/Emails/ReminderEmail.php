@@ -29,10 +29,10 @@ class ReminderEmail extends \WC_Email {
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yay_reviews_reminder_email_notification', array( $this, 'trigger' ), 10, 2 );
+		add_action( 'yay_reviews_reminder_email_notification', array( $this, 'trigger' ), 10, 3 );
 	}
 
-	public function trigger( $order_id, $order = false ) {
+	public function trigger( $order_id, $order = false, $email_id = 0 ) {
 		$this->setup_locale();
 
 		if ( $order_id && ! is_a( $order, 'WC_Order' ) ) {
@@ -80,7 +80,19 @@ class ReminderEmail extends \WC_Email {
 		$this->placeholders['{products_table}'] = $this->get_products_table();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
-			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+			if ( ! empty( $email_id ) ) {
+				Helpers::modify_email_logs(
+					false,
+					array(
+						'id'             => $email_id,
+						'status'         => $result ? 1 : 0,
+						'body'           => $this->get_content(),
+						'subject'        => $this->get_subject(),
+						'customer_email' => $recipient_email,
+					)
+				);
+			}
 			update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'yes' );
 		}
 

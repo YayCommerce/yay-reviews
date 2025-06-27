@@ -12,6 +12,7 @@ import { SettingsFormData, settingsSchema } from './lib/schema';
 import { getSettings } from './lib/utils';
 import DashboardPage from './pages/dashboard';
 import EmailsPage from './pages/emails';
+import EmailsQueuePage from './pages/emails-queue';
 import ReminderPage from './pages/reminder';
 import ReviewPage from './pages/review';
 import RewardPage from './pages/reward';
@@ -66,6 +67,8 @@ function PageContent() {
         return <RewardPage />;
       case 'emails':
         return <EmailsPage />;
+      case 'emails-queue':
+        return <EmailsQueuePage />;
       default:
         return <DashboardPage />;
     }

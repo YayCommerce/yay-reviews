@@ -85,6 +85,16 @@ class RestAPI {
 				'permission_callback' => array( $this, 'permission_callback' ),
 			)
 		);
+
+		register_rest_route(
+			YAY_REVIEWS_REST_URL,
+			'/emails-queue',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_emails_queue' ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+			)
+		);
 	}
 
 	public function post_settings( $request ) {
@@ -285,6 +295,12 @@ class RestAPI {
 		} else {
 			return rest_ensure_response( array( 'message' => 'Email sending failed' ), 500 );
 		}
+	}
+
+	public function get_emails_queue( \WP_REST_Request $request ) {
+		global $wpdb;
+		$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
+		return rest_ensure_response( $emails );
 	}
 
 	public function permission_callback() {

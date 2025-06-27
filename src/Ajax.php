@@ -14,6 +14,8 @@ class Ajax {
 
 	protected function init_hooks() {
 		add_action( 'wp_ajax_yay_reviews_change_addon_status', array( $this, 'change_addon_status' ) );
+		add_action( 'wp_ajax_yay_reviews_send_email', array( $this, 'send_email' ) );
+		add_action( 'wp_ajax_yay_reviews_dismiss_email', array( $this, 'dismiss_email' ) );
 	}
 
 	public function change_addon_status() {
@@ -34,6 +36,87 @@ class Ajax {
 				wp_send_json_success( array( 'status' => $status ) );
 			}
 			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay-reviews' ) ) );
+		} catch ( \Exception $e ) {
+			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	public function send_email() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+		try {
+			global $wpdb;
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			if ( ! empty( $email_id ) ) {
+				$email_log = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs WHERE id = {$email_id}" );
+				if ( ! empty( $email_log ) ) {
+					if ( 'reminder' === $email_log->type && '0' === $email_log->status ) {
+						$scheduled_event = maybe_unserialize( $email_log->scheduled_event );
+						if ( ! empty( $scheduled_event ) ) {
+							do_action( 'yay_reviews_reminder_email', $scheduled_event['order_id'], $email_id );
+							wp_unschedule_event( $scheduled_event['timestamp'], 'yay_reviews_reminder_email', array( $scheduled_event['order_id'], $email_id ) );
+						}
+					} else {
+						if ( 'reminder' === $email_log->type ) {
+							$email = new \YayReviews\Emails\ReminderEmail();
+						} else {
+							$email = new \YayReviews\Emails\RewardEmail();
+						}
+						$result = $email->send( $email_log->customer_email, $email_log->subject, $email_log->body, $email->get_headers(), $email->get_attachments() );
+						$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
+						if ( $result ) {
+							wp_send_json_success(
+								array(
+									'mess'   => __( 'Email sent successfully', 'yay-reviews' ),
+									'emails' => $emails,
+								)
+							);
+						} else {
+							wp_send_json_error(
+								array(
+									'mess'   => __( 'Email sending failed', 'yay-reviews' ),
+									'emails' => $emails,
+								)
+							);
+						}
+					}
+					$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
+					wp_send_json_success(
+						array(
+							'mess'   => __( 'Email sent successfully', 'yay-reviews' ),
+							'emails' => $emails,
+						)
+					);
+				}
+			}
+			wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
+		} catch ( \Exception $e ) {
+			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	public function dismiss_email() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+		try {
+			global $wpdb;
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			$wpdb->delete(
+				$wpdb->prefix . 'yay_reviews_email_logs',
+				array( 'id' => $email_id )
+			);
+			$emails = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC" );
+
+			wp_send_json_success(
+				array(
+					'mess'   => __( 'Email dismissed successfully', 'yay-reviews' ),
+					'emails' => $emails,
+				)
+			);
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
