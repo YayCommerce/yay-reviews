@@ -44,20 +44,23 @@ class RewardEmail extends \WC_Email {
 		$this->placeholders['{product_name}']  = $product->get_name();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
-			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-
-			Helpers::modify_email_logs(
-				true,
-				array(
-					'type'           => 'reward',
-					'subject'        => $this->get_subject(),
-					'body'           => $this->get_content(),
-					'status'         => $result ? 1 : 2,
-					'customer_email' => $recipient_email,
-					'created_at'     => current_time( 'mysql' ),
-				)
-			);
-
+			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
+				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+				if ( $result ) {
+					update_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true );
+				}
+				Helpers::modify_email_logs(
+					true,
+					array(
+						'type'           => 'reward',
+						'subject'        => $this->get_subject(),
+						'body'           => $this->get_content(),
+						'status'         => $result ? 1 : 2,
+						'customer_email' => $recipient_email,
+						'created_at'     => current_time( 'mysql' ),
+					)
+				);
+			}
 		}
 
 		$this->restore_locale();
