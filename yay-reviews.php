@@ -35,28 +35,7 @@ add_action(
 	}
 );
 
-spl_autoload_register(
-	function ( $class ) {
-		$prefix   = __NAMESPACE__; // project-specific namespace prefix
-		$base_dir = __DIR__ . '/src'; // base directory for the namespace prefix
-
-		$len = strlen( $prefix );
-		if ( strncmp( $prefix, $class, $len ) !== 0 ) { // does the class use the namespace prefix?
-			return; // no, move to the next registered autoloader
-		}
-
-		$relative_class_name = substr( $class, $len );
-
-		// replace the namespace prefix with the base directory, replace namespace
-		// separators with directory separators in the relative class name, append
-		// with .php
-		$file = $base_dir . str_replace( '\\', '/', $relative_class_name ) . '.php';
-
-		if ( file_exists( $file ) ) {
-			require $file;
-		}
-	}
-);
+require_once YAY_REVIEWS_PLUGIN_PATH . 'vendor/autoload.php';
 
 if ( ! class_exists( 'woocommerce' ) ) {
 	function yay_reviews_admin_notice() {
@@ -78,16 +57,6 @@ if ( ! function_exists( 'WC' ) ) {
 	return;
 }
 
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Helpers.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/View.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Emails.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Classes/Cron.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Admin.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Frontend.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/LicensesMenu.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/OtherPluginsMenu.php';
-require_once YAY_REVIEWS_PLUGIN_PATH . 'src/YayCommerceMenu/RegisterMenu.php';
-
 add_action(
 	'plugins_loaded',
 	function () {
@@ -106,10 +75,10 @@ add_action(
 				}
 			}
 		);
-		// Initialize plugin components
+
 		Initialize::get_instance();
-		new Admin();
-		new Frontend();
+		Admin::get_instance();
+		Frontend::get_instance();
 	}
 );
 

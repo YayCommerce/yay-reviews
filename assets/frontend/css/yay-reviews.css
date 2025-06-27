@@ -1,17 +1,113 @@
-h2 {
+/** ---------------------------- Reviews Form ---------------------------- */
+
+/* Review Title */
+.yay-reviews-review-title input {
+  display: block;
+}
+.yay-reviews-review-title__description {
+  font-size: 1rem;
+}
+
+/* Upload Media Form */
+.yay-reviews-upload-media > * {
+  margin-block-end: 0.5rem !important;
+}
+
+.yay-reviews-upload-media__label {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.yay-reviews-upload-media__description {
+  font-size: 1rem;
+}
+
+.yay-reviews-upload-media__upload-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/** GDPR */
+.yay-reviews-gdpr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-block-start: 0.5rem;
+}
+
+.yay-reviews-gdpr__message label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+/** Product Attributes */
+.yay-reviews-product-attributes__select {
+  display: block;
+  max-width: 200px;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/** Upload Card */
+
+.yay-reviews-upload-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 6rem;
+  height: 6rem;
+  border: 1px dashed #e5e7eb;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.yay-reviews-upload-card:hover {
+  border-color: #1890ff;
+}
+
+.yay-reviews-upload-card > :first-child {
+  color: #9ca3af;
+}
+
+.yay-reviews-upload-card > :last-child {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.yay-reviews-thumb-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5rem;
+}
+.yay-reviews-thumb-card button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #757575;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 9999px;
+  padding: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.woocommerce-Reviews-title {
   margin-bottom: 1rem;
 }
 
-#yay-reviews-gdpr-checkbox {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
+/** ---------------------------- End Reviews Form ---------------------------- */
 
 .yay-reviews-loading-icon {
   width: 24px;
@@ -27,6 +123,7 @@ h2 {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -43,10 +140,6 @@ h2 {
   display: block;
   width: 100%;
   height: auto;
-}
-
-.yay-reviews-gdpr-checkbox-wrap label {
-  margin-bottom: 0;
 }
 
 #review_form_wrapper #review_form textarea,
@@ -96,28 +189,27 @@ h2 {
   visibility: visible;
   opacity: 1;
 }
-
-label[for="yay-reviews-file-input"] {
-  margin-bottom: 0;
-}
-
 .yay-reviews-attribute-list {
   display: flex;
-  gap: 10px; /* Adjust space as needed */
+  gap: 10px;
+  /* Adjust space as needed */
   align-items: center;
 }
 
 .yay-reviews-slider-track {
   display: flex;
   overflow-x: auto;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
   flex: 1;
   min-width: 0;
 }
 
 .yay-reviews-slider-track::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 .yay-reviews-slider-track .yay-reviews-media {
@@ -186,9 +278,14 @@ label[for="yay-reviews-file-input"] {
 }
 
 .yay-reviews-summary-item {
+  font-size: 16px;
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.yay-reviews-filter-rating {
+  text-underline-offset: 3px;
 }
 
 .yay-reviews-summary-item-label {

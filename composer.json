@@ -1,0 +1,17 @@
+{
+  "minimum-stability": "dev",
+  "prefer-dist": true,
+  "optimize-autoloader": true,
+  "require": {
+    "php": ">=7.0"
+  },
+  "config": {},
+  "autoload": {
+    "psr-4": {
+      "YayReviews\\": "src/"
+    }
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "4.0.x-dev"
+  }
+}

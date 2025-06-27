@@ -4,6 +4,9 @@ namespace YayReviews;
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
 class Frontend {
+
+	use SingletonTrait;
+
 	public function __construct() {
 		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ), 100, 1 );
 		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
@@ -11,22 +14,34 @@ class Frontend {
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 		add_filter( 'comments_clauses', array( $this, 'filter_reviews_by_rating' ), 10, 2 );
+		add_filter( 'comments_template', array( $this, 'add_content_to_reviews_section' ), PHP_INT_MAX, 2 );
 	}
 
 	public function add_reviews_form( $comment_form ) {
-		$data                           = array(
-			'upload_media'    => Helpers::get_settings( 'reviews', 'upload_media', false ),
-			'upload_required' => Helpers::get_settings( 'reviews', 'upload_required', false ),
-			'label'           => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
-			'description'     => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
-			'media_type'      => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
-			'max_files_qty'   => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
-			'max_file_size'   => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
-			'enable_gdpr'     => Helpers::get_settings( 'reviews', 'enable_gdpr', false ),
-			'before'          => Helpers::get_settings( 'reviews', 'before_message', '' ),
-			'gdpr_message'    => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
-		);
-		$comment_form['comment_field'] .= View::load( 'frontend.reviews-form', $data, false );
+
+		$comment_form['comment_field'] .= View::load( 'frontend.review-form.review-title', array(), false );
+		$comment_form['comment_field'] .= View::load( 'frontend.review-form.product-attributes', array(), false );
+
+		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
+			$upload_media_data              = array(
+				'is_required'   => Helpers::get_settings( 'reviews', 'upload_required', false ),
+				'label'         => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
+				'description'   => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
+				'media_type'    => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
+				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
+				'max_file_size' => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
+			);
+			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
+		}
+
+		if ( Helpers::get_settings( 'reviews', 'enable_gdpr', false ) ) {
+			$gdpr_data                      = array(
+				'before'         => Helpers::get_settings( 'reviews', 'before_message', '' ),
+				'inline_message' => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
+			);
+			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
+		}
+
 		return $comment_form;
 	}
 
@@ -194,7 +209,7 @@ class Frontend {
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
 				'has_filter_rating'              => isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? true : false,
 				// translators: %s: rating
-				'filter_rating_text'             => sprintf( __( 'You are currently viewing the reviews that provided a rating of %1$s stars. <a href="%2$s">See all reviews</a>', 'yay-reviews' ), isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? intval( $_GET['rating_filter'] ) : 0, remove_query_arg( 'rating_filter' ) . '#tab-reviews' ),
+				'filter_rating_text'             => sprintf( __( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-reviews' ), isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? intval( $_GET['rating_filter'] ) : 0, remove_query_arg( 'rating_filter' ) . '#tab-reviews' ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
@@ -222,5 +237,9 @@ class Frontend {
 			}
 		}
 		return $clauses;
+	}
+
+	public function add_content_to_reviews_section( $template ) {
+		return $template;
 	}
 }

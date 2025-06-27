@@ -19,7 +19,7 @@ class Ajax {
 	public function change_addon_status() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay_reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
 			$addon_id = isset( $_POST['addon_id'] ) ? sanitize_text_field( $_POST['addon_id'] ) : '';
@@ -33,7 +33,7 @@ class Ajax {
 				Helpers::update_settings( $settings );
 				wp_send_json_success( array( 'status' => $status ) );
 			}
-			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay_reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay-reviews' ) ) );
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
