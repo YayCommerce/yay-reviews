@@ -21,39 +21,59 @@ jQuery(document).ready(function ($) {
       for (let i = 5; i >= 1; i--) {
         const count = Number(starsCount[i]) || 0;
         const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
-        const clickableClasses =
-          count > 0
-            ? "yay-reviews-filter-rating cursor-pointer hover:underline"
-            : "";
         summaryItems += `
-          <div class="yay-reviews-summary-item ${clickableClasses}" data-rating="${i}">
-            <span class="yay-reviews-summary-item-label">${i} ★</span>
-            <div class="yay-reviews-summary-item-progress-bar">
-              <div class="yay-reviews-summary-item-progress" style="width: ${percentage}%"></div>
+          <div class="yay-reviews-reviews-overview__filters-item ${
+            count > 0 ? "filterable" : ""
+          }" data-rating="${i}">
+            <span class="yay-reviews-reviews-overview__filters-item__label">${i} ★</span>
+            <div class="yay-reviews-reviews-overview__filters-item__progress-bar">
+              <div class="yay-reviews-reviews-overview__filters-item__progress" style="width: ${percentage}%"></div>
             </div>
-            <span class="yay-reviews-summary-item-count">${count}</span>
+            <span class="yay-reviews-reviews-overview__filters-item__count">${count}</span>
           </div>
         `;
       }
       starsElement = `
-        <div class="yay-reviews-summary-card flex items-center gap-6">
-          <div class="flex items-center gap-1">
-            <div class="flex flex-col items-center gap-0.5">
-              <span class="text-[40px] font-semibold leading-[36px]">${averageRating}</span>
-              <span class="text-[16px] font-regular whitespace-pre">${totalReviews} ${
+        <div class="yay-reviews-reviews-overview">
+            <div class="yay-reviews-reviews-overview__summary">
+              <span class="yay-reviews-reviews-overview__summary-avg-rating">${averageRating}</span>
+              <span class="yay-reviews-reviews-overview__summary-total-reviews">${totalReviews} ${
         yay_reviews.reviews_text || "reviews"
       }</span>
-            </div>
           </div>
-          <div class="block w-full">
-          <div class="yay-reviews-summary">
+          <div class="yay-reviews-reviews-overview__filters">
             ${summaryItems}
-          </div>
           </div>
         </div>
       `;
     }
-    const sliderElement = `<div class="yay-reviews-slider p-4 relative"><div class="flex items-center justify-between py-4"><strong>${yay_reviews.reviews_with_media}</strong><strong class="yay-reviews-see-all-media cursor-pointer underline">${yay_reviews.see_all_media}</strong></div><div class="yay-reviews-all-media-dialog hidden"><div class="yay-reviews-all-media-dialog-content"><div class="yay-reviews-modal-all-media-frame-title flex items-center justify-between"><h1>${yay_reviews.all_media_text}</h1></div><div class="yay-reviews-all-media-dialog-content-wrapper"></div></div></div><div class="yay-reviews-all-media-dialog-backdrop hidden"></div><div class="yay-reviews-slider-wrapper relative"><div class="yay-reviews-slider-track flex overflow-x-auto gap-4"></div><div class="yay-reviews-slider-buttons flex gap-1 items-center "><div class="yay-reviews-slider-arrow left-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div><div class="yay-reviews-slider-arrow right-arrow absolute z-10 bg-white bg-opacity-90 hover:bg-opacity-100 rounded-full p-1 shadow-lg transition-all duration-200"><svg class="w-[14px] h-[14px]" width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div></div></div></div>`;
+    const sliderElement = `
+    <div class="yay-reviews-all-media">
+      <div class="yay-reviews-all-media__title">
+        <strong>${yay_reviews.reviews_with_media}</strong>
+        <strong class="yay-reviews-see-all-media">${yay_reviews.see_all_media}</strong>
+      </div>
+      <div class="yay-reviews-all-media-dialog hidden">
+        <div class="yay-reviews-all-media-dialog-content">
+          <div class="yay-reviews-modal-header">
+            <h1>${yay_reviews.all_media_text}</h1>
+          </div>
+          <div class="yay-reviews-all-media-dialog-content-wrapper"></div>
+        </div>
+      </div>
+      <div class="yay-reviews-all-media-dialog-backdrop hidden"></div>
+      <div class="yay-reviews-all-media-wrapper">
+        <div class="yay-reviews-all-media-track"></div>
+        <div class="yay-reviews-all-media-buttons">
+          <div class="yay-reviews-all-media-arrow left-arrow">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 11L1 6L6 1" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <div class="yay-reviews-all-media-arrow right-arrow">
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6 6L1 11" stroke="#D3DCE5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+      </div>
+    </div>`;
     reviewsSection.prepend(starsElement + sliderElement);
   }
 
@@ -126,8 +146,8 @@ jQuery(document).ready(function ($) {
       let overlay = "";
       if (file.type.startsWith("video/")) {
         overlay = `
-          <div class="absolute bottom-0 left-0 w-full flex items-center justify-between p-[4px] bg-[#404040cc] rounded-b-[5px]">
-            <span class="inline-block">
+          <div class="yay-reviews-media-card__video-details">
+            <span>
               <!-- Play icon SVG -->
               <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g filter="url(#filter0_d_39_626)">
@@ -145,31 +165,29 @@ jQuery(document).ready(function ($) {
               </defs>
               </svg>
             </span>
-            <span class="text-white text-xs font-semibold">${
-              duration || "0:00"
-            }</span>
+            <span>${duration || "0:00"}</span>
           </div>
         `;
       }
 
       const card = document.createElement("div");
       card.className =
-        "yay-reviews-thumb-card relative w-24 h-24 flex items-center justify-center cursor-pointer group";
+        "yay-reviews-upload-media__upload-item yay-reviews-media-card";
       card.innerHTML = `
-        <div class="relative w-full h-full rounded-[8px] border border-[#D4DBE2] group-hover:border-[#757575] p-[4px] transition-all duration-200">
-          <div class="rounded-[5px] bg-[#F5F5F5] flex w-full h-full relative">
-            <img src="${thumbnailUrl}" class="object-contain w-full h-full rounded-[5px]" alt="preview" data-file-type="${file.type}">
+        <div class="yay-reviews-media-card-wrapper">
+          <div class="yay-reviews-media-card-inner">
+            <img src="${thumbnailUrl}" alt="preview" data-file-type="${file.type}">
             ${overlay}
           </div>
         </div>
-        <button type="button" class="z-10 invisible opacity-0 absolute top-0 right-0 bg-black bg-opacity-50 text-white rounded-full w-5 h-5 flex items-center justify-center text-md transition-all duration-200" data-index="${i}">&times;</button>
+        <button type="button" class="yay-reviews-upload-media__upload-item-remove"  data-index="${i}">&times;</button>
       `;
       grid.insertBefore(card, grid.lastElementChild);
     }
     renderedFilesCount = yayReviewsFilesArr.length;
 
     // Hide upload card if max files reached
-    const uploadCard = grid.querySelector(".yay-reviews-upload-card");
+    const uploadCard = grid.querySelector(".yay-reviews-upload-button");
     if (uploadCard) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
@@ -179,16 +197,22 @@ jQuery(document).ready(function ($) {
   }
 
   // Handle delete button clicks
-  $(document).on("click", ".yay-reviews-thumb-card button", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const idx = parseInt($(this).data("index"));
-    removeFile(idx);
-  });
+  $(document).on(
+    "click",
+    ".yay-reviews-upload-media__upload-item-remove",
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const idx = parseInt($(this).data("index"));
+      removeFile(idx);
+    }
+  );
 
   function removeFile(idx) {
     // Remove the thumbnail element
-    const thumbCards = grid.querySelectorAll(".yay-reviews-thumb-card");
+    const thumbCards = grid.querySelectorAll(
+      ".yay-reviews-upload-media__upload-item"
+    );
     if (thumbCards[idx]) {
       thumbCards[idx].remove();
     }
@@ -215,7 +239,7 @@ jQuery(document).ready(function ($) {
     fileInput.files = dataTransfer.files;
 
     // Show upload card if below max
-    const uploadCard = grid.querySelector(".yay-reviews-upload-card");
+    const uploadCard = grid.querySelector(".yay-reviews-upload-button");
     if (uploadCard) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
@@ -305,7 +329,7 @@ jQuery(document).ready(function ($) {
   });
 
   $("#yay-reviews-file-input").on("change", async function (event) {
-    const dropzone = document.querySelector(".yay-reviews-upload-card");
+    const dropzone = document.querySelector(".yay-reviews-upload-button");
     const accept = dropzone.dataset.accept;
 
     var max_upload_qty = parseInt(yay_reviews.max_upload_qty);
@@ -314,7 +338,7 @@ jQuery(document).ready(function ($) {
     var files = Array.from(event.target.files);
 
     // Show loading state
-    const uploadCard = document.querySelector(".yay-reviews-upload-card");
+    const uploadCard = document.querySelector(".yay-reviews-upload-button");
     const originalContent = uploadCard.innerHTML;
     uploadCard.innerHTML = `
       <div class="yay-reviews-loading-icon"></div>
@@ -381,10 +405,10 @@ jQuery(document).ready(function ($) {
   function ensureModalExists() {
     if (!document.getElementById("yay-reviews-modal")) {
       const modalHTML = `
-        <div id="yay-reviews-modal" style="z-index:2147483647;" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-          <div class="rounded-lg p-4 max-w-3xl w-full mx-4 relative">
-            <span id="yay-reviews-modal-close" class="yay-reviews-modal-close">&times;</span>
-            <div id="yay-reviews-modal-content" class="mt-4">
+        <div id="yay-reviews-modal">
+          <div class="yay-reviews-modal-wrapper">
+            <span id="yay-reviews-modal-close">&times;</span>
+            <div id="yay-reviews-modal-content">
               <!-- Content will be inserted here -->
             </div>
           </div>
@@ -418,14 +442,14 @@ jQuery(document).ready(function ($) {
 
     if (file.type.startsWith("video/")) {
       modalContent.innerHTML = `
-        <video class="w-full max-h-[70vh]" controls>
+        <video controls>
           <source src="${URL.createObjectURL(file)}" type="${file.type}">
           Your browser does not support the video tag.
         </video>
       `;
     } else {
       modalContent.innerHTML = `
-        <img src="${thumbnailUrl}" class="w-full max-h-[70vh] object-contain" alt="preview">
+        <img src="${thumbnailUrl}" alt="preview">
       `;
     }
 
@@ -433,14 +457,18 @@ jQuery(document).ready(function ($) {
   }
 
   // Add click handler for thumbnails
-  $(document).on("click", ".yay-reviews-thumb-card", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const index = $(this).find("button").data("index");
-    const file = yayReviewsFilesArr[index];
-    const thumbnailUrl = $(this).find("img").attr("src");
-    showMediaInModal(file, thumbnailUrl);
-  });
+  $(document).on(
+    "click",
+    ".yay-reviews-upload-media__upload-item",
+    function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const index = $(this).find("button").data("index");
+      const file = yayReviewsFilesArr[index];
+      const thumbnailUrl = $(this).find("img").attr("src");
+      showMediaInModal(file, thumbnailUrl);
+    }
+  );
 
   // Add verified owner badge
   const verifiedOwnerBadge = $(".woocommerce-review__verified");
@@ -460,7 +488,7 @@ jQuery(document).ready(function ($) {
     const author = parent.find(".woocommerce-review__author");
     $(this).remove();
     const newBadge = $(
-      `<span class="yay-reviews-verified-badge inline-block align-top cursor-pointer" data-tippy-content="${text}">${verifiedOwnerBadgeHtml}</span>`
+      `<span class="yay-reviews-verified-badge" data-tippy-content="${text}">${verifiedOwnerBadgeHtml}</span>`
     );
     author.after(newBadge);
 
@@ -471,10 +499,10 @@ jQuery(document).ready(function ($) {
   });
 
   function updateArrowStates() {
-    const track = $(".yay-reviews-slider-track")[0];
+    const track = $(".yay-reviews-all-media-track")[0];
     if (!track) return;
 
-    const wrapper = $(".yay-reviews-slider-wrapper");
+    const wrapper = $(".yay-reviews-all-media-wrapper");
     const leftArrow = wrapper.find(".left-arrow");
     const rightArrow = wrapper.find(".right-arrow");
 
@@ -549,13 +577,15 @@ jQuery(document).ready(function ($) {
   }
 
   setTimeout(function () {
-    const slider = $(".yay-reviews-slider");
+    const slider = $(".yay-reviews-all-media");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
     if (slider !== undefined) {
-      const track = slider.find(".yay-reviews-slider-track");
+      const track = slider.find(".yay-reviews-all-media-track");
       // get all media reviews
-      const mediaReviews = $(".yay-reviews-medias .yay-reviews-media img");
+      const mediaReviews = $(
+        ".yay-reviews-review__media-list .yay-reviews-review__media-item img"
+      );
 
       const mediaReviewsThumbnails = $(
         ".yay-reviews-modal-comment-medias-preview-item"
@@ -563,7 +593,7 @@ jQuery(document).ready(function ($) {
 
       mediaReviewsThumbnails.each(function () {
         const commentId = $(this)
-          .closest(".yay-reviews-preview-media-modal")
+          .closest(".yay-reviews-review-details-modal")
           .data("comment-id");
         const imageIndex = $(this).data("index");
         const mediaType = $(this).data("type");
@@ -571,7 +601,7 @@ jQuery(document).ready(function ($) {
         const clone = $(this).clone();
         $(clone).click(function () {
           const modal = $(
-            `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+            `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
           );
 
           const backdrop = $(
@@ -614,9 +644,8 @@ jQuery(document).ready(function ($) {
 
       mediaReviews.each(function () {
         const img = $(this);
-        const imageWrap = img.closest(".yay-reviews-media");
+        const imageWrap = img.closest(".yay-reviews-review__media-item");
         const imageClone = imageWrap.clone();
-        imageClone.addClass("yay-reviews-media-wrap");
         imageClone.click(function () {
           const commentId = imageWrap.data("comment-id");
           const mediaType = imageWrap.data("type");
@@ -625,7 +654,7 @@ jQuery(document).ready(function ($) {
 
           // get modal with comment id
           const modal = $(
-            `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+            `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
           );
 
           const backdrop = $(
@@ -694,8 +723,8 @@ jQuery(document).ready(function ($) {
     }
   );
 
-  $(document).on("click", ".yay-reviews-slider-arrow", function () {
-    const track = $(".yay-reviews-slider-track")[0];
+  $(document).on("click", ".yay-reviews-all-media-arrow", function () {
+    const track = $(".yay-reviews-all-media-track")[0];
     if (!track || !track.children.length) return;
 
     const style = window.getComputedStyle(track);
@@ -710,13 +739,20 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $(document).on("click", ".yay-reviews-filter-rating", function () {
-    var rating = $(this).data("rating");
-    // Replace with your actual product page URL and query param
-    var searchParams = new URLSearchParams(window.location.search);
-    searchParams.set("rating_filter", rating);
-    var url =
-      window.location.pathname + "?" + searchParams.toString() + "#tab-reviews";
-    window.location.href = url;
-  });
+  $(document).on(
+    "click",
+    ".yay-reviews-reviews-overview__filters-item.filterable",
+    function () {
+      var rating = $(this).data("rating");
+      // Replace with your actual product page URL and query param
+      var searchParams = new URLSearchParams(window.location.search);
+      searchParams.set("rating_filter", rating);
+      var url =
+        window.location.pathname +
+        "?" +
+        searchParams.toString() +
+        "#tab-reviews";
+      window.location.href = url;
+    }
+  );
 });

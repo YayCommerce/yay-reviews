@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
       const duration = formatDuration(video.duration);
       videoThumbnail.attr("src", thumbnailUrl);
       let overlay = `
-          <span class="inline-block pl-[4px] pt-[4px] pb-[4px]">
+          <span>
             <!-- Play icon SVG -->
             <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#filter0_d_39_626)">
@@ -46,11 +46,11 @@ jQuery(document).ready(function ($) {
             </defs>
             </svg>
           </span>
-          <span class="text-white text-xs font-semibold pr-[4px] pt-[4px] pb-[4px]">${
-            duration || "0:00"
-          }</span>
+          <span>${duration || "0:00"}</span>
       `;
-      const videoOverlay = $(parent).find(".yay-reviews-video-overlay");
+      const videoOverlay = $(parent).find(
+        ".yay-reviews-media-card__video-details"
+      );
       if (videoOverlay.length > 0) {
         $(videoOverlay[0]).html(overlay);
       }
@@ -58,7 +58,7 @@ jQuery(document).ready(function ($) {
   });
 
   // Open modal when clicking on media
-  $(".yay-reviews-media").on("click", function () {
+  $(".yay-reviews-review__media-item").on("click", function () {
     const mediaType = $(this).data("type");
     const mediaSrc = $(this).find("img").data("src");
     const commentId = $(this).data("comment-id");
@@ -66,7 +66,7 @@ jQuery(document).ready(function ($) {
 
     // get modal with comment id
     const modal = $(
-      `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+      `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
     );
 
     const backdrop = $(
@@ -104,7 +104,7 @@ jQuery(document).ready(function ($) {
 
   // Navigation arrow click handlers
   $(document).on("click", ".yay-reviews-nav-prev", function () {
-    const modal = $(this).closest(".yay-reviews-preview-media-modal");
+    const modal = $(this).closest(".yay-reviews-review-details-modal");
     const commentId = modal.data("comment-id");
     const currentIndex = parseInt(modal.data("current-index")) || 0;
     const totalMedia = modal.find(
@@ -118,7 +118,7 @@ jQuery(document).ready(function ($) {
   });
 
   $(document).on("click", ".yay-reviews-nav-next", function () {
-    const modal = $(this).closest(".yay-reviews-preview-media-modal");
+    const modal = $(this).closest(".yay-reviews-review-details-modal");
     const commentId = modal.data("comment-id");
     const currentIndex = parseInt(modal.data("current-index")) || 0;
     const totalMedia = modal.find(
@@ -197,7 +197,7 @@ jQuery(document).ready(function ($) {
   });
 
   $(".yay-reviews-modal-see-all-media").on("click", function () {
-    const currentModal = $(".yay-reviews-preview-media-modal");
+    const currentModal = $(".yay-reviews-review-details-modal");
     const currentBackdrop = $(".yay-reviews-modal-backdrop");
     const allMediaDialog = $(".yay-reviews-all-media-dialog");
     const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
@@ -216,8 +216,8 @@ jQuery(document).ready(function ($) {
     }
 
     // Arrow key navigation
-    if ($(".yay-reviews-preview-media-modal").is(":visible")) {
-      const modal = $(".yay-reviews-preview-media-modal:visible");
+    if ($(".yay-reviews-review-details-modal").is(":visible")) {
+      const modal = $(".yay-reviews-review-details-modal:visible");
       const commentId = modal.data("comment-id");
       const currentIndex = parseInt(modal.data("current-index")) || 0;
       const totalMedia = modal.find(
@@ -240,12 +240,12 @@ jQuery(document).ready(function ($) {
 
   function closeModal() {
     $(
-      ".yay-reviews-preview-media-modal, .yay-reviews-modal-backdrop, .yay-reviews-all-media-dialog, .yay-reviews-all-media-dialog-backdrop"
+      ".yay-reviews-review-details-modal, .yay-reviews-modal-backdrop, .yay-reviews-all-media-dialog, .yay-reviews-all-media-dialog-backdrop"
     ).fadeOut(300);
     $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
 
     // Reset navigation state
-    $(".yay-reviews-preview-media-modal").removeData("current-index");
+    $(".yay-reviews-review-details-modal").removeData("current-index");
     $(".yay-reviews-nav-arrow").hide();
   }
 
@@ -256,10 +256,10 @@ jQuery(document).ready(function ($) {
 
     const mediaIndex = $(this).data("index");
     const commentId = $(this)
-      .closest(".yay-reviews-preview-media-modal")
+      .closest(".yay-reviews-review-details-modal")
       .data("comment-id");
     const modal = $(
-      `.yay-reviews-preview-media-modal[data-comment-id="${commentId}"]`
+      `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
     );
 
     navigateToMedia(modal, commentId, mediaIndex);
