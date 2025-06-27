@@ -64,7 +64,7 @@ const EmailPreviewer = ({
                     >
                       <tbody>
                         <tr>
-                          <td className="p-8 pt-5 pb-0">
+                          <td className="yay-reviews-email-preview-heading p-8 pt-5 pb-0">
                             <h1
                               className="m-0 text-left leading-none font-bold tracking-tighter"
                               style={{
@@ -94,7 +94,10 @@ const EmailPreviewer = ({
                             <table border={0} cellPadding={20} cellSpacing={0} className="w-full">
                               <tbody>
                                 <tr>
-                                  <td valign="top" className="p-8 pt-5">
+                                  <td
+                                    valign="top"
+                                    className="yay-reviews-email-preview-inner-content p-8 pt-5"
+                                  >
                                     <div
                                       className="text-left text-base font-normal"
                                       style={{
@@ -129,7 +132,12 @@ const EmailPreviewer = ({
         </tr>
         <tr>
           <td align="center" valign="top">
-            <table border={0} cellPadding={10} cellSpacing={0} className="w-full">
+            <table
+              border={0}
+              cellPadding={10}
+              cellSpacing={0}
+              className="yay-reviews-email-preview-footer-wrapper w-full"
+            >
               <tbody>
                 <tr>
                   <td valign="top" className="rounded-none p-0">
@@ -139,7 +147,7 @@ const EmailPreviewer = ({
                           <td
                             colSpan={2}
                             valign="middle"
-                            className="rounded-none border-0 border-t border-gray-200 p-8 text-center"
+                            className="yay-reviews-email-preview-footer rounded-none border-0 border-t border-gray-200 p-8 text-center"
                             style={{ color: window.yayReviews.wc_email_settings.footer_text }}
                             align="center"
                           >

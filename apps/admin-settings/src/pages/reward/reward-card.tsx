@@ -116,7 +116,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
             </TooltipProvider>
             <TooltipProvider>
               <Tooltip>
-                <TooltipTrigger asChild>
+                <TooltipTrigger>
                   <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
                     <DialogTrigger asChild>
                       <Button

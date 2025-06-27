@@ -1,7 +1,5 @@
 import { createContext, useMemo } from 'react';
 
-import useCouponsQuery from '@/hooks/use-coupons-query';
-
 type RewardsContextType = {
   coupons: any[];
 };

@@ -330,7 +330,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               <Card
                 className={cn(
                   currentDevice === 'mobile' && 'yay-reviews-email-preview-mobile',
-                  'm-auto rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none w-full overflow-auto',
+                  'm-auto w-full rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
                 )}
               >
                 <CardHeader className="border-border block border-b p-4 [.border-b]:pb-4">
@@ -347,7 +347,12 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent className={cn('px-8 py-2', currentDevice === 'mobile' && 'px-4 py-2')}>
+                <CardContent
+                  className={cn(
+                    'yay-reviews-email-preview-content px-8 py-2',
+                    currentDevice === 'mobile' && 'px-4 py-2',
+                  )}
+                >
                   <EmailPreviewer heading={heading} content={content} footer={footer} />
                 </CardContent>
               </Card>
