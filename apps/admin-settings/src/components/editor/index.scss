@@ -1,0 +1,51 @@
+.yay-reviews-editor {
+  .mce-container {
+    .mce-widget {
+      &.mce-btn.mce-active {
+        background-color: #fff;
+        box-shadow:
+          0px 1px 1px 0px rgba(0, 0, 0, 0.12),
+          0px -1px 0px 0px rgba(0, 0, 0, 0.02);
+        border: 1px solid transparent;
+        button {
+          color: #555c66;
+          i {
+            color: #555c66;
+          }
+        }
+      }
+
+      &.mce-fixed-width {
+        max-width: 50px !important;
+      }
+    }
+
+    .mce-statusbar {
+      display: none;
+    }
+    .mce-btn:not(.mce-disabled):hover,
+    .mce-btn:not(.mce-disabled):focus {
+      border: 1px solid transparent;
+      background-color: #fff !important;
+      box-shadow:
+        0px 1px 1px 0px rgba(0, 0, 0, 0.12),
+        0px -1px 0px 0px rgba(0, 0, 0, 0.02) !important;
+    }
+
+    .mce-btn {
+      &.mce-disabled {
+        &:hover,
+        &:focus {
+          border: 1px solid transparent;
+        }
+      }
+    }
+  }
+  textarea {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 10px;
+  }
+}

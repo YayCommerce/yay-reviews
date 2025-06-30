@@ -1,0 +1,258 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* admin setting */
+
+:root {
+  --wpadminbar-height: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  :root {
+    --wpadminbar-height: 46px;
+  }
+}
+
+#wpcontent {
+  padding-left: 0px !important;
+}
+
+.yaycommerce_page_yay-reviews #screen-meta-links {
+  display: none;
+}
+
+.yaycommerce_page_yay-reviews .wrap {
+  margin: 0;
+}
+
+.yaycommerce_page_yay-reviews button {
+  cursor: pointer;
+}
+
+.yaycommerce_page_yay-reviews div[data-slot='card'] {
+  border-radius: 0.5rem;
+}
+
+.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='closed'] {
+  border-radius: 0.5rem;
+}
+
+.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.yay-reviews-coupon-select-item span[id^='radix-'] {
+  width: 100%;
+}
+
+.yay-reviews-email-content .ql-editor {
+  min-height: 150px;
+}
+
+.yay-reviews-email-preview-title {
+  margin-top: 0;
+}
+
+.yay-reviews-email-preview-device-button {
+  border-radius: 4px;
+}
+
+.yay-reviews-email-preview-subject {
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.yay-reviews-email-preview-mobile {
+  margin: auto;
+  max-width: 450px;
+  transform-origin: top;
+  transform: scale(0.8) scale(1.25);
+}
+
+.yay-reviews-collapsible-content a {
+  color: var(--foreground);
+}
+
+.yay-reviews-collapsible-content hr {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: none;
+}
+
+.yay-reviews-coupon-form h2[data-slot='drawer-title'] {
+  margin: 0;
+}
+
+.yay-reviews-editor iframe {
+  min-height: 150px !important;
+}
+
+@media screen and (max-width: 782px) {
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='datetime'],
+  input[type='email'],
+  input[type='month'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='time'],
+  input[type='url'],
+  input[type='week'] {
+    min-height: unset;
+  }
+
+  .yay-reviews-email-preview-content {
+    padding: 8px 0;
+  }
+
+  .yay-reviews-email-preview-content #inner_wrapper {
+    transform-origin: top;
+    transform: scale(0.8);
+  }
+
+  .yay-reviews-email-preview-content #template_header_image {
+    padding: 2rem 8px 0 8px;
+  }
+
+  .yay-reviews-email-preview-content .yay-reviews-email-preview-heading,
+  .yay-reviews-email-preview-content .yay-reviews-email-preview-inner-content,
+  .yay-reviews-email-preview-content .yay-reviews-email-preview-footer {
+    padding: 8px 8px 0 8px;
+  }
+
+  .yay-reviews-email-preview-footer-wrapper {
+    width: 75%;
+  }
+
+  .yay-reviews-email-preview-mobile {
+    transform: scale(0.8);
+  }
+}

@@ -3,5 +3,6 @@
 assets/admin/dist/*
 release
 build
-apps/yay-reviews/package-lock.json
+apps/admin-settings/package-lock.json
 yay-reviews.zip
+vendor/

@@ -19,7 +19,6 @@ yay-reviews.zip
 
 /phpcs.xml
 /log.xml
-/composer.json
 /composer.lock
 
 /build
