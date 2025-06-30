@@ -302,9 +302,9 @@ class Helpers {
 		$comment_user_id = $comment->user_id;
 
 		$send_to                                    = $reward['send_to'];
-		$minimum_required_rating                    = (float) $reward['minimum_required_rating'];
-		$minimum_media_files_uploaded               = (int) $reward['minimum_media_files_uploaded'];
-		$minimum_required_reviews_since_last_reward = (int) $reward['minimum_required_reviews_since_last_reward'];
+		$rating_requirement                    = $reward['rating_requirement'];
+		$media_requirement               = $reward['media_requirement'];
+		$minimum_required_reviews_since_last_reward = $reward['minimum_required_reviews_since_last_reward'];
 
 		if ( 'purchased_customers' === $send_to ) {
 			if ( empty( $comment_user_id ) ) {
@@ -317,14 +317,41 @@ class Helpers {
 			}
 		}
 
-		if ( $rating < $minimum_required_rating ) {
-			$valid = false;
+		if ( 'at_least_3_stars' === $rating_requirement ) {
+			if ( $rating < 3 ) {
+				$valid = false;
+			}
 		}
-		if ( count( $media ) < $minimum_media_files_uploaded ) {
-			$valid = false;
+		if ( 'at_least_4_stars' === $rating_requirement ) {
+			if ( $rating < 4 ) {
+				$valid = false;
+			}
 		}
 
-		if ( ! empty( $comment_user_id ) && $minimum_required_reviews_since_last_reward > 0 ) {
+		if ( 'at_least_5_stars' === $rating_requirement ) {
+			if ( $rating < 5 ) {
+				$valid = false;
+			}
+		}
+
+		if ( 'at_least_1_media' === $media_requirement ) {
+			if ( empty( $media ) ) {
+				$valid = false;
+			}
+		}
+		if ( 'at_least_2_media' === $media_requirement ) {
+			if ( count( $media ) < 2 ) {
+				$valid = false;
+			}
+		}
+
+		if ( 'at_least_3_media' === $media_requirement ) {
+			if ( count( $media ) < 3 ) {
+				$valid = false;
+			}
+		}
+
+		if ( ! empty( $comment_user_id ) && 'none' != $minimum_required_reviews_since_last_reward ) {
 			$user_reviews_count = count(
 				get_comments(
 					array(
@@ -335,8 +362,22 @@ class Helpers {
 				)
 			);
 
-			if ( $user_reviews_count < $minimum_required_reviews_since_last_reward ) {
-				$valid = false;
+			if ( 'at_least_1_review' === $minimum_required_reviews_since_last_reward ) {
+				if ( $user_reviews_count < 1 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_2_reviews' === $minimum_required_reviews_since_last_reward ) {
+				if ( $user_reviews_count < 2 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_3_reviews' === $minimum_required_reviews_since_last_reward ) {
+				if ( $user_reviews_count < 3 ) {
+					$valid = false;
+				}
 			}
 		}
 

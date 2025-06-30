@@ -20,9 +20,9 @@ export const DEFAULT_REWARD = {
   enabled: true,
   coupon_id: '',
   send_to: 'purchased_customers',
-  minimum_required_rating: 4,
-  minimum_media_files_uploaded: 1,
-  minimum_required_reviews_since_last_reward: 0,
+  rating_requirement: 'at_least_4_stars',
+  media_requirement: 'none',
+  minimum_required_reviews_since_last_reward: 'none',
   is_open: true,
 };
 

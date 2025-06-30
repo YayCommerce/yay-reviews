@@ -36,9 +36,9 @@ const rewardSchema = z.object({
   enabled: z.boolean(),
   coupon_id: z.string(),
   send_to: z.string(),
-  minimum_required_rating: z.number(),
-  minimum_media_files_uploaded: z.number(),
-  minimum_required_reviews_since_last_reward: z.number(),
+  rating_requirement: z.string(),
+  media_requirement: z.string(),
+  minimum_required_reviews_since_last_reward: z.string(),
   is_open: z.boolean().optional(),
 });
 
