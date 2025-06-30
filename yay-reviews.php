@@ -2,7 +2,7 @@
 /**
  * Plugin Name: YayReviews
  * Description: YayReviews helps you to do more things with WooCommerce reviews.
- * Version: 1.0.0.3
+ * Version: 1.0.0
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com
  * Text Domain: yay-reviews
@@ -25,7 +25,7 @@ define( 'YAY_REVIEWS_VIEW_PATH', YAY_REVIEWS_PLUGIN_PATH . 'views/' );
 
 define( 'YAY_REVIEWS_REST_URL', 'yay-reviews/v1' );
 
-define( 'YAY_REVIEWS_VERSION', '1.0.0.3' );
+define( 'YAY_REVIEWS_VERSION', '1.0.0' );
 define( 'YAY_REVIEWS_IS_DEVELOPMENT', true );
 
 add_action(
@@ -61,7 +61,6 @@ add_action(
 	'plugins_loaded',
 	function () {
 		\YayReviews\YayCommerceMenu\RegisterMenu::get_instance();
-		\YayReviews\License\LicenseHandler::get_instance();
 		// Ensure WooCommerce is loaded
 		if ( ! function_exists( 'WC' ) ) {
 			return;

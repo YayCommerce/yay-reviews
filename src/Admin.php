@@ -30,7 +30,7 @@ class Admin {
 	public function reviews_metabox_callback( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) ) {
-			Helpers::print_media( $media, $comment );
+			Helpers::print_media_list( $media, $comment );
 		}
 	}
 
@@ -82,10 +82,10 @@ class Admin {
 
 		if ( 'comment' === $screen_id ) {
 			wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-			wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/media-modal.css', array(), YAY_REVIEWS_VERSION );
 			wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 			wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
 			wp_enqueue_script( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+			wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
 		}
 	}
 

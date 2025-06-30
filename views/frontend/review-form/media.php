@@ -10,23 +10,19 @@
  * - max_file_size
  */
 
-$video_mime_types = array(
-	'video/mp4',
-	'video/avi',
-	'video/mov',
-	'video/wmv',
-	'video/flv',
-	'video/mkv',
-	'video/webm',
-	'video/quicktime',
+use YayReviews\Constants\BaseConstants;
+
+$video_mime_types = array_map(
+	function( $extension ) {
+		return 'video/' . $extension;
+	},
+	BaseConstants::SUPPORTED_VIDEO_EXTENSIONS
 );
-$image_mime_types = array(
-	'image/gif',
-	'image/jpeg',
-	'image/jpg',
-	'image/png',
-	'image/webp',
-	'image/bmp',
+$image_mime_types = array_map(
+	function( $extension ) {
+		return 'image/' . $extension;
+	},
+	BaseConstants::SUPPORTED_IMAGE_EXTENSIONS
 );
 
 $accept_mime_types = $image_mime_types;
@@ -48,7 +44,7 @@ $accept = implode( ',', $accept_mime_types );
 	<!-- Upload area -->
 	<div class="yay-reviews-upload-media__upload-list">
 		<!-- Thumbnails will be inserted here by JS -->
-		<div class="yay-reviews-upload-card"
+		<div class="yay-reviews-upload-button"
 			data-accept="<?php echo esc_attr( $accept ); ?>"	
 			onclick="document.getElementById('yay-reviews-file-input').click();" ondragover="event.preventDefault(); this.classList.add('border-blue-500');"
 			ondragleave="this.classList.remove('border-blue-500');"

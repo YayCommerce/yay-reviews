@@ -22,7 +22,7 @@ export type Addon = {
   enabled: boolean;
 };
 
-export default function AddonCard({ id, title, description, icon, enabled }: Addon) {
+export default function AddonCard({ id, title, description, icon, enabled, settingsPath }: Addon) {
   const { changeTab } = useAppContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -65,7 +65,15 @@ export default function AddonCard({ id, title, description, icon, enabled }: Add
         </CardHeader>
       </CardContent>
       <CardContent className="flex items-center justify-between border-t p-4">
-        <Button variant="outline" size="sm" onClick={() => changeTab(id)}>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={(e) => {
+            e.preventDefault();
+            changeTab(id);
+          }}
+          style={settingsPath ? {} : { opacity: 0 }}
+        >
           <SettingIcon />
           {__('Settings', 'yay-reviews')}
         </Button>

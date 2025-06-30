@@ -14,7 +14,7 @@ class Frontend {
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 		add_filter( 'comments_clauses', array( $this, 'filter_reviews_by_rating' ), 10, 2 );
-		add_filter( 'comments_template', array( $this, 'add_content_to_reviews_section' ), PHP_INT_MAX, 2 );
+		add_filter( 'comments_template', array( $this, 'before_reviews_section' ), PHP_INT_MAX, 2 );
 	}
 
 	public function add_reviews_form( $comment_form ) {
@@ -147,7 +147,7 @@ class Frontend {
 	public function review_after_comment_text( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) && count( $media ) > 0 ) {
-			Helpers::print_media( $media, $comment );
+			Helpers::print_media_list( $media, $comment );
 		}
 	}
 
@@ -207,20 +207,12 @@ class Frontend {
 				// translators: %1$s: max upload quantity
 				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
 				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
-				'reviews_with_media'             => __( 'Reviews with media', 'yay-reviews' ),
-				'see_all_media'                  => __( 'See all media', 'yay-reviews' ),
-				'overview_data'                  => Helpers::get_overview_data(),
-				'reviews_text'                   => __( 'reviews', 'yay-reviews' ),
-				'all_media_text'                 => __( 'All media', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
-				'has_filter_rating'              => isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? true : false,
-				// translators: %s: rating
-				'filter_rating_text'             => sprintf( __( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-reviews' ), isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ? intval( $_GET['rating_filter'] ) : 0, remove_query_arg( 'rating_filter' ) . '#tab-reviews' ),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
-		wp_enqueue_style( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/media-modal.css', array(), YAY_REVIEWS_VERSION );
 		wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
+		wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
 	}
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {
@@ -245,7 +237,19 @@ class Frontend {
 		return $clauses;
 	}
 
-	public function add_content_to_reviews_section( $template ) {
+	public function before_reviews_section( $template ) {
+
+		if ( get_post_type() !== 'product' ) {
+			return $template;
+		}
+
+		global $render_before_reviews_check_point;
+
+		if ( empty( $render_before_reviews_check_point ) ) {
+			$render_before_reviews_check_point = true;
+			return YAY_REVIEWS_PLUGIN_PATH . 'views/frontend/before-reviews.php';
+		}
+
 		return $template;
 	}
 }

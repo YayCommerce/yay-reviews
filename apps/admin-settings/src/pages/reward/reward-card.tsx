@@ -289,7 +289,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                       {__('Only purchased customers', 'yay-reviews')}
                     </SelectItem>
                     <SelectItem value="all_reviewers">
-                      {__('All reviewers ( include guest users )', 'yay-reviews')}
+                      {__('All reviewers (include guest users)', 'yay-reviews')}
                     </SelectItem>
                   </SelectContent>
                 </Select>
