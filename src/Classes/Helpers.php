@@ -334,11 +334,6 @@ class Helpers {
 			}
 		}
 
-		if ( 'at_least_1_media' === $media_requirement ) {
-			if ( empty( $media ) ) {
-				$valid = false;
-			}
-		}
 		if ( 'at_least_2_media' === $media_requirement ) {
 			if ( count( $media ) < 2 ) {
 				$valid = false;
@@ -361,12 +356,6 @@ class Helpers {
 					)
 				)
 			);
-
-			if ( 'at_least_1_review' === $minimum_required_reviews_since_last_reward ) {
-				if ( $user_reviews_count < 1 ) {
-					$valid = false;
-				}
-			}
 
 			if ( 'at_least_2_reviews' === $minimum_required_reviews_since_last_reward ) {
 				if ( $user_reviews_count < 2 ) {

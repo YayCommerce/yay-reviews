@@ -360,9 +360,6 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                         <SelectItem value="none">
                           {__('Review with any media', 'yay-reviews')}
                         </SelectItem>
-                        <SelectItem value="at_least_1_media">
-                          {__('Review contains at least 1 media file', 'yay-reviews')}
-                        </SelectItem>
                         <SelectItem value="at_least_2_media">
                           {__('Review contains at least 2 media files', 'yay-reviews')}
                         </SelectItem>
@@ -398,9 +395,6 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                     <SelectContent>
                       <SelectItem value="none">
                         {__('Reward after every review', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="at_least_1_review">
-                        {__('Reward after at least 1 review', 'yay-reviews')}
                       </SelectItem>
                       <SelectItem value="at_least_2_reviews">
                         {__('Reward after at least 2 reviews', 'yay-reviews')}
