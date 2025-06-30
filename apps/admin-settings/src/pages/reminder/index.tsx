@@ -90,7 +90,7 @@ function ReminderInformation() {
                 </Select>
               )}
             />
-            <span className="text-sm font-medium">
+            <span className="text-sm">
               {__('after order completed', 'yay-reviews')}
             </span>
           </div>
