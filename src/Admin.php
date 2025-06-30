@@ -30,7 +30,7 @@ class Admin {
 	public function reviews_metabox_callback( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) ) {
-			Helpers::print_media( $media, $comment );
+			Helpers::print_media_list( $media, $comment );
 		}
 	}
 

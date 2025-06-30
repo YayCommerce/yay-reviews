@@ -51,7 +51,6 @@ const addonsInformation = [
       'yay-reviews',
     ),
     icon: <OverviewIcon size={30} />,
-    settingsPath: 'addons.overview',
   },
 ];
 

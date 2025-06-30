@@ -225,7 +225,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                         <TooltipTrigger>
                           <Button
                             variant={currentDevice === 'desktop' ? 'default' : 'ghost'}
-                            className="yay-reviews-email-preview-device-button h-[26px] w-[26px] py-0 has-[>svg]:px-4"
+                            className="yay-reviews-email-preview-device-button h-[28px] w-[26px] py-0 has-[>svg]:px-4"
                             onClick={(e) => {
                               e.preventDefault();
                               setCurrentDevice('desktop');

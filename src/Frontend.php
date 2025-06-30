@@ -142,7 +142,7 @@ class Frontend {
 	public function review_after_comment_text( $comment ) {
 		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		if ( is_array( $media ) && count( $media ) > 0 ) {
-			Helpers::print_media( $media, $comment );
+			Helpers::print_media_list( $media, $comment );
 		}
 	}
 

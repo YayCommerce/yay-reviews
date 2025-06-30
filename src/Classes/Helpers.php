@@ -27,13 +27,12 @@ class Helpers {
 		return $settings;
 	}
 
-	public static function print_media( $files, $comment, $echo = true ) {
+	public static function print_media_list( $files, $comment, $echo = true ) {
 		echo wc_get_template_html( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			'frontend/media.php',
+			'frontend/media-list.php',
 			array(
 				'files'   => $files,
 				'comment' => $comment,
-				'echo'    => $echo,
 			),
 			'',
 			YAY_REVIEWS_PLUGIN_PATH . 'views/'

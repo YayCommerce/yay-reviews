@@ -1,6 +1,6 @@
 <div class="yay-reviews-all-media">
 	<div class="yay-reviews-all-media__title">
-		<strong><?php echo esc_html__( 'Reviews with media', 'yay-reviews' ); ?></strong>
+		<h3><?php echo esc_html__( 'Reviews with media', 'yay-reviews' ); ?></h3>
 		<strong class="yay-reviews-see-all-media"><?php echo esc_html__( 'See all media', 'yay-reviews' ); ?></strong>
 	</div>
 	<div class="yay-reviews-all-media-dialog" style="display: none;">

@@ -2,6 +2,18 @@
 
 global $product;
 
+if ( ! is_user_logged_in() ) {
+	return;
+}
+
+$customer       = wp_get_current_user();
+$customer_email = $customer->email;
+$customer_id    = $customer->ID;
+
+if ( ! \wc_customer_bought_product( $customer_email, $customer_id, $product->get_id() ) ) {
+	return;
+}
+
 // Check if variable product and prepare attribute options
 $attribute_options = array();
 if ( isset( $product ) && $product->is_type( 'variable' ) ) {

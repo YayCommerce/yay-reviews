@@ -109,10 +109,9 @@ class RegisterMenu {
 		}
 		/** -------- */
 
-		$yay_reviews_licensing_plugins = \YayReviews\License\LicenseHandler::get_licensing_plugins();
 		$yay_licensing_plugins         = apply_filters( 'yaycommerce_licensing_plugins', array() );
 
-		if ( ! empty( $yay_reviews_licensing_plugins ) || ! empty( $licensing_plugins_yay_mail ) || ! empty( $licensing_plugins_yay_pricing ) || ! empty( $licensing_plugins_yay_currency ) || ! empty( $licensing_plugins_yay_swatches ) || ! empty( $licensing_plugins_yay_extra ) || ! empty( $licensing_plugins_yay_smtp ) || ! empty( $yay_licensing_plugins ) ) {
+		if ( ! empty( $licensing_plugins_yay_mail ) || ! empty( $licensing_plugins_yay_pricing ) || ! empty( $licensing_plugins_yay_currency ) || ! empty( $licensing_plugins_yay_swatches ) || ! empty( $licensing_plugins_yay_extra ) || ! empty( $licensing_plugins_yay_smtp ) || ! empty( $yay_licensing_plugins ) ) {
 			$submenus['yaycommerce-licenses'] = array(
 				'parent'             => 'yaycommerce',
 				'name'               => __( 'Licenses', 'yaycommerce' ),

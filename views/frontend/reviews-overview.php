@@ -13,10 +13,35 @@ $total_reviews         = $overview_data['total_reviews'];
 $reviews_text          = $overview_data['reviews_text'] ?? 'reviews';
 $stars_count           = $overview_data['stars_count'];
 $current_rating_filter = isset( $_GET['rating_filter'] ) ? intval( $_GET['rating_filter'] ) : null;
+
+$rating       = intval( $average_rating );
+$rating_stars = '';
+
+if ( $rating && wc_review_ratings_enabled() ) {
+	if ( wp_get_theme()->get_template() === 'brandy' ) {
+		$rating_stars = wc_get_template_html(
+			'template-parts/rating.php',
+			array(
+				'rating'          => $rating,
+				'rating_count'    => 5,
+				'show_only_stars' => true,
+				'show_overall'    => false,
+				'review_count'    => false,
+			)
+		);
+	} else {
+		$rating_stars = wc_get_rating_html( $rating ); // WPCS: XSS ok.
+	}
+}
 ?>
 <div class="yay-reviews-reviews-overview">
 	<div class="yay-reviews-reviews-overview__summary">
 		<span class="yay-reviews-reviews-overview__summary-avg-rating"><?php echo esc_html( $average_rating ); ?></span>
+		<?php if ( empty( $total_reviews ) ) : ?>
+			<span style="font-size:1rem;">(<?php esc_html_e( 'No rating', 'woocommerce' ); ?>)</span>
+		<?php else : ?>
+			<?php echo $rating_stars; // WPCS: XSS ok. ?>
+		<?php endif; ?>
 		<span class="yay-reviews-reviews-overview__summary-total-reviews"><?php echo esc_html( $total_reviews ); ?> <?php echo esc_html( $reviews_text ); ?></span>
 	</div>
 	<div class="yay-reviews-reviews-overview__filters">
