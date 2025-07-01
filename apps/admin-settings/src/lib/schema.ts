@@ -25,7 +25,7 @@ const reminderSchema = z.object({
   send_after_value: z.number(),
   send_after_unit: z.string(),
   except_emails: z.string(),
-  max_products: z.number(),
+  max_products: z.number().or(z.string()),
   products_type: z.string(),
   send_to: z.string(),
 });

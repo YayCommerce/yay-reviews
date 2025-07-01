@@ -90,9 +90,7 @@ function ReminderInformation() {
                 </Select>
               )}
             />
-            <span className="text-sm">
-              {__('after order completed', 'yay-reviews')}
-            </span>
+            <span className="text-sm">{__('after order completed', 'yay-reviews')}</span>
           </div>
         </div>
 
@@ -111,7 +109,14 @@ function ReminderInformation() {
                     disabled={productsType === 'all'}
                     type="number"
                     value={value}
-                    onChange={(e) => onChange(Math.max(1, Number(e.target.value)))}
+                    placeholder={__('All', 'yay-reviews')}
+                    onChange={(e) => {
+                      if ( e.target.value === '' ) {
+                        onChange('')
+                      } else {
+                        onChange(Math.max(1, Number(e.target.value)))
+                      }
+                    }}
                     className="max-w-[60px]"
                     min={1}
                   />

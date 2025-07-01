@@ -210,6 +210,10 @@ class Helpers {
 			return $product_in_order;
 		}
 
+		if ( '' === $max_products ) { // $max_products is empty it means no limit.
+			$max_products = 100; // Just 100 because it's impossible to have more than 100 products in an order.
+		}
+
 		if ( 'normal' === $product_type ) {
 			return array_slice( $product_in_order, 0, $max_products );
 		}
