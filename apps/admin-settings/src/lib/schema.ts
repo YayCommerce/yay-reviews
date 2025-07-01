@@ -25,7 +25,7 @@ const reminderSchema = z.object({
   send_after_value: z.number(),
   send_after_unit: z.string(),
   except_emails: z.string(),
-  max_products: z.number(),
+  max_products: z.number().or(z.string()),
   products_type: z.string(),
   send_to: z.string(),
 });
@@ -36,9 +36,9 @@ const rewardSchema = z.object({
   enabled: z.boolean(),
   coupon_id: z.string(),
   send_to: z.string(),
-  minimum_required_rating: z.number(),
-  minimum_media_files_uploaded: z.number(),
-  minimum_required_reviews_since_last_reward: z.number(),
+  rating_requirement: z.string(),
+  media_requirement: z.string(),
+  minimum_required_reviews_since_last_reward: z.string(),
   is_open: z.boolean().optional(),
 });
 

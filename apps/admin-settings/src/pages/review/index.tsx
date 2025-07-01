@@ -51,7 +51,7 @@ function UploadMediaCard() {
             )}
           />
         </div>
-        <div className="border-t" />
+        <div className="border-t border-t-[#f0f0f0]" />
       </div>
 
       <div className="space-y-6">
@@ -219,7 +219,7 @@ function DataProcessingConsentCard() {
             )}
           />
         </div>
-        <div className="border-t" />
+        <div className="border-t border-t-[#f0f0f0]" />
       </div>
 
       <div className="space-y-6">

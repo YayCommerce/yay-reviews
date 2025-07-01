@@ -300,85 +300,112 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           <hr className="border-t border-[#f0f0f0]" />
           {/* Review criteria */}
           <div className="flex flex-col gap-4">
-            <div className="text-foreground mb-2 text-lg font-semibold">
-              {__('Review criteria', 'yay-reviews')}
+            <div className="text-foreground text-lg font-semibold">
+              {__('Send reward after', 'yay-reviews')}
             </div>
-            <div>
-              <Label
-                htmlFor={`rewards.${reward.id}.minimum_required_rating`}
-                className="mb-2 w-max font-normal"
-              >
-                {__('Minimum required rating', 'yay-reviews')}
-              </Label>
+            <div className="max-w-[300px]">
               <FormField
                 control={control}
-                name={`rewards.${reward.id}.minimum_required_rating`}
+                name={`rewards.${reward.id}.rating_requirement`}
                 render={({ field: { value, onChange } }) => (
-                  <Input
-                    id={`rewards.${reward.id}.minimum_required_rating`}
-                    type="number"
-                    className="w-16"
-                    min={0}
+                  <Select
+                    id={`rewards.${reward.id}.rating_requirement`}
+                    defaultValue="at_least_4_stars"
                     value={value}
-                    onChange={(e) => {
-                      onChange(Number(e.target.value));
-                    }}
-                  />
+                    onValueChange={onChange}
+                  >
+                    <SelectTrigger className="w-full bg-white">
+                      <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">
+                        {__('Review with any rating', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="at_least_3_stars">
+                        {__('Review with 3+ stars', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="at_least_4_stars">
+                        {__('Review with 4+ stars', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="at_least_5_stars">
+                        {__('5-star review', 'yay-reviews')}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 )}
               />
             </div>
             {isMediaEnabled && (
-              <div>
+              <div className="max-w-[300px]">
                 <Label
-                  htmlFor={`rewards.${reward.id}.minimum_media_files_uploaded`}
+                  htmlFor={`rewards.${reward.id}.media_requirement`}
                   className="mb-2 w-max font-normal"
                 >
-                  {__('Minimum media files uploaded', 'yay-reviews')}
+                  {__('And', 'yay-reviews')}
                 </Label>
                 <FormField
                   control={control}
-                  name={`rewards.${reward.id}.minimum_media_files_uploaded`}
+                  name={`rewards.${reward.id}.media_requirement`}
                   render={({ field: { value, onChange } }) => (
-                    <Input
-                      id={`rewards.${reward.id}.minimum_media_files_uploaded`}
-                      type="number"
-                      className="w-16"
-                      min={0}
+                    <Select
+                      id={`rewards.${reward.id}.media_requirement`}
+                      defaultValue="none"
                       value={value}
-                      onChange={(e) => {
-                        onChange(Number(e.target.value));
-                      }}
-                    />
+                      onValueChange={onChange}
+                    >
+                      <SelectTrigger className="w-full bg-white">
+                        <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">
+                          {__('Review with any media', 'yay-reviews')}
+                        </SelectItem>
+                        <SelectItem value="at_least_2_media">
+                          {__('Review contains at least 2 media files', 'yay-reviews')}
+                        </SelectItem>
+                        <SelectItem value="at_least_3_media">
+                          {__('Review contains at least 3 media files', 'yay-reviews')}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
                 />
               </div>
             )}
-            <div>
+            <div className="max-w-[300px]">
               <Label
                 htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                 className="mb-2 w-max font-normal"
               >
-                {__('Minimum required reviews posted since the last reward?', 'yay-reviews')}
+                {__('And', 'yay-reviews')}
               </Label>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
                 render={({ field: { value, onChange } }) => (
-                  <Input
+                  <Select
                     id={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
-                    type="number"
-                    className="w-16"
-                    min={0}
+                    defaultValue="none"
                     value={value}
-                    onChange={(e) => {
-                      onChange(Number(e.target.value));
-                    }}
-                  />
+                    onValueChange={onChange}
+                  >
+                    <SelectTrigger className="w-full bg-white">
+                      <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="none">
+                        {__('Reward after every review', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="at_least_2_reviews">
+                        {__('Reward after at least 2 reviews', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="at_least_3_reviews">
+                        {__('Reward after at least 3 reviews', 'yay-reviews')}
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
                 )}
               />
-              <span className="mt-2 flex text-slate-500">
-                {__('Leave empty to receive reward after every review', 'yay-reviews')}
-              </span>
             </div>
           </div>
         </div>
