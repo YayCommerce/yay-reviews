@@ -201,10 +201,10 @@ function ReminderRecipients() {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="registered_customers">
-                  {__('Only registered customers', 'yay-reviews')}
+                  {__('Registerd customers only', 'yay-reviews')}
                 </SelectItem>
                 <SelectItem value="all_customers">
-                  {__('Customers (include guest users)', 'yay-reviews')}
+                  {__('All customers (including guest users)', 'yay-reviews')}
                 </SelectItem>
               </SelectContent>
             </Select>
