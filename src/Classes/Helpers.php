@@ -305,10 +305,10 @@ class Helpers {
 		$media           = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		$comment_user_id = $comment->user_id;
 
-		$send_to = $reward['send_to'];
+		$send_to            = $reward['send_to'];
 		$rating_requirement = $reward['rating_requirement'];
-		$frequency            = $reward['frequency'];
-		$media_requirement = $reward['media_requirement'];
+		$frequency          = $reward['frequency'];
+		$media_requirement  = $reward['media_requirement'];
 
 		if ( 'purchased_customers' === $send_to ) {
 			if ( empty( $comment_user_id ) ) {
@@ -345,19 +345,25 @@ class Helpers {
 			}
 		}
 		if ( '4_stars' === $rating_requirement ) {
-			if ( $rating != 4 ) {
+			if ( 4 !== $rating ) {
 				$valid = false;
 			}
 		}
 
 		if ( 'none' !== $media_requirement ) {
-			$video_media = array_filter( $media, function ( $media ) {
-				return 'video' === $media['type'];
-			} );
+			$video_media = array_filter(
+				$media,
+				function ( $media ) {
+					return 'video' === $media['type'];
+				}
+			);
 
-			$image_media = array_filter( $media, function ( $media ) {
-				return 'image' === $media['type'];
-			} );
+			$image_media = array_filter(
+				$media,
+				function ( $media ) {
+					return 'image' === $media['type'];
+				}
+			);
 
 			if ( 'at_least_1_media' === $media_requirement ) {
 				if ( empty( $image_media ) ) {
@@ -396,7 +402,7 @@ class Helpers {
 			}
 		}
 
-		if ( ! empty( $comment_user_id ) && 'every_review' != $frequency ) {
+		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
 			$user_reviews_count = count(
 				get_comments(
 					array(
