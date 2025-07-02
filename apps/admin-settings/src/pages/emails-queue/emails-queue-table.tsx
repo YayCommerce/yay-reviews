@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { __ } from '@wordpress/i18n';
+import { Loader2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { EmailQueue } from 'types/email-queue';
 
-import { dismissEmail, sendEmail } from '@/lib/ajax';
+import { sendEmail } from '@/lib/ajax';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -19,6 +20,7 @@ import {
   Drawer,
   DrawerContent,
   DrawerDescription,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -78,6 +80,7 @@ export default function EmailsQueueTable({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDismissDialogOpen, setIsDismissDialogOpen] = useState(false);
   const [currentEmail, setCurrentEmail] = useState<EmailQueue | null>(null);
+  const [isSending, setIsSending] = useState(false);
 
   // Calculate pagination info
   const totalItems = pagination?.total_items || emails.length;
@@ -121,28 +124,21 @@ export default function EmailsQueueTable({
     return pages;
   };
 
-  const handleSendEmail = (emailId: string) => {
+  const handleSendEmail = (email: EmailQueue) => {
+    setIsSending(true);
     // delete all toast
     toast.dismiss();
-
-    sendEmail(emailId).then((res) => {
-      if (res.success) {
-        toast.success(res.data.mess);
-        // Invalidate the query to refetch data
-        queryClient.invalidateQueries({ queryKey: ['emails-queue'] });
-      } else {
-        toast.error(res.data.mess);
-      }
-    });
-  };
-
-  const handleViewEmail = (emailId: string) => {
-    // Open a modal with the email content
-    const email = emails.find((email) => email.id === emailId);
-    if (email) {
-      setCurrentEmail(email);
-      setIsModalOpen(true);
-    }
+    sendEmail(email.id)
+      .then((res) => {
+        if (res.success) {
+          toast.success(res.data.mess);
+        } else {
+          toast.error(res.data.mess);
+        }
+      })
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   return (
@@ -164,100 +160,151 @@ export default function EmailsQueueTable({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {isFetching ? (
-                <TableRow>
-                  <TableCell colSpan={6} className="text-center">
-                    <Loading size="lg" />
-                  </TableCell>
-                </TableRow>
-              ) : (
-                emails.map((email) => (
-                  <TableRow key={email.id}>
-                    <TableCell>{email.id}</TableCell>
-                    <TableCell className="capitalize">{email.type}</TableCell>
-                    <TableCell>
-                      {email.status === '0'
-                        ? __('Pending', 'yay-reviews')
-                        : email.status === '1'
-                          ? __('Sent', 'yay-reviews')
-                          : __('Cancelled', 'yay-reviews')}
-                    </TableCell>
-                    <TableCell>{email.customer_email}</TableCell>
-                    <TableCell>{email.delivery_time}</TableCell>
-                    <TableCell>
-                      <div className="flex gap-2">
-                        <Drawer open={isModalOpen} onOpenChange={setIsModalOpen} direction="right">
-                          <DrawerTrigger asChild>
-                            <Button variant="outline" size="icon">
-                              <EyeIcon />
-                            </Button>
-                          </DrawerTrigger>
-                          <DrawerContent className="yay-reviews-coupon-form mt-[32px]">
-                            <DrawerHeader className="border-b text-left">
-                              <DrawerTitle className="m-0">
-                                {__('Create new coupon', 'yay-reviews')}
-                              </DrawerTitle>
-                              <DrawerDescription className="hidden"></DrawerDescription>
-                            </DrawerHeader>
-                          </DrawerContent>
-                        </Drawer>
-
-                        <Dialog
-                          open={isDismissDialogOpen}
-                          onOpenChange={(open) => {
-                            setCurrentEmail(email);
-                            setIsDismissDialogOpen(open);
-                          }}
-                        >
-                          <DialogTrigger asChild>
-                            <Button variant="outline" size="icon">
-                              <XIcon />
-                            </Button>
-                          </DialogTrigger>
-                          <DialogContent
-                            className="max-w-md"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                            }}
-                          >
-                            <DialogHeader>
-                              <DialogTitle>{__('Dismiss email', 'yay-reviews')}</DialogTitle>
-                            </DialogHeader>
-                            <div>
-                              {__('Are you sure you want to dismiss this email?', 'yay-reviews')}
-                            </div>
-                            <DialogFooter>
+              <Drawer
+                open={isModalOpen}
+                onOpenChange={(open) => {
+                  setIsModalOpen(open);
+                }}
+                direction="right"
+              >
+                <Dialog
+                  open={isDismissDialogOpen}
+                  onOpenChange={(open) => {
+                    setIsDismissDialogOpen(open);
+                  }}
+                >
+                  {isFetching ? (
+                    <TableRow>
+                      <TableCell colSpan={6} className="text-center">
+                        <Loading size="lg" />
+                      </TableCell>
+                    </TableRow>
+                  ) : (
+                    emails.map((email) => (
+                      <TableRow key={email.id}>
+                        <TableCell>{email.id}</TableCell>
+                        <TableCell className="capitalize">{email.type}</TableCell>
+                        <TableCell>
+                          {email.status === '0'
+                            ? __('Pending', 'yay-reviews')
+                            : email.status === '1'
+                              ? __('Sent', 'yay-reviews')
+                              : __('Cancelled', 'yay-reviews')}
+                        </TableCell>
+                        <TableCell>{email.customer_email}</TableCell>
+                        <TableCell>{email.delivery_time}</TableCell>
+                        <TableCell>
+                          <div className="flex gap-2">
+                            <DrawerTrigger asChild>
                               <Button
                                 variant="outline"
-                                className=""
+                                size="icon"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  setIsDismissDialogOpen(false);
+                                  setCurrentEmail(email);
+                                  setIsModalOpen(true);
                                 }}
                               >
-                                {__('Cancel', 'yay-reviews')}
+                                <EyeIcon />
                               </Button>
+                            </DrawerTrigger>
+                            <DialogTrigger asChild>
                               <Button
-                                variant="default"
-                                className=""
+                                variant="outline"
+                                size="icon"
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  if (currentEmail) {
-                                    onDismissEmail(currentEmail);
-                                  }
-                                  setIsDismissDialogOpen(false);
+                                  setCurrentEmail(email);
+                                  setIsDismissDialogOpen(true);
                                 }}
                               >
-                                {__('Dismiss', 'yay-reviews')}
+                                <XIcon />
                               </Button>
-                            </DialogFooter>
-                          </DialogContent>
-                        </Dialog>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
+                            </DialogTrigger>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                  <DialogContent
+                    className="max-w-md data-[vaul-drawer-direction=right]:sm:max-w-md"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <DialogHeader>
+                      <DialogTitle>{__('Dismiss email', 'yay-reviews')}</DialogTitle>
+                    </DialogHeader>
+                    <div>{__('Are you sure you want to dismiss this email?', 'yay-reviews')}</div>
+                    <DialogFooter>
+                      <Button
+                        variant="outline"
+                        className=""
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setIsDismissDialogOpen(false);
+                        }}
+                      >
+                        {__('Cancel', 'yay-reviews')}
+                      </Button>
+                      <Button
+                        variant="default"
+                        className=""
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (currentEmail) {
+                            onDismissEmail(currentEmail);
+                          }
+                          setIsDismissDialogOpen(false);
+                        }}
+                      >
+                        {__('Dismiss', 'yay-reviews')}
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+                <DrawerContent className="yay-reviews-view-email-drawer mt-[32px]">
+                  <DrawerHeader className="border-b text-left">
+                    <DrawerTitle className="m-0">{__('Information', 'yay-reviews')}</DrawerTitle>
+                    <DrawerDescription className="hidden"></DrawerDescription>
+                  </DrawerHeader>
+                  <EmailInformation email={currentEmail} />
+                  <DrawerFooter
+                    className="flex flex-row gap-2"
+                    style={{
+                      boxShadow: '0 0 #0000, 0 0 #0000, 0 -1px 0 #edf3f9, 0 -5px 12px #00000008',
+                    }}
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-1/2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setIsDismissDialogOpen(true);
+                      }}
+                    >
+                      {__('Dismiss', 'yay-reviews')}
+                    </Button>
+                    <Button
+                      className="w-1/2"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (currentEmail) {
+                          handleSendEmail(currentEmail);
+                        }
+                      }}
+                    >
+                      {isSending ? (
+                        <Loader2Icon className="h-4 w-4 animate-spin" />
+                      ) : currentEmail?.type === 'reminder' && currentEmail?.status === '0' ? (
+                        __('Send', 'yay-reviews')
+                      ) : (
+                        __('Re-send', 'yay-reviews')
+                      )}
+                    </Button>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
             </TableBody>
           </Table>
 

@@ -1,26 +1,11 @@
 import { useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Loader2Icon } from 'lucide-react';
 import { EmailQueue } from 'types/email-queue';
 
-import { Button } from '@/components/ui/button';
-
-export default function EmailInformation({
-  email,
-  isSending,
-  onDismiss,
-  onSend,
-}: {
-  email: EmailQueue | null;
-  isSending: boolean;
-  onDismiss: (emailId: string) => void;
-  onSend: (emailId: string) => void;
-}) {
+export default function EmailInformation({ email }: { email: EmailQueue | null }) {
   if (!email) {
     return null;
   }
-
-  const [dismissDialogOpen, setDismissDialogOpen] = useState(false);
 
   const productType = useMemo(() => {
     switch (email.email_data?.products_type) {
@@ -85,19 +70,21 @@ export default function EmailInformation({
   }, [email.email_data?.minimum_required_reviews_since_last_reward]);
 
   return (
-    <div className="space-y-6">
-      {/* Section: Recipient Info */}
-      <div>
-        <h3 className="mb-2 border-b pb-1 text-base font-semibold">
-          {__('Recipient', 'yay-reviews')}
+    <div className="space-y-6 px-4 pt-6">
+      {/* Section: General Info */}
+      <div className="rounded-lg border bg-white p-4 shadow-sm">
+        <h3 className="m-0! mb-4 border-b pb-2 text-lg font-bold">
+          {__('General', 'yay-reviews')}
         </h3>
-        <dl className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+        <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
           <dt className="text-sm font-semibold">{__('Type', 'yay-reviews')}:</dt>
-          <dd className="text-sm capitalize">{email.type}</dd>
+          <dd className="pl-2 text-sm capitalize">{email.type}</dd>
           <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
-          <dd className="text-sm">{email.customer_email}</dd>
+          <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
           <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
-          <dd className="text-sm capitalize">
+          <dd
+            className={`pl-2 text-sm font-semibold capitalize ${email.status === '1' ? 'text-green-600' : email.status === '0' ? 'text-yellow-600' : 'text-red-600'}`}
+          >
             {email.status === '0'
               ? __('Pending', 'yay-reviews')
               : email.status === '1'
@@ -109,109 +96,43 @@ export default function EmailInformation({
 
       {/* Section: Reward Details */}
       {email.type === 'reward' && (
-        <div>
-          <h3 className="mb-2 border-b pb-1 text-base font-semibold">
+        <div className="rounded-lg border bg-white p-4 shadow-sm">
+          <h3 className="m-0! border-b pb-2 text-lg font-bold">
             {__('Reward Details', 'yay-reviews')}
           </h3>
-          <dl className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+          <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
             <dt className="text-sm font-semibold">{__('Coupon', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{email.email_data?.coupon_code}</dd>
+            <dd className="pl-2 text-sm">{email.email_data?.coupon_code}</dd>
             <dt className="text-sm font-semibold">{__('Product review', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{email.email_data?.product_name}</dd>
+            <dd className="pl-2 text-sm">{email.email_data?.product_name}</dd>
             <dt className="text-sm font-semibold">{__('Rating requirement', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{ratingRequirement}</dd>
+            <dd className="pl-2 text-sm">{ratingRequirement}</dd>
             <dt className="text-sm font-semibold">{__('Media requirement', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{mediaRequirement}</dd>
+            <dd className="pl-2 text-sm">{mediaRequirement}</dd>
             <dt className="text-sm font-semibold">{__('Reviews requirement', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
+            <dd className="pl-2 text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
           </dl>
         </div>
       )}
 
       {/* Section: Reminder Details */}
       {email.type === 'reminder' && (
-        <div>
-          <h3 className="mb-2 border-b pb-1 text-base font-semibold">
+        <div className="rounded-lg border bg-white p-4 shadow-sm">
+          <h3 className="m-0! mb-4 border-b pb-2 text-lg font-bold">
             {__('Reminder Details', 'yay-reviews')}
           </h3>
-          <dl className="grid grid-cols-1 gap-x-4 gap-y-2 sm:grid-cols-2">
+          <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
             <dt className="text-sm font-semibold">{__('Sent after', 'yay-reviews')}:</dt>
-            <dd className="text-sm">
+            <dd className="pl-2 text-sm">
               {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
             </dd>
             <dt className="text-sm font-semibold">{__('Max products', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{email.email_data?.max_products}</dd>
+            <dd className="pl-2 text-sm">{email.email_data?.max_products}</dd>
             <dt className="text-sm font-semibold">{__('Products type', 'yay-reviews')}:</dt>
-            <dd className="text-sm">{productType}</dd>
+            <dd className="pl-2 text-sm">{productType}</dd>
           </dl>
         </div>
       )}
     </div>
-    // <DialogFooter>
-    //   <Dialog open={dismissDialogOpen} onOpenChange={setDismissDialogOpen}>
-    //     <DialogTrigger asChild>
-    //       <Button
-    //         variant="outline"
-    //         onClick={(e) => {
-    //           e.preventDefault();
-    //           // onDismiss(email.id);
-    //         }}
-    //       >
-    //         {__('Dismiss', 'yay-reviews')}
-    //       </Button>
-    //     </DialogTrigger>
-    //     <DialogContent
-    //       className="max-w-md"
-    //       onClick={(e) => {
-    //         e.stopPropagation();
-    //       }}
-    //     >
-    //       <DialogHeader>
-    //         <DialogTitle>{__('Dismiss email', 'yay-reviews')}</DialogTitle>
-    //       </DialogHeader>
-    //       <div>{__('Are you sure you want to dismiss this email?', 'yay-reviews')}</div>
-    //       <DialogFooter>
-    //         <Button
-    //           variant="outline"
-    //           className=""
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             setDismissDialogOpen(false);
-    //           }}
-    //         >
-    //           {__('Cancel', 'yay-reviews')}
-    //         </Button>
-    //         <Button
-    //           variant="default"
-    //           className=""
-    //           onClick={(e) => {
-    //             e.preventDefault();
-    //             // onDismiss(email.id);
-    //             setDismissDialogOpen(false);
-    //           }}
-    //         >
-    //           {__('Dismiss', 'yay-reviews')}
-    //         </Button>
-    //       </DialogFooter>
-    //     </DialogContent>
-    //   </Dialog>
-    //   <DialogClose asChild></DialogClose>
-    //   <Button
-    //     disabled={isSending}
-    //     type="submit"
-    //     onClick={(e) => {
-    //       e.preventDefault();
-    //       onSend(email.id);
-    //     }}
-    //   >
-    //     {isSending ? (
-    //       <Loader2Icon className="h-4 w-4 animate-spin" />
-    //     ) : email.type === 'reminder' && email.status === '0' ? (
-    //       __('Send', 'yay-reviews')
-    //     ) : (
-    //       __('Re-send', 'yay-reviews')
-    //     )}
-    //   </Button>
-    // </DialogFooter>
   );
 }

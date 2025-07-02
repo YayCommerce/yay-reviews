@@ -204,7 +204,8 @@
   border-bottom: none;
 }
 
-.yay-reviews-coupon-form h2[data-slot='drawer-title'] {
+.yay-reviews-coupon-form h2[data-slot='drawer-title'],
+.yay-reviews-view-email-drawer h2[data-slot='drawer-title'] {
   margin: 0;
 }
 
