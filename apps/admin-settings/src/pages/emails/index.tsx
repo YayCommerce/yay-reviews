@@ -18,7 +18,7 @@ export default function EmailsPage() {
   return (
     <EmailsProvider>
       <PageLayout className="w-[90%]">
-        <PageTitle title={__('Email Templates', 'yay-reviews')} />
+        <PageTitle title={__('Email templates', 'yay-reviews')} />
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* Email template */}
           <div className="flex flex-col gap-2.5">

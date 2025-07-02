@@ -20,7 +20,7 @@ import PageTitle from '@/components/page-title';
 export default function ReminderPage() {
   return (
     <PageLayout>
-      <PageTitle title={__('Reminder Settings', 'yay-reviews')} />
+      <PageTitle title={__('Reminder settings', 'yay-reviews')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
         <ReminderRecipients />

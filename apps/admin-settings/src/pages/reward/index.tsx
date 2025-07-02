@@ -49,7 +49,7 @@ export default function RewardPage() {
   return (
     <RewardsProvider>
       <PageLayout>
-        <PageTitle title={__('Review Reward', 'yay-reviews')} />
+        <PageTitle title={__('Review reward', 'yay-reviews')} />
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* No reward added */}
           {isEmpty && (

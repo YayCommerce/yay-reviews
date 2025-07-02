@@ -313,7 +313,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           {/* Review criteria */}
           <div className="flex flex-col gap-4">
             <div className="text-foreground text-lg font-semibold">
-              {__('Conditions to Trigger the Reward', 'yay-reviews')}
+              {__('Conditions to trigger the reward', 'yay-reviews')}
             </div>
             <div className="max-w-[300px]">
               <Label
@@ -403,7 +403,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
             )}
             <div className="max-w-[300px]">
               <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-full font-normal">
-                {__('Reward Trigger', 'yay-reviews')}
+                {__('Reward trigger', 'yay-reviews')}
               </Label>
               <FormField
                 control={control}
