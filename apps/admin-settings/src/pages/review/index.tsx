@@ -21,7 +21,7 @@ import PageTitle from '@/components/page-title';
 export default function ReviewPage() {
   return (
     <PageLayout>
-      <PageTitle title={__('Review Settings', 'yay-reviews')} />
+      <PageTitle title={__('Review settings', 'yay-reviews')} />
       <div className="container mx-auto px-7 py-0">
         <div className="flex flex-col gap-4">
           <UploadMediaCard />
@@ -40,7 +40,7 @@ function UploadMediaCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
-            <span>{__('Upload Media', 'yay-reviews')}</span>
+            <span>{__('Upload media', 'yay-reviews')}</span>
             <ActiveBadge enabled={enabled} />
           </div>
           <FormField
@@ -67,7 +67,9 @@ function UploadMediaCard() {
               />
             )}
           />
-          <Label htmlFor="reviews.upload_required">{__('is required?', 'yay-reviews')}</Label>
+          <Label htmlFor="reviews.upload_required">
+            {__('Is media required when submitting a review?', 'yay-reviews')}
+          </Label>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -208,7 +210,7 @@ function DataProcessingConsentCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
-            <span>{__('Data Processing Consent', 'yay-reviews')}</span>
+            <span>{__('Data processing consent', 'yay-reviews')}</span>
             <ActiveBadge enabled={enabled} />
           </div>
           <FormField

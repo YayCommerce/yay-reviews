@@ -25,7 +25,7 @@ const addonsInformation = [
   },
   {
     id: 'reward',
-    title: __('Review Reward', 'yay-reviews'),
+    title: __('Review reward', 'yay-reviews'),
     description: __(
       'Sends discount coupons for quality reviews meeting set criteria, encouraging great feedback and repeat purchases.',
       'yay-reviews',
@@ -85,7 +85,7 @@ export default function DashboardPage() {
               className="cursor-pointer lowercase underline decoration-solid"
               onClick={() => changeTab('review')}
             >
-              {__('Review Settings', 'yay-reviews')}
+              {__('Review settings', 'yay-reviews')}
             </span>
           </>
         }

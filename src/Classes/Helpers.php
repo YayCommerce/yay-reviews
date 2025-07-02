@@ -305,10 +305,10 @@ class Helpers {
 		$media           = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
 		$comment_user_id = $comment->user_id;
 
-		$send_to                                    = $reward['send_to'];
-		$rating_requirement                         = $reward['rating_requirement'];
-		$media_requirement                          = $reward['media_requirement'];
-		$minimum_required_reviews_since_last_reward = $reward['minimum_required_reviews_since_last_reward'];
+		$send_to            = $reward['send_to'];
+		$rating_requirement = $reward['rating_requirement'];
+		$frequency          = $reward['frequency'];
+		$media_requirement  = $reward['media_requirement'];
 
 		if ( 'purchased_customers' === $send_to ) {
 			if ( empty( $comment_user_id ) ) {
@@ -318,6 +318,13 @@ class Helpers {
 				if ( 0 === $total_orders ) {
 					$valid = false;
 				}
+			}
+		}
+
+		// TODO: change logic
+		if ( 'guest_users' === $send_to ) {
+			if ( ! empty( $comment_user_id ) ) {
+				$valid = false;
 			}
 		}
 
@@ -332,25 +339,70 @@ class Helpers {
 			}
 		}
 
-		if ( 'at_least_5_stars' === $rating_requirement ) {
+		if ( '5_stars' === $rating_requirement ) {
 			if ( $rating < 5 ) {
 				$valid = false;
 			}
 		}
-
-		if ( 'at_least_2_media' === $media_requirement ) {
-			if ( count( $media ) < 2 ) {
+		if ( '4_stars' === $rating_requirement ) {
+			if ( $rating != 4 ) {
 				$valid = false;
 			}
 		}
 
-		if ( 'at_least_3_media' === $media_requirement ) {
-			if ( count( $media ) < 3 ) {
-				$valid = false;
+		if ( 'none' !== $media_requirement ) {
+			$video_media = array_filter(
+				$media,
+				function ( $media ) {
+					return 'video' === $media['type'];
+				}
+			);
+
+			$image_media = array_filter(
+				$media,
+				function ( $media ) {
+					return 'image' === $media['type'];
+				}
+			);
+
+			if ( 'at_least_1_media' === $media_requirement ) {
+				if ( empty( $image_media ) ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_2_media' === $media_requirement ) {
+				if ( count( $media ) < 2 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_1_image' === $media_requirement ) {
+				if ( empty( $image_media ) ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_1_video' === $media_requirement ) {
+				if ( empty( $video_media ) ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_2_videos' === $media_requirement ) {
+				if ( count( $video_media ) < 2 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'at_least_2_images' === $media_requirement ) {
+				if ( count( $image_media ) < 2 ) {
+					$valid = false;
+				}
 			}
 		}
 
-		if ( ! empty( $comment_user_id ) && 'none' != $minimum_required_reviews_since_last_reward ) {
+		if ( ! empty( $comment_user_id ) && 'every_review' != $frequency ) {
 			$user_reviews_count = count(
 				get_comments(
 					array(
@@ -361,13 +413,14 @@ class Helpers {
 				)
 			);
 
-			if ( 'at_least_2_reviews' === $minimum_required_reviews_since_last_reward ) {
+			// TODO: change logic
+			if ( 'after_2_reviews' === $frequency ) {
 				if ( $user_reviews_count < 2 ) {
 					$valid = false;
 				}
 			}
 
-			if ( 'at_least_3_reviews' === $minimum_required_reviews_since_last_reward ) {
+			if ( 'after_3_reviews' === $frequency ) {
 				if ( $user_reviews_count < 3 ) {
 					$valid = false;
 				}

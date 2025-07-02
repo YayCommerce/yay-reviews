@@ -38,7 +38,7 @@ const rewardSchema = z.object({
   send_to: z.string(),
   rating_requirement: z.string(),
   media_requirement: z.string(),
-  minimum_required_reviews_since_last_reward: z.string(),
+  frequency: z.string(),
   is_open: z.boolean().optional(),
 });
 

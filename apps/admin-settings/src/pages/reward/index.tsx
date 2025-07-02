@@ -20,9 +20,9 @@ export const DEFAULT_REWARD = {
   enabled: true,
   coupon_id: '',
   send_to: 'purchased_customers',
-  rating_requirement: 'at_least_4_stars',
+  rating_requirement: 'any',
   media_requirement: 'none',
-  minimum_required_reviews_since_last_reward: 'none',
+  frequency: 'every_review',
   is_open: true,
 };
 
@@ -49,7 +49,7 @@ export default function RewardPage() {
   return (
     <RewardsProvider>
       <PageLayout>
-        <PageTitle title={__('Review Reward', 'yay-reviews')} />
+        <PageTitle title={__('Review reward', 'yay-reviews')} />
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* No reward added */}
           {isEmpty && (
