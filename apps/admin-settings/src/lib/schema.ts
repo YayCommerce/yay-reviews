@@ -18,7 +18,6 @@ const reviewsSchema = z.object({
   enable_gdpr: z.boolean(),
   gdpr_message: z.string(),
   before_message: z.string(),
-  after_message: z.string(),
 });
 
 const reminderSchema = z.object({
