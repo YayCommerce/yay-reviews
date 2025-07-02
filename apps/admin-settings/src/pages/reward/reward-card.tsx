@@ -30,8 +30,8 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import DuplicateIcon from '@/components/icons/Duplicate';
 import TrashIcon from '@/components/icons/Trash';
 
-import { NewCouponDrawer } from './new-coupon-drawer';
 import { DEFAULT_REWARD } from '.';
+import { NewCouponDrawer } from './new-coupon-drawer';
 
 export default function RewardCard({ reward }: { reward: Reward }) {
   const { control, watch, setValue, unregister } = useFormContext<SettingsFormData>();
@@ -429,10 +429,10 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                         {__('After every 3 reviews', 'yay-reviews')}
                       </SelectItem>
                       <SelectItem value="after_2_reviews">
-                        {__('After submitting 2 reviews', 'yay-reviews')}
+                        {__('After submitting 2 reviews (one-time reward)', 'yay-reviews')}
                       </SelectItem>
                       <SelectItem value="after_3_reviews">
-                        {__('After submitting 3 reviews', 'yay-reviews')}
+                        {__('After submitting 3 reviews (one-time reward)', 'yay-reviews')}
                       </SelectItem>
                     </SelectContent>
                   </Select>
