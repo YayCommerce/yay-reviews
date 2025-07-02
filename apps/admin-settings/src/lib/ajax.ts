@@ -1,6 +1,6 @@
 export async function changeAddonStatus(addon_id: string, status: string) {
   try {
-    const response = await window.jQuery.ajax({
+    return await window.jQuery.ajax({
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
@@ -10,10 +10,6 @@ export async function changeAddonStatus(addon_id: string, status: string) {
         status,
       },
     });
-    if (!response.success) {
-      throw new Error('Call ajax failed');
-    }
-    return response;
   } catch (error) {
     console.error(error);
     throw error;
@@ -22,7 +18,7 @@ export async function changeAddonStatus(addon_id: string, status: string) {
 
 export async function sendEmail(emailId: string) {
   try {
-    const response = await window.jQuery.ajax({
+    return await window.jQuery.ajax({
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
@@ -31,10 +27,6 @@ export async function sendEmail(emailId: string) {
         email_id: emailId,
       },
     });
-    if (!response.success) {
-      throw new Error('Call ajax failed');
-    }
-    return response;
   } catch (error) {
     console.error(error);
     throw error;
@@ -43,7 +35,7 @@ export async function sendEmail(emailId: string) {
 
 export async function dismissEmail(emailId: string) {
   try {
-    const response = await window.jQuery.ajax({
+    return await window.jQuery.ajax({
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
@@ -52,10 +44,6 @@ export async function dismissEmail(emailId: string) {
         email_id: emailId,
       },
     });
-    if (!response.success) {
-      throw new Error('Call ajax failed');
-    }
-    return response;
   } catch (error) {
     console.error(error);
     throw error;
