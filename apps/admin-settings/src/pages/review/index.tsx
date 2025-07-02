@@ -67,7 +67,9 @@ function UploadMediaCard() {
               />
             )}
           />
-          <Label htmlFor="reviews.upload_required">{__('is required?', 'yay-reviews')}</Label>
+          <Label htmlFor="reviews.upload_required">
+            {__('Is media required when submitting a review?', 'yay-reviews')}
+          </Label>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">

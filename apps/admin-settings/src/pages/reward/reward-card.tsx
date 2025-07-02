@@ -31,6 +31,7 @@ import DuplicateIcon from '@/components/icons/Duplicate';
 import TrashIcon from '@/components/icons/Trash';
 
 import { NewCouponDrawer } from './new-coupon-drawer';
+import { DEFAULT_REWARD } from '.';
 
 export default function RewardCard({ reward }: { reward: Reward }) {
   const { control, watch, setValue, unregister } = useFormContext<SettingsFormData>();
@@ -76,7 +77,14 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                 control={control}
                 name={`rewards.${reward.id}.enabled`}
                 render={({ field: { value, onChange } }) => (
-                  <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger type="button">
+                        <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
+                      </TooltipTrigger>
+                      <TooltipContent>{__('Enable/disable reward', 'yay-reviews')}</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 )}
               />
               <FormField
@@ -266,11 +274,12 @@ export default function RewardCard({ reward }: { reward: Reward }) {
             </span>
           )}
 
+          <hr className="border-t border-[#f0f0f0]" />
           {/* Send to */}
+          <div className="text-foreground text-lg font-semibold">
+            {__('Send to', 'yay-reviews')}
+          </div>
           <div className="max-w-[400px]">
-            <Label htmlFor={`rewards.${reward.id}.send_to`} className="mb-2 w-max font-normal">
-              {__('Send to', 'yay-reviews')}
-            </Label>
             <FormField
               control={control}
               name={`rewards.${reward.id}.send_to`}
@@ -286,10 +295,13 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="purchased_customers">
-                      {__('Only purchased customers', 'yay-reviews')}
+                      {__('Purchased customers only', 'yay-reviews')}
                     </SelectItem>
                     <SelectItem value="all_reviewers">
                       {__('All reviewers (include guest users)', 'yay-reviews')}
+                    </SelectItem>
+                    <SelectItem value="guest_users">
+                      {__('Guest users only', 'yay-reviews')}
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -301,16 +313,22 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           {/* Review criteria */}
           <div className="flex flex-col gap-4">
             <div className="text-foreground text-lg font-semibold">
-              {__('Send reward after', 'yay-reviews')}
+              {__('Conditions to Trigger the Reward', 'yay-reviews')}
             </div>
             <div className="max-w-[300px]">
+              <Label
+                htmlFor={`rewards.${reward.id}.rating_requirement`}
+                className="mb-2 w-full font-normal"
+              >
+                {__('Rating', 'yay-reviews')}
+              </Label>
               <FormField
                 control={control}
                 name={`rewards.${reward.id}.rating_requirement`}
                 render={({ field: { value, onChange } }) => (
                   <Select
                     id={`rewards.${reward.id}.rating_requirement`}
-                    defaultValue="at_least_4_stars"
+                    defaultValue={DEFAULT_REWARD.rating_requirement}
                     value={value}
                     onValueChange={onChange}
                   >
@@ -318,17 +336,14 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                       <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">
-                        {__('Review with any rating', 'yay-reviews')}
-                      </SelectItem>
+                      <SelectItem value="any">{__('Any rating', 'yay-reviews')}</SelectItem>
+                      <SelectItem value="4_stars">{__('4-star review', 'yay-reviews')}</SelectItem>
+                      <SelectItem value="5_stars">{__('5-star review', 'yay-reviews')}</SelectItem>
                       <SelectItem value="at_least_3_stars">
                         {__('Review with 3+ stars', 'yay-reviews')}
                       </SelectItem>
                       <SelectItem value="at_least_4_stars">
                         {__('Review with 4+ stars', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="at_least_5_stars">
-                        {__('5-star review', 'yay-reviews')}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -339,53 +354,64 @@ export default function RewardCard({ reward }: { reward: Reward }) {
               <div className="max-w-[300px]">
                 <Label
                   htmlFor={`rewards.${reward.id}.media_requirement`}
-                  className="mb-2 w-max font-normal"
+                  className="mb-2 w-full font-normal"
                 >
-                  {__('And', 'yay-reviews')}
+                  {__('Media files', 'yay-reviews')}
                 </Label>
-                <FormField
-                  control={control}
-                  name={`rewards.${reward.id}.media_requirement`}
-                  render={({ field: { value, onChange } }) => (
-                    <Select
-                      id={`rewards.${reward.id}.media_requirement`}
-                      defaultValue="none"
-                      value={value}
-                      onValueChange={onChange}
-                    >
-                      <SelectTrigger className="w-full bg-white">
-                        <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="none">
-                          {__('Review with any media', 'yay-reviews')}
-                        </SelectItem>
-                        <SelectItem value="at_least_2_media">
-                          {__('Review contains at least 2 media files', 'yay-reviews')}
-                        </SelectItem>
-                        <SelectItem value="at_least_3_media">
-                          {__('Review contains at least 3 media files', 'yay-reviews')}
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  )}
-                />
+                <div className="flex items-center gap-2">
+                  <FormField
+                    control={control}
+                    name={`rewards.${reward.id}.media_requirement`}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        id={`rewards.${reward.id}.media_requirement`}
+                        defaultValue={DEFAULT_REWARD.media_requirement}
+                        value={value}
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger className="w-full bg-white">
+                          <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">
+                            {__('No requirement', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_1_media">
+                            {__('At least 1 media file in review', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_2_media">
+                            {__('At least 2 media files in review', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_1_image">
+                            {__('At least 1 image in review', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_2_images">
+                            {__('At least 2 images in review', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_1_video">
+                            {__('At least 1 video in review', 'yay-reviews')}
+                          </SelectItem>
+                          <SelectItem value="at_least_2_videos">
+                            {__('At least 2 videos in review', 'yay-reviews')}
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
               </div>
             )}
             <div className="max-w-[300px]">
-              <Label
-                htmlFor={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
-                className="mb-2 w-max font-normal"
-              >
-                {__('And', 'yay-reviews')}
+              <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-full font-normal">
+                {__('Reward Trigger', 'yay-reviews')}
               </Label>
               <FormField
                 control={control}
-                name={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
+                name={`rewards.${reward.id}.frequency`}
                 render={({ field: { value, onChange } }) => (
                   <Select
-                    id={`rewards.${reward.id}.minimum_required_reviews_since_last_reward`}
-                    defaultValue="none"
+                    id={`rewards.${reward.id}.frequency`}
+                    defaultValue={DEFAULT_REWARD.frequency}
                     value={value}
                     onValueChange={onChange}
                   >
@@ -393,14 +419,20 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                       <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">
-                        {__('Reward after every review', 'yay-reviews')}
+                      <SelectItem value="every_review">
+                        {__('After every review', 'yay-reviews')}
                       </SelectItem>
-                      <SelectItem value="at_least_2_reviews">
-                        {__('Reward after at least 2 reviews', 'yay-reviews')}
+                      <SelectItem value="every_2_reviews">
+                        {__('After every 2 reviews', 'yay-reviews')}
                       </SelectItem>
-                      <SelectItem value="at_least_3_reviews">
-                        {__('Reward after at least 3 reviews', 'yay-reviews')}
+                      <SelectItem value="every_3_reviews">
+                        {__('After every 3 reviews', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="after_2_reviews">
+                        {__('After submitting 2 reviews', 'yay-reviews')}
+                      </SelectItem>
+                      <SelectItem value="after_3_reviews">
+                        {__('After submitting 3 reviews', 'yay-reviews')}
                       </SelectItem>
                     </SelectContent>
                   </Select>
