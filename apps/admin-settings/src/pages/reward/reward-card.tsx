@@ -277,7 +277,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           <hr className="border-t border-[#f0f0f0]" />
           {/* Send to */}
           <div className="text-foreground text-lg font-semibold">
-            {__('Send to', 'yay-reviews')}
+            {__('Who can receive the reward?', 'yay-reviews')}
           </div>
           <div className="max-w-[400px]">
             <FormField
