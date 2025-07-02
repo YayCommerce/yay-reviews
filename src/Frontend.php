@@ -118,6 +118,36 @@ class Frontend {
 			return;
 		}
 		if ( $reward_addon && count( $rewards ) > 0 ) {
+			// sort rewards by rating_requirement
+			usort(
+				$rewards,
+				function ( $a, $b ) {
+					// priority of 5_stars is 1, 4_stars is 2, at_least_4_stars is 3, at_least_3_stars is 4, none or any other is 5
+					$rating_priority = array(
+						'5_stars'          => 1,
+						'4_stars'          => 2,
+						'at_least_4_stars' => 3,
+						'at_least_3_stars' => 4,
+						'any'              => 5,
+					);
+
+					$media_priority = array(
+						'at_least_2_media'  => 1,
+						'at_least_2_images' => 2,
+						'at_least_2_videos' => 3,
+						'at_least_1_media'  => 4,
+						'at_least_1_image'  => 5,
+						'at_least_1_video'  => 6,
+						'none'              => 7,
+					);
+					// if rating requirement is the same, then compare media requirement
+					if ( $rating_priority[ $a['rating_requirement'] ] === $rating_priority[ $b['rating_requirement'] ] ) {
+						return $media_priority[ $a['media_requirement'] ] <=> $media_priority[ $b['media_requirement'] ];
+					}
+					return $rating_priority[ $a['rating_requirement'] ] <=> $rating_priority[ $b['rating_requirement'] ];
+				}
+			);
+
 			$product_id = $comment->comment_post_ID;
 			$product    = wc_get_product( $product_id );
 			if ( $product ) {
@@ -138,6 +168,7 @@ class Frontend {
 							WC()->mailer();
 						}
 						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+						break;
 					}
 				}
 			}

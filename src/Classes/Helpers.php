@@ -345,7 +345,7 @@ class Helpers {
 			}
 		}
 		if ( '4_stars' === $rating_requirement ) {
-			if ( $rating != 4 ) {
+			if ( 4 !== $rating ) {
 				$valid = false;
 			}
 		}
@@ -402,7 +402,7 @@ class Helpers {
 			}
 		}
 
-		if ( ! empty( $comment_user_id ) && 'every_review' != $frequency ) {
+		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
 			$user_reviews_count = count(
 				get_comments(
 					array(
