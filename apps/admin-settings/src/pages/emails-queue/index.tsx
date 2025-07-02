@@ -1,61 +1,69 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import PageLayout from '@/layouts/page-layout';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { __ } from '@wordpress/i18n';
+import { toast } from 'sonner';
+import { EmailQueue } from 'types/email-queue';
 
+import { dismissEmail } from '@/lib/ajax';
 import { getEmailsQueue } from '@/lib/queries';
-import { Card, CardContent } from '@/components/ui/card';
-import Loading from '@/components/ui/loading';
-import EmailIcon from '@/components/icons/Email';
 import PageTitle from '@/components/page-title';
 
 import EmailsQueueTable from './emails-queue-table';
 
 export default function EmailsQueuePage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const [emails, setEmails] = useState<EmailQueue[]>([]);
+  const itemsPerPage = 10;
 
   const { data, isFetching } = useQuery({
     queryKey: ['emails-queue', currentPage, itemsPerPage],
-    queryFn: () => getEmailsQueue(currentPage, itemsPerPage),
+    queryFn: () => {
+      return getEmailsQueue(currentPage, itemsPerPage);
+    },
     staleTime: 5 * 60 * 1000,
   });
 
-  const emails = data?.emails || [];
+  useEffect(() => {
+    if (data) {
+      setEmails(data.emails);
+    }
+  }, [data]);
+
   const pagination = data?.pagination;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
+  const handleDismissEmail = (email: EmailQueue) => {
+    toast.dismiss();
+    dismissEmail(email.id).then((res) => {
+      if (res.success) {
+        const index = emails.findIndex((e) => e.id === email.id);
+        const updatedEmails = [...emails];
+        updatedEmails[index].status = '2';
+        setEmails(updatedEmails);
+        toast.success(res.data.mess);
+      } else {
+        toast.error(res.data.mess);
+      }
+    });
+  };
+
   return (
-    <PageLayout>
+    <PageLayout className="w-[90%]">
       <PageTitle title={__('Emails Queue', 'yay-reviews')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
-        {isFetching ? (
-          <div className="flex flex-col items-center gap-2 pb-4">
-            <Loading size="lg" text={__('Loading emails queue...', 'yay-reviews')} />
-          </div>
-        ) : !isFetching && emails.length === 0 ? (
-          <Card className="items-center gap-2 pt-6 pb-4 text-center">
-            <CardContent className="p-0">
-              <div className="flex flex-col items-center gap-2 pb-4">
-                <EmailIcon strokeWidth={1} size={100} />
-                <div className="px-6 text-lg font-semibold">
-                  {__('No emails in queue', 'yay-reviews')}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ) : (
-          <EmailsQueueTable
-            emails={emails}
-            pagination={pagination}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-            itemsPerPage={itemsPerPage}
-          />
-        )}
+        <EmailsQueueTable
+          isFetching={isFetching}
+          emails={emails}
+          pagination={pagination}
+          currentPage={currentPage}
+          onPageChange={handlePageChange}
+          itemsPerPage={itemsPerPage}
+          onDismissEmail={handleDismissEmail}
+        />
       </div>
     </PageLayout>
   );

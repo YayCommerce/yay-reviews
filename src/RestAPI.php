@@ -308,16 +308,29 @@ class RestAPI {
 		$offset = ( $page - 1 ) * $per_page;
 
 		// Get total count
-		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_logs" );
+		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_queue" );
 
 		// Get paginated results
 		$emails = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs ORDER BY created_at DESC LIMIT %d OFFSET %d",
+				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
 				$per_page,
 				$offset
-			)
+			),
+			ARRAY_A
 		);
+
+		foreach ( $emails as $key => $email ) {
+			// if status is 0, set delivery_time to current time
+			$emails[ $key ]['email_data'] = maybe_unserialize( $email['email_data'] );
+			if ( '0' === $email['status'] ) {
+				$scheduled_event = maybe_unserialize( $email['scheduled_event'] );
+				// display delivery time in human readable format
+				$emails[ $key ]['delivery_time'] = __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $scheduled_event['timestamp'], current_time( 'timestamp' ) );
+			} else {
+				$emails[ $key ]['delivery_time'] = $email['created_at'];
+			}
+		}
 
 		// Calculate pagination info
 		$total_pages = ceil( $total_count / $per_page );

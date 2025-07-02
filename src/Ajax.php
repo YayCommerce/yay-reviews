@@ -50,7 +50,7 @@ class Ajax {
 			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_log = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_logs WHERE id = {$email_id}" );
+				$email_log = $wpdb->get_row( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = {$email_id}" );
 				if ( ! empty( $email_log ) ) {
 					if ( 'reminder' === $email_log->type && '0' === $email_log->status ) {
 						$scheduled_event = maybe_unserialize( $email_log->scheduled_event );
@@ -98,11 +98,13 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
-			$wpdb->delete(
-				$wpdb->prefix . 'yay_reviews_email_logs',
-				array( 'id' => $email_id )
+			Helpers::modify_email_queue(
+				false,
+				array(
+					'id'     => $email_id,
+					'status' => 2,
+				)
 			);
 
 			wp_send_json_success(

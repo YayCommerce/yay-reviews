@@ -49,7 +49,7 @@ class RewardEmail extends \WC_Email {
 				if ( $result ) {
 					update_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true );
 				}
-				Helpers::modify_email_logs(
+				Helpers::modify_email_queue(
 					true,
 					array(
 						'type'           => 'reward',
@@ -58,6 +58,16 @@ class RewardEmail extends \WC_Email {
 						'status'         => $result ? 1 : 2,
 						'customer_email' => $recipient_email,
 						'created_at'     => current_time( 'mysql' ),
+						'email_data'     => maybe_serialize(
+							array(
+								'reward_id'          => $reward['id'],
+								'coupon_code'        => $coupon->get_code(),
+								'product_name'       => $product->get_name(),
+								'rating_requirement' => $reward['rating_requirement'],
+								'media_requirement'  => $reward['media_requirement'],
+								'minimum_required_reviews_since_last_reward' => $reward['minimum_required_reviews_since_last_reward'],
+							)
+						),
 					)
 				);
 			}

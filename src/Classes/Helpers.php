@@ -306,8 +306,8 @@ class Helpers {
 		$comment_user_id = $comment->user_id;
 
 		$send_to                                    = $reward['send_to'];
-		$rating_requirement                    = $reward['rating_requirement'];
-		$media_requirement               = $reward['media_requirement'];
+		$rating_requirement                         = $reward['rating_requirement'];
+		$media_requirement                          = $reward['media_requirement'];
 		$minimum_required_reviews_since_last_reward = $reward['minimum_required_reviews_since_last_reward'];
 
 		if ( 'purchased_customers' === $send_to ) {
@@ -488,11 +488,11 @@ class Helpers {
 		return $coupons;
 	}
 
-	public static function modify_email_logs( $is_insert = false, $data = array() ) {
+	public static function modify_email_queue( $is_insert = false, $data = array() ) {
 		global $wpdb;
 		if ( $is_insert ) {
 			$wpdb->insert(
-				$wpdb->prefix . 'yay_reviews_email_logs',
+				$wpdb->prefix . 'yay_reviews_email_queue',
 				$data
 			);
 			if ( ! empty( $wpdb->insert_id ) ) {
@@ -502,7 +502,7 @@ class Helpers {
 			$id = $data['id'];
 			unset( $data['id'] );
 			$wpdb->update(
-				$wpdb->prefix . 'yay_reviews_email_logs',
+				$wpdb->prefix . 'yay_reviews_email_queue',
 				$data,
 				array( 'id' => $id )
 			);

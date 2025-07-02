@@ -82,7 +82,7 @@ class ReminderEmail extends \WC_Email {
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 			if ( ! empty( $email_id ) ) {
-				Helpers::modify_email_logs(
+				Helpers::modify_email_queue(
 					false,
 					array(
 						'id'             => $email_id,
@@ -90,6 +90,7 @@ class ReminderEmail extends \WC_Email {
 						'body'           => $this->get_content(),
 						'subject'        => $this->get_subject(),
 						'customer_email' => $recipient_email,
+						'created_at'     => current_time( 'mysql' ),
 					)
 				);
 			}

@@ -56,7 +56,7 @@ class Cron {
 		if ( ! in_array( $products_type, array( 'featured', 'on_sale' ) ) || 0 === $max_products ) {
 			// save email log
 
-			$email_id = Helpers::modify_email_logs(
+			$email_id = Helpers::modify_email_queue(
 				true,
 				array(
 					'type'            => 'reminder',
@@ -68,6 +68,14 @@ class Cron {
 							'timestamp' => $time,
 							'hook'      => 'yay_reviews_reminder_email',
 							'order_id'  => $order_id,
+						)
+					),
+					'email_data'      => maybe_serialize(
+						array(
+							'send_after_value' => $reminder_settings['send_after_value'],
+							'send_after_unit'  => $reminder_settings['send_after_unit'],
+							'products_type'    => $reminder_settings['products_type'],
+							'max_products'     => $reminder_settings['max_products'],
 						)
 					),
 				)
@@ -107,7 +115,7 @@ class Cron {
 		}
 
 		// save email log
-		$email_id = Helpers::modify_email_logs(
+		$email_id = Helpers::modify_email_queue(
 			true,
 			array(
 				'type'            => 'reminder',
@@ -119,6 +127,14 @@ class Cron {
 						'timestamp' => $time,
 						'hook'      => 'yay_reviews_reminder_email',
 						'order_id'  => $order_id,
+					)
+				),
+				'email_data'      => maybe_serialize(
+					array(
+						'send_after_value' => $reminder_settings['send_after_value'],
+						'send_after_unit'  => $reminder_settings['send_after_unit'],
+						'products_type'    => $reminder_settings['products_type'],
+						'max_products'     => $reminder_settings['max_products'],
 					)
 				),
 			)
