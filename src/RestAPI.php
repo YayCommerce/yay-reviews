@@ -327,8 +327,10 @@ class RestAPI {
 				$scheduled_event = maybe_unserialize( $email['scheduled_event'] );
 				// display delivery time in human readable format
 				$emails[ $key ]['delivery_time'] = __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $scheduled_event['timestamp'], current_time( 'timestamp' ) );
-			} else {
+			} elseif ( '1' === $email['status'] ) {
 				$emails[ $key ]['delivery_time'] = $email['created_at'];
+			} else {
+				$emails[ $key ]['delivery_time'] = '';
 			}
 		}
 

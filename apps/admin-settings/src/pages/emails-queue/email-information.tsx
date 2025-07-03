@@ -2,6 +2,9 @@ import { useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { EmailQueue } from 'types/email-queue';
 
+import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+
 export default function EmailInformation({ email }: { email: EmailQueue | null }) {
   if (!email) {
     return null;
@@ -98,14 +101,21 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
           <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
           <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
           <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
-          <dd
-            className={`pl-2 text-sm font-semibold capitalize ${email.status === '1' ? 'text-green-600' : email.status === '0' ? 'text-yellow-600' : 'text-red-600'}`}
-          >
-            {email.status === '0'
-              ? __('Pending', 'yay-reviews')
-              : email.status === '1'
-                ? __('Sent', 'yay-reviews')
-                : __('Cancelled', 'yay-reviews')}
+          <dd className="pl-2 text-sm font-semibold capitalize">
+            <Badge
+              variant="default"
+              className={cn('transition-none', {
+                'bg-[#1668dc]': email.status === '0',
+                'bg-[#49aa19]': email.status === '1',
+                'bg-[#404040]': email.status === '2',
+              })}
+            >
+              {email.status === '0'
+                ? __('Pending', 'yay-reviews')
+                : email.status === '1'
+                  ? __('Sent', 'yay-reviews')
+                  : __('Cancelled', 'yay-reviews')}
+            </Badge>
           </dd>
         </dl>
       </div>
