@@ -158,7 +158,7 @@ class Frontend {
 					$coupon       = new \WC_Coupon( $coupon_id );
 					$expired      = Helpers::is_coupon_expired( $coupon );
 					$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
-					if ( ! $expired && ! $out_of_usage && Helpers::is_valid_coupon_for_product( $coupon, $product ) && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
+					if ( ! $expired && ! $out_of_usage && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
 						if ( ! class_exists( 'WC_Email' ) ) {
 							WC()->mailer();
 						}
