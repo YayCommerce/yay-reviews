@@ -49,3 +49,20 @@ export async function dismissEmail(emailId: string) {
     throw error;
   }
 }
+
+export async function getCurrentQueue(emailId: string) {
+  try {
+    return await window.jQuery.ajax({
+      type: 'POST',
+      url: window.yayReviews.ajax_url,
+      data: {
+        action: 'yay_reviews_get_current_queue',
+        nonce: window.yayReviews.nonce,
+        email_id: emailId,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

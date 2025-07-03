@@ -16,6 +16,7 @@ class Ajax {
 		add_action( 'wp_ajax_yay_reviews_change_addon_status', array( $this, 'change_addon_status' ) );
 		add_action( 'wp_ajax_yay_reviews_send_email', array( $this, 'send_email' ) );
 		add_action( 'wp_ajax_yay_reviews_dismiss_email', array( $this, 'dismiss_email' ) );
+		add_action( 'wp_ajax_yay_reviews_get_current_queue', array( $this, 'get_current_queue' ) );
 	}
 
 	public function change_addon_status() {
@@ -150,6 +151,30 @@ class Ajax {
 				);
 			}
 			wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
+		} catch ( \Exception $e ) {
+			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	public function get_current_queue() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+		try {
+			global $wpdb;
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			if ( ! empty( $email_id ) ) {
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
+				if ( ! empty( $email_queue ) ) {
+					wp_send_json_success(
+						array(
+							'status'        => $email_queue->status,
+							'delivery_time' => $email_queue->created_at,
+						)
+					);
+				}
+			}
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
