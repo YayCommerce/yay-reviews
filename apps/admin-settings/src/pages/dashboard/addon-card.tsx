@@ -14,7 +14,7 @@ import { Switch } from '@/components/ui/switch';
 import SettingIcon from '@/components/icons/Setting';
 
 export type Addon = {
-  id: 'reminder' | 'reward' | 'optional_fields' | 'overview';
+  id: 'reminder' | 'reward';
   title: string;
   description: string;
   icon: React.ReactNode;

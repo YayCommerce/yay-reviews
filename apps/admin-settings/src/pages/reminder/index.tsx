@@ -18,12 +18,26 @@ import { Textarea } from '@/components/ui/textarea';
 import PageTitle from '@/components/page-title';
 
 export default function ReminderPage() {
+  const { changeTab } = useAppContext();
+
   return (
     <PageLayout>
       <PageTitle title={__('Reminder settings', 'yay-reviews')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
-        <ReminderRecipients />
+        <div className="text-xs">
+        <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
+        {` `}
+        <span
+          className="text-foreground cursor-pointer lowercase underline decoration-solid"
+          onClick={(e) => {
+            e.preventDefault();
+            changeTab('emails');
+          }}
+        >
+          {__('email template', 'yay-reviews')}
+        </span>
+      </div>
       </div>
     </PageLayout>
   );
@@ -89,7 +103,7 @@ function ReminderInformation() {
         </div>
         <Card className="gap-0 space-y-6 p-6">
           <Label htmlFor="reminder.send_after_value" className="mb-2 w-fit">
-            {__('Send a reminder email', 'yay-reviews')}
+            {__('Send a reminder email to customers', 'yay-reviews')}
           </Label>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <div>
@@ -199,76 +213,5 @@ function ReminderInformation() {
         </Card>
       </div>
     </>
-  );
-}
-
-function ReminderRecipients() {
-  const { control } = useFormContext();
-  const { changeTab } = useAppContext();
-  return (
-    <div className="space-y-4">
-      <div className="text-foreground text-xl font-semibold">
-        {__('Who should receive the reminder?', 'yay-reviews')}
-      </div>
-      <Card className="gap-0 space-y-6 p-6">
-        <div className="space-y-2">
-          <Label htmlFor="reminder.send_to" className='w-fit'>{__('Send reminder to', 'yay-reviews')}</Label>
-          <FormField
-            control={control}
-            name="reminder.send_to"
-            render={({ field: { value, onChange } }) => (
-              <Select
-                defaultValue="registered_customers"
-                id="reminder.send_to"
-                value={value}
-                onValueChange={onChange}
-              >
-                <SelectTrigger className="w-full max-w-[500px]">
-                  <SelectValue placeholder={__('Select value', 'yay-reviews')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="registered_customers">
-                    {__('Registerd customers only', 'yay-reviews')}
-                  </SelectItem>
-                  <SelectItem value="all_customers">
-                    {__('All customers (including guest users)', 'yay-reviews')}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            )}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="reminder.except_emails" className='w-fit'>{__("Don't send to", 'yay-reviews')}</Label>
-          <FormField
-            control={control}
-            name="reminder.except_emails"
-            render={({ field: { value, onChange } }) => (
-              <Textarea
-                id="reminder.except_emails"
-                placeholder={__('Enter email addresses, one per line.', 'yay-reviews')}
-                rows={7}
-                className="max-w-[500px]"
-                value={value}
-                onChange={onChange}
-              />
-            )}
-          />
-        </div>
-      </Card>
-      <div className="text-xs">
-        <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
-        {` `}
-        <span
-          className="text-foreground cursor-pointer lowercase underline decoration-solid"
-          onClick={(e) => {
-            e.preventDefault();
-            changeTab('emails');
-          }}
-        >
-          {__('email template', 'yay-reviews')}
-        </span>
-      </div>
-    </div>
   );
 }

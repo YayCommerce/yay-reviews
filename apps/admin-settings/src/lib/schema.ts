@@ -3,8 +3,6 @@ import { z } from 'zod';
 const addonsSchema = z.object({
   reminder: z.boolean(),
   reward: z.boolean(),
-  optional_fields: z.boolean(),
-  overview: z.boolean(),
 });
 
 const reviewsSchema = z.object({
@@ -23,10 +21,8 @@ const reviewsSchema = z.object({
 const reminderSchema = z.object({
   send_after_value: z.number(),
   send_after_unit: z.string(),
-  except_emails: z.string(),
   max_products: z.number().or(z.string()),
   products_type: z.string(),
-  send_to: z.string(),
 });
 
 const rewardSchema = z.object({

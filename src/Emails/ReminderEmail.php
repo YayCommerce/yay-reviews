@@ -49,28 +49,6 @@ class ReminderEmail extends \WC_Email {
 
 		$recipient_email = $order->get_billing_email();
 
-		$settings          = Helpers::get_all_settings();
-		$reminder_settings = $settings['reminder'];
-
-		// Check if sending to guests is disabled
-		if ( ! isset( $reminder_settings['send_to'] ) || 'registered_customers' === $reminder_settings['send_to'] ) {
-			$customer_id = $order->get_customer_id();
-			if ( ! $customer_id ) {
-				return;
-			} else {
-				$recipient_email = get_user_meta( $customer_id, 'billing_email', true );
-			}
-		}
-
-		// Check excluded emails
-		$excluded_emails = isset( $reminder_settings['except_emails'] ) ? $reminder_settings['except_emails'] : '';
-		if ( ! empty( $excluded_emails ) ) {
-			$excluded_emails = array_map( 'trim', explode( "\n", $excluded_emails ) );
-			if ( in_array( $recipient_email, $excluded_emails ) ) {
-				return;
-			}
-		}
-
 		$this->object                           = $order;
 		$this->recipient                        = $recipient_email;
 		$this->placeholders['{order_date}']     = wc_format_datetime( $this->object->get_date_created() );

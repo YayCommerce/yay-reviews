@@ -43,15 +43,6 @@ const addonsInformation = [
   //   icon: <NoteIcon size={30} />,
   //   settingsPath: 'addons.optional_fields',
   // },
-  {
-    id: 'overview',
-    title: __('Reviews Overview', 'yay-reviews'),
-    description: __(
-      'Displays a summary of user ratings, helping customers make informed decisions.',
-      'yay-reviews',
-    ),
-    icon: <OverviewIcon size={30} />,
-  },
 ];
 
 export default function DashboardPage() {

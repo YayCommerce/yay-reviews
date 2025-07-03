@@ -48,10 +48,9 @@ class Helpers {
 			$settings,
 			array(
 				'addons'          => array(
-					'reminder'        => false,
+					'reminder'        => true,
 					'reward'          => false,
 					'optional_fields' => false,
-					'overview'        => false,
 				),
 				'reviews'         => array(
 					'upload_media'            => true,
@@ -66,12 +65,10 @@ class Helpers {
 					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value' => 5,
+					'send_after_value' => 10,
 					'send_after_unit'  => 'minutes',
-					'max_products'     => 3,
-					'products_type'    => 'normal',
-					'except_emails'    => '',
-					'send_to'          => 'registered_customers',
+					'max_products'     => '',
+					'products_type'    => 'all',
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),
@@ -483,11 +480,6 @@ class Helpers {
 	}
 
 	public static function get_overview_data() {
-		$all_settings = self::get_all_settings();
-		$addons       = $all_settings['addons'];
-		if ( ! $addons['overview'] ) {
-			return array();
-		}
 		global $post;
 		// check if post is a product
 		if ( ! $post || 'product' !== $post->post_type ) {
@@ -498,10 +490,6 @@ class Helpers {
 
 		$average_rating = get_post_meta( $product_id, '_wc_average_rating', true );
 		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
-
-		if ( 0 === $total_reviews ) {
-			return array();
-		}
 
 		global $wpdb;
 		$sql     = "SELECT * FROM {$wpdb->comments} WHERE comment_post_ID = %d AND comment_type = 'review' AND comment_approved = '1'";
