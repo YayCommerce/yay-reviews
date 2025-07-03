@@ -28,7 +28,7 @@ class Frontend {
 				'label'         => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
 				'description'   => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
 				'media_type'    => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
-				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
+				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
 				'max_file_size' => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
@@ -53,7 +53,8 @@ class Frontend {
 			if ( isset( $_FILES['yay_reviews_media'] ) ) {
 				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files = count( $files['name'] );
-				if ( $total_files > Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ) {
+				$max_upload_file_qty = Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' );
+				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
 				$max_upload_size = Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) * 1000;//converts to byte
@@ -223,14 +224,14 @@ class Frontend {
 			array(
 				'ajax_url'                       => admin_url( 'admin-ajax.php' ),
 				'nonce'                          => wp_create_nonce( 'yay-reviews-nonce' ),
-				'max_upload_qty'                 => intval( Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'max_upload_qty'                 => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
 				'max_upload_size'                => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
 				'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
 				'file_required_notice'           => $file_required_notice,
 				// translators: %1$s: file name, %2$s: max upload size
 				'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
 				// translators: %1$s: max upload quantity
-				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ) ),
 				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
 			)

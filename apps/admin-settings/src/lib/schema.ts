@@ -10,7 +10,7 @@ const reviewsSchema = z.object({
   upload_required: z.boolean(),
   media_type: z.string(),
   max_upload_file_size: z.number(),
-  max_upload_file_qty: z.number(),
+  max_upload_file_qty: z.number().or(z.string()),
   upload_file_label: z.string(),
   upload_file_description: z.string(),
   enable_gdpr: z.boolean(),

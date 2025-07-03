@@ -110,7 +110,7 @@ function UploadMediaCard() {
 
           <div className="space-y-2">
             <Label htmlFor="reviews.max_upload_file_qty">
-              {__('Maximum files', 'yay-reviews')}
+              {__('Maximum upload files', 'yay-reviews')}
             </Label>
             <FormField
               control={control}
@@ -120,21 +120,21 @@ function UploadMediaCard() {
                   id="reviews.max_upload_file_qty"
                   type="number"
                   value={value}
-                  onChange={(e) => onChange(Math.max(1, Number(e.target.value)))}
+                  onChange={(e) =>
+                    onChange(e.target.value == '' ? '' : Math.max(1, Number(e.target.value)))
+                  }
+                  placeholder={__('Unlimited', 'yay-reviews')}
                   className="w-full"
                   min={1}
-                  max={window.yayReviews.upload_max_qty}
+                  max={20}
                 />
               )}
             />
-            <div className="text-muted-foreground mt-2 text-sm">
-              {__('Maximum files customer can upload', 'yay-reviews')}
-            </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="reviews.max_upload_file_size">
-              {__('Maximum file size', 'yay-reviews')}
+              {__('Maximum file size (Kb)', 'yay-reviews')}
             </Label>
             <FormField
               control={control}

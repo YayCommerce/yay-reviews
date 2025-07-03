@@ -57,7 +57,7 @@ class Helpers {
 					'upload_required'         => false,
 					'media_type'              => 'video_image',
 					'max_upload_file_size'    => 2000, //kb
-					'max_upload_file_qty'     => 5,
+					'max_upload_file_qty'     => '',
 					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
 					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
 					'enable_gdpr'             => false,
