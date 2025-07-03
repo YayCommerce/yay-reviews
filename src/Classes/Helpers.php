@@ -65,8 +65,8 @@ class Helpers {
 					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value' => 10,
-					'send_after_unit'  => 'minutes',
+					'send_after_value' => 7,
+					'send_after_unit'  => 'days',
 					'max_products'     => '',
 					'products_type'    => 'all',
 				),
