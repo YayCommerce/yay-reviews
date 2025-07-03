@@ -72,7 +72,7 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
             e.preventDefault();
             changeTab(id);
           }}
-          style={settingsPath ? {} : { opacity: 0 }}
+          style={settingsPath && enabled ? {} : { opacity: 0, visibility: 'hidden' }}
         >
           <SettingIcon />
           {__('Settings', 'yay-reviews')}
