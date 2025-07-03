@@ -48,20 +48,18 @@ class RewardEmail extends \WC_Email {
 			// save customer meta for email sent
 			if ( ! empty( $comment->user_id ) ) {
 				$reward_data = array(
-					'received_time' => time(),
-					'reward_info'   => array(
-						'id'                 => $reward['id'],
-						'name'               => $reward['name'],
-						'coupon_id'          => $coupon->get_id(),
-						'coupon_code'        => $coupon->get_code(),
-						'coupon_amount'      => $coupon->get_amount(),
-						'coupon_type'        => $coupon->get_discount_type(),
-						'rating_requirement' => $reward['rating_requirement'],
-						'media_requirement'  => $reward['media_requirement'],
-						'frequency'          => $reward['frequency'],
-					),
+					'id'                 => $reward['id'],
+					'name'               => $reward['name'],
+					'coupon_id'          => $coupon->get_id(),
+					'coupon_code'        => $coupon->get_code(),
+					'coupon_amount'      => $coupon->get_amount(),
+					'coupon_type'        => $coupon->get_discount_type(),
+					'rating_requirement' => $reward['rating_requirement'],
+					'media_requirement'  => $reward['media_requirement'],
+					'frequency'          => $reward['frequency'],
 				);
-				update_user_meta( $comment->user_id, 'received_reward_data', $reward_data );
+				update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
+				update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
 			}
 		}
 
