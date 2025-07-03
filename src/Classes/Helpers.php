@@ -403,24 +403,42 @@ class Helpers {
 		}
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
-			$user_reviews_count = count(
-				get_comments(
-					array(
-						'user_id'      => $comment_user_id,
-						'comment_type' => 'review',
-						'status'       => 'approve',
-					)
-				)
+			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
+			$received_reward_data      = get_user_meta( $comment_user_id, 'received_reward_' . $reward['id'], true );
+
+			$args = array(
+				'user_id'      => $comment_user_id,
+				'comment_type' => 'review',
+				'status'       => 'approve',
 			);
 
-			// TODO: change logic
+			if ( 'every_2_reviews' === $frequency || 'every_3_reviews' === $frequency ) {
+				$args['date_query'] = array(
+					'after' => $last_received_reward_time,
+				);
+			}
+
+			$user_reviews_count = count( get_comments( $args ) );
+
 			if ( 'after_2_reviews' === $frequency ) {
-				if ( $user_reviews_count < 2 ) {
+				if ( $user_reviews_count < 2 || ! empty( $received_reward_data ) ) {
 					$valid = false;
 				}
 			}
 
 			if ( 'after_3_reviews' === $frequency ) {
+				if ( $user_reviews_count < 3 || ! empty( $received_reward_data ) ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'every_2_reviews' === $frequency ) {
+				if ( $user_reviews_count < 2 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'every_3_reviews' === $frequency ) {
 				if ( $user_reviews_count < 3 ) {
 					$valid = false;
 				}
