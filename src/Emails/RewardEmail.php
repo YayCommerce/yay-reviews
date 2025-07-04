@@ -44,22 +44,45 @@ class RewardEmail extends \WC_Email {
 		$this->placeholders['{product_name}']  = $product->get_name();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
-			$this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-			// save customer meta for email sent
-			if ( ! empty( $comment->user_id ) ) {
-				$reward_data = array(
-					'id'                 => $reward['id'],
-					'name'               => $reward['name'],
-					'coupon_id'          => $coupon->get_id(),
-					'coupon_code'        => $coupon->get_code(),
-					'coupon_amount'      => $coupon->get_amount(),
-					'coupon_type'        => $coupon->get_discount_type(),
-					'rating_requirement' => $reward['rating_requirement'],
-					'media_requirement'  => $reward['media_requirement'],
-					'frequency'          => $reward['frequency'],
+			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
+				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+				if ( $result && ! empty( $comment->user_id ) ) {
+					// save customer meta for email sent
+					$reward_data = array(
+						'id'                 => $reward['id'],
+						'name'               => $reward['name'],
+						'coupon_id'          => $coupon->get_id(),
+						'coupon_code'        => $coupon->get_code(),
+						'coupon_amount'      => $coupon->get_amount(),
+						'coupon_type'        => $coupon->get_discount_type(),
+						'rating_requirement' => $reward['rating_requirement'],
+						'media_requirement'  => $reward['media_requirement'],
+						'frequency'          => $reward['frequency'],
+					);
+					update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
+					update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
+				}
+				Helpers::modify_email_queue(
+					true,
+					array(
+						'type'           => 'reward',
+						'subject'        => $this->get_subject(),
+						'body'           => $this->get_content(),
+						'status'         => $result ? 1 : 2,
+						'customer_email' => $recipient_email,
+						'created_at'     => current_time( 'mysql' ),
+						'email_data'     => maybe_serialize(
+							array(
+								'reward_id'          => $reward['id'],
+								'coupon_code'        => $coupon->get_code(),
+								'product_name'       => $product->get_name(),
+								'rating_requirement' => $reward['rating_requirement'],
+								'media_requirement'  => $reward['media_requirement'],
+								'minimum_required_reviews_since_last_reward' => $reward['minimum_required_reviews_since_last_reward'],
+							)
+						),
+					)
 				);
-				update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
-				update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
 			}
 		}
 

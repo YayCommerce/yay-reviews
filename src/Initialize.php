@@ -20,5 +20,7 @@ class Initialize {
 		\YayReviews\Register\RegisterFacade::get_instance();
 		\YayReviews\RestAPI::get_instance();
 		\YayReviews\Ajax::get_instance();
+		// check queue table exists and create if not exists
+		ActDeact::activate();
 	}
 }

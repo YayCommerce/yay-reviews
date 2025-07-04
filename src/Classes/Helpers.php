@@ -548,4 +548,27 @@ class Helpers {
 
 		return $coupons;
 	}
+
+	public static function modify_email_queue( $is_insert = false, $data = array() ) {
+		global $wpdb;
+		if ( $is_insert ) {
+			$wpdb->insert(
+				$wpdb->prefix . 'yay_reviews_email_queue',
+				$data
+			);
+			if ( ! empty( $wpdb->insert_id ) ) {
+				return $wpdb->insert_id;
+			}
+		} else {
+			$id = $data['id'];
+			unset( $data['id'] );
+			$wpdb->update(
+				$wpdb->prefix . 'yay_reviews_email_queue',
+				$data,
+				array( 'id' => $id )
+			);
+			return $wpdb->last_error;
+		}
+		return false;
+	}
 }

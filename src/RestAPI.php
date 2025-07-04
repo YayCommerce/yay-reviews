@@ -85,6 +85,16 @@ class RestAPI {
 				'permission_callback' => array( $this, 'permission_callback' ),
 			)
 		);
+
+		register_rest_route(
+			YAY_REVIEWS_REST_URL,
+			'/emails-queue',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'get_emails_queue' ),
+				'permission_callback' => array( $this, 'permission_callback' ),
+			)
+		);
 	}
 
 	public function post_settings( $request ) {
@@ -285,6 +295,64 @@ class RestAPI {
 		} else {
 			return rest_ensure_response( array( 'message' => 'Email sending failed' ), 500 );
 		}
+	}
+
+	public function get_emails_queue( \WP_REST_Request $request ) {
+		global $wpdb;
+
+		// Get pagination parameters
+		$page     = absint( $request->get_param( 'page' ) ) ?: 1;
+		$per_page = absint( $request->get_param( 'per_page' ) ) ?: 10;
+
+		// Calculate offset
+		$offset = ( $page - 1 ) * $per_page;
+
+		// Get total count
+		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_queue" );
+
+		// Get paginated results
+		$emails = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
+				$per_page,
+				$offset
+			),
+			ARRAY_A
+		);
+
+		foreach ( $emails as $key => $email ) {
+			// if status is 0, set delivery_time to current time
+			$emails[ $key ]['email_data'] = maybe_unserialize( $email['email_data'] );
+			if ( '0' === $email['status'] ) {
+				$scheduled_event = maybe_unserialize( $email['scheduled_event'] );
+				// display delivery time in human readable format
+				$emails[ $key ]['delivery_time']   = __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $scheduled_event['timestamp'], current_time( 'timestamp' ) );
+				$emails[ $key ]['scheduled_event'] = $scheduled_event;
+			} elseif ( '1' === $email['status'] ) {
+				$emails[ $key ]['delivery_time'] = $email['created_at'];
+				unset( $emails[ $key ]['scheduled_event'] );
+			} else {
+				$emails[ $key ]['delivery_time'] = '';
+				unset( $emails[ $key ]['scheduled_event'] );
+			}
+		}
+
+		// Calculate pagination info
+		$total_pages = ceil( $total_count / $per_page );
+
+		return rest_ensure_response(
+			array(
+				'emails'     => $emails,
+				'pagination' => array(
+					'current_page'  => $page,
+					'per_page'      => $per_page,
+					'total_items'   => (int) $total_count,
+					'total_pages'   => $total_pages,
+					'has_next_page' => $page < $total_pages,
+					'has_prev_page' => $page > 1,
+				),
+			)
+		);
 	}
 
 	public function permission_callback() {

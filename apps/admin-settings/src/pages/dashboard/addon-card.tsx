@@ -68,6 +68,7 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
         <Button
           variant="outline"
           size="sm"
+          disabled={!enabled && id !== 'overview'}
           onClick={(e) => {
             e.preventDefault();
             changeTab(id);

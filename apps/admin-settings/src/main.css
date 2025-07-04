@@ -204,12 +204,25 @@
   border-bottom: none;
 }
 
-.yay-reviews-coupon-form h2[data-slot='drawer-title'] {
+.yay-reviews-coupon-form h2[data-slot='drawer-title'],
+.yay-reviews-view-email-drawer h2[data-slot='drawer-title'] {
   margin: 0;
+}
+
+.yay-reviews-view-email-drawer {
+  max-width: 30%;
 }
 
 .yay-reviews-editor iframe {
   min-height: 150px !important;
+}
+
+.yay-reviews-pagination-table a {
+  color: var(--foreground);
+}
+
+.yay-reviews-pagination-table a:focus {
+  box-shadow: none;
 }
 
 @media screen and (max-width: 782px) {
@@ -254,5 +267,9 @@
 
   .yay-reviews-email-preview-mobile {
     transform: scale(0.8);
+  }
+
+  .yay-reviews-view-email-drawer {
+    max-width: 70%;
   }
 }

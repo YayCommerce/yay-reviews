@@ -11,6 +11,7 @@ import useWindow from '@/hooks/use-window';
 import { Button } from '@/components/ui/button';
 
 import EmailIcon from './icons/Email';
+import EmailQueueIcon from './icons/EmailQueue';
 import GiftIcon from './icons/Gift';
 import HomeIcon from './icons/Home';
 import ReminderIcon from './icons/Reminder';
@@ -61,11 +62,18 @@ export default function Nav() {
     }
 
     if (reminderEnabled || rewardEnabled) {
-      result.push({
-        label: __('Emails', 'yay-reviews'),
-        icon: <EmailIcon strokeWidth={2} />,
-        key: 'emails',
-      });
+      result.push(
+        {
+          label: __('Emails', 'yay-reviews'),
+          icon: <EmailIcon strokeWidth={2} />,
+          key: 'emails',
+        },
+        {
+          label: __('Emails Queue', 'yay-reviews'),
+          icon: <EmailQueueIcon strokeWidth={2} />,
+          key: 'emails-queue',
+        },
+      );
     }
 
     return result;
@@ -118,7 +126,7 @@ export default function Nav() {
                   key={item.key}
                   variant="link"
                   className={cn(
-                    'flex h-[56px] text-sm! items-center gap-2 rounded-none border-b-2 border-transparent p-1 text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
+                    'flex h-[56px] items-center gap-2 rounded-none border-b-2 border-transparent p-1 text-sm! text-gray-700 hover:text-[#2271B1] hover:no-underline focus:outline-none',
                     activeTab === item.key && 'border-[#2271B1] text-[#2271B1]',
                   )}
                   onClick={(e) => {
@@ -147,7 +155,7 @@ export default function Nav() {
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" className='p-0 px-2'>
+                <Button variant="ghost" className="p-0 px-2">
                   <Menu className="h-5! w-5!" />
                 </Button>
               </SheetTrigger>

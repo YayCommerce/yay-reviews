@@ -49,7 +49,8 @@ class Frontend {
 		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
-		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
+		$all_settings = Helpers::get_all_settings();
+		if ( $all_settings['reviews']['upload_media'] ) {
 			if ( isset( $_FILES['yay_reviews_media'] ) ) {
 				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files = count( $files['name'] );
@@ -57,7 +58,7 @@ class Frontend {
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
-				$max_upload_size = Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) * 1000;//converts to byte
+				$max_upload_size = $all_settings['reviews']['max_upload_file_size'] * 1000;//converts to byte
 
 				include_once ABSPATH . 'wp-admin/includes/image.php';
 				include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -111,8 +112,8 @@ class Frontend {
 			add_comment_meta( $comment_id, 'yay_reviews_attributes', $attributes_values );
 		}
 		// Check and send reward email
-		$reward_addon = Helpers::get_settings( 'addons', 'reward' );
-		$rewards      = Helpers::get_settings( 'rewards' );
+		$reward_addon = $all_settings['addons']['reward'];
+		$rewards      = $all_settings['rewards'];
 		$comment      = get_comment( $comment_id );
 		if ( ! $comment ) {
 			return;
@@ -203,7 +204,8 @@ class Frontend {
 			return;
 		}
 
-		$media_type           = Helpers::get_settings( 'reviews', 'media_type', 'video_image' );
+		$all_settings         = Helpers::get_all_settings();
+		$media_type           = $all_settings['reviews']['media_type'];
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
 			__( 'Please upload at least 1 %s.', 'yay-reviews' ),

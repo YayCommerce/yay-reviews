@@ -11,12 +11,14 @@ class Cron {
 	use SingletonTrait;
 
 	public function __construct() {
-		add_action( 'yay_reviews_reminder_email', array( $this, 'send_reminder_email' ), 10, 1 );
+		add_action( 'yay_reviews_reminder_email', array( $this, 'send_reminder_email' ), 10, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_reminder_email' ), 10, 1 );
 	}
 
 	public function schedule_reminder_email( $order_id ) {
-		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		$order = wc_get_order( $order_id );
+
+		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) || ! $order ) {
 			return;
 		}
 
@@ -49,9 +51,38 @@ class Cron {
 		$products_type = isset( $reminder_settings['products_type'] ) ? $reminder_settings['products_type'] : 'featured';
 		$max_products  = isset( $reminder_settings['max_products'] ) ? $reminder_settings['max_products'] : 3;
 
+		$email_id = 0;
 		// Check if products type different from featured or on sale or max products is 0. If so, schedule reminder email.
 		if ( ! in_array( $products_type, array( 'featured', 'on_sale' ) ) || 0 === $max_products ) {
-			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id ) );
+			// save email log
+
+			$email_id = Helpers::modify_email_queue(
+				true,
+				array(
+					'type'            => 'reminder',
+					'status'          => 0,
+					'customer_email'  => $order->get_billing_email(),
+					'created_at'      => current_time( 'mysql' ),
+					'scheduled_event' => maybe_serialize(
+						array(
+							'timestamp' => $time,
+							'hook'      => 'yay_reviews_reminder_email',
+							'order_id'  => $order_id,
+						)
+					),
+					'email_data'      => maybe_serialize(
+						array(
+							'send_after_value' => $reminder_settings['send_after_value'],
+							'send_after_unit'  => $reminder_settings['send_after_unit'],
+							'products_type'    => $reminder_settings['products_type'],
+							'max_products'     => $reminder_settings['max_products'],
+						)
+					),
+				)
+			);
+			if ( $email_id ) {
+				wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+			}
 			return;
 		}
 
@@ -83,13 +114,40 @@ class Cron {
 			return;
 		}
 
-		// Schedule reminder email
-		wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id ) );
+		// save email log
+		$email_id = Helpers::modify_email_queue(
+			true,
+			array(
+				'type'            => 'reminder',
+				'status'          => 0,
+				'customer_email'  => $order->get_billing_email(),
+				'created_at'      => current_time( 'mysql' ),
+				'scheduled_event' => maybe_serialize(
+					array(
+						'timestamp' => $time,
+						'hook'      => 'yay_reviews_reminder_email',
+						'order_id'  => $order_id,
+					)
+				),
+				'email_data'      => maybe_serialize(
+					array(
+						'send_after_value' => $reminder_settings['send_after_value'],
+						'send_after_unit'  => $reminder_settings['send_after_unit'],
+						'products_type'    => $reminder_settings['products_type'],
+						'max_products'     => $reminder_settings['max_products'],
+					)
+				),
+			)
+		);
+
+		if ( $email_id ) {
+			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+		}
 	}
 
-	public function send_reminder_email( $order_id ) {
+	public function send_reminder_email( $order_id, $email_id ) {
 
-		if ( ! $order_id ) {
+		if ( ! $order_id || ! $email_id ) {
 			return;
 		}
 
@@ -109,6 +167,6 @@ class Cron {
 		}
 
 		// Trigger reminder email notification
-		do_action( 'yay_reviews_reminder_email_notification', $order_id, $order );
+		do_action( 'yay_reviews_reminder_email_notification', $order_id, $order, $email_id );
 	}
 }
