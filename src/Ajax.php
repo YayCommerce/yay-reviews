@@ -167,12 +167,41 @@ class Ajax {
 			if ( ! empty( $email_id ) ) {
 				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
 				if ( ! empty( $email_queue ) ) {
-					wp_send_json_success(
-						array(
-							'status'        => $email_queue->status,
-							'delivery_time' => $email_queue->created_at,
-						)
-					);
+					if ( '0' === $email_queue->status ) {
+						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
+						if ( ! empty( $scheduled_event ) && isset( $scheduled_event['timestamp'] ) && isset( $scheduled_event['order_id'] ) ) {
+							// Ensure timestamp is valid
+							$timestamp    = intval( $scheduled_event['timestamp'] );
+							$order_id     = intval( $scheduled_event['order_id'] );
+							$email_id_int = intval( $email_id );
+
+							do_action( 'yay_reviews_reminder_email', $order_id, $email_id_int );
+
+							if ( $timestamp > 0 ) {
+								// Try to unschedule the event with proper error handling
+								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ) );
+								if ( is_wp_error( $unscheduled ) ) {
+									// Log the error but don't fail the entire operation
+									error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() );
+								}
+							}
+							wp_send_json_success(
+								array(
+									'status'        => $email_queue->status,
+									'delivery_time' => $email_queue->created_at,
+								)
+							);
+						}
+					} else {
+						wp_send_json_success(
+							array(
+								'status'        => $email_queue->status,
+								'delivery_time' => $email_queue->created_at,
+							)
+						);
+					}
+				} else {
+					wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
 				}
 			}
 		} catch ( \Exception $e ) {
