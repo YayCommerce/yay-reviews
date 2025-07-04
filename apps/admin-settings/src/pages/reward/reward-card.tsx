@@ -30,7 +30,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import DuplicateIcon from '@/components/icons/Duplicate';
 import TrashIcon from '@/components/icons/Trash';
 
-import { DEFAULT_REWARD } from '.';
+import { DEFAULT_REWARD } from './add-reward-button';
 import { NewCouponDrawer } from './new-coupon-drawer';
 
 const frequencyOptions = [

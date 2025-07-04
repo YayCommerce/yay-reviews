@@ -1,51 +1,27 @@
 import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
-import RewardsProvider, { useRewards } from '@/providers/rewards-provider';
+import RewardsProvider from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { InfoIcon } from 'lucide-react';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Reward } from '@/lib/schema';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useFormContext } from '@/components/ui/form';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import InboxIcon from '@/components/icons/Inbox';
 import PageTitle from '@/components/page-title';
 
+import AddRewardButton from './add-reward-button';
 import RewardCard from './reward-card';
 
-export const DEFAULT_REWARD = {
-  id: uuidv4(),
-  name: __('Reward for reviewing the product', 'yay-reviews'),
-  enabled: true,
-  coupon_id: '',
-  send_to: 'all_reviewers',
-  rating_requirement: 'any',
-  media_requirement: 'none',
-  frequency: 'every_review',
-  is_open: true,
-};
-
 export default function RewardPage() {
-  const { watch, setValue } = useFormContext();
-  const { coupons } = useRewards();
+  const { watch } = useFormContext();
 
   const rewards = watch('rewards') as Reward[];
 
   const isEmpty = useMemo(() => {
     return Object.values(rewards).length === 0;
   }, [rewards]);
-
-  const handleCreateNewReward = () => {
-    const newId = uuidv4();
-    const newReward = {
-      ...DEFAULT_REWARD,
-      id: newId,
-      coupon_id: coupons.length > 0 ? coupons[0].id : '',
-    };
-    setValue('rewards', { ...rewards, [newId]: newReward }, { shouldDirty: true });
-  };
 
   return (
     <RewardsProvider>
@@ -69,15 +45,7 @@ export default function RewardPage() {
                     <br />
                     {__('encouraging great feedback and repeat purchases.', 'yay-reviews')}
                   </div>
-                  <Button
-                    className="w-fit gap-2"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleCreateNewReward();
-                    }}
-                  >
-                    {__('Create new', 'yay-reviews')}
-                  </Button>
+                  <AddRewardButton text={__('Create new', 'yay-reviews')} isEmpty={isEmpty} />
                 </div>
               </CardContent>
             </Card>
@@ -104,16 +72,7 @@ export default function RewardPage() {
                     </TooltipProvider>
                   </div>
                 </div>
-                <Button
-                  variant="outline"
-                  className=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleCreateNewReward();
-                  }}
-                >
-                  {__('Add reward set', 'yay-reviews')}
-                </Button>
+                <AddRewardButton text={__('Add reward set', 'yay-reviews')} />
               </div>
               {Object.values(rewards).map((reward: Reward) => (
                 <RewardCard key={reward.id + reward.coupon_id} reward={reward} />
