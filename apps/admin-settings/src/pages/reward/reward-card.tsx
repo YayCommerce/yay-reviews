@@ -114,13 +114,13 @@ export default function RewardCard({ reward }: { reward: Reward }) {
   const handleDuplicate = (reward: Reward) => {
     const newId = uuidv4();
     const duplicateReward = { ...reward, id: newId, is_open: true };
-    setValue('rewards', { ...rewards, [newId]: duplicateReward });
+    setValue('rewards', { ...rewards, [newId]: duplicateReward }, { shouldDirty: true });
   };
 
   const handleDelete = (reward: Reward) => {
     const updatedRewards = { ...rewards };
     delete updatedRewards[reward.id as keyof typeof updatedRewards];
-    setValue('rewards', updatedRewards);
+    setValue('rewards', updatedRewards, { shouldDirty: true });
   };
 
   const selectedCouponStatus = useMemo(() => {

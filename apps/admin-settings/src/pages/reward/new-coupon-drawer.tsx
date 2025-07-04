@@ -32,7 +32,7 @@ export const NewCouponDrawer = ({
       coupon_id: couponId,
     };
 
-    setValue(`rewards.${rewardId}`, updatedReward);
+    setValue(`rewards.${rewardId}`, updatedReward, { shouldDirty: true });
   };
 
   return (

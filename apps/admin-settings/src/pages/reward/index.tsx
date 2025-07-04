@@ -1,18 +1,18 @@
+import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
 import RewardsProvider from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { InfoIcon } from 'lucide-react';
-import { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import InboxIcon from '@/components/icons/Inbox';
-import PageTitle from '@/components/page-title';
+import { Reward } from '@/lib/schema';
+import useRewardsContext from '@/hooks/use-rewards-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useFormContext } from '@/components/ui/form';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import useRewardsContext from '@/hooks/use-rewards-context';
-import { Reward } from '@/lib/schema';
+import InboxIcon from '@/components/icons/Inbox';
+import PageTitle from '@/components/page-title';
 
 import RewardCard from './reward-card';
 
@@ -45,7 +45,7 @@ export default function RewardPage() {
       id: newId,
       coupon_id: coupons.length > 0 ? coupons[0].id : '',
     };
-    setValue('rewards', { ...rewards, [newId]: newReward });
+    setValue('rewards', { ...rewards, [newId]: newReward }, { shouldDirty: true });
   };
 
   return (
