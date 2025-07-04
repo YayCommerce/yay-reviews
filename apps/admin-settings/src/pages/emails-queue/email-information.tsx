@@ -90,43 +90,32 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
 
   return (
     <div className="space-y-6 px-4 pt-6">
-      {/* Section: General Info */}
-      <div className="rounded-lg border bg-white p-4 shadow-sm">
-        <h3 className="m-0! mb-4 border-b pb-2 text-lg font-bold">
-          {__('General', 'yay-reviews')}
-        </h3>
-        <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
-          <dt className="text-sm font-semibold">{__('Type', 'yay-reviews')}:</dt>
-          <dd className="pl-2 text-sm capitalize">{email.type}</dd>
-          <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
-          <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
-          <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
-          <dd className="pl-2 text-sm font-semibold capitalize">
-            <Badge
-              variant="default"
-              className={cn('transition-none', {
-                'bg-[#1668dc]': email.status === '0',
-                'bg-[#49aa19]': email.status === '1',
-                'bg-[#404040]': email.status === '2',
-              })}
-            >
-              {email.status === '0'
-                ? __('Pending', 'yay-reviews')
-                : email.status === '1'
-                  ? __('Sent', 'yay-reviews')
-                  : __('Cancelled', 'yay-reviews')}
-            </Badge>
-          </dd>
-        </dl>
-      </div>
+      <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+        <dt className="text-sm font-semibold">{__('Type', 'yay-reviews')}:</dt>
+        <dd className="pl-2 text-sm capitalize">{email.type}</dd>
+        <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
+        <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
+        <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
+        <dd className="pl-2 text-sm font-semibold capitalize">
+          <Badge
+            variant="default"
+            className={cn('transition-none', {
+              'bg-[#1668dc]': email.status === '0',
+              'bg-[#49aa19]': email.status === '1',
+              'bg-[#404040]': email.status === '2',
+            })}
+          >
+            {email.status === '0'
+              ? __('Pending', 'yay-reviews')
+              : email.status === '1'
+                ? __('Sent', 'yay-reviews')
+                : __('Cancelled', 'yay-reviews')}
+          </Badge>
+        </dd>
 
-      {/* Section: Reward Details */}
-      {email.type === 'reward' && (
-        <div className="rounded-lg border bg-white p-4 shadow-sm">
-          <h3 className="m-0! border-b pb-2 text-lg font-bold">
-            {__('Reward Details', 'yay-reviews')}
-          </h3>
-          <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+        {/* Section: Reward Details */}
+        {email.type === 'reward' && (
+          <>
             <dt className="text-sm font-semibold">{__('Coupon', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">{email.email_data?.coupon_code}</dd>
             <dt className="text-sm font-semibold">{__('Product', 'yay-reviews')}:</dt>
@@ -137,30 +126,24 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
             <dd className="pl-2 text-sm">{mediaRequirement}</dd>
             <dt className="text-sm font-semibold">{__('Reward trigger', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
-          </dl>
-        </div>
-      )}
-
-      {/* Section: Reminder Details */}
-      {email.type === 'reminder' && (
-        <div className="rounded-lg border bg-white p-4 shadow-sm">
-          <h3 className="m-0! mb-4 border-b pb-2 text-lg font-bold">
-            {__('Reminder Details', 'yay-reviews')}
-          </h3>
-          <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
+          </>
+        )}
+        {/* Section: Reminder Details */}
+        {email.type === 'reminder' && (
+          <>
             <dt className="text-sm font-semibold">{__('Sent after', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">
               {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
             </dd>
             <dt className="text-sm font-semibold">
-              {__('Remind customers to review', 'yay-reviews')}:
+              {__('Remind products', 'yay-reviews')}:
             </dt>
             <dd className="pl-2 text-sm">
               {email.email_data?.max_products} {productType}
             </dd>
-          </dl>
-        </div>
-      )}
+          </>
+        )}
+      </dl>
     </div>
   );
 }

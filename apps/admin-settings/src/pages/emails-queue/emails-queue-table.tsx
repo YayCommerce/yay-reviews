@@ -367,70 +367,37 @@ export default function EmailsQueueTable({
                         </TableCell>
                       </TableRow>
                     ) : (
-                      emails.map((email) => (
-                        <TableRow key={email.id}>
-                          <TableCell className="capitalize">{email.type}</TableCell>
-                          <TableCell>
-                            {email.status === '0' ? (
-                              <Clock className="h-4 w-4 text-[#1668dc]" />
-                            ) : email.status === '1' ? (
-                              <CircleCheckBig className="h-4 w-4 text-[#49aa19]" />
-                            ) : (
-                              <MailX className="h-4 w-4 text-[#404040]" />
-                            )}
-                          </TableCell>
-                          <TableCell>{email.customer_email}</TableCell>
-                          <TableCell>{email.delivery_time}</TableCell>
-                          <TableCell>
-                            <div className="flex gap-2">
-                              <DrawerTrigger asChild>
-                                <TooltipProvider>
-                                  <Tooltip>
-                                    <TooltipTrigger>
-                                      <Button
-                                        variant="outline"
-                                        size="icon"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          setCurrentEmail(email);
-                                          setIsModalOpen(true);
-                                        }}
-                                      >
-                                        <EyeIcon />
-                                      </Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent>{__('View', 'yay-reviews')}</TooltipContent>
-                                  </Tooltip>
-                                </TooltipProvider>
-                              </DrawerTrigger>
-                              <TooltipProvider>
+                      emails.map((email) => {
+                        let status = __('Cancelled', 'yay-reviews');
+                        if (email.status === '0') {
+                          status = __('Pending', 'yay-reviews');
+                        } else if (email.status === '1') {
+                          status = __('Sent', 'yay-reviews');
+                        }
+                        return (
+                          <TableRow key={email.id}>
+                            <TableCell className="capitalize">{email.type}</TableCell>
+                            <TableCell>
+                              <TooltipProvider delayDuration={100}>
                                 <Tooltip>
-                                  <TooltipTrigger>
-                                    <Button
-                                      variant="outline"
-                                      size="icon"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        handleSendEmail(email);
-                                      }}
-                                    >
-                                      {sendingEmailId === email.id ? (
-                                        <Loader2Icon className="h-4 w-4 animate-spin" />
-                                      ) : (
-                                        <SendIcon />
-                                      )}
-                                    </Button>
+                                  <TooltipTrigger asChild className='ml-3'>
+                                    {email.status === '0' ? (
+                                      <Clock className="h-4 w-4 text-[#1668dc]" />
+                                    ) : email.status === '1' ? (
+                                      <CircleCheckBig className="h-4 w-4 text-[#49aa19]" />
+                                    ) : (
+                                      <MailX className="h-4 w-4 text-[#404040]" />
+                                    )}
                                   </TooltipTrigger>
-                                  <TooltipContent>
-                                    {email.status === '0'
-                                      ? __('Send', 'yay-reviews')
-                                      : __('Re-send', 'yay-reviews')}
-                                  </TooltipContent>
+                                  <TooltipContent>{status}</TooltipContent>
                                 </Tooltip>
                               </TooltipProvider>
-
-                              {email.status === '0' && (
-                                <DialogTrigger asChild>
+                            </TableCell>
+                            <TableCell>{email.customer_email}</TableCell>
+                            <TableCell>{email.delivery_time}</TableCell>
+                            <TableCell>
+                              <div className="flex gap-2">
+                                <DrawerTrigger asChild>
                                   <TooltipProvider>
                                     <Tooltip>
                                       <TooltipTrigger>
@@ -440,23 +407,71 @@ export default function EmailsQueueTable({
                                           onClick={(e) => {
                                             e.preventDefault();
                                             setCurrentEmail(email);
-                                            setIsDismissDialogOpen(true);
+                                            setIsModalOpen(true);
                                           }}
                                         >
-                                          <XIcon />
+                                          <EyeIcon />
                                         </Button>
                                       </TooltipTrigger>
-                                      <TooltipContent>
-                                        {__('Dismiss', 'yay-reviews')}
-                                      </TooltipContent>
+                                      <TooltipContent>{__('View', 'yay-reviews')}</TooltipContent>
                                     </Tooltip>
                                   </TooltipProvider>
-                                </DialogTrigger>
-                              )}
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))
+                                </DrawerTrigger>
+                                <TooltipProvider>
+                                  <Tooltip>
+                                    <TooltipTrigger>
+                                      <Button
+                                        variant="outline"
+                                        size="icon"
+                                        onClick={(e) => {
+                                          e.preventDefault();
+                                          handleSendEmail(email);
+                                        }}
+                                      >
+                                        {sendingEmailId === email.id ? (
+                                          <Loader2Icon className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                          <SendIcon />
+                                        )}
+                                      </Button>
+                                    </TooltipTrigger>
+                                    <TooltipContent>
+                                      {email.status === '0'
+                                        ? __('Send', 'yay-reviews')
+                                        : __('Re-send', 'yay-reviews')}
+                                    </TooltipContent>
+                                  </Tooltip>
+                                </TooltipProvider>
+
+                                {email.status === '0' && (
+                                  <DialogTrigger asChild>
+                                    <TooltipProvider>
+                                      <Tooltip>
+                                        <TooltipTrigger>
+                                          <Button
+                                            variant="outline"
+                                            size="icon"
+                                            onClick={(e) => {
+                                              e.preventDefault();
+                                              setCurrentEmail(email);
+                                              setIsDismissDialogOpen(true);
+                                            }}
+                                          >
+                                            <XIcon />
+                                          </Button>
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          {__('Dismiss', 'yay-reviews')}
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    </TooltipProvider>
+                                  </DialogTrigger>
+                                )}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })
                     )}
                     <DialogContent
                       className="max-w-md data-[vaul-drawer-direction=right]:sm:max-w-md"
