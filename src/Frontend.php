@@ -28,7 +28,7 @@ class Frontend {
 				'label'         => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
 				'description'   => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
 				'media_type'    => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
-				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ),
+				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
 				'max_file_size' => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
@@ -54,7 +54,8 @@ class Frontend {
 			if ( isset( $_FILES['yay_reviews_media'] ) ) {
 				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files = count( $files['name'] );
-				if ( $total_files > $all_settings['reviews']['max_upload_file_qty'] ) {
+				$max_upload_file_qty = Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' );
+				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
 				$max_upload_size = $all_settings['reviews']['max_upload_file_size'] * 1000;//converts to byte
@@ -159,11 +160,7 @@ class Frontend {
 					$coupon       = new \WC_Coupon( $coupon_id );
 					$expired      = Helpers::is_coupon_expired( $coupon );
 					$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
-					if ( ! $expired && ! $out_of_usage && Helpers::is_valid_coupon_for_product( $coupon, $product ) && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
-						$reward_sent = get_comment_meta( $comment_id, 'yay_reviews_reward_sent_' . $reward['id'], true );
-						if ( $reward_sent ) {
-							continue;
-						}
+					if ( ! $expired && ! $out_of_usage && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
 						if ( ! class_exists( 'WC_Email' ) ) {
 							WC()->mailer();
 						}
@@ -229,14 +226,14 @@ class Frontend {
 			array(
 				'ajax_url'                       => admin_url( 'admin-ajax.php' ),
 				'nonce'                          => wp_create_nonce( 'yay-reviews-nonce' ),
-				'max_upload_qty'                 => intval( $all_settings['reviews']['max_upload_file_qty'] ),
-				'max_upload_size'                => intval( $all_settings['reviews']['max_upload_file_size'] ),
+				'max_upload_qty'                 => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
+				'max_upload_size'                => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
 				'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
 				'file_required_notice'           => $file_required_notice,
 				// translators: %1$s: file name, %2$s: max upload size
 				'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
 				// translators: %1$s: max upload quantity
-				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', Helpers::upload_max_qty() ) ),
+				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ) ),
 				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
 			)
@@ -248,12 +245,6 @@ class Frontend {
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {
 		if ( ! is_product() ) {
-			return $clauses;
-		}
-
-		$addons = Helpers::get_settings( 'addons' );
-		// check if overview addon is enabled
-		if ( ! isset( $addons['overview'] ) || ! $addons['overview'] ) {
 			return $clauses;
 		}
 

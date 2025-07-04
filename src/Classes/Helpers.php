@@ -48,17 +48,16 @@ class Helpers {
 			$settings,
 			array(
 				'addons'          => array(
-					'reminder'        => false,
+					'reminder'        => true,
 					'reward'          => false,
 					'optional_fields' => false,
-					'overview'        => false,
 				),
 				'reviews'         => array(
 					'upload_media'            => true,
 					'upload_required'         => false,
 					'media_type'              => 'video_image',
 					'max_upload_file_size'    => 2000, //kb
-					'max_upload_file_qty'     => 5,
+					'max_upload_file_qty'     => '',
 					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
 					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
 					'enable_gdpr'             => false,
@@ -66,12 +65,10 @@ class Helpers {
 					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value' => 5,
-					'send_after_unit'  => 'minutes',
-					'max_products'     => 3,
-					'products_type'    => 'normal',
-					'except_emails'    => '',
-					'send_to'          => 'registered_customers',
+					'send_after_value' => 7,
+					'send_after_unit'  => 'days',
+					'max_products'     => '',
+					'products_type'    => 'all',
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),
@@ -403,24 +400,42 @@ class Helpers {
 		}
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
-			$user_reviews_count = count(
-				get_comments(
-					array(
-						'user_id'      => $comment_user_id,
-						'comment_type' => 'review',
-						'status'       => 'approve',
-					)
-				)
+			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
+			$received_reward_data      = get_user_meta( $comment_user_id, 'received_reward_' . $reward['id'], true );
+
+			$args = array(
+				'user_id'      => $comment_user_id,
+				'comment_type' => 'review',
+				'status'       => 'approve',
 			);
 
-			// TODO: change logic
+			if ( 'every_2_reviews' === $frequency || 'every_3_reviews' === $frequency ) {
+				$args['date_query'] = array(
+					'after' => $last_received_reward_time,
+				);
+			}
+
+			$user_reviews_count = count( get_comments( $args ) );
+
 			if ( 'after_2_reviews' === $frequency ) {
-				if ( $user_reviews_count < 2 ) {
+				if ( $user_reviews_count < 2 || ! empty( $received_reward_data ) ) {
 					$valid = false;
 				}
 			}
 
 			if ( 'after_3_reviews' === $frequency ) {
+				if ( $user_reviews_count < 3 || ! empty( $received_reward_data ) ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'every_2_reviews' === $frequency ) {
+				if ( $user_reviews_count < 2 ) {
+					$valid = false;
+				}
+			}
+
+			if ( 'every_3_reviews' === $frequency ) {
 				if ( $user_reviews_count < 3 ) {
 					$valid = false;
 				}
@@ -465,11 +480,6 @@ class Helpers {
 	}
 
 	public static function get_overview_data() {
-		$all_settings = self::get_all_settings();
-		$addons       = $all_settings['addons'];
-		if ( ! $addons['overview'] ) {
-			return array();
-		}
 		global $post;
 		// check if post is a product
 		if ( ! $post || 'product' !== $post->post_type ) {
@@ -480,10 +490,6 @@ class Helpers {
 
 		$average_rating = get_post_meta( $product_id, '_wc_average_rating', true );
 		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
-
-		if ( 0 === $total_reviews ) {
-			return array();
-		}
 
 		global $wpdb;
 		$sql     = "SELECT * FROM {$wpdb->comments} WHERE comment_post_ID = %d AND comment_type = 'review' AND comment_approved = '1'";
@@ -532,6 +538,8 @@ class Helpers {
 						'expired'      => self::is_coupon_expired( $coupon ),
 						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
 						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
+						'amount'       => $coupon->get_amount(),
+						'type'         => $coupon->get_discount_type(),
 					);
 				}
 			}

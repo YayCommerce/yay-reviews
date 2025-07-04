@@ -6,7 +6,6 @@ import { SettingsFormData } from '@/lib/schema';
 import useAppContext from '@/hooks/use-app-context';
 import { useFormContext } from '@/components/ui/form';
 import GiftIcon from '@/components/icons/Gift';
-import OverviewIcon from '@/components/icons/Overview';
 import ReminderIcon from '@/components/icons/Reminder';
 import PageTitle from '@/components/page-title';
 
@@ -15,7 +14,7 @@ import AddonCard, { Addon } from './addon-card';
 const addonsInformation = [
   {
     id: 'reminder',
-    title: __('Reminder', 'yay-reviews'),
+    title: __('Review reminder', 'yay-reviews'),
     description: __(
       'Sends reminders to customers after buying, encouraging reviews and increasing engagement.',
       'yay-reviews',
@@ -25,7 +24,7 @@ const addonsInformation = [
   },
   {
     id: 'reward',
-    title: __('Review reward', 'yay-reviews'),
+    title: __('Review rewards', 'yay-reviews'),
     description: __(
       'Sends discount coupons for quality reviews meeting set criteria, encouraging great feedback and repeat purchases.',
       'yay-reviews',
@@ -43,15 +42,6 @@ const addonsInformation = [
   //   icon: <NoteIcon size={30} />,
   //   settingsPath: 'addons.optional_fields',
   // },
-  {
-    id: 'overview',
-    title: __('Reviews Overview', 'yay-reviews'),
-    description: __(
-      'Displays a summary of user ratings, helping customers make informed decisions.',
-      'yay-reviews',
-    ),
-    icon: <OverviewIcon size={30} />,
-  },
 ];
 
 export default function DashboardPage() {

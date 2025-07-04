@@ -110,7 +110,7 @@ jQuery(document).ready(function ($) {
 
     // Hide upload card if max files reached
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard) {
+    if (uploadCard && yay_reviews.max_upload_qty) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
           ? "none"
@@ -162,7 +162,7 @@ jQuery(document).ready(function ($) {
 
     // Show upload card if below max
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard) {
+    if (uploadCard && yay_reviews.max_upload_qty) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
           ? "none"
@@ -254,7 +254,9 @@ jQuery(document).ready(function ($) {
     const dropzone = document.querySelector(".yay-reviews-upload-button");
     const accept = dropzone.dataset.accept;
 
-    var max_upload_qty = parseInt(yay_reviews.max_upload_qty);
+    var max_upload_qty = yay_reviews.max_upload_qty
+      ? parseInt(yay_reviews.max_upload_qty)
+      : null;
     var max_upload_size = parseInt(yay_reviews.max_upload_size);
 
     var files = Array.from(event.target.files);
@@ -303,7 +305,7 @@ jQuery(document).ready(function ($) {
       }
 
       // Limit total files
-      if (yayReviewsFilesArr.length > max_upload_qty) {
+      if (max_upload_qty && yayReviewsFilesArr.length > max_upload_qty) {
         alert(yay_reviews.file_quantity_notice);
         yayReviewsFilesArr = yayReviewsFilesArr.slice(0, max_upload_qty);
       }
@@ -658,7 +660,9 @@ jQuery(document).ready(function ($) {
     if (totalCards > maxCardsPerView) {
       $(track).closest(".yay-reviews-all-media-wrapper").addClass("scrollable");
     } else {
-      $(track).closest(".yay-reviews-all-media-wrapper").removeClass("scrollable");
+      $(track)
+        .closest(".yay-reviews-all-media-wrapper")
+        .removeClass("scrollable");
     }
   }
 

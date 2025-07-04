@@ -57,7 +57,6 @@ class Admin {
 					'image_url'               => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
 					'site_title'              => get_bloginfo( 'name' ),
 					'upload_max_size'         => Helpers::upload_max_size(),
-					'upload_max_qty'          => Helpers::upload_max_qty(),
 					'admin_email'             => get_option( 'admin_email' ),
 					'data_settings'           => Helpers::get_all_settings(),
 					'sample_values'           => array(

@@ -14,7 +14,7 @@ import { Switch } from '@/components/ui/switch';
 import SettingIcon from '@/components/icons/Setting';
 
 export type Addon = {
-  id: 'reminder' | 'reward' | 'optional_fields' | 'overview';
+  id: 'reminder' | 'reward';
   title: string;
   description: string;
   icon: React.ReactNode;
@@ -73,7 +73,7 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
             e.preventDefault();
             changeTab(id);
           }}
-          style={settingsPath ? {} : { opacity: 0 }}
+          style={settingsPath && enabled ? {} : { opacity: 0, visibility: 'hidden' }}
         >
           <SettingIcon />
           {__('Settings', 'yay-reviews')}

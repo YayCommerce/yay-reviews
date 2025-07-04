@@ -46,8 +46,21 @@ class RewardEmail extends \WC_Email {
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
 				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-				if ( $result ) {
-					update_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true );
+				if ( $result && ! empty( $comment->user_id ) ) {
+					// save customer meta for email sent
+					$reward_data = array(
+						'id'                 => $reward['id'],
+						'name'               => $reward['name'],
+						'coupon_id'          => $coupon->get_id(),
+						'coupon_code'        => $coupon->get_code(),
+						'coupon_amount'      => $coupon->get_amount(),
+						'coupon_type'        => $coupon->get_discount_type(),
+						'rating_requirement' => $reward['rating_requirement'],
+						'media_requirement'  => $reward['media_requirement'],
+						'frequency'          => $reward['frequency'],
+					);
+					update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
+					update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
 				}
 				Helpers::modify_email_queue(
 					true,

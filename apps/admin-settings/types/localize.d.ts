@@ -19,7 +19,6 @@ declare global {
       rest_nonce: string;
       data_settings: SettingsFormData;
       upload_max_size: number;
-      upload_max_qty: number;
       sample_values: Record<string, string>;
       coupon_types: Record<string, string>;
       product_categories: ComboboxOption[];
