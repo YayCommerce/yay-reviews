@@ -55,7 +55,7 @@ export default function Nav() {
 
     if (rewardEnabled) {
       result.push({
-        label: __('Review rewards', 'yay-reviews'),
+        label: __('Rewards', 'yay-reviews'),
         icon: <GiftIcon strokeWidth={2} />,
         key: 'reward',
       });

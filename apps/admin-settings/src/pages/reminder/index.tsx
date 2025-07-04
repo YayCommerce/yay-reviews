@@ -22,7 +22,7 @@ export default function ReminderPage() {
 
   return (
     <PageLayout>
-      <PageTitle title={__('Reminder settings', 'yay-reviews')} />
+      <PageTitle title={__('Review reminder', 'yay-reviews')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
         <div className="text-xs">

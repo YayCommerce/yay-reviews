@@ -68,12 +68,12 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
         <Button
           variant="outline"
           size="sm"
-          disabled={!enabled && id !== 'overview'}
+          disabled={!enabled}
           onClick={(e) => {
             e.preventDefault();
             changeTab(id);
           }}
-          style={settingsPath && enabled ? {} : { opacity: 0, visibility: 'hidden' }}
+          style={settingsPath ? {} : { opacity: 0, visibility: 'hidden' }}
         >
           <SettingIcon />
           {__('Settings', 'yay-reviews')}
