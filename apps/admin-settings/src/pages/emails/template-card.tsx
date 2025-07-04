@@ -45,7 +45,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
     if (templateId === 'reward') {
       return {
         ...defaultSampleValues,
-        '{products_table}': '{products_table}',
+        '{review_products}': '{review_products}',
         '{site_title}': window.yayReviews.site_title,
       };
     }
@@ -64,7 +64,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const content = emailContent
     .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
     .replace(/\{site_title\}/g, sampleValues['{site_title}'])
-    .replace(/\{products_table\}/g, sampleValues['{products_table}'])
+    .replace(/\{review_products\}/g, sampleValues['{review_products}'])
     .replace(/\{coupon_code\}/g, sampleValues['{coupon_code}'])
     .replace(/\{product_name\}/g, sampleValues['{product_name}']);
 
@@ -147,9 +147,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 <span>{__("{customer_name} - Customer's name", 'yay-reviews')}</span>
                 <span>{__('{site_title} - Your site title', 'yay-reviews')}</span>
                 {templateId === 'reminder' && (
-                  <span>
-                    {__('{products_table} - Table of products need review', 'yay-reviews')}
-                  </span>
+                  <span>{__('{review_products} - List products need review', 'yay-reviews')}</span>
                 )}
                 {templateId === 'reward' && (
                   <span>{__('{coupon_code} - Coupon code', 'yay-reviews')}</span>

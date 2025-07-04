@@ -18,11 +18,11 @@ class ReminderEmail extends \WC_Email {
 		$this->template_plain = 'emails/plain/reminder-email.php';
 		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
 		$this->placeholders   = array(
-			'{order_date}'     => '',
-			'{order_number}'   => '',
-			'{customer_name}'  => '',
-			'{site_title}'     => '',
-			'{products_table}' => '',
+			'{order_date}'      => '',
+			'{order_number}'    => '',
+			'{customer_name}'   => '',
+			'{site_title}'      => '',
+			'{review_products}' => '',
 		);
 
 		// Call parent constructor
@@ -43,19 +43,19 @@ class ReminderEmail extends \WC_Email {
 			return;
 		}
 
+		$recipient_email = $order->get_billing_email();
+
+		$this->object                            = $order;
+		$this->recipient                         = $recipient_email;
+		$this->placeholders['{order_date}']      = wc_format_datetime( $this->object->get_date_created() );
+		$this->placeholders['{order_number}']    = $this->object->get_order_number();
+		$this->placeholders['{customer_name}']   = $this->object->get_formatted_billing_full_name();
+		$this->placeholders['{site_title}']      = get_bloginfo( 'name' );
+		$this->placeholders['{review_products}'] = $this->get_review_products();
+
 		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
-
-		$recipient_email = $order->get_billing_email();
-
-		$this->object                           = $order;
-		$this->recipient                        = $recipient_email;
-		$this->placeholders['{order_date}']     = wc_format_datetime( $this->object->get_date_created() );
-		$this->placeholders['{order_number}']   = $this->object->get_order_number();
-		$this->placeholders['{customer_name}']  = $this->object->get_formatted_billing_full_name();
-		$this->placeholders['{site_title}']     = get_bloginfo( 'name' );
-		$this->placeholders['{products_table}'] = $this->get_products_table();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -110,7 +110,7 @@ class ReminderEmail extends \WC_Email {
 		return __( 'Thank you for your review!', 'yay-reviews' );
 	}
 
-	public function get_products_table() {
+	public function get_review_products() {
 		if ( ! $this->object ) {
 			return '';
 		}
@@ -124,16 +124,19 @@ class ReminderEmail extends \WC_Email {
 		if ( empty( $product_in_order ) ) {
 			return '';
 		}
-		$remind_product_ids = Helpers::get_max_remind_products_for_email( $product_in_order );
-
-		if ( empty( $remind_product_ids ) ) {
+		$remind_products_ids = Helpers::get_max_remind_products_for_email( $product_in_order );
+		$remind_products     = array();
+		foreach ( $remind_products_ids as $product_id ) {
+			$remind_products[] = wc_get_product( $product_id );
+		}
+		if ( empty( $remind_products ) ) {
 			return '';
 		}
 
 		return wc_get_template_html(
-			'emails/products-table.php',
+			'emails/review-products.php',
 			array(
-				'product_list' => $remind_product_ids,
+				'product_list' => $remind_products,
 			),
 			'',
 			$this->template_base
@@ -205,7 +208,7 @@ class ReminderEmail extends \WC_Email {
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_table}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {review_products}</code>' ),
 				'placeholder' => $this->get_email_content(),
 				'default'     => '',
 			),

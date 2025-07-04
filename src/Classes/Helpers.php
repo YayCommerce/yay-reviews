@@ -76,7 +76,7 @@ class Helpers {
 					'reminder' => array(
 						'subject' => __( 'Reminder email', 'yay-reviews' ),
 						'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
-						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {products_table}', 'yay-reviews' ) . '</p>',
+						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
 						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 					'reward'   => array(
@@ -157,7 +157,7 @@ class Helpers {
 		);
 	}
 
-	public static function get_products_table( $order ) {
+	public static function get_review_products( $order ) {
 		if ( ! is_a( $order, 'WC_Order' ) ) {
 			$sample_products = array();
 			$product1        = new \WC_Product_Simple();
@@ -166,16 +166,18 @@ class Helpers {
 			$product1->set_sale_price( '79.99' );
 			$product1->set_sku( 'SP001' );
 			$product1->set_short_description( 'This is a sample product description for testing the email template. It includes some basic information about the product.' );
+			$product1->set_average_rating( 4.5 );
 			$sample_products[] = $product1;
 			$product2          = new \WC_Product_Simple();
 			$product2->set_name( 'Sample Product 2' );
 			$product2->set_regular_price( '149.99' );
 			$product2->set_sku( 'SP002' );
 			$product2->set_short_description( 'Another sample product with a different price point and description for testing purposes.' );
+			$product2->set_average_rating( 5 );
 			$sample_products[] = $product2;
 
 			return wc_get_template_html(
-				'emails/products-table.php',
+				'emails/review-products.php',
 				array(
 					'product_list' => $sample_products,
 				),
@@ -189,7 +191,7 @@ class Helpers {
 			$product_list[] = $item->get_product();
 		}
 		return wc_get_template_html(
-			'emails/products-table.php',
+			'emails/review-products.php',
 			array(
 				'product_list' => $product_list,
 			),

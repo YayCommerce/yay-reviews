@@ -99,9 +99,9 @@ class Emails {
 
 	public function add_placeholders( $placeholders, $email_type ) {
 		if ( 'YayReviews\Emails\ReminderEmail' === $email_type ) {
-			$placeholders['{products_table}'] = Helpers::get_products_table( 'sample' );
-			$placeholders['{site_title}']     = get_bloginfo( 'name' );
-			$placeholders['{customer_name}']  = 'John Doe';
+			$placeholders['{review_products}'] = Helpers::get_review_products( 'sample' );
+			$placeholders['{site_title}']      = get_bloginfo( 'name' );
+			$placeholders['{customer_name}']   = 'John Doe';
 		}
 		if ( 'YayReviews\Emails\RewardEmail' === $email_type ) {
 			$placeholders['{site_title}']    = get_bloginfo( 'name' );

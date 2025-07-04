@@ -261,7 +261,7 @@ class RestAPI {
 		$content = $data['content'];
 		$footer  = $data['footer'];
 
-		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{product_table}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_products_table( 'sample' ) ), $content );
+		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ) ), $content );
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
 		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );

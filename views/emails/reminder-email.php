@@ -9,11 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 $content                    = $email_content;
 $content                    = str_replace(
-	array( '{customer_name}', '{site_title}', '{products_table}', '{order_date}', '{order_number}' ),
+	array( '{customer_name}', '{site_title}', '{review_products}', '{order_date}', '{order_number}' ),
 	array(
 		$email->placeholders['{customer_name}'],
 		$email->placeholders['{site_title}'],
-		$email->placeholders['{products_table}'],
+		$email->placeholders['{review_products}'],
 		$email->placeholders['{order_date}'],
 		$email->placeholders['{order_number}'],
 	),
