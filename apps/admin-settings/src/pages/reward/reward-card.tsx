@@ -33,8 +33,75 @@ import TrashIcon from '@/components/icons/Trash';
 import { DEFAULT_REWARD } from '.';
 import { NewCouponDrawer } from './new-coupon-drawer';
 
+const frequencyOptions = [
+  {
+    label: __('Every review', 'yay-reviews'),
+    value: 'every_review',
+    summary: __('every review', 'yay-reviews'),
+  },
+  {
+    label: __('Every 2 reviews', 'yay-reviews'),
+    value: 'every_2_reviews',
+    summary: __('every 2 reviews', 'yay-reviews'),
+  },
+  {
+    label: __('Every 3 reviews', 'yay-reviews'),
+    value: 'every_3_reviews',
+    summary: __('every 3 reviews', 'yay-reviews'),
+  },
+];
+
+const ratingOptions = [
+  {
+    label: __('Any rating', 'yay-reviews'),
+    value: 'any',
+    summary: '',
+  },
+  {
+    label: __('Exactly 4★', 'yay-reviews'),
+    value: '4_stars',
+    summary: __('4★', 'yay-reviews'),
+  },
+  {
+    label: __('Exactly 5★', 'yay-reviews'),
+    value: '5_stars',
+    summary: __('5★', 'yay-reviews'),
+  },
+  {
+    label: __('4★ or higher', 'yay-reviews'),
+    value: 'at_least_4_stars',
+    summary: __('4★ or higher', 'yay-reviews'),
+  },
+];
+
+const mediaOptions = [
+  {
+    label: __('No requirement', 'yay-reviews'),
+    value: 'none',
+    summary: '',
+  },
+  {
+    label: __('≥ 1 photo', 'yay-reviews'),
+    value: 'at_least_1_image',
+    summary: __('at least one photo', 'yay-reviews'),
+    shortSummary: __('≥ 1 photo', 'yay-reviews'),
+  },
+  {
+    label: __('≥ 1 video', 'yay-reviews'),
+    value: 'at_least_1_video',
+    summary: __('at least one video', 'yay-reviews'),
+    shortSummary: __('≥ 1 video', 'yay-reviews'),
+  },
+  {
+    label: __('≥ 1 photo or video', 'yay-reviews'),
+    value: 'at_least_1_media',
+    summary: __('at least one photo or video', 'yay-reviews'),
+    shortSummary: __('≥ 1 photo or video', 'yay-reviews'),
+  },
+];
+
 export default function RewardCard({ reward }: { reward: Reward }) {
-  const { control, watch, setValue, unregister } = useFormContext<SettingsFormData>();
+  const { control, watch, setValue } = useFormContext<SettingsFormData>();
   const { coupons } = useRewardsContext();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -64,14 +131,76 @@ export default function RewardCard({ reward }: { reward: Reward }) {
         : '';
   }, [coupons, coupon]);
 
+  const frequency = watch(`rewards.${reward.id}.frequency`);
+  const rating = watch(`rewards.${reward.id}.rating_requirement`);
+  const media = watch(`rewards.${reward.id}.media_requirement`);
+
+  const headingSummary = useMemo(() => {
+    const result = [];
+    const frequencySummary = frequencyOptions.find((option) => option.value === frequency)?.summary;
+    const ratingSummary = ratingOptions.find((option) => option.value === rating)?.summary;
+    const mediaSummary = mediaOptions.find((option) => option.value === media)?.shortSummary;
+
+    if (frequencySummary) {
+      result.push(frequencySummary);
+    }
+
+    if (ratingSummary) {
+      result.push(ratingSummary);
+    }
+
+    if (mediaSummary) {
+      result.push(mediaSummary);
+    }
+
+    if (coupon) {
+      const couponData = coupons.find((c) => c.id === coupon);
+      let couponAmount = '$' + couponData?.amount;
+      if (couponData?.type.includes('percent')) {
+        couponAmount = couponData.amount + '%';
+      }
+      result.push(couponAmount + ' ' + __('off coupon', 'yay-reviews'));
+    }
+    return result.join('&nbsp;•&nbsp;');
+  }, [frequency, rating, media, coupon, coupons]);
+
+  const bodySummary = useMemo(() => {
+    const frequencySummary = frequencyOptions.find((option) => option.value === frequency)?.summary;
+    const ratingSummary = ratingOptions.find((option) => option.value === rating)?.summary;
+    const mediaSummary = mediaOptions.find((option) => option.value === media)?.summary;
+
+    let result = __('Reward will be given', 'yay-reviews');
+    let subResult = '';
+    let pluralBe =
+      frequency === 'every_review' ? __('is', 'yay-reviews') : __('are', 'yay-reviews');
+    let pluralContain =
+      frequency === 'every_review' ? __('contains', 'yay-reviews') : __('contain', 'yay-reviews');
+
+    if (frequencySummary) {
+      result += ` ${frequencySummary}`;
+    }
+
+    if (ratingSummary) {
+      subResult += __(' that', 'yay-reviews') + ` ${pluralBe} ${ratingSummary}`;
+    }
+
+    if (mediaSummary) {
+      subResult +=
+        (ratingSummary ? __(' and', 'yay-reviews') : __(' that', 'yay-reviews')) +
+        ` ${pluralContain} ${mediaSummary}`;
+    }
+
+    return result + subResult;
+  }, [frequency, rating, media]);
+
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={reward.is_open}>
       <CollapsibleTrigger
         asChild
-        className="yay-reviews-collapsible-trigger w-full cursor-pointer rounded-md bg-white shadow-sm"
+        className="yay-reviews-collapsible-trigger w-full cursor-pointer flex-wrap rounded-md bg-white shadow-sm"
       >
         <div className="flex items-center justify-between gap-2 p-6">
-          <div className="flex w-full max-w-[400px] items-center gap-3">
+          <div className="flex w-full max-w-[350px] items-center gap-3">
             <div className="flex w-full items-center gap-4" onClick={(e) => e.stopPropagation()}>
               <FormField
                 control={control}
@@ -104,8 +233,12 @@ export default function RewardCard({ reward }: { reward: Reward }) {
               />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <TooltipProvider>
+          <div
+            className="text-muted-foreground flex-1 text-sm font-normal"
+            dangerouslySetInnerHTML={{ __html: headingSummary }}
+          />
+          <div className="flex items-center">
+            <TooltipProvider delayDuration={300}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button
@@ -122,7 +255,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                 <TooltipContent>{__('Duplicate', 'yay-reviews')}</TooltipContent>
               </Tooltip>
             </TooltipProvider>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={300}>
               <Tooltip>
                 <TooltipTrigger>
                   <Dialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
@@ -286,7 +419,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
               render={({ field: { value, onChange } }) => (
                 <Select
                   id={`rewards.${reward.id}.send_to`}
-                  defaultValue="purchased_customers"
+                  defaultValue="all_reviewers"
                   value={value}
                   onValueChange={onChange}
                 >
@@ -294,11 +427,11 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                     <SelectValue placeholder={__('Select value', 'yay-reviews')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="purchased_customers">
-                      {__('Purchased customers only', 'yay-reviews')}
-                    </SelectItem>
                     <SelectItem value="all_reviewers">
                       {__('All reviewers (include guest users)', 'yay-reviews')}
+                    </SelectItem>
+                    <SelectItem value="purchased_customers">
+                      {__('Purchased customers only', 'yay-reviews')}
                     </SelectItem>
                     <SelectItem value="guest_users">
                       {__('Guest users only', 'yay-reviews')}
@@ -314,6 +447,34 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           <div className="flex flex-col gap-4">
             <div className="text-foreground text-lg font-semibold">
               {__('Conditions to trigger the reward', 'yay-reviews')}
+            </div>
+            <div className="max-w-[300px]">
+              <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-full font-normal">
+                {__('Frequency', 'yay-reviews')}
+              </Label>
+              <FormField
+                control={control}
+                name={`rewards.${reward.id}.frequency`}
+                render={({ field: { value, onChange } }) => (
+                  <Select
+                    id={`rewards.${reward.id}.frequency`}
+                    defaultValue={DEFAULT_REWARD.frequency}
+                    value={value}
+                    onValueChange={onChange}
+                  >
+                    <SelectTrigger className="w-full bg-white">
+                      <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {Object.values(frequencyOptions).map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
             </div>
             <div className="max-w-[300px]">
               <Label
@@ -336,15 +497,11 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                       <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{__('Any rating', 'yay-reviews')}</SelectItem>
-                      <SelectItem value="4_stars">{__('4-star review', 'yay-reviews')}</SelectItem>
-                      <SelectItem value="5_stars">{__('5-star review', 'yay-reviews')}</SelectItem>
-                      <SelectItem value="at_least_3_stars">
-                        {__('Review with 3+ stars', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="at_least_4_stars">
-                        {__('Review with 4+ stars', 'yay-reviews')}
-                      </SelectItem>
+                      {Object.values(ratingOptions).map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 )}
@@ -356,7 +513,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                   htmlFor={`rewards.${reward.id}.media_requirement`}
                   className="mb-2 w-full font-normal"
                 >
-                  {__('Media files', 'yay-reviews')}
+                  {__('Media', 'yay-reviews')}
                 </Label>
                 <div className="flex items-center gap-2">
                   <FormField
@@ -373,27 +530,11 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                           <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="none">
-                            {__('No requirement', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_1_media">
-                            {__('At least 1 media file in review', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_2_media">
-                            {__('At least 2 media files in review', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_1_image">
-                            {__('At least 1 image in review', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_2_images">
-                            {__('At least 2 images in review', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_1_video">
-                            {__('At least 1 video in review', 'yay-reviews')}
-                          </SelectItem>
-                          <SelectItem value="at_least_2_videos">
-                            {__('At least 2 videos in review', 'yay-reviews')}
-                          </SelectItem>
+                          {Object.values(mediaOptions).map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     )}
@@ -401,44 +542,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                 </div>
               </div>
             )}
-            <div className="max-w-[300px]">
-              <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-full font-normal">
-                {__('Reward trigger', 'yay-reviews')}
-              </Label>
-              <FormField
-                control={control}
-                name={`rewards.${reward.id}.frequency`}
-                render={({ field: { value, onChange } }) => (
-                  <Select
-                    id={`rewards.${reward.id}.frequency`}
-                    defaultValue={DEFAULT_REWARD.frequency}
-                    value={value}
-                    onValueChange={onChange}
-                  >
-                    <SelectTrigger className="w-full bg-white">
-                      <SelectValue placeholder={__('Select requirement', 'yay-reviews')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="every_review">
-                        {__('After every review', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="every_2_reviews">
-                        {__('After every 2 reviews', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="every_3_reviews">
-                        {__('After every 3 reviews', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="after_2_reviews">
-                        {__('After submitting 2 reviews (one-time reward)', 'yay-reviews')}
-                      </SelectItem>
-                      <SelectItem value="after_3_reviews">
-                        {__('After submitting 3 reviews (one-time reward)', 'yay-reviews')}
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-            </div>
+            <div className="text-foreground text-sm font-normal">{bodySummary}</div>
           </div>
         </div>
       </CollapsibleContent>

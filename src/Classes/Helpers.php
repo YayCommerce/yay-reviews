@@ -538,6 +538,8 @@ class Helpers {
 						'expired'      => self::is_coupon_expired( $coupon ),
 						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
 						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
+						'amount'       => $coupon->get_amount(),
+						'type'         => $coupon->get_discount_type(),
 					);
 				}
 			}
