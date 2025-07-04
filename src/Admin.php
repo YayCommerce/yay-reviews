@@ -55,6 +55,8 @@ class Admin {
 					'ajax_url'                => admin_url( 'admin-ajax.php' ),
 					'rest_base'               => YAY_REVIEWS_REST_URL,
 					'image_url'               => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
+					'wc_reviews_settings'     => Helpers::get_wc_reviews_settings(),
+					'wc_settings_url'         => admin_url( 'admin.php?page=wc-settings&tab=products' ),
 					'site_title'              => get_bloginfo( 'name' ),
 					'upload_max_size'         => Helpers::upload_max_size(),
 					'admin_email'             => get_option( 'admin_email' ),

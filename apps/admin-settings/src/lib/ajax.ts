@@ -66,3 +66,21 @@ export async function getCurrentQueue(emailId: string) {
     throw error;
   }
 }
+
+export async function changeWcReviewsSettings(updateField: string, value: boolean) {
+  try {
+    return await window.jQuery.ajax({
+      type: 'POST',
+      url: window.yayReviews.ajax_url,
+      data: {
+        action: 'yay_reviews_update_wc_reviews_settings',
+        nonce: window.yayReviews.nonce,
+        update_field: updateField,
+        value: value,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

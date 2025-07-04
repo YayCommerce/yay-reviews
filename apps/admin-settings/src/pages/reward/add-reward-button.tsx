@@ -1,8 +1,8 @@
-import { useRewards } from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
+import useRewardsContext from '@/hooks/use-rewards-context';
 import { Button } from '@/components/ui/button';
 import { useFormContext } from '@/components/ui/form';
 
@@ -19,7 +19,7 @@ export const DEFAULT_REWARD = {
 };
 
 export default function AddRewardButton({ text, isEmpty }: { text: string; isEmpty?: boolean }) {
-  const { coupons } = useRewards();
+  const { coupons } = useRewardsContext();
   const { watch, setValue } = useFormContext<SettingsFormData>();
   const rewards = watch('rewards') as Record<string, Reward>;
 

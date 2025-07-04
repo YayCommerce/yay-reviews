@@ -573,4 +573,13 @@ class Helpers {
 		}
 		return false;
 	}
+
+	public static function get_wc_reviews_settings() {
+		return array(
+			'verification_label'     => 'yes' === get_option( 'woocommerce_review_rating_verification_label' ),
+			'verification_required'  => 'yes' === get_option( 'woocommerce_review_rating_verification_required' ),
+			'enable_review_rating'   => 'yes' === get_option( 'woocommerce_enable_review_rating' ),
+			'review_rating_required' => 'yes' === get_option( 'woocommerce_review_rating_required' ),
+		);
+	}
 }

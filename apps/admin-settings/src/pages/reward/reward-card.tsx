@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
-import { useRewards } from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
+import useRewardsContext from '@/hooks/use-rewards-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -102,7 +102,7 @@ const mediaOptions = [
 
 export default function RewardCard({ reward }: { reward: Reward }) {
   const { control, watch, setValue } = useFormContext<SettingsFormData>();
-  const { coupons } = useRewards();
+  const { coupons } = useRewardsContext();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 

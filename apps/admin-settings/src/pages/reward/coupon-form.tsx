@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useRewards } from '@/providers/rewards-provider';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { __ } from '@wordpress/i18n';
 import { CircleHelpIcon, Loader2 } from 'lucide-react';
@@ -8,6 +7,7 @@ import { toast } from 'sonner';
 import { getProducts, postCoupon } from '@/lib/queries';
 import { CouponFormData, couponSchema } from '@/lib/schema';
 import { cn } from '@/lib/utils';
+import useRewardsContext from '@/hooks/use-rewards-context';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Combobox, { ComboboxOption } from '@/components/ui/combobox';
@@ -36,7 +36,7 @@ export const CouponForm = ({
 }) => {
   const [productOptions, setProductOptions] = useState<ComboboxOption[]>([]);
   const [excludeProductOptions, setExcludeProductOptions] = useState<ComboboxOption[]>([]);
-  const { addCoupon } = useRewards();
+  const { addCoupon } = useRewardsContext();
 
   const couponTypes = Object.entries(window.yayReviews.coupon_types).map(([key, value]) => ({
     value: key,

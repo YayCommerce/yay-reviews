@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import PageLayout from '@/layouts/page-layout';
+import ReviewProvider from '@/providers/review-provider';
 import { __ } from '@wordpress/i18n';
+import { toast } from 'sonner';
 
+import { changeWcReviewsSettings } from '@/lib/ajax';
 import { cn } from '@/lib/utils';
+import useReviewContext from '@/hooks/use-review-context';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { FormField, useFormContext } from '@/components/ui/form';
@@ -20,15 +25,18 @@ import PageTitle from '@/components/page-title';
 
 export default function ReviewPage() {
   return (
-    <PageLayout>
-      <PageTitle title={__('Review settings', 'yay-reviews')} />
-      <div className="container mx-auto px-7 py-0">
-        <div className="flex flex-col gap-4">
-          <UploadMediaCard />
-          <DataProcessingConsentCard />
+    <ReviewProvider>
+      <PageLayout>
+        <PageTitle title={__('Review settings', 'yay-reviews')} />
+        <div className="container mx-auto px-7 py-0">
+          <div className="flex flex-col gap-4">
+            <UploadMediaCard />
+            <DataProcessingConsentCard />
+            <WooCommerceSettingsCard />
+          </div>
         </div>
-      </div>
-    </PageLayout>
+      </PageLayout>
+    </ReviewProvider>
   );
 }
 
@@ -260,6 +268,115 @@ function DataProcessingConsentCard() {
               />
             )}
           />
+        </div>
+      </div>
+    </Card>
+  );
+}
+
+function WooCommerceSettingsCard() {
+  const { wcReviewsSettings, updateWcReviewsSettings } = useReviewContext();
+  const [isLoadingUpdate, setIsLoadingUpdate] = useState('');
+
+  const handleChangeWooCommerceSettings = (name: string, value: boolean) => {
+    setIsLoadingUpdate(name);
+    changeWcReviewsSettings(name, value).then((res) => {
+      if (res.success) {
+        updateWcReviewsSettings({
+          ...wcReviewsSettings,
+          [name]: value,
+        });
+      } else {
+        toast.error(res.data.mess);
+      }
+      setIsLoadingUpdate('');
+    });
+  };
+
+  return (
+    <Card className="p-6">
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
+            <span>{__('WooCommerce Settings', 'yay-reviews')}</span>
+          </div>
+        </div>
+        <div className="border-t border-t-[#f0f0f0]" />
+      </div>
+
+      <div className="text-sm">
+        <span className="text-slate-500">{__('Manage ')}</span>
+        <span
+          className="cursor-pointer underline decoration-solid"
+          onClick={() => {
+            window.open(window.yayReviews.wc_settings_url, '_blank');
+          }}
+        >
+          {__('WooCommerce settings', 'yay-reviews')}
+        </span>
+      </div>
+
+      <div className="space-y-6">
+        <div className="text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+          {__('Reviews', 'yay-reviews')}
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch
+            id="woocommerce_review_rating_verification_label"
+            checked={Boolean(wcReviewsSettings.verification_label)}
+            loading={isLoadingUpdate === 'verification_label'}
+            onCheckedChange={(value) =>
+              handleChangeWooCommerceSettings('verification_label', value)
+            }
+          />
+          <Label htmlFor="woocommerce_review_rating_verification_label">
+            {__('Show "verified owner" label on customer reviews', 'yay-reviews')}
+          </Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch
+            id="woocommerce_review_rating_verification_required"
+            checked={Boolean(wcReviewsSettings.verification_required)}
+            loading={isLoadingUpdate === 'verification_required'}
+            onCheckedChange={(value) =>
+              handleChangeWooCommerceSettings('verification_required', value)
+            }
+          />
+          <Label htmlFor="woocommerce_review_rating_verification_required">
+            {__('Reviews can only be left by "verified owners"', 'yay-reviews')}
+          </Label>
+        </div>
+      </div>
+      <hr className="yay-reviews-hr border-t border-[#f0f0f0]" />
+      <div className="space-y-6">
+        <div className="text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+          {__('Product ratings', 'yay-reviews')}
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch
+            id="woocommerce_enable_review_rating"
+            checked={Boolean(wcReviewsSettings.enable_review_rating)}
+            loading={isLoadingUpdate === 'enable_review_rating'}
+            onCheckedChange={(value) =>
+              handleChangeWooCommerceSettings('verification_label', value)
+            }
+          />
+          <Label htmlFor="woocommerce_enable_review_rating">
+            {__('Enable star rating on reviews', 'yay-reviews')}
+          </Label>
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch
+            id="woocommerce_review_rating_required"
+            checked={Boolean(wcReviewsSettings.review_rating_required)}
+            loading={isLoadingUpdate === 'review_rating_required'}
+            onCheckedChange={(value) =>
+              handleChangeWooCommerceSettings('verification_required', value)
+            }
+          />
+          <Label htmlFor="woocommerce_review_rating_required">
+            {__('Star ratings should be required, not optional', 'yay-reviews')}
+          </Label>
         </div>
       </div>
     </Card>

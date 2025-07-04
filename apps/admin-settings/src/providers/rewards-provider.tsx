@@ -10,14 +10,6 @@ export const RewardsContext = createContext<RewardsContextType>({
   addCoupon: () => {},
 });
 
-export const useRewards = () => {
-  const context = useContext(RewardsContext);
-  if (!context) {
-    throw new Error('useRewards must be used within a RewardsProvider');
-  }
-  return context;
-};
-
 export default function RewardsProvider({ children }: { children: React.ReactNode }) {
   const [coupons, setCoupons] = useState<any[]>(window.yayReviews.coupons ?? []);
 

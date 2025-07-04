@@ -199,7 +199,8 @@
   color: var(--foreground);
 }
 
-.yay-reviews-collapsible-content hr {
+.yay-reviews-collapsible-content hr,
+.yay-reviews-hr {
   border-top: 1px solid #f0f0f0;
   border-bottom: none;
 }

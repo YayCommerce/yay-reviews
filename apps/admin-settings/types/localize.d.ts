@@ -10,6 +10,8 @@ declare global {
     yayReviews: {
       admin_url: string;
       admin_email: string;
+      wc_settings_url: string;
+      wc_reviews_settings: Record<string, boolean>;
       image_url: string;
       site_title: string;
       nonce: string;

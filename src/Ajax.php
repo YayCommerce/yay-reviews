@@ -17,6 +17,7 @@ class Ajax {
 		add_action( 'wp_ajax_yay_reviews_send_email', array( $this, 'send_email' ) );
 		add_action( 'wp_ajax_yay_reviews_dismiss_email', array( $this, 'dismiss_email' ) );
 		add_action( 'wp_ajax_yay_reviews_get_current_queue', array( $this, 'get_current_queue' ) );
+		add_action( 'wp_ajax_yay_reviews_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
 	}
 
 	public function change_addon_status() {
@@ -204,6 +205,35 @@ class Ajax {
 					wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
 				}
 			}
+		} catch ( \Exception $e ) {
+			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	public function update_wc_reviews_settings() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+
+		try {
+			$update_field = isset( $_POST['update_field'] ) ? sanitize_text_field( wp_unslash( $_POST['update_field'] ) ) : '';
+			$value        = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : '';
+
+			if ( ! empty( $update_field ) && ! empty( $value ) ) {
+				if ( 'verification_label' === $update_field ) {
+					update_option( 'woocommerce_review_rating_verification_label', 'true' === $value ? 'yes' : 'no' );
+				} elseif ( 'verification_required' === $update_field ) {
+					update_option( 'woocommerce_review_rating_verification_required', 'true' === $value ? 'yes' : 'no' );
+				} elseif ( 'enable_review_rating' === $update_field ) {
+					update_option( 'woocommerce_enable_review_rating', 'true' === $value ? 'yes' : 'no' );
+				} elseif ( 'review_rating_required' === $update_field ) {
+					update_option( 'woocommerce_review_rating_required', 'true' === $value ? 'yes' : 'no' );
+				}
+
+				wp_send_json_success( array( 'mess' => __( 'WC reviews settings updated successfully', 'yay-reviews' ) ) );
+			}
+			wp_send_json_error( array( 'mess' => __( 'Invalid update field or value', 'yay-reviews' ) ) );
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
