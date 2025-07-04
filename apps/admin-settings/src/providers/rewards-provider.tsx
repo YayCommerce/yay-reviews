@@ -1,18 +1,36 @@
-import { createContext, useMemo } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState } from 'react';
 
 type RewardsContextType = {
   coupons: any[];
+  addCoupon: (coupon: any) => void;
 };
 
 export const RewardsContext = createContext<RewardsContextType>({
   coupons: [],
+  addCoupon: () => {},
 });
 
+export const useRewards = () => {
+  const context = useContext(RewardsContext);
+  if (!context) {
+    throw new Error('useRewards must be used within a RewardsProvider');
+  }
+  return context;
+};
+
 export default function RewardsProvider({ children }: { children: React.ReactNode }) {
+  const [coupons, setCoupons] = useState<any[]>(window.yayReviews.coupons ?? []);
+
+  const addCoupon = useCallback((coupon: any) => {
+    setCoupons((prevCoupons) => [coupon, ...prevCoupons]);
+  }, []);
+
   const memorizedValue = useMemo(() => {
     return {
-      coupons: window.yayReviews.coupons ?? [],
+      coupons,
+      addCoupon,
     };
-  }, []);
+  }, [coupons, addCoupon]);
+
   return <RewardsContext.Provider value={memorizedValue}>{children}</RewardsContext.Provider>;
 }

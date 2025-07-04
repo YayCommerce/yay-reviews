@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 
+import { SettingsFormData } from '@/lib/schema';
 import {
   Drawer,
   DrawerContent,
@@ -21,7 +22,7 @@ export const NewCouponDrawer = ({
   rewardId: string;
 }) => {
   const [open, setOpen] = useState(false);
-  const { getValues, setValue } = useFormContext();
+  const { getValues, setValue } = useFormContext<SettingsFormData>();
 
   const handleUpdateCouponId = (couponId: string) => {
     const rewards = getValues('rewards');

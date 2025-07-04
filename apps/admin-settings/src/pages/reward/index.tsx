@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
-import RewardsProvider from '@/providers/rewards-provider';
+import RewardsProvider, { useRewards } from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { InfoIcon } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Reward } from '@/lib/schema';
-import useRewardsContext from '@/hooks/use-rewards-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useFormContext } from '@/components/ui/form';
@@ -30,7 +29,7 @@ export const DEFAULT_REWARD = {
 
 export default function RewardPage() {
   const { watch, setValue } = useFormContext();
-  const { coupons } = useRewardsContext();
+  const { coupons } = useRewards();
 
   const rewards = watch('rewards') as Reward[];
 
@@ -117,7 +116,7 @@ export default function RewardPage() {
                 </Button>
               </div>
               {Object.values(rewards).map((reward: Reward) => (
-                <RewardCard key={reward.id} reward={reward} />
+                <RewardCard key={reward.id + reward.coupon_id} reward={reward} />
               ))}
             </div>
           )}

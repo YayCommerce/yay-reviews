@@ -1,13 +1,13 @@
 import { useState } from 'react';
+import { useRewards } from '@/providers/rewards-provider';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
 import { __ } from '@wordpress/i18n';
 import { CircleHelpIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { getProducts, postCoupon } from '@/lib/queries';
 import { CouponFormData, couponSchema } from '@/lib/schema';
-import { cn, updateQueryCache } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import Combobox, { ComboboxOption } from '@/components/ui/combobox';
@@ -36,8 +36,7 @@ export const CouponForm = ({
 }) => {
   const [productOptions, setProductOptions] = useState<ComboboxOption[]>([]);
   const [excludeProductOptions, setExcludeProductOptions] = useState<ComboboxOption[]>([]);
-
-  const queryClient = useQueryClient();
+  const { addCoupon } = useRewards();
 
   const couponTypes = Object.entries(window.yayReviews.coupon_types).map(([key, value]) => ({
     value: key,
@@ -93,10 +92,9 @@ export const CouponForm = ({
         toast.error(response.message);
         return;
       } else if (response.coupon !== null) {
-        // update query cache
-        updateQueryCache(queryClient, ['coupons'], response.coupon);
-        handleUpdateCouponId(response.coupon.id.toString());
-
+        // update context coupons
+        addCoupon(response.coupon);
+        handleUpdateCouponId(response.coupon.id);
         toast.success(response.message);
         form.reset(data); // Reset form with new values after successful save
         // close drawer

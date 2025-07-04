@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
+import { useRewards } from '@/providers/rewards-provider';
 import { __ } from '@wordpress/i18n';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Reward, SettingsFormData } from '@/lib/schema';
-import useRewardsContext from '@/hooks/use-rewards-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -102,7 +102,7 @@ const mediaOptions = [
 
 export default function RewardCard({ reward }: { reward: Reward }) {
   const { control, watch, setValue } = useFormContext<SettingsFormData>();
-  const { coupons } = useRewardsContext();
+  const { coupons } = useRewards();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
@@ -114,12 +114,16 @@ export default function RewardCard({ reward }: { reward: Reward }) {
   const handleDuplicate = (reward: Reward) => {
     const newId = uuidv4();
     const duplicateReward = { ...reward, id: newId, is_open: true };
-    setValue('rewards', { ...rewards, [newId]: duplicateReward }, { shouldDirty: true });
+    // Create a new object with the duplicated reward to ensure React Hook Form detects the change
+    const updatedRewards = { ...rewards, [newId]: duplicateReward };
+    setValue('rewards', updatedRewards, { shouldDirty: true });
   };
 
   const handleDelete = (reward: Reward) => {
-    const updatedRewards = { ...rewards };
-    delete updatedRewards[reward.id as keyof typeof updatedRewards];
+    // Create a new object without the deleted reward to ensure React Hook Form detects the change
+    const updatedRewards = Object.fromEntries(
+      Object.entries(rewards).filter(([key]) => key !== reward.id),
+    );
     setValue('rewards', updatedRewards, { shouldDirty: true });
   };
 
