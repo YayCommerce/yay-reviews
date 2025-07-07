@@ -16,8 +16,7 @@ export default function ReviewProvider({ children }: { children: React.ReactNode
   );
 
   const updateWcReviewsSettings = useCallback((wcReviewsSettings: Record<string, boolean>) => {
-    // setWcReviewsSettings(wcReviewsSettings);
-    console.log(wcReviewsSettings);
+    setWcReviewsSettings(wcReviewsSettings);
   }, []);
 
   const memorizedValue = useMemo(() => {
