@@ -358,26 +358,28 @@ function WooCommerceSettingsCard() {
             checked={Boolean(wcReviewsSettings.enable_review_rating)}
             loading={isLoadingUpdate === 'enable_review_rating'}
             onCheckedChange={(value) =>
-              handleChangeWooCommerceSettings('verification_label', value)
+              handleChangeWooCommerceSettings('enable_review_rating', value)
             }
           />
           <Label htmlFor="woocommerce_enable_review_rating">
             {__('Enable star rating on reviews', 'yay-reviews')}
           </Label>
         </div>
-        <div className="flex items-center gap-2">
-          <Switch
-            id="woocommerce_review_rating_required"
-            checked={Boolean(wcReviewsSettings.review_rating_required)}
-            loading={isLoadingUpdate === 'review_rating_required'}
-            onCheckedChange={(value) =>
-              handleChangeWooCommerceSettings('verification_required', value)
-            }
-          />
-          <Label htmlFor="woocommerce_review_rating_required">
-            {__('Star ratings should be required, not optional', 'yay-reviews')}
-          </Label>
-        </div>
+        {wcReviewsSettings.enable_review_rating && (
+          <div className="flex items-center gap-2">
+            <Switch
+              id="woocommerce_review_rating_required"
+              checked={Boolean(wcReviewsSettings.review_rating_required)}
+              loading={isLoadingUpdate === 'review_rating_required'}
+              onCheckedChange={(value) =>
+                handleChangeWooCommerceSettings('review_rating_required', value)
+              }
+            />
+            <Label htmlFor="woocommerce_review_rating_required">
+              {__('Star ratings should be required, not optional', 'yay-reviews')}
+            </Label>
+          </div>
+        )}
       </div>
     </Card>
   );
