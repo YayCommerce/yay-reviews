@@ -37,7 +37,7 @@ $uploads = wp_upload_dir();
 		<div class="yay-reviews-modal-comment-details">
 			<div class="yay-reviews-modal-header">
 				<h1><?php echo esc_html__( 'Review Details', 'yay-reviews' ); ?></h1>
-				<?php if ( ! is_admin() ) : ?>
+				<?php if ( ! is_admin() && ! $is_my_account ) : ?>
 					<span class="yay-reviews-modal-see-all-media"><?php echo esc_html__( 'See all media', 'yay-reviews' ); ?></span>
 				<?php endif; ?>
 			</div>

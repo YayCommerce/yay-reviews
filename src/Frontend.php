@@ -207,7 +207,7 @@ class Frontend {
 	}
 
 	public function frontend_enqueue_scripts() {
-		if ( ! is_product() ) {
+		if ( ! is_product() && ! is_account_page() ) {
 			return;
 		}
 
@@ -248,6 +248,7 @@ class Frontend {
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
 		wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
 		wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
+		wp_enqueue_style( 'yay-reviews-my-account-reviews', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/my-account-reviews.css', array(), YAY_REVIEWS_VERSION );
 	}
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {
@@ -309,6 +310,24 @@ class Frontend {
 	}
 
 	public function render_reviews_endpoint() {
-		echo 'Content here';
+		$current_user = wp_get_current_user();
+		if ( ! $current_user ) {
+			return;
+		}
+
+		// get all reviews of current user
+		$reviews = get_comments(
+			array(
+				'type'    => 'review',
+				'user_id' => (int) $current_user->ID,
+			)
+		);
+
+		if ( ! $reviews ) {
+			echo '<p>' . esc_html__( 'You have not written any reviews yet.', 'yay-reviews' ) . ' <a href="' . esc_url( get_permalink( get_option( 'woocommerce_shop_page_id' ) ) ) . '">' . esc_html__( 'Write a review', 'yay-reviews' ) . '</a></p>';
+			return;
+		}
+
+		return View::load( 'frontend.my-account-reviews', array( 'reviews' => $reviews ), true );
 	}
 }

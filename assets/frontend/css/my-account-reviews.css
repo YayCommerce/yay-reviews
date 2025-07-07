@@ -1,0 +1,42 @@
+.yay-reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.yay-review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.yay-review-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.yay-review-card-product-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.yay-review-card-product {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.yay-review-card-date {
+  font-size: 12px;
+  color: #666;
+}
+
+.yay-review-card-rating {
+  font-size: 16px;
+  font-weight: 600;
+}
