@@ -15,6 +15,13 @@ class Frontend {
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
 		add_filter( 'comments_clauses', array( $this, 'filter_reviews_by_rating' ), 10, 2 );
 		add_filter( 'comments_template', array( $this, 'before_reviews_section' ), PHP_INT_MAX, 2 );
+
+		// WooCommerce Reviews for My Account
+		add_filter( 'woocommerce_account_menu_items', array( $this, 'add_reviews_menu_item' ) );
+		add_action( 'init', array( $this, 'add_reviews_endpoint' ) );
+		add_action( 'woocommerce_account_reviews_endpoint', array( $this, 'render_reviews_endpoint' ) );
+		add_filter( 'the_title', array( $this, 'change_reviews_endpoint_title' ), 10, 2 );
+
 	}
 
 	public function add_reviews_form( $comment_form ) {
@@ -52,8 +59,8 @@ class Frontend {
 		$all_settings = Helpers::get_all_settings();
 		if ( $all_settings['reviews']['upload_media'] ) {
 			if ( isset( $_FILES['yay_reviews_media'] ) ) {
-				$files       = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				$total_files = count( $files['name'] );
+				$files               = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				$total_files         = count( $files['name'] );
 				$max_upload_file_qty = Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' );
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
@@ -273,5 +280,29 @@ class Frontend {
 		}
 
 		return $template;
+	}
+
+	public function add_reviews_menu_item( $items ) {
+		$items['reviews'] = __( 'Reviews', 'yay-reviews' );
+		//change position of reviews menu item
+		$items = array_slice( $items, 0, 3, true ) +
+			array( 'reviews' => $items['reviews'] ) +
+			array_slice( $items, 3, null, true );
+		return $items;
+	}
+
+	public function add_reviews_endpoint() {
+		add_rewrite_endpoint( 'reviews', EP_PAGES );
+	}
+
+	public function change_reviews_endpoint_title( $title ) {
+		if ( is_account_page() && get_query_var( 'reviews', false ) !== false ) {
+			$title = __( 'My Reviews', 'yay-reviews' );
+		}
+		return $title;
+	}
+
+	public function render_reviews_endpoint() {
+		echo 'Content here';
 	}
 }
