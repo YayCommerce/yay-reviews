@@ -296,7 +296,13 @@ class Frontend {
 	}
 
 	public function change_reviews_endpoint_title( $title ) {
-		if ( is_account_page() && get_query_var( 'reviews', false ) !== false ) {
+		// Only change the main endpoint title, not menu items or breadcrumbs
+		if (
+			is_account_page() &&
+			get_query_var( 'reviews', false ) !== false &&
+			in_the_loop() && // Only change the main title in the loop
+			is_main_query()  // Only for the main query
+		) {
 			$title = __( 'My Reviews', 'yay-reviews' );
 		}
 		return $title;
