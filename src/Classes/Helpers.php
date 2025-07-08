@@ -327,13 +327,8 @@ class Helpers {
 			}
 		}
 
-		if ( 'at_least_3_stars' === $rating_requirement ) {
-			if ( $rating < 3 ) {
-				$valid = false;
-			}
-		}
-		if ( 'at_least_4_stars' === $rating_requirement ) {
-			if ( $rating < 4 ) {
+		if ( 'less_than_5_stars' === $rating_requirement ) {
+			if ( $rating >= 5 ) {
 				$valid = false;
 			}
 		}
@@ -343,93 +338,24 @@ class Helpers {
 				$valid = false;
 			}
 		}
-		if ( '4_stars' === $rating_requirement ) {
-			if ( 4 !== $rating ) {
-				$valid = false;
-			}
+
+		if ( 'none' !== $media_requirement && empty( $media ) ) {
+			$valid = false;
 		}
-		// TODO: change logic
-		// if ( 'none' !== $media_requirement ) {
-		//  $video_media = array_filter(
-		//      $media,
-		//      function ( $media ) {
-		//          return 'video' === $media['type'];
-		//      }
-		//  );
-
-		//  $image_media = array_filter(
-		//      $media,
-		//      function ( $media ) {
-		//          return 'image' === $media['type'];
-		//      }
-		//  );
-
-		//  if ( 'at_least_1_media' === $media_requirement ) {
-		//      if ( empty( $image_media ) ) {
-		//          $valid = false;
-		//      }
-		//  }
-
-		//  if ( 'at_least_2_media' === $media_requirement ) {
-		//      if ( count( $media ) < 2 ) {
-		//          $valid = false;
-		//      }
-		//  }
-
-		//  if ( 'at_least_1_image' === $media_requirement ) {
-		//      if ( empty( $image_media ) ) {
-		//          $valid = false;
-		//      }
-		//  }
-
-		//  if ( 'at_least_1_video' === $media_requirement ) {
-		//      if ( empty( $video_media ) ) {
-		//          $valid = false;
-		//      }
-		//  }
-
-		//  if ( 'at_least_2_videos' === $media_requirement ) {
-		//      if ( count( $video_media ) < 2 ) {
-		//          $valid = false;
-		//      }
-		//  }
-
-		//  if ( 'at_least_2_images' === $media_requirement ) {
-		//      if ( count( $image_media ) < 2 ) {
-		//          $valid = false;
-		//      }
-		//  }
-		// }
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
 			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
-			$received_reward_data      = get_user_meta( $comment_user_id, 'received_reward_' . $reward['id'], true );
 
 			$args = array(
 				'user_id'      => $comment_user_id,
 				'comment_type' => 'review',
 				'status'       => 'approve',
+				'date_query'   => array(
+					'after' => $last_received_reward_time,
+				),
 			);
 
-			if ( 'every_2_reviews' === $frequency || 'every_3_reviews' === $frequency ) {
-				$args['date_query'] = array(
-					'after' => $last_received_reward_time,
-				);
-			}
-
 			$user_reviews_count = count( get_comments( $args ) );
-
-			if ( 'after_2_reviews' === $frequency ) {
-				if ( $user_reviews_count < 2 || ! empty( $received_reward_data ) ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'after_3_reviews' === $frequency ) {
-				if ( $user_reviews_count < 3 || ! empty( $received_reward_data ) ) {
-					$valid = false;
-				}
-			}
 
 			if ( 'every_2_reviews' === $frequency ) {
 				if ( $user_reviews_count < 2 ) {

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { __ } from '@wordpress/i18n';
 import { EmailQueue } from 'types/email-queue';
 
@@ -36,14 +36,10 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       case 'none':
       case 'any':
         return __('Any rating', 'yay-reviews');
-      case '4_stars':
-        return __('4-star review', 'yay-reviews');
+      case 'less_than_5_stars':
+        return __('Less than 5★', 'yay-reviews');
       case '5_stars':
-        return __('5-star review', 'yay-reviews');
-      case 'at_least_3_stars':
-        return __('Review with 3+ stars', 'yay-reviews');
-      case 'at_least_4_stars':
-        return __('Review with 4+ stars', 'yay-reviews');
+        return __('5★ only', 'yay-reviews');
       default:
         return __('Any rating', 'yay-reviews');
     }
@@ -54,17 +50,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       case 'none':
         return __('No requirement', 'yay-reviews');
       case 'at_least_1_media':
-        return __('At least 1 media file in review', 'yay-reviews');
-      case 'at_least_2_media':
-        return __('At least 2 media files in review', 'yay-reviews');
-      case 'at_least_1_image':
-        return __('At least 1 image in review', 'yay-reviews');
-      case 'at_least_2_images':
-        return __('At least 2 images in review', 'yay-reviews');
-      case 'at_least_1_video':
-        return __('At least 1 video in review', 'yay-reviews');
-      case 'at_least_2_videos':
-        return __('At least 2 videos in review', 'yay-reviews');
+        return __('Photo or video required', 'yay-reviews');
       default:
         return __('No requirement', 'yay-reviews');
     }
@@ -79,10 +65,6 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
         return __('After every 2 reviews', 'yay-reviews');
       case 'every_3_reviews':
         return __('After every 3 reviews', 'yay-reviews');
-      case 'after_2_reviews':
-        return __('After submitting 2 reviews (one-time reward)', 'yay-reviews');
-      case 'after_3_reviews':
-        return __('After submitting 3 reviews (one-time reward)', 'yay-reviews');
       default:
         return __('No requirement', 'yay-reviews');
     }
@@ -122,9 +104,9 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
             <dd className="pl-2 text-sm">{email.email_data?.product_name}</dd>
             <dt className="text-sm font-semibold">{__('Rating', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">{ratingRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Media files', 'yay-reviews')}:</dt>
+            <dt className="text-sm font-semibold">{__('Media', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">{mediaRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Reward trigger', 'yay-reviews')}:</dt>
+            <dt className="text-sm font-semibold">{__('Frequency', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
           </>
         )}

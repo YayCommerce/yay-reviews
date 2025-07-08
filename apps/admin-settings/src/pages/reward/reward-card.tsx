@@ -58,19 +58,14 @@ const ratingOptions = [
     summary: '',
   },
   {
-    label: __('Exactly 4★', 'yay-reviews'),
-    value: '4_stars',
-    summary: __('4★', 'yay-reviews'),
+    label: __('Less than 5★', 'yay-reviews'),
+    value: 'less_than_5_stars',
+    summary: __('less than 5★', 'yay-reviews'),
   },
   {
-    label: __('Exactly 5★', 'yay-reviews'),
+    label: __('5★ only', 'yay-reviews'),
     value: '5_stars',
     summary: __('5★', 'yay-reviews'),
-  },
-  {
-    label: __('4★ or higher', 'yay-reviews'),
-    value: 'at_least_4_stars',
-    summary: __('4★ or higher', 'yay-reviews'),
   },
 ];
 
@@ -81,22 +76,10 @@ const mediaOptions = [
     summary: '',
   },
   {
-    label: __('≥ 1 photo', 'yay-reviews'),
-    value: 'at_least_1_image',
-    summary: __('at least one photo', 'yay-reviews'),
-    shortSummary: __('≥ 1 photo', 'yay-reviews'),
-  },
-  {
-    label: __('≥ 1 video', 'yay-reviews'),
-    value: 'at_least_1_video',
-    summary: __('at least one video', 'yay-reviews'),
-    shortSummary: __('≥ 1 video', 'yay-reviews'),
-  },
-  {
-    label: __('≥ 1 photo or video', 'yay-reviews'),
+    label: __('Photo or video required', 'yay-reviews'),
     value: 'at_least_1_media',
     summary: __('at least one photo or video', 'yay-reviews'),
-    shortSummary: __('≥ 1 photo or video', 'yay-reviews'),
+    shortSummary: __('photo or video required', 'yay-reviews'),
   },
 ];
 
