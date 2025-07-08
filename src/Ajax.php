@@ -224,6 +224,9 @@ class Ajax {
 			$value        = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : '';
 
 			if ( ! empty( $update_field ) && ! empty( $value ) ) {
+				if ( 'reviews_enabled' === $update_field ) {
+					update_option( 'woocommerce_enable_reviews', 'true' === $value ? 'yes' : 'no' );
+				}
 				if ( 'verification_label' === $update_field ) {
 					update_option( 'woocommerce_review_rating_verification_label', 'true' === $value ? 'yes' : 'no' );
 				} elseif ( 'verification_required' === $update_field ) {

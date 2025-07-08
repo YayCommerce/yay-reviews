@@ -10,6 +10,7 @@ import ReminderIcon from '@/components/icons/Reminder';
 import PageTitle from '@/components/page-title';
 
 import AddonCard, { Addon } from './addon-card';
+import EnableReviewCard from './enable-review-card';
 
 const addonsInformation = [
   {
@@ -58,7 +59,7 @@ export default function DashboardPage() {
   }, [{ ...addonStatus }]);
 
   return (
-    <PageLayout>
+    <PageLayout className="items-start">
       <PageTitle
         title={__('Welcome to Yay Reviews', 'yay-reviews')}
         description={
@@ -80,6 +81,7 @@ export default function DashboardPage() {
           </>
         }
       />
+      <EnableReviewCard />
       <div className="container mx-auto px-7 py-0">
         <div className="text-foreground mb-6 text-xl font-semibold">Addon-on settings</div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">

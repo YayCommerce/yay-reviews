@@ -576,6 +576,7 @@ class Helpers {
 
 	public static function get_wc_reviews_settings() {
 		return array(
+			'reviews_enabled'        => wc_reviews_enabled(),
 			'verification_label'     => 'yes' === get_option( 'woocommerce_review_rating_verification_label' ),
 			'verification_required'  => 'yes' === get_option( 'woocommerce_review_rating_verification_required' ),
 			'enable_review_rating'   => 'yes' === get_option( 'woocommerce_enable_review_rating' ),
