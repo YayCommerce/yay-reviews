@@ -82,6 +82,7 @@ class Cron {
 			);
 			if ( $email_id ) {
 				wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+				update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
 			}
 			return;
 		}
@@ -142,6 +143,7 @@ class Cron {
 
 		if ( $email_id ) {
 			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+			update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
 		}
 	}
 
@@ -151,7 +153,7 @@ class Cron {
 			return;
 		}
 
-		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 

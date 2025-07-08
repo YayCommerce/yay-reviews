@@ -53,7 +53,7 @@ class ReminderEmail extends \WC_Email {
 		$this->placeholders['{site_title}']      = get_bloginfo( 'name' );
 		$this->placeholders['{review_products}'] = $this->get_review_products();
 
-		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 
@@ -72,7 +72,9 @@ class ReminderEmail extends \WC_Email {
 					)
 				);
 			}
-			update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'yes' );
+			if ( $result ) {
+				update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'sent' );
+			}
 		}
 
 		$this->restore_locale();
