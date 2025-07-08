@@ -135,11 +135,12 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
             <dd className="pl-2 text-sm">
               {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
             </dd>
-            <dt className="text-sm font-semibold">
-              {__('Remind products', 'yay-reviews')}:
-            </dt>
+            <dt className="text-sm font-semibold">{__('Remind products', 'yay-reviews')}:</dt>
             <dd className="pl-2 text-sm">
-              {email.email_data?.max_products} {productType}
+              {email.email_data?.products_type !== 'all' &&
+                email.email_data?.max_products &&
+                `${email.email_data?.max_products} `}
+              {productType}
             </dd>
           </>
         )}

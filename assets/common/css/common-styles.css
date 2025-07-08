@@ -116,6 +116,12 @@
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
+
+.yay-reviews-modal-see-all-media:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .yay-reviews-review-details__media-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(max(80px), 1fr));

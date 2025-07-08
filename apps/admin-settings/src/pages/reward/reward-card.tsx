@@ -101,7 +101,7 @@ const mediaOptions = [
 ];
 
 export default function RewardCard({ reward }: { reward: Reward }) {
-  const { control, watch, setValue, trigger, reset } = useFormContext<SettingsFormData>();
+  const { control, watch, setValue } = useFormContext<SettingsFormData>();
   const { coupons } = useRewardsContext();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);

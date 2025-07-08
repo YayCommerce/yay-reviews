@@ -14,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import PageTitle from '@/components/page-title';
 
 export default function ReminderPage() {
@@ -26,18 +25,18 @@ export default function ReminderPage() {
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
         <div className="text-xs">
-        <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
-        {` `}
-        <span
-          className="text-foreground cursor-pointer lowercase underline decoration-solid"
-          onClick={(e) => {
-            e.preventDefault();
-            changeTab('emails');
-          }}
-        >
-          {__('email template', 'yay-reviews')}
-        </span>
-      </div>
+          <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
+          {` `}
+          <span
+            className="text-foreground cursor-pointer lowercase underline decoration-solid"
+            onClick={(e) => {
+              e.preventDefault();
+              changeTab('emails');
+            }}
+          >
+            {__('email template', 'yay-reviews')}
+          </span>
+        </div>
       </div>
     </PageLayout>
   );
