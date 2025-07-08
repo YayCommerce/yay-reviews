@@ -348,58 +348,58 @@ class Helpers {
 				$valid = false;
 			}
 		}
+		// TODO: change logic
+		// if ( 'none' !== $media_requirement ) {
+		//  $video_media = array_filter(
+		//      $media,
+		//      function ( $media ) {
+		//          return 'video' === $media['type'];
+		//      }
+		//  );
 
-		if ( 'none' !== $media_requirement ) {
-			$video_media = array_filter(
-				$media,
-				function ( $media ) {
-					return 'video' === $media['type'];
-				}
-			);
+		//  $image_media = array_filter(
+		//      $media,
+		//      function ( $media ) {
+		//          return 'image' === $media['type'];
+		//      }
+		//  );
 
-			$image_media = array_filter(
-				$media,
-				function ( $media ) {
-					return 'image' === $media['type'];
-				}
-			);
+		//  if ( 'at_least_1_media' === $media_requirement ) {
+		//      if ( empty( $image_media ) ) {
+		//          $valid = false;
+		//      }
+		//  }
 
-			if ( 'at_least_1_media' === $media_requirement ) {
-				if ( empty( $image_media ) ) {
-					$valid = false;
-				}
-			}
+		//  if ( 'at_least_2_media' === $media_requirement ) {
+		//      if ( count( $media ) < 2 ) {
+		//          $valid = false;
+		//      }
+		//  }
 
-			if ( 'at_least_2_media' === $media_requirement ) {
-				if ( count( $media ) < 2 ) {
-					$valid = false;
-				}
-			}
+		//  if ( 'at_least_1_image' === $media_requirement ) {
+		//      if ( empty( $image_media ) ) {
+		//          $valid = false;
+		//      }
+		//  }
 
-			if ( 'at_least_1_image' === $media_requirement ) {
-				if ( empty( $image_media ) ) {
-					$valid = false;
-				}
-			}
+		//  if ( 'at_least_1_video' === $media_requirement ) {
+		//      if ( empty( $video_media ) ) {
+		//          $valid = false;
+		//      }
+		//  }
 
-			if ( 'at_least_1_video' === $media_requirement ) {
-				if ( empty( $video_media ) ) {
-					$valid = false;
-				}
-			}
+		//  if ( 'at_least_2_videos' === $media_requirement ) {
+		//      if ( count( $video_media ) < 2 ) {
+		//          $valid = false;
+		//      }
+		//  }
 
-			if ( 'at_least_2_videos' === $media_requirement ) {
-				if ( count( $video_media ) < 2 ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_2_images' === $media_requirement ) {
-				if ( count( $image_media ) < 2 ) {
-					$valid = false;
-				}
-			}
-		}
+		//  if ( 'at_least_2_images' === $media_requirement ) {
+		//      if ( count( $image_media ) < 2 ) {
+		//          $valid = false;
+		//      }
+		//  }
+		// }
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
 			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
