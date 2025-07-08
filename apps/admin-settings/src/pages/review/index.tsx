@@ -95,7 +95,7 @@ function UploadMediaCard() {
                     {[
                       {
                         value: 'video_image',
-                        label: __('Video and image', 'yay-reviews'),
+                        label: __('Video and photo', 'yay-reviews'),
                       },
                       {
                         value: 'only_video',
@@ -103,7 +103,7 @@ function UploadMediaCard() {
                       },
                       {
                         value: 'only_image',
-                        label: __('Only image', 'yay-reviews'),
+                        label: __('Only photo', 'yay-reviews'),
                       },
                     ].map((item) => (
                       <SelectItem key={item.value} value={item.value}>
@@ -118,7 +118,7 @@ function UploadMediaCard() {
 
           <div className="space-y-2">
             <Label htmlFor="reviews.max_upload_file_qty">
-              {__('Maximum upload files', 'yay-reviews')}
+              {__('Maximum files per review', 'yay-reviews')}
             </Label>
             <FormField
               control={control}

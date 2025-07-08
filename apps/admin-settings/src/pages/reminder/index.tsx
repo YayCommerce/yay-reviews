@@ -127,7 +127,7 @@ function ReminderInformation() {
               name="reminder.send_after_unit"
               render={({ field: { value, onChange } }) => (
                 <Select id="reminder.send_after_unit" value={value} onValueChange={onChange}>
-                  <SelectTrigger className="min-w-40">
+                  <SelectTrigger className="w-full max-w-[130px]">
                     <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                   </SelectTrigger>
                   <SelectContent>

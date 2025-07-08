@@ -321,7 +321,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
         <div className="flex flex-col gap-4 p-6">
           <div className="text-foreground text-lg font-semibold">{__('Coupon', 'yay-reviews')}</div>
           {/* Coupon selection */}
-          <div className="max-w-[400px]">
+          <div className="max-w-[300px]">
             <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="mb-2 w-full font-normal">
               {__('Select coupon to be sent', 'yay-reviews')}
             </Label>
@@ -416,7 +416,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
           <div className="text-foreground text-lg font-semibold">
             {__('Who can receive the reward?', 'yay-reviews')}
           </div>
-          <div className="max-w-[400px]">
+          <div className="max-w-[300px]">
             <FormField
               control={control}
               name={`rewards.${reward.id}.send_to`}
