@@ -31,6 +31,7 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
 
   const handleChangeStatus = async () => {
     try {
+      toast.dismiss();
       setIsLoading(true);
       const currentStatus = enabled ? 'active' : 'inactive';
       const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
@@ -39,6 +40,12 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
         toast.error(response.data.message);
       } else {
         setValue(`addons.${id}`, newStatus === 'active' ? true : false);
+        toast.success(
+          __('Addon ', 'yay-reviews') +
+            title +
+            ': ' +
+            (newStatus === 'active' ? __('ON', 'yay-reviews') : __('OFF', 'yay-reviews')),
+        );
       }
     } catch (error) {
       toast.error(__('Something went wrong', 'yay-reviews'));

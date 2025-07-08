@@ -279,6 +279,7 @@ function WooCommerceSettingsCard() {
   const [isLoadingUpdate, setIsLoadingUpdate] = useState('');
 
   const handleChangeWooCommerceSettings = (name: string, value: boolean) => {
+    toast.dismiss();
     setIsLoadingUpdate(name);
     changeWcReviewsSettings(name, value).then((res) => {
       if (res.success) {
@@ -286,6 +287,17 @@ function WooCommerceSettingsCard() {
           ...wcReviewsSettings,
           [name]: value,
         });
+        toast.success(
+          (name === 'verification_label'
+            ? __('Verified owner label', 'yay-reviews')
+            : name === 'verification_required'
+              ? __('Verification required', 'yay-reviews')
+              : name === 'enable_review_rating'
+                ? __('Star ratings enabled', 'yay-reviews')
+                : __('Star ratings required', 'yay-reviews')) +
+            ': ' +
+            (value ? __('ON', 'yay-reviews') : __('OFF', 'yay-reviews')),
+        );
       } else {
         toast.error(res.data.mess);
       }
