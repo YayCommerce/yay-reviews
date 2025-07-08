@@ -101,7 +101,7 @@ const mediaOptions = [
 ];
 
 export default function RewardCard({ reward }: { reward: Reward }) {
-  const { control, watch, setValue } = useFormContext<SettingsFormData>();
+  const { control, watch, setValue, trigger, reset } = useFormContext<SettingsFormData>();
   const { coupons } = useRewardsContext();
 
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -114,17 +114,22 @@ export default function RewardCard({ reward }: { reward: Reward }) {
   const handleDuplicate = (reward: Reward) => {
     const newId = uuidv4();
     const duplicateReward = { ...reward, id: newId, is_open: true };
-    // Create a new object with the duplicated reward to ensure React Hook Form detects the change
     const updatedRewards = { ...rewards, [newId]: duplicateReward };
     setValue('rewards', updatedRewards, { shouldDirty: true });
   };
 
   const handleDelete = (reward: Reward) => {
-    // Create a new object without the deleted reward to ensure React Hook Form detects the change
-    const updatedRewards = Object.fromEntries(
-      Object.entries(rewards).filter(([key]) => key !== reward.id),
-    );
-    setValue('rewards', updatedRewards, { shouldDirty: true });
+    const updatedRewards = { ...rewards };
+    delete updatedRewards[reward.id];
+
+    if (Object.keys(updatedRewards).length === 0) {
+      setValue('rewards', { __temp__: true } as any, { shouldDirty: true });
+      setTimeout(() => {
+        setValue('rewards', {}, { shouldDirty: true });
+      }, 0);
+    } else {
+      setValue('rewards', updatedRewards, { shouldDirty: true });
+    }
   };
 
   const selectedCouponStatus = useMemo(() => {
