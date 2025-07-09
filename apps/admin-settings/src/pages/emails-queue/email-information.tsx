@@ -4,6 +4,7 @@ import { EmailQueue } from 'types/email-queue';
 
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 export default function EmailInformation({ email }: { email: EmailQueue | null }) {
   if (!email) {
@@ -72,61 +73,85 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
 
   return (
     <div className="space-y-6 px-4 pt-6">
-      <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
-        <dt className="text-sm font-semibold">{__('Type', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm capitalize">{email.type}</dd>
-        <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
-        <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm font-semibold capitalize">
-          <Badge
-            variant="default"
-            className={cn('transition-none', {
-              'bg-[#1668dc]': email.status === '0',
-              'bg-[#49aa19]': email.status === '1',
-              'bg-[#404040]': email.status === '2',
-            })}
-          >
-            {email.status === '0'
-              ? __('Pending', 'yay-reviews')
-              : email.status === '1'
-                ? __('Sent', 'yay-reviews')
-                : __('Cancelled', 'yay-reviews')}
-          </Badge>
-        </dd>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell className="font-semibold">{__('Type', 'yay-reviews')}:</TableCell>
+            <TableCell className="capitalize">{email.type}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-semibold">{__('To', 'yay-reviews')}:</TableCell>
+            <TableCell className="break-all">{email.customer_email}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-semibold">{__('Status', 'yay-reviews')}:</TableCell>
+            <TableCell>
+              <Badge
+                variant="default"
+                className={cn('transition-none', {
+                  'bg-[#1668dc]': email.status === '0',
+                  'bg-[#49aa19]': email.status === '1',
+                  'bg-[#404040]': email.status === '2',
+                })}
+              >
+                {email.status === '0'
+                  ? __('Pending', 'yay-reviews')
+                  : email.status === '1'
+                    ? __('Sent', 'yay-reviews')
+                    : __('Cancelled', 'yay-reviews')}
+              </Badge>
+            </TableCell>
+          </TableRow>
 
-        {/* Section: Reward Details */}
-        {email.type === 'reward' && (
-          <>
-            <dt className="text-sm font-semibold">{__('Coupon', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{email.email_data?.coupon_code}</dd>
-            <dt className="text-sm font-semibold">{__('Product', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{email.email_data?.product_name}</dd>
-            <dt className="text-sm font-semibold">{__('Rating', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{ratingRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Media', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{mediaRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Frequency', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
-          </>
-        )}
-        {/* Section: Reminder Details */}
-        {email.type === 'reminder' && (
-          <>
-            <dt className="text-sm font-semibold">{__('Sent after', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">
-              {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
-            </dd>
-            <dt className="text-sm font-semibold">{__('Remind products', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">
-              {email.email_data?.products_type !== 'all' &&
-                email.email_data?.max_products &&
-                `${email.email_data?.max_products} `}
-              {productType}
-            </dd>
-          </>
-        )}
-      </dl>
+          {/* Section: Reward Details */}
+          {email.type === 'reward' && (
+            <>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Coupon', 'yay-reviews')}:</TableCell>
+                <TableCell>{email.email_data?.coupon_code}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Product', 'yay-reviews')}:</TableCell>
+                <TableCell>{email.email_data?.product_name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Rating', 'yay-reviews')}:</TableCell>
+                <TableCell>{ratingRequirement}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Media', 'yay-reviews')}:</TableCell>
+                <TableCell>{mediaRequirement}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Frequency', 'yay-reviews')}:</TableCell>
+                <TableCell>{minimumRequiredReviewsSinceLastReward}</TableCell>
+              </TableRow>
+            </>
+          )}
+          {/* Section: Reminder Details */}
+          {email.type === 'reminder' && (
+            <>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Sent after', 'yay-reviews')}:</TableCell>
+                <TableCell>
+                  {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">
+                  {__('Remind products', 'yay-reviews')}:
+                </TableCell>
+                <TableCell>
+                  {email.email_data?.products_type !== 'all' &&
+                    email.email_data?.max_products &&
+                    `${email.email_data?.max_products} `}
+                  {productType}
+                </TableCell>
+              </TableRow>
+            </>
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }
