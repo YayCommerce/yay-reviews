@@ -164,6 +164,7 @@ class Frontend {
 
 							$coupon = new \WC_Coupon();
 							// Create new coupon with generated code and usage limit 1
+							$coupon_code = strtolower( $coupon_code );
 							$coupon->set_code( $coupon_code );
 							$coupon->set_amount( $reward['coupon_value'] );
 							if ( 'currency' === $reward['coupon_value_suffix'] ) {
