@@ -149,16 +149,48 @@ class Frontend {
 					if ( ! $reward['enabled'] || empty( $reward['coupon_id'] ) ) {
 						continue;
 					}
-					$coupon_id    = $reward['coupon_id'];
-					$coupon       = new \WC_Coupon( $coupon_id );
-					$expired      = Helpers::is_coupon_expired( $coupon );
-					$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
-					if ( ! $expired && ! $out_of_usage && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
-						if ( ! class_exists( 'WC_Email' ) ) {
-							WC()->mailer();
+					// $reward['coupon_type'] is one_time_coupon or manual_coupon
+					$coupon_type = isset( $reward['coupon_type'] ) ? $reward['coupon_type'] : 'manual_coupon';
+					if ( 'one_time_coupon' === $coupon_type ) {
+						if ( Helpers::is_valid_review_criteria( $comment, $reward ) ) {
+							// Generate unique coupon code
+							$coupon_code = Helpers::generate_unique_coupon_code( 8 );
+
+							if ( ! $coupon_code ) {
+								// Log error if unable to generate unique coupon code
+								error_log( 'YayReviews: Unable to generate unique coupon code for comment ID: ' . $comment_id );
+								continue;
+							}
+
+							$coupon = new \WC_Coupon();
+							// Create new coupon with generated code and usage limit 1
+							$coupon->set_code( $coupon_code );
+							$coupon->set_amount( $reward['amount'] );
+							if ( 'currency' === $reward['amount_suffix'] ) {
+								$coupon->set_discount_type( 'fixed_cart' );
+							} else {
+								$coupon->set_discount_type( 'percent' );
+							}
+							$coupon->set_usage_limit( 1 );
+							$coupon->save();
+							if ( ! class_exists( 'WC_Email' ) ) {
+								WC()->mailer();
+							}
+							do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							break;
 						}
-						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-						break;
+					} else {
+						$coupon_id    = $reward['coupon_id'];
+						$coupon       = new \WC_Coupon( $coupon_id );
+						$expired      = Helpers::is_coupon_expired( $coupon );
+						$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
+						if ( ! $expired && ! $out_of_usage && Helpers::is_valid_review_criteria( $comment, $reward ) ) {
+							if ( ! class_exists( 'WC_Email' ) ) {
+								WC()->mailer();
+							}
+							do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							break;
+						}
 					}
 				}
 			}

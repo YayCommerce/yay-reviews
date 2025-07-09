@@ -1,11 +1,5 @@
 /** ---------------------------- Reviews Form ---------------------------- */
 
-.woocommerce-Reviews #review_form_wrapper #commentform label {
-  display: inline-flex !important;
-  margin-bottom: 0.5rem;
-  cursor: pointer;
-}
-
 /* Review Title */
 .yay-reviews-review-title input {
   display: block;
@@ -337,7 +331,7 @@
 }
 
 .wp-theme-brandy .yay-reviews-reviews-overview__filters-item__progress {
-  background-color: var(--brandy-product-rating-star-color-active, #FFAC70);
+  background-color: var(--brandy-product-rating-star-color-active, #ffac70);
 }
 
 .yay-reviews-reviews-overview__filters-item__count {

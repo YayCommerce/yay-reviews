@@ -55,6 +55,7 @@ class Admin {
 					'ajax_url'                => admin_url( 'admin-ajax.php' ),
 					'rest_base'               => YAY_REVIEWS_REST_URL,
 					'image_url'               => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
+					'currency_symbol'         => get_woocommerce_currency_symbol(),
 					'wc_reviews_settings'     => Helpers::get_wc_reviews_settings(),
 					'wc_settings_url'         => admin_url( 'admin.php?page=wc-settings&tab=products' ),
 					'site_title'              => get_bloginfo( 'name' ),
@@ -69,9 +70,6 @@ class Admin {
 						'{review_products}' => Helpers::get_review_products( 'sample' ),
 					),
 					'wc_email_settings'       => Helpers::get_wc_email_settings(),
-					'coupon_types'            => wc_get_coupon_types(),
-					'product_categories'      => Helpers::get_product_categories(),
-					'product_brands'          => Helpers::get_product_brands(),
 					'default_email_templates' => $default_settings['email'],
 					'coupons'                 => Helpers::get_coupons(),
 				)

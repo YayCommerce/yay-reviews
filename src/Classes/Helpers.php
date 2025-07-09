@@ -509,4 +509,51 @@ class Helpers {
 			'review_rating_required' => 'yes' === get_option( 'woocommerce_review_rating_required' ),
 		);
 	}
+
+	/**
+	 * Generate a unique coupon code similar to WooCommerce's pattern
+	 *
+	 * @param int    $length Length of the random part (default: 8)
+	 * @param int    $max_attempts Maximum attempts to find a unique code (default: 100)
+	 * @return string|false Generated coupon code or false if unable to generate unique code
+	 */
+	public static function generate_unique_coupon_code( $length = 8, $max_attempts = 100 ) {
+		global $wpdb;
+
+		// Ensure length is reasonable
+		$length = max( 4, min( 20, intval( $length ) ) );
+
+		$attempts = 0;
+
+		while ( $attempts < $max_attempts ) {
+			// Generate random string using WooCommerce's pattern (uppercase letters and numbers)
+			$coupon_code = '';
+			$characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+			$char_length = strlen( $characters );
+
+			for ( $i = 0; $i < $length; $i++ ) {
+				$coupon_code .= $characters[ wp_rand( 0, $char_length - 1 ) ];
+			}
+
+			// Check if this coupon code already exists
+			$existing_coupon = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT post_title FROM {$wpdb->posts} 
+					WHERE post_type = 'shop_coupon' 
+					AND post_title = %s 
+					AND post_status = 'publish'",
+					$coupon_code
+				)
+			);
+
+			if ( ! $existing_coupon ) {
+				return $coupon_code;
+			}
+
+			++$attempts;
+		}
+
+		// If we couldn't generate a unique code after max attempts, return false
+		return false;
+	}
 }

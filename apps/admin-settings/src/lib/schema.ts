@@ -29,7 +29,10 @@ const rewardSchema = z.object({
   id: z.string(),
   name: z.string(),
   enabled: z.boolean(),
-  coupon_id: z.string(),
+  coupon_type: z.string(),
+  coupon_id: z.string().optional(),
+  coupon_value: z.number().optional(),
+  coupon_value_suffix: z.string().optional(),
   send_to: z.string(),
   rating_requirement: z.string(),
   media_requirement: z.string(),
@@ -69,55 +72,9 @@ const emailSchema = z.object({
 
 export const couponSchema = z.object({
   code: z.string().min(1, { message: 'Coupon code is required' }),
-  description: z.string(),
-  discount_type: z.string(),
   amount: z.number(),
-  free_shipping: z.boolean(),
+  amount_suffix: z.string(),
   expiry_date: z.date().optional(),
-  minimum_spend: z.number().optional(),
-  maximum_spend: z.number().optional(),
-  individual_use: z.boolean(),
-  exclude_sale_items: z.boolean(),
-  products: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    }),
-  ),
-  exclude_products: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    }),
-  ),
-  product_categories: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  exclude_product_categories: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  allowed_emails: z.string(),
-  product_brands: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  exclude_product_brands: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  usage_limit_per_coupon: z.number().optional(),
-  usage_limit_per_user: z.number().optional(),
-  limit_usage_to_x_items: z.number().optional(),
 });
 
 export const settingsSchema = z.object({

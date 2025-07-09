@@ -18,6 +18,7 @@ import {
 import { FormField, useFormContext } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import {
   Select,
   SelectContent,
@@ -31,6 +32,7 @@ import DuplicateIcon from '@/components/icons/Duplicate';
 import TrashIcon from '@/components/icons/Trash';
 
 import { DEFAULT_REWARD } from './add-reward-button';
+import InputNumberWithSuffix from './input-numper-with-suffix';
 import { NewCouponDrawer } from './new-coupon-drawer';
 
 const frequencyOptions = [
@@ -126,6 +128,9 @@ export default function RewardCard({ reward }: { reward: Reward }) {
   const frequency = watch(`rewards.${reward.id}.frequency`);
   const rating = watch(`rewards.${reward.id}.rating_requirement`);
   const media = watch(`rewards.${reward.id}.media_requirement`);
+  const couponType = watch(`rewards.${reward.id}.coupon_type`);
+  const couponValue = watch(`rewards.${reward.id}.coupon_value`);
+  const couponValueSuffix = watch(`rewards.${reward.id}.coupon_value_suffix`);
 
   const headingSummary = useMemo(() => {
     const result = [];
@@ -145,16 +150,25 @@ export default function RewardCard({ reward }: { reward: Reward }) {
       result.push(mediaSummary);
     }
 
-    if (coupon) {
-      const couponData = coupons.find((c) => c.id === coupon);
-      let couponAmount = '$' + couponData?.amount;
-      if (couponData?.type.includes('percent')) {
-        couponAmount = couponData.amount + '%';
+    if (couponType === 'one_time_coupon') {
+      let couponAmount = window.yayReviews.currency_symbol + couponValue;
+      if (couponValueSuffix === 'percentage') {
+        couponAmount = couponValue + '%';
       }
       result.push(couponAmount + ' ' + __('off coupon', 'yay-reviews'));
+    } else {
+      if (coupon) {
+        const couponData = coupons.find((c) => c.id === coupon);
+        let couponAmount = window.yayReviews.currency_symbol + couponData?.amount;
+        if (couponData?.type.includes('percent')) {
+          couponAmount = couponData.amount + '%';
+        }
+        result.push(couponAmount + ' ' + __('off coupon', 'yay-reviews'));
+      }
     }
+
     return result.join('&nbsp;•&nbsp;');
-  }, [frequency, rating, media, coupon, coupons]);
+  }, [frequency, rating, media, coupon, coupons, couponType, couponValue, couponValueSuffix]);
 
   const bodySummary = useMemo(() => {
     const frequencySummary = frequencyOptions.find((option) => option.value === frequency)?.summary;
@@ -184,6 +198,11 @@ export default function RewardCard({ reward }: { reward: Reward }) {
 
     return result + subResult;
   }, [frequency, rating, media]);
+
+  const coupon_value_suffix = watch(`rewards.${reward.id}.coupon_value_suffix`) || 'currency';
+  const onSuffixChange = (suffix: string) => {
+    setValue(`rewards.${reward.id}.coupon_value_suffix`, suffix, { shouldDirty: true });
+  };
 
   return (
     <Collapsible className="yay-reviews-collapsible" defaultOpen={reward.is_open}>
@@ -308,95 +327,148 @@ export default function RewardCard({ reward }: { reward: Reward }) {
       <CollapsibleContent className="yay-reviews-collapsible-content rounded-b-xl bg-white">
         <div className="flex flex-col gap-4 p-6">
           <div className="text-foreground text-lg font-semibold">{__('Coupon', 'yay-reviews')}</div>
-          {/* Coupon selection */}
-          <div className="max-w-[300px]">
-            <Label htmlFor={`rewards.${reward.id}.coupon_id`} className="mb-2 w-full font-normal">
-              {__('Select coupon to be sent', 'yay-reviews')}
-            </Label>
-            <div className="w-full">
+          <FormField
+            control={control}
+            name={`rewards.${reward.id}.coupon_type`}
+            render={({ field: { value, onChange } }) => (
+              <RadioGroup
+                defaultValue="one_time_coupon"
+                value={value}
+                onValueChange={onChange}
+                className="flex flex-col gap-2"
+              >
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="one_time_coupon" id="r1" />
+                  <Label htmlFor="r1">
+                    {__('Creates a unique one-time coupon for each review', 'yay-reviews')}
+                  </Label>
+                </div>
+                <div className="flex items-center gap-3">
+                  <RadioGroupItem value="manual_coupon" id="r2" />
+                  <Label htmlFor="r2">{__('Manual coupon', 'yay-reviews')}</Label>
+                </div>
+              </RadioGroup>
+            )}
+          />
+          {couponType === 'manual_coupon' && (
+            <>
+              {/* Coupon selection */}
+              <div className="max-w-[300px]">
+                <Label
+                  htmlFor={`rewards.${reward.id}.coupon_id`}
+                  className="mb-2 w-full font-normal"
+                >
+                  {__('Select coupon to be sent', 'yay-reviews')}
+                </Label>
+                <div className="w-full">
+                  <FormField
+                    control={control}
+                    name={`rewards.${reward.id}.coupon_id`}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        id={`rewards.${reward.id}.coupon_id`}
+                        value={value || ''}
+                        defaultValue={value || ''}
+                        onValueChange={onChange}
+                      >
+                        <SelectTrigger className="w-full bg-white">
+                          <SelectValue placeholder={__('Select coupon', 'yay-reviews')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {coupons.length > 0 ? (
+                            coupons.map((coupon) => (
+                              <SelectItem
+                                key={coupon.id}
+                                value={coupon.id}
+                                className="yay-reviews-coupon-select-item"
+                              >
+                                <div className="flex w-full items-center justify-between gap-2">
+                                  <span>{coupon.code}</span>
+                                  <span>
+                                    {coupon.expired ? (
+                                      <Badge variant="destructive" className="px-1 py-0">
+                                        {__('expired', 'yay-reviews')}
+                                      </Badge>
+                                    ) : (
+                                      ''
+                                    )}{' '}
+                                    {coupon.out_of_usage ? (
+                                      <Badge variant="secondary" className="px-1 py-0">
+                                        {__('out of usage', 'yay-reviews')}
+                                      </Badge>
+                                    ) : (
+                                      ''
+                                    )}
+                                  </span>
+                                </div>
+                              </SelectItem>
+                            ))
+                          ) : (
+                            <div className="text-muted-foreground mt-2 mb-2 flex items-center justify-center text-sm">
+                              {__('No coupons found', 'yay-reviews')}
+                            </div>
+                          )}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                </div>
+              </div>
+              {/* Create new coupon */}
+              <div className="text-sm">
+                <span className="text-slate-500 capitalize">{__('or')}</span>
+                {` `}
+                <NewCouponDrawer rewardId={reward.id}>
+                  <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
+                    {__('Create new coupon', 'yay-reviews')}
+                  </span>
+                </NewCouponDrawer>
+              </div>
+              {/* Coupon status */}
+              {selectedCouponStatus !== '' && (
+                <span>
+                  <span className="text-slate-500">
+                    {selectedCouponStatus + ` `}
+                    {__(
+                      'coupon cannot be sent to customers as rewards. Please update its',
+                      'yay-reviews',
+                    )}
+                  </span>
+                  {` `}
+                  <a
+                    className="text-foreground lowercase underline decoration-solid"
+                    href={coupons.find((c) => c.id === coupon)?.edit_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {__('restrictions', 'yay-reviews')}
+                  </a>
+                </span>
+              )}
+            </>
+          )}
+
+          {couponType === 'one_time_coupon' && (
+            <div className="flex flex-col">
+              <Label htmlFor={`rewards.${reward.id}.coupon_value`} className="mb-2 w-fit">
+                <span>{__('Coupon amount', 'yay-reviews')} </span>
+                <span className="text-[#D50719]">*</span>
+              </Label>
               <FormField
                 control={control}
-                name={`rewards.${reward.id}.coupon_id`}
+                name={`rewards.${reward.id}.coupon_value`}
                 render={({ field: { value, onChange } }) => (
-                  <Select
-                    id={`rewards.${reward.id}.coupon_id`}
-                    value={value || ''}
-                    defaultValue={value || ''}
-                    onValueChange={onChange}
-                  >
-                    <SelectTrigger className="w-full bg-white">
-                      <SelectValue placeholder={__('Select coupon', 'yay-reviews')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {coupons.length > 0 ? (
-                        coupons.map((coupon) => (
-                          <SelectItem
-                            key={coupon.id}
-                            value={coupon.id}
-                            className="yay-reviews-coupon-select-item"
-                          >
-                            <div className="flex w-full items-center justify-between gap-2">
-                              <span>{coupon.code}</span>
-                              <span>
-                                {coupon.expired ? (
-                                  <Badge variant="destructive" className="px-1 py-0">
-                                    {__('expired', 'yay-reviews')}
-                                  </Badge>
-                                ) : (
-                                  ''
-                                )}{' '}
-                                {coupon.out_of_usage ? (
-                                  <Badge variant="secondary" className="px-1 py-0">
-                                    {__('out of usage', 'yay-reviews')}
-                                  </Badge>
-                                ) : (
-                                  ''
-                                )}
-                              </span>
-                            </div>
-                          </SelectItem>
-                        ))
-                      ) : (
-                        <div className="text-muted-foreground mt-2 mb-2 flex items-center justify-center text-sm">
-                          {__('No coupons found', 'yay-reviews')}
-                        </div>
-                      )}
-                    </SelectContent>
-                  </Select>
+                  <InputNumberWithSuffix
+                    width="w-[150px]"
+                    name={`rewards.${reward.id}.coupon_value`}
+                    value={Number(value)}
+                    onChange={onChange}
+                    suffix={coupon_value_suffix}
+                    onSuffixChange={onSuffixChange}
+                  />
                 )}
               />
             </div>
-          </div>
-          {/* Create new coupon */}
-          <div className="text-sm">
-            <span className="text-slate-500 capitalize">{__('or')}</span>
-            {` `}
-            <NewCouponDrawer rewardId={reward.id}>
-              <span className="text-foreground cursor-pointer lowercase underline decoration-solid">
-                {__('Create new coupon', 'yay-reviews')}
-              </span>
-            </NewCouponDrawer>
-          </div>
-          {/* Coupon status */}
-          {selectedCouponStatus !== '' && (
-            <span>
-              <span className="text-slate-500">
-                {selectedCouponStatus + ` `}
-                {__(
-                  'coupon cannot be sent to customers as rewards. Please update its',
-                  'yay-reviews',
-                )}
-              </span>
-              {` `}
-              <a
-                className="text-foreground lowercase underline decoration-solid"
-                href={coupons.find((c) => c.id === coupon)?.edit_url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {__('restrictions', 'yay-reviews')}
-              </a>
-            </span>
           )}
 
           <hr className="border-t border-[#f0f0f0]" />
@@ -441,7 +513,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
               {__('Conditions to trigger the reward', 'yay-reviews')}
             </div>
             <div className="max-w-[300px]">
-              <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-full font-normal">
+              <Label htmlFor={`rewards.${reward.id}.frequency`} className="mb-2 w-fit">
                 {__('Frequency', 'yay-reviews')}
               </Label>
               <FormField
@@ -469,10 +541,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
               />
             </div>
             <div className="max-w-[300px]">
-              <Label
-                htmlFor={`rewards.${reward.id}.rating_requirement`}
-                className="mb-2 w-full font-normal"
-              >
+              <Label htmlFor={`rewards.${reward.id}.rating_requirement`} className="mb-2 w-fit">
                 {__('Rating', 'yay-reviews')}
               </Label>
               <FormField
@@ -501,10 +570,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
             </div>
             {isMediaEnabled && (
               <div className="max-w-[300px]">
-                <Label
-                  htmlFor={`rewards.${reward.id}.media_requirement`}
-                  className="mb-2 w-full font-normal"
-                >
+                <Label htmlFor={`rewards.${reward.id}.media_requirement`} className="mb-2 w-fit">
                   {__('Media', 'yay-reviews')}
                 </Label>
                 <div className="flex items-center gap-2">
