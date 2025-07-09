@@ -165,8 +165,8 @@ class Frontend {
 							$coupon = new \WC_Coupon();
 							// Create new coupon with generated code and usage limit 1
 							$coupon->set_code( $coupon_code );
-							$coupon->set_amount( $reward['amount'] );
-							if ( 'currency' === $reward['amount_suffix'] ) {
+							$coupon->set_amount( $reward['coupon_value'] );
+							if ( 'currency' === $reward['coupon_value_suffix'] ) {
 								$coupon->set_discount_type( 'fixed_cart' );
 							} else {
 								$coupon->set_discount_type( 'percent' );
