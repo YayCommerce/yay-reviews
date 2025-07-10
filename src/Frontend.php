@@ -38,7 +38,7 @@ class Frontend {
 
 		if ( $enable_gdpr_consent ) {
 			$gdpr_data                      = array(
-				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['gdpr_consent_before_message'] : '',
+				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['pre_gdpr_message'] : '',
 				'gdpr_message' => isset( $reviews_settings['gdpr_consent_message'] ) ? $reviews_settings['gdpr_consent_message'] : '',
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
@@ -249,7 +249,6 @@ class Frontend {
 					__( 'photo', 'yay-reviews' )
 				)
 		);
-		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 		wp_enqueue_script( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
