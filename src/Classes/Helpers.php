@@ -9,6 +9,7 @@ class Helpers {
 		$settings = get_option( 'yay_reviews_settings', array() );
 		if ( empty( $settings ) ) {
 			$settings = self::add_default_settings( $settings );
+			update_option( 'yay_reviews_has_new_data', 'yes' );
 		}
 		return $settings;
 	}
@@ -55,9 +56,9 @@ class Helpers {
 				'reviews'         => array(
 					'enable_media_upload'      => true,
 					'require_media_upload'     => false,
-					'allowed_media_types'      => 'video_image',
+					'allowed_media_types'      => 'video_photo',
 					'max_upload_filesize'      => 2000, //kb
-					'max_upload_files'         => 20,
+					'max_upload_files'         => '',
 					'media_upload_label'       => __( 'Upload media', 'yay-reviews' ),
 					'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
 					'enable_gdpr_consent'      => false,
