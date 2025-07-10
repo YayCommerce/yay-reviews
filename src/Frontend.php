@@ -38,7 +38,7 @@ class Frontend {
 
 		if ( $enable_gdpr_consent ) {
 			$gdpr_data                      = array(
-				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['gdpr_consent_before_message'] : '',
+				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['pre_gdpr_message'] : '',
 				'gdpr_message' => isset( $reviews_settings['gdpr_consent_message'] ) ? $reviews_settings['gdpr_consent_message'] : '',
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
