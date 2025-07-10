@@ -269,7 +269,7 @@
 
 .yay-reviews-modal-media-frame-content-right
   .comment-details-wrapper
-  .comment-header {
+  .comment-author-avatar {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -277,7 +277,7 @@
 
 .yay-reviews-modal-media-frame-content-right
   .comment-details-wrapper
-  .comment-header
+  .comment-author-avatar
   .comment-avatar {
   width: 24px;
   height: 24px;
@@ -287,7 +287,7 @@
 
 .yay-reviews-modal-media-frame-content-right
   .comment-details-wrapper
-  .comment-header
+  .comment-author-avatar
   .comment-avatar
   img {
   width: 100%;
@@ -297,7 +297,7 @@
 
 .yay-reviews-modal-media-frame-content-right
   .comment-details-wrapper
-  .comment-header
+  .comment-author-avatar
   .comment-author {
   color: #09090b;
   font-size: 14px;

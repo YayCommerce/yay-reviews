@@ -63,7 +63,7 @@ $uploads = wp_upload_dir();
 		<div class="yay-reviews-modal-media-frame-content-right">
 			<div class="comment-details-wrapper">
 				<div class="comment-info">
-					<div class="comment-header">
+					<div class="comment-author-avatar">
 						<div class="comment-avatar">
 							<img src="<?php echo esc_url( get_avatar_url( $comment->user_id ) ); ?>" alt="<?php echo esc_attr( $comment->comment_author ); ?>" />
 						</div>
