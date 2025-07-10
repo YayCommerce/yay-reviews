@@ -128,38 +128,6 @@
   gap: 10px;
 }
 
-/** Others */
-
-.columns-1,
-.columns-2,
-.columns-3,
-.columns-4,
-.columns-5,
-.columns-6,
-.columns-7,
-.columns-8,
-.columns-9,
-.columns-10 {
-  columns: auto;
-}
-
-.product .onsale {
-  box-sizing: initial;
-}
-
-button,
-input,
-select,
-optgroup,
-textarea,
-::file-selector-button {
-  box-sizing: border-box;
-  border-width: 1px;
-}
-select {
-  font: initial;
-}
-
 .yay-reviews-all-media-dialog {
   display: none;
   position: fixed;
