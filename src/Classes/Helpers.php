@@ -9,6 +9,7 @@ class Helpers {
 		$settings = get_option( 'yay_reviews_settings', array() );
 		if ( empty( $settings ) ) {
 			$settings = self::add_default_settings( $settings );
+			update_option( 'yay_reviews_has_new_data', 'yes' );
 		}
 		return $settings;
 	}
@@ -27,7 +28,7 @@ class Helpers {
 		return $settings;
 	}
 
-	public static function print_media_list( $files, $comment, $echo = true ) {
+	public static function print_media_list( $files, $comment ) {
 		echo wc_get_template_html( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'frontend/media-list.php',
 			array(
@@ -48,27 +49,27 @@ class Helpers {
 			$settings,
 			array(
 				'addons'          => array(
-					'reminder'        => true,
-					'reward'          => false,
-					'optional_fields' => false,
+					'reminder_enabled'        => true,
+					'reward_enabled'          => false,
+					'optional_fields_enabled' => false,
 				),
 				'reviews'         => array(
-					'upload_media'            => true,
-					'upload_required'         => false,
-					'media_type'              => 'video_image',
-					'max_upload_file_size'    => 2000, //kb
-					'max_upload_file_qty'     => '',
-					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
-					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
-					'enable_gdpr'             => false,
-					'gdpr_message'            => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
-					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
+					'enable_media_upload'      => true,
+					'require_media_upload'     => false,
+					'allowed_media_types'      => 'video_photo',
+					'max_upload_filesize'      => 2000, //kb
+					'max_upload_files'         => '',
+					'media_upload_label'       => __( 'Upload media', 'yay-reviews' ),
+					'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
+					'enable_gdpr_consent'      => false,
+					'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
+					'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value' => 7,
-					'send_after_unit'  => 'days',
-					'max_products'     => '',
-					'products_type'    => 'all',
+					'delay_amount'           => 7,
+					'delay_unit'             => 'days',
+					'max_products_per_email' => '',
+					'product_scope'          => 'all',
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),
@@ -109,52 +110,8 @@ class Helpers {
 		return $result;
 	}
 
-	public static function upload_max_size() {
+	public static function upload_max_filesize() {
 		return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
-	}
-
-	public static function upload_max_qty() {
-		return 20;
-	}
-
-	public static function get_product_categories() {
-		$categories = get_terms(
-			array(
-				'taxonomy'   => 'product_cat',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		return array_map(
-			function ( $category ) {
-				return array(
-					'value' => $category->term_id,
-					'label' => $category->name,
-				);
-			},
-			$categories
-		);
-	}
-
-	public static function get_product_brands() {
-		$brands = get_terms(
-			array(
-				'taxonomy'   => 'product_brand',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		return array_map(
-			function ( $brand ) {
-				return array(
-					'value' => $brand->term_id,
-					'label' => $brand->name,
-				);
-			},
-			$brands
-		);
 	}
 
 	public static function get_review_products( $order ) {
@@ -201,27 +158,27 @@ class Helpers {
 	}
 
 	public static function get_max_remind_products_for_email( $product_in_order ) {
-		$all_settings = self::get_all_settings();
-		$max_products = $all_settings['reminder']['max_products'] ?? 3;
-		$product_type = $all_settings['reminder']['products_type'] ?? 'normal';
+		$all_settings           = self::get_all_settings();
+		$max_products_per_email = $all_settings['reminder']['max_products_per_email'] ?? 3;
+		$product_scope          = $all_settings['reminder']['product_scope'] ?? 'all';
 
-		if ( 'all' === $product_type ) {
+		if ( 'all' === $product_scope ) {
 			return $product_in_order;
 		}
 
-		if ( '' === $max_products ) { // $max_products is empty it means no limit.
-			$max_products = 100; // Just 100 because it's impossible to have more than 100 products in an order.
+		if ( '' === $max_products_per_email ) { // $max_products_per_email is empty it means no limit.
+			$max_products_per_email = 100; // Just 100 because it's impossible to have more than 100 products in an order.
 		}
 
-		if ( 'normal' === $product_type ) {
-			return array_slice( $product_in_order, 0, $max_products );
+		if ( 'normal' === $product_scope ) {
+			return array_slice( $product_in_order, 0, $max_products_per_email );
 		}
 
 		$remind_product_ids = array();
 
-		$product_ids = Products::get_products_by_type( $product_type );
+		$product_ids = Products::get_products_by_scope( $product_scope );
 		foreach ( $product_ids as $product_id ) {
-			if ( count( $remind_product_ids ) >= $max_products ) {
+			if ( count( $remind_product_ids ) >= $max_products_per_email ) {
 				break;
 			}
 			if ( in_array( $product_id, $product_in_order ) ) {

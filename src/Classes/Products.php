@@ -184,9 +184,9 @@ class Products {
 		return $product_ids;
 	}
 
-	public static function get_products_by_type( $type ) {
+	public static function get_products_by_scope( $scope ) {
 		$product_ids = array();
-		switch ( $type ) {
+		switch ( $scope ) {
 			case 'featured':
 				$product_ids = self::get_featured_products();
 				break;

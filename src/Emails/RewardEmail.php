@@ -81,7 +81,7 @@ class RewardEmail extends \WC_Email {
 								'product_name'       => $product->get_name(),
 								'rating_requirement' => $reward['rating_requirement'],
 								'media_requirement'  => $reward['media_requirement'],
-								'minimum_required_reviews_since_last_reward' => $reward['minimum_required_reviews_since_last_reward'],
+								'frequency'          => $reward['frequency'],
 							)
 						),
 					)

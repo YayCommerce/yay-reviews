@@ -12,7 +12,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
   }
 
   const productType = useMemo(() => {
-    switch (email.email_data?.products_type) {
+    switch (email.email_data?.product_scope) {
       case 'normal':
         return __('Normal products', 'yay-reviews');
       case 'featured':
@@ -30,7 +30,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       default:
         return __('All products', 'yay-reviews');
     }
-  }, [email.email_data?.products_type]);
+  }, [email.email_data?.product_scope]);
 
   const ratingRequirement = useMemo(() => {
     switch (email.email_data?.rating_requirement) {
@@ -134,7 +134,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
               <TableRow>
                 <TableCell className="font-semibold">{__('Sent after', 'yay-reviews')}:</TableCell>
                 <TableCell>
-                  {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
+                  {email.email_data?.delay_amount} {email.email_data?.delay_unit}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -142,9 +142,9 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
                   {__('Remind products', 'yay-reviews')}:
                 </TableCell>
                 <TableCell>
-                  {email.email_data?.products_type !== 'all' &&
-                    email.email_data?.max_products &&
-                    `${email.email_data?.max_products} `}
+                  {email.email_data?.product_scope !== 'all' &&
+                    email.email_data?.max_products_per_email &&
+                    `${email.email_data?.max_products_per_email} `}
                   {productType}
                 </TableCell>
               </TableRow>
