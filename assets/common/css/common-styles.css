@@ -248,6 +248,11 @@ select {
   position: relative;
 }
 
+.yay-reviews-modal-media-frame-content .thumbnail-image video {
+  max-width: 100%;
+  height: auto;
+}
+
 .yay-reviews-modal-media-frame-content-left {
   position: relative;
   float: left;
@@ -280,9 +285,74 @@ select {
   height: 100%;
 }
 
+.yay-reviews-modal-media-frame-content-right .comment-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-header
+  .comment-avatar {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-header
+  .comment-avatar
+  img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-header
+  .comment-author {
+  color: #09090b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .yay-reviews-modal-comment-rating .star-rating {
   float: left !important;
   font-size: 16px !important;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-date {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-content {
+  color: #0f172a;
+  font-size: 14px;
 }
 
 /* Navigation Arrows */

@@ -1,9 +1,11 @@
 /** ---------------------------- Reviews Form ---------------------------- */
 
 /* Review Title */
+.hidden {
+  display: none;
+}
 .yay-reviews-review-title input {
   display: block;
-  max-width: 600px;
   width: 100%;
 }
 .yay-reviews-review-title__description {
@@ -229,6 +231,12 @@
 #review_form_wrapper #review_form input[type="password"] {
   border-width: 1px;
   border-radius: 4px;
+  font: inherit;
+  font-feature-settings: inherit;
+  font-variation-settings: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background-color: transparent;
 }
 
 .yay-reviews-attribute-list {
@@ -241,13 +249,14 @@
 /** Review Overview */
 
 .yay-reviews-reviews-overview {
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
   border: 1px solid #e0e0e0;
-  padding: 1.25rem 2rem;
+  padding: 1.25rem;
   border-radius: 8px;
   max-width: 500px;
   margin-bottom: 1rem;

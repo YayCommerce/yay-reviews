@@ -61,13 +61,13 @@ $uploads = wp_upload_dir();
 			<?php endif; ?>
 		</div>
 		<div class="yay-reviews-modal-media-frame-content-right">
-			<div class="flex gap-4 flex-col">
-				<div class="flex gap-2 flex-col">
-					<div class="flex items-center gap-2">
-						<div class="rounded-full overflow-hidden w-6 h-6">
+			<div class="comment-details-wrapper">
+				<div class="comment-info">
+					<div class="comment-header">
+						<div class="comment-avatar">
 							<img src="<?php echo esc_url( get_avatar_url( $comment->user_id ) ); ?>" alt="<?php echo esc_attr( $comment->comment_author ); ?>" />
 						</div>
-						<div class="font-normal text-[#09090B] text-sm"><?php echo esc_html( $comment->comment_author ); ?></div>
+						<div class="comment-author"><?php echo esc_html( $comment->comment_author ); ?></div>
 						<?php if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && wc_review_is_from_verified_owner( $comment->comment_ID ) ) : ?>
 							<span class="yay-reviews-verified-badge" data-tippy-content="<?php esc_attr_e( 'Verified Owner', 'yay-reviews' ); ?>"><svg xmlns="http://www.w3.org/2000/svg " width="24" height="24" viewBox="0 0 24 24" fill="#067D62">
 							<g clip-path="url(#clip0_4418_8618)">
@@ -107,9 +107,9 @@ $uploads = wp_upload_dir();
 						$comment_date = get_comment_date( 'F j, Y', $comment );
 						$comment_time = get_comment_date( 'g:i A', $comment );
 					?>
-					<div class="text-[#64748B] text-sm"><?php echo esc_html__( 'Reviewed in ', 'yay-reviews' ) . ' ' . esc_html( $comment_date ) . ' ' . esc_html__( 'at', 'yay-reviews' ) . ' ' . esc_html( $comment_time ); ?></div>
+					<div class="comment-date"><?php echo esc_html__( 'Reviewed in ', 'yay-reviews' ) . ' ' . esc_html( $comment_date ) . ' ' . esc_html__( 'at', 'yay-reviews' ) . ' ' . esc_html( $comment_time ); ?></div>
 				</div>
-				<div class="text-[#0F172A] text-sm"><?php echo wp_kses_post( $comment->comment_content ); ?></div>
+				<div class="comment-content"><?php echo wp_kses_post( $comment->comment_content ); ?></div>
 				<div class="yay-reviews-review-details__medias-wrapper">
 					<div class="yay-reviews-review-details__medias-title"><?php echo esc_html__( 'Medias in this review', 'yay-reviews' ); ?></div>
 					<div class="yay-reviews-review-details__media-list">
