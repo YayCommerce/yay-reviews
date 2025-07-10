@@ -110,7 +110,11 @@ jQuery(document).ready(function ($) {
 
     // Hide upload card if max files reached
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard && yay_reviews.max_upload_files) {
+    if (
+      uploadCard &&
+      yay_reviews.max_upload_files &&
+      yay_reviews.max_upload_files !== ""
+    ) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
           ? "none"
@@ -162,7 +166,11 @@ jQuery(document).ready(function ($) {
 
     // Show upload card if below max
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard && yay_reviews.max_upload_files) {
+    if (
+      uploadCard &&
+      yay_reviews.max_upload_files &&
+      yay_reviews.max_upload_files !== ""
+    ) {
       uploadCard.style.display =
         yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
           ? "none"
@@ -254,9 +262,10 @@ jQuery(document).ready(function ($) {
     const dropzone = document.querySelector(".yay-reviews-upload-button");
     const accept = dropzone.dataset.accept;
 
-    var max_upload_files = yay_reviews.max_upload_files
-      ? parseInt(yay_reviews.max_upload_files)
-      : null;
+    var max_upload_files =
+      yay_reviews.max_upload_files && yay_reviews.max_upload_files !== ""
+        ? parseInt(yay_reviews.max_upload_files)
+        : null;
     var max_upload_filesize = parseInt(yay_reviews.max_upload_filesize);
 
     var files = Array.from(event.target.files);
