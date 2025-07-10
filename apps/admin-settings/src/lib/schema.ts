@@ -1,28 +1,28 @@
 import { z } from 'zod';
 
 const addonsSchema = z.object({
-  reminder: z.boolean(),
-  reward: z.boolean(),
+  reminder_enabled: z.boolean(),
+  reward_enabled: z.boolean(),
 });
 
 const reviewsSchema = z.object({
-  upload_media: z.boolean(),
-  upload_required: z.boolean(),
-  media_type: z.string(),
-  max_upload_file_size: z.number(),
-  max_upload_file_qty: z.number().or(z.string()),
-  upload_file_label: z.string(),
-  upload_file_description: z.string(),
-  enable_gdpr: z.boolean(),
-  gdpr_message: z.string(),
-  before_message: z.string(),
+  enable_media_upload: z.boolean(),
+  require_media_upload: z.boolean(),
+  allowed_media_types: z.string(),
+  max_upload_filesize: z.number(),
+  max_upload_files: z.number().or(z.string()),
+  media_upload_label: z.string(),
+  media_upload_description: z.string(),
+  enable_gdpr_consent: z.boolean(),
+  gdpr_consent_message: z.string(),
+  pre_gdpr_message: z.string(),
 });
 
 const reminderSchema = z.object({
-  send_after_value: z.number(),
-  send_after_unit: z.string(),
-  max_products: z.number().or(z.string()),
-  products_type: z.string(),
+  delay_amount: z.number(),
+  delay_unit: z.string(),
+  max_products_per_email: z.number().or(z.string()),
+  product_scope: z.string(),
 });
 
 const rewardSchema = z.object({

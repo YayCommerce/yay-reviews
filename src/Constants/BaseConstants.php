@@ -17,7 +17,7 @@ class BaseConstants {
 		'quicktime',
 	);
 
-	const SUPPORTED_IMAGE_EXTENSIONS = array(
+	const SUPPORTED_PHOTO_EXTENSIONS = array(
 		'gif',
 		'jpeg',
 		'jpg',
@@ -25,5 +25,4 @@ class BaseConstants {
 		'webp',
 		'bmp',
 	);
-
 }

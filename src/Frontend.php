@@ -22,22 +22,24 @@ class Frontend {
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.review-title', array(), false );
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.product-attributes', array(), false );
 
-		if ( Helpers::get_settings( 'reviews', 'upload_media', false ) ) {
+		$settings            = Helpers::get_all_settings();
+		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
+		$enable_media_upload = isset( $reviews_settings['enable_media_upload'] ) ? $reviews_settings['enable_media_upload'] : false;
+		$enable_gdpr_consent = isset( $reviews_settings['enable_gdpr_consent'] ) ? $reviews_settings['enable_gdpr_consent'] : false;
+		if ( $enable_media_upload ) {
 			$upload_media_data              = array(
-				'is_required'   => Helpers::get_settings( 'reviews', 'upload_required', false ),
-				'label'         => Helpers::get_settings( 'reviews', 'upload_file_label', '' ),
-				'description'   => Helpers::get_settings( 'reviews', 'upload_file_description', '' ),
-				'media_type'    => Helpers::get_settings( 'reviews', 'media_type', 'video_image' ),
-				'max_files_qty' => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
-				'max_file_size' => Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ),
+				'require_media_upload' => isset( $reviews_settings['require_media_upload'] ) ? $reviews_settings['require_media_upload'] : false,
+				'label'                => isset( $reviews_settings['media_upload_label'] ) ? $reviews_settings['media_upload_label'] : '',
+				'description'          => isset( $reviews_settings['media_upload_description'] ) ? $reviews_settings['media_upload_description'] : '',
+				'allowed_media_types'  => isset( $reviews_settings['allowed_media_types'] ) ? $reviews_settings['allowed_media_types'] : array( 'video_photo' ),
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
 		}
 
-		if ( Helpers::get_settings( 'reviews', 'enable_gdpr', false ) ) {
+		if ( $enable_gdpr_consent ) {
 			$gdpr_data                      = array(
-				'before'         => Helpers::get_settings( 'reviews', 'before_message', '' ),
-				'inline_message' => Helpers::get_settings( 'reviews', 'gdpr_message', '' ),
+				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['gdpr_consent_before_message'] : '',
+				'gdpr_message' => isset( $reviews_settings['gdpr_consent_message'] ) ? $reviews_settings['gdpr_consent_message'] : '',
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
 		}
@@ -49,16 +51,20 @@ class Frontend {
 		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
-		$all_settings = Helpers::get_all_settings();
-		if ( $all_settings['reviews']['upload_media'] ) {
-			if ( isset( $_FILES['yay_reviews_media'] ) ) {
+		$settings            = Helpers::get_all_settings();
+		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
+		$rewards             = isset( $settings['rewards'] ) ? $settings['rewards'] : array();
+		$reward_enabled      = isset( $settings['addons']['reward_enabled'] ) ? $settings['addons']['reward_enabled'] : false;
+		$enable_media_upload = isset( $reviews_settings['enable_media_upload'] ) ? $reviews_settings['enable_media_upload'] : false;
+		if ( $enable_media_upload ) {
+			if ( isset( $_FILES['yay_reviews_media'] ) && ! empty( $_FILES['yay_reviews_media'] ) ) {
 				$files               = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files         = count( $files['name'] );
 				$max_upload_file_qty = Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' );
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
-				$max_upload_size = $all_settings['reviews']['max_upload_file_size'] * 1000;//converts to byte
+				$max_upload_filesize = $reviews_settings['max_upload_filesize'] * 1000;//converts to byte
 
 				include_once ABSPATH . 'wp-admin/includes/image.php';
 				include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -74,7 +80,7 @@ class Frontend {
 						'error'    => $files['error'][ $i ],
 						'size'     => $files['size'][ $i ],
 					);
-					if ( $file['size'] > $max_upload_size ) {
+					if ( $file['size'] > $max_upload_filesize ) {
 						//file's to large
 						continue;
 					}
@@ -112,13 +118,11 @@ class Frontend {
 			add_comment_meta( $comment_id, 'yay_reviews_attributes', $attributes_values );
 		}
 		// Check and send reward email
-		$reward_addon = $all_settings['addons']['reward'];
-		$rewards      = $all_settings['rewards'];
-		$comment      = get_comment( $comment_id );
+		$comment = get_comment( $comment_id );
 		if ( ! $comment ) {
 			return;
 		}
-		if ( $reward_addon && count( $rewards ) > 0 ) {
+		if ( $reward_enabled && count( $rewards ) > 0 ) {
 			// sort rewards by rating_requirement
 			usort(
 				$rewards,
@@ -230,16 +234,19 @@ class Frontend {
 			return;
 		}
 
-		$all_settings         = Helpers::get_all_settings();
-		$media_type           = $all_settings['reviews']['media_type'];
+		$settings             = Helpers::get_all_settings();
+		$reviews_settings     = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
+		$allowed_media_types  = isset( $reviews_settings['allowed_media_types'] ) ? $reviews_settings['allowed_media_types'] : array( 'video_photo' );
+		$max_upload_files     = isset( $reviews_settings['max_upload_files'] ) ? $reviews_settings['max_upload_files'] : 20;
+		$max_upload_filesize  = intval( isset( $reviews_settings['max_upload_filesize'] ) ? $reviews_settings['max_upload_filesize'] : Helpers::upload_max_filesize() );
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
 			__( 'Please upload at least 1 %s.', 'yay-reviews' ),
-			'video_image' === $media_type ?
-					__( 'image or video', 'yay-reviews' ) :
-				( 'only_video' === $media_type ?
+			'video_photo' === $allowed_media_types ?
+					__( 'video or photo', 'yay-reviews' ) :
+				( 'only_video' === $allowed_media_types ?
 					__( 'video', 'yay-reviews' ) :
-					__( 'image', 'yay-reviews' )
+					__( 'photo', 'yay-reviews' )
 				)
 		);
 		wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
@@ -252,14 +259,14 @@ class Frontend {
 			array(
 				'ajax_url'                       => admin_url( 'admin-ajax.php' ),
 				'nonce'                          => wp_create_nonce( 'yay-reviews-nonce' ),
-				'max_upload_qty'                 => Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ),
-				'max_upload_size'                => intval( Helpers::get_settings( 'reviews', 'max_upload_file_size', Helpers::upload_max_size() ) ),
+				'max_upload_files'               => $max_upload_files,
+				'max_upload_filesize'            => intval( $max_upload_filesize ),
 				'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
 				'file_required_notice'           => $file_required_notice,
-				// translators: %1$s: file name, %2$s: max upload size
+				// translators: %1$s: file name, %2$s: max upload filesize
 				'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
-				// translators: %1$s: max upload quantity
-				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' ) ),
+				// translators: %1$s: max upload files
+				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), $max_upload_files ),
 				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
 				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
 			)

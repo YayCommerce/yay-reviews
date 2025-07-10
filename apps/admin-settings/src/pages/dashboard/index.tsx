@@ -54,7 +54,7 @@ export default function DashboardPage() {
   const addons = useMemo(() => {
     return addonsInformation.map((addon) => ({
       ...addon,
-      enabled: addonStatus[addon.id as keyof typeof addonStatus] ?? false,
+      enabled: addonStatus[`${addon.id}_enabled` as keyof typeof addonStatus] ?? false,
     })) as Addon[];
   }, [{ ...addonStatus }]);
 
@@ -83,7 +83,9 @@ export default function DashboardPage() {
       />
       <EnableReviewCard />
       <div className="container mx-auto px-7 py-0">
-        <div className="text-foreground mb-6 text-xl font-semibold">Addon-on settings</div>
+        <div className="text-foreground mb-6 text-xl font-semibold">
+          {__('Addon-on settings', 'yay-reviews')}
+        </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {addons.map((addon) => (
             <AddonCard key={addon.id} {...addon} />

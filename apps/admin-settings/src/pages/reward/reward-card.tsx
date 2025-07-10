@@ -94,7 +94,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
   const coupon = watch(`rewards.${reward.id}.coupon_id`);
   const rewards = watch('rewards');
 
-  const isMediaEnabled = watch('reviews.upload_media');
+  const enableMediaUpload = watch('reviews.enable_media_upload');
 
   const handleDuplicate = (reward: Reward) => {
     const newId = uuidv4();
@@ -568,7 +568,7 @@ export default function RewardCard({ reward }: { reward: Reward }) {
                 )}
               />
             </div>
-            {isMediaEnabled && (
+            {enableMediaUpload && (
               <div className="max-w-[300px]">
                 <Label htmlFor={`rewards.${reward.id}.media_requirement`} className="mb-2 w-fit">
                   {__('Media', 'yay-reviews')}

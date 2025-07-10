@@ -34,7 +34,7 @@ class Admin {
 		}
 	}
 
-	public function admin_enqueue_scripts( $hook ) {
+	public function admin_enqueue_scripts() {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
@@ -59,7 +59,7 @@ class Admin {
 					'wc_reviews_settings'     => Helpers::get_wc_reviews_settings(),
 					'wc_settings_url'         => admin_url( 'admin.php?page=wc-settings&tab=products' ),
 					'site_title'              => get_bloginfo( 'name' ),
-					'upload_max_size'         => Helpers::upload_max_size(),
+					'upload_max_filesize'     => Helpers::upload_max_filesize(),
 					'admin_email'             => get_option( 'admin_email' ),
 					'data_settings'           => Helpers::get_all_settings(),
 					'sample_values'           => array(

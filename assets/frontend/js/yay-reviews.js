@@ -110,9 +110,9 @@ jQuery(document).ready(function ($) {
 
     // Hide upload card if max files reached
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard && yay_reviews.max_upload_qty) {
+    if (uploadCard && yay_reviews.max_upload_files) {
       uploadCard.style.display =
-        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
+        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
           ? "none"
           : "flex";
     }
@@ -162,9 +162,9 @@ jQuery(document).ready(function ($) {
 
     // Show upload card if below max
     const uploadCard = grid.querySelector(".yay-reviews-upload-button");
-    if (uploadCard && yay_reviews.max_upload_qty) {
+    if (uploadCard && yay_reviews.max_upload_files) {
       uploadCard.style.display =
-        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_qty)
+        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
           ? "none"
           : "flex";
     }
@@ -254,10 +254,10 @@ jQuery(document).ready(function ($) {
     const dropzone = document.querySelector(".yay-reviews-upload-button");
     const accept = dropzone.dataset.accept;
 
-    var max_upload_qty = yay_reviews.max_upload_qty
-      ? parseInt(yay_reviews.max_upload_qty)
+    var max_upload_files = yay_reviews.max_upload_files
+      ? parseInt(yay_reviews.max_upload_files)
       : null;
-    var max_upload_size = parseInt(yay_reviews.max_upload_size);
+    var max_upload_filesize = parseInt(yay_reviews.max_upload_filesize);
 
     var files = Array.from(event.target.files);
 
@@ -292,11 +292,11 @@ jQuery(document).ready(function ($) {
           )
         ) {
           // Check if file size is too large before adding to array
-          if (file.size > max_upload_size * 1024) {
+          if (file.size > max_upload_filesize * 1024) {
             alert(
               yay_reviews.file_size_notice
                 .replace("%1$s", file.name)
-                .replace("%2$s", max_upload_size)
+                .replace("%2$s", max_upload_filesize)
             );
             continue;
           }
@@ -305,9 +305,9 @@ jQuery(document).ready(function ($) {
       }
 
       // Limit total files
-      if (max_upload_qty && yayReviewsFilesArr.length > max_upload_qty) {
+      if (max_upload_files && yayReviewsFilesArr.length > max_upload_files) {
         alert(yay_reviews.file_quantity_notice);
-        yayReviewsFilesArr = yayReviewsFilesArr.slice(0, max_upload_qty);
+        yayReviewsFilesArr = yayReviewsFilesArr.slice(0, max_upload_files);
       }
 
       // Update the file input

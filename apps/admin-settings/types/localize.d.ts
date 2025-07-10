@@ -20,7 +20,7 @@ declare global {
       rest_base: string;
       rest_nonce: string;
       data_settings: SettingsFormData;
-      upload_max_size: number;
+      upload_max_filesize: number;
       sample_values: Record<string, string>;
       wc_email_settings: Record<string, string>;
       default_email_templates: Record<string, Record<string, string>>;

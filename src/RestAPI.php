@@ -14,13 +14,6 @@ class RestAPI {
 
 	use SingletonTrait;
 
-	private $default_swatch_customize_settings;
-	private $default_button_customize_settings;
-	private $default_sold_out_customize_settings;
-	private $default_collection_customize_settings;
-
-	private $settings_service;
-
 	protected function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_api' ) );
 	}
@@ -162,7 +155,7 @@ class RestAPI {
 		$content = $data['content'];
 		$footer  = $data['footer'];
 
-		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ) ), $content );
+		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}', '{product_name}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ), 'Sample Product' ), $content );
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
 		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );
