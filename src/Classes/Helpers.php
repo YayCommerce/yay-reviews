@@ -344,16 +344,27 @@ class Helpers {
 		}
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
-			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
+			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_' . $reward['id'] . '_time', true );
 
 			$args = array(
-				'user_id'      => $comment_user_id,
-				'comment_type' => 'review',
-				'status'       => 'approve',
-				'date_query'   => array(
-					'after' => $last_received_reward_time,
-				),
+				'user_id' => $comment_user_id,
+				'type'    => 'review',
+				'status'  => 'approve',
 			);
+
+			if ( ! empty( $last_received_reward_time ) ) {
+				$args['date_query'] = array(
+					'after' => gmdate( 'Y-m-d H:i:s', $last_received_reward_time ),
+				);
+			}
+
+			$meta_query = self::meta_query_rating_and_media( $rating_requirement, $media_requirement );
+			if ( ! empty( $meta_query ) ) {
+				$args['meta_query'] = $meta_query;
+				if ( count( $meta_query ) > 1 ) {
+					$args['meta_query']['relation'] = 'AND';
+				}
+			}
 
 			$user_reviews_count = count( get_comments( $args ) );
 
@@ -508,6 +519,28 @@ class Helpers {
 			'enable_review_rating'   => 'yes' === get_option( 'woocommerce_enable_review_rating' ),
 			'review_rating_required' => 'yes' === get_option( 'woocommerce_review_rating_required' ),
 		);
+	}
+
+	public static function meta_query_rating_and_media( $rating_requirement, $media_requirement ) {
+		$meta_query = array();
+		if ( 'any' !== $rating_requirement ) {
+			$meta_query[] = array(
+				'key'     => 'rating',
+				'value'   => 5,
+				'compare' => '5_stars' === $rating_requirement ? '=' : '<',
+			);
+		}
+		if ( 'none' !== $media_requirement ) {
+			$meta_query[] = array(
+				'key'     => 'yay_reviews_files',
+				'value'   => '',
+				'compare' => '!=',
+			);
+		}
+		if ( empty( $meta_query ) ) {
+			return null;
+		}
+		return $meta_query;
 	}
 
 	/**

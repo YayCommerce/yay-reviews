@@ -61,7 +61,7 @@ class RewardEmail extends \WC_Email {
 							'media_requirement'  => $reward['media_requirement'],
 							'frequency'          => $reward['frequency'],
 						);
-						update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
+						update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
 						update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
 					}
 				}
