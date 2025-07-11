@@ -146,37 +146,17 @@ class RestAPI {
 	}
 
 	public function send_test_mail( \WP_REST_Request $request ) {
-		$data    = $request->get_params();
-		$email   = $data['email'];
-		$subject = $data['subject'];
-		$heading = $data['heading'];
-		$content = $data['content'];
-
-		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}', '{product_name}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ), 'Sample Product' ), $content );
+		$data          = $request->get_params();
+		$email_address = $data['email'];
+		$subject       = $data['subject'];
+		$email_content = $data['content'];
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
-		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );
-		$args          = array(
-			'heading' => $email_heading,
-			'content' => $email_content,
-		);
-		$email_content = View::load( 'emails.preview-email', $args, false );
-
-		$headers = array(
-			'Content-Type' => 'text/html; charset=UTF-8',
-		);
-		$headers = apply_filters( 'yay_reviews_email_headers', $headers );
-		$headers = array_map( 'trim', $headers );
-		$headers = array_filter( $headers );
-		$headers = array_unique( $headers );
-
-		$headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>';
-
-		$headers[] = 'Reply-To: ' . get_option( 'admin_email' );
-
-		$headers[] = 'Content-Type: text/html; charset=UTF-8';
-
-		$sent = wp_mail( $email, $email_subject, $email_content, $headers );
+		if ( ! class_exists( 'WC_Email' ) ) {
+			WC()->mailer();
+		}
+		$email = new \WC_Emails();
+		$sent  = $email->send( $email_address, $email_subject, $email_content );
 
 		if ( $sent ) {
 			return rest_ensure_response( array( 'message' => 'Email sent successfully' ) );

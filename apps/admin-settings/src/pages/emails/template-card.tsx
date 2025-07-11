@@ -4,7 +4,7 @@ import { Loader2Icon, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
-import { cn, getEmailSampleValues } from '@/lib/utils';
+import { cn, getEmailSampleValues, updateEmailPreview } from '@/lib/utils';
 import useEmailsContext from '@/hooks/use-emails-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,7 +33,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const [isSending, setIsSending] = useState(false);
   const [resetTemplateDialogOpen, setResetTemplateDialogOpen] = useState(false);
 
-  const { watch, control, setValue } = useFormContext();
+  const { watch, control, setValue, getValues } = useFormContext();
   const emailSubject = watch(`email.${templateId}.subject`);
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
@@ -73,20 +73,28 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleResetTemplate = () => {
-    const resetKeys = ['subject', 'heading', 'content', 'footer'];
+    const resetKeys = ['subject', 'heading', 'content'];
     resetKeys.forEach((key) => {
       if (!window.yayReviews?.default_email_templates?.[templateId]?.[key]) {
         return;
       }
+      const currentValues = getValues(`email.${templateId}.${key}`);
       if (key === 'content') {
         const editor = window.tinymce?.get(`yay-reviews-email-content-${templateId}`);
         if (editor) {
           editor.setContent(window.yayReviews.default_email_templates[templateId].content);
         }
       }
+
       setValue(
         `email.${templateId}.${key}`,
         window.yayReviews.default_email_templates[templateId][key],
+        {
+          shouldDirty:
+            currentValues != window.yayReviews.default_email_templates[templateId][key]
+              ? true
+              : false,
+        },
       );
     });
   };
@@ -118,7 +126,15 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 control={control}
                 name={`email.${templateId}.heading`}
                 render={({ field: { value, onChange } }) => (
-                  <Input id={`email.${templateId}.heading`} value={value} onChange={onChange} />
+                  <Input
+                    id={`email.${templateId}.heading`}
+                    value={value}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      updateEmailPreview(e.target.value, 'heading', templateId);
+                      onChange(e);
+                    }}
+                  />
                 )}
               />
             </div>
@@ -285,7 +301,23 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                           onClick={(e) => {
                             e.preventDefault();
                             setIsSending(true);
-                            sendTestMail(testEmail, subject, heading, content)
+                            const jQuery = window.jQuery;
+                            const previewEmail = jQuery('#yay-reviews-email-preview-iframe');
+                            if (!previewEmail) return;
+                            // get all html of iframe
+                            const iframeHtml = previewEmail.contents().find('html').html();
+                            // get language of iframe
+                            const iframeLanguage = previewEmail
+                              .contents()
+                              .find('html')
+                              .attr('lang');
+                            const previewContent =
+                              '<!DOCTYPE html><html lang="' +
+                              iframeLanguage +
+                              '">' +
+                              iframeHtml +
+                              '</html>';
+                            sendTestMail(testEmail, subject, previewContent)
                               .then((res: any) => {
                                 if (res.message === 'Email sent successfully') {
                                   toast.success(__('Email sent successfully', 'yay-reviews'));

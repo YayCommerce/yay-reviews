@@ -267,7 +267,7 @@ class Ajax {
 				// wrap content in iframe
 				$nonce = esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) );
 				// add type to url
-				$content = '<iframe style="border-radius: 0 0 3px 3px;display: block;height: 100%;width: 100%;" src="' . $nonce . '&type=' . $email_class . '"></iframe>';
+				$content = '<iframe id="yay-reviews-email-preview-iframe" style="border-radius: 0 0 3px 3px;display: block;height: 100%;width: 100%;" src="' . $nonce . '&type=' . $email_class . '"></iframe>';
 			}
 			wp_send_json_success(
 				array(
