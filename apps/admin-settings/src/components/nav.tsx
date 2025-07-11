@@ -28,8 +28,8 @@ export default function Nav() {
     watch,
   } = useFormContext();
 
-  const reminderEnabled = watch('addons.reminder');
-  const rewardEnabled = watch('addons.reward');
+  const reminderEnabled = watch('addons.reminder_enabled');
+  const rewardEnabled = watch('addons.reward_enabled');
 
   const menuItems = useMemo(() => {
     const result = [

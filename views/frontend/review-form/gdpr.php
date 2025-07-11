@@ -6,17 +6,17 @@
  * - inline_message
  */
 
-if ( empty( trim( $before ) ) && empty( trim( $inline_message ) ) ) {
+if ( empty( trim( $pre_message ) ) && empty( trim( $gdpr_message ) ) ) {
 	return;
 }
 
 ?>
 
 <div class="yay-reviews-gdpr">
-	<?php if ( ! empty( $before ) ) : ?>
-		<span class="yay-reviews-gdpr__before"><?php echo wp_kses_post( $before ); ?></span>
+	<?php if ( ! empty( $pre_message ) ) : ?>
+		<span class="yay-reviews-gdpr__before"><?php echo wp_kses_post( $pre_message ); ?></span>
 	<?php endif; ?>
-	<?php if ( ! empty( $inline_message ) ) : ?>
+	<?php if ( ! empty( $gdpr_message ) ) : ?>
 		<div class="yay-reviews-gdpr__message">
 			<label for="yay-reviews-gdpr-checkbox">
 				<input
@@ -25,7 +25,7 @@ if ( empty( trim( $before ) ) && empty( trim( $inline_message ) ) ) {
 					name="yay-reviews-gdpr-checkbox"
 				/>
 				<span>
-					<?php echo wp_kses_post( $inline_message ); ?>
+					<?php echo wp_kses_post( $gdpr_message ); ?>
 				</span>
 			</label>
 		</div>

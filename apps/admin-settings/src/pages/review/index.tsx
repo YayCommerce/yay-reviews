@@ -42,18 +42,18 @@ export default function ReviewPage() {
 
 function UploadMediaCard() {
   const { control, watch } = useFormContext();
-  const enabled = watch('reviews.upload_media');
+  const enableMediaUpload = watch('reviews.enable_media_upload');
   return (
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
             <span>{__('Upload media', 'yay-reviews')}</span>
-            <ActiveBadge enabled={enabled} />
+            <ActiveBadge enabled={enableMediaUpload} />
           </div>
           <FormField
             control={control}
-            name="reviews.upload_media"
+            name="reviews.enable_media_upload"
             render={({ field: { value, onChange } }) => (
               <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
             )}
@@ -66,44 +66,44 @@ function UploadMediaCard() {
         <div className="flex items-center gap-2">
           <FormField
             control={control}
-            name="reviews.upload_required"
+            name="reviews.require_media_upload"
             render={({ field: { value, onChange } }) => (
               <Switch
-                id="reviews.upload_required"
+                id="reviews.require_media_upload"
                 checked={Boolean(value)}
                 onCheckedChange={() => onChange(!value)}
               />
             )}
           />
-          <Label htmlFor="reviews.upload_required">
+          <Label htmlFor="reviews.require_media_upload">
             {__('Is media required when submitting a review?', 'yay-reviews')}
           </Label>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="space-y-2">
-            <Label htmlFor="reviews.media_type">{__('Media types', 'yay-reviews')}</Label>
+            <Label htmlFor="reviews.allowed_media_types">{__('Media types', 'yay-reviews')}</Label>
             <FormField
               control={control}
-              name="reviews.media_type"
+              name="reviews.allowed_media_types"
               render={({ field: { value, onChange } }) => (
                 <Select value={value} onValueChange={onChange}>
-                  <SelectTrigger id="reviews.media_type" className="w-full">
+                  <SelectTrigger id="reviews.allowed_media_types" className="w-full">
                     <SelectValue placeholder={__('Select types', 'yay-reviews')} />
                   </SelectTrigger>
                   <SelectContent>
                     {[
                       {
-                        value: 'video_image',
-                        label: __('Video and image', 'yay-reviews'),
+                        value: 'video_photo',
+                        label: __('Video and photo', 'yay-reviews'),
                       },
                       {
                         value: 'only_video',
                         label: __('Only video', 'yay-reviews'),
                       },
                       {
-                        value: 'only_image',
-                        label: __('Only image', 'yay-reviews'),
+                        value: 'only_photo',
+                        label: __('Only photo', 'yay-reviews'),
                       },
                     ].map((item) => (
                       <SelectItem key={item.value} value={item.value}>
@@ -117,15 +117,15 @@ function UploadMediaCard() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="reviews.max_upload_file_qty">
-              {__('Maximum upload files', 'yay-reviews')}
+            <Label htmlFor="reviews.max_upload_files">
+              {__('Maximum files per review', 'yay-reviews')}
             </Label>
             <FormField
               control={control}
-              name="reviews.max_upload_file_qty"
+              name="reviews.max_upload_files"
               render={({ field: { value, onChange } }) => (
                 <Input
-                  id="reviews.max_upload_file_qty"
+                  id="reviews.max_upload_files"
                   type="number"
                   value={value}
                   onChange={(e) =>
@@ -141,22 +141,22 @@ function UploadMediaCard() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="reviews.max_upload_file_size">
+            <Label htmlFor="reviews.max_upload_filesize">
               {__('Maximum file size (Kb)', 'yay-reviews')}
             </Label>
             <FormField
               control={control}
-              name="reviews.max_upload_file_size"
+              name="reviews.max_upload_filesize"
               render={({ field: { value, onChange } }) => (
                 <Input
-                  id="reviews.max_upload_file_size"
+                  id="reviews.max_upload_filesize"
                   type="number"
                   value={value}
                   onChange={(e) => onChange(Math.max(10, Number(e.target.value)))}
                   className="w-full"
                   step={10}
                   min={10}
-                  max={window.yayReviews.upload_max_size}
+                  max={window.yayReviews.upload_max_filesize}
                 />
               )}
             />
@@ -167,15 +167,15 @@ function UploadMediaCard() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="reviews.upload_file_label">
+          <Label htmlFor="reviews.media_upload_label">
             {__('Field label (optional)', 'yay-reviews')}
           </Label>
           <FormField
             control={control}
-            name="reviews.upload_file_label"
+            name="reviews.media_upload_label"
             render={({ field: { value, onChange } }) => (
               <Input
-                id="reviews.upload_file_label"
+                id="reviews.media_upload_label"
                 type="text"
                 value={value}
                 onChange={onChange}
@@ -187,15 +187,15 @@ function UploadMediaCard() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="reviews.upload_file_description">
+          <Label htmlFor="reviews.media_upload_description">
             {__('Field description (optional)', 'yay-reviews')}
           </Label>
           <FormField
             control={control}
-            name="reviews.upload_file_description"
+            name="reviews.media_upload_description"
             render={({ field: { value, onChange } }) => (
               <Textarea
-                id="reviews.upload_file_description"
+                id="reviews.media_upload_description"
                 rows={4}
                 value={value}
                 onChange={onChange}
@@ -212,18 +212,18 @@ function UploadMediaCard() {
 
 function DataProcessingConsentCard() {
   const { control, watch } = useFormContext();
-  const enabled = watch('reviews.enable_gdpr');
+  const enableGdprConsent = watch('reviews.enable_gdpr_consent');
   return (
     <Card className="p-6">
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
             <span>{__('Data processing consent', 'yay-reviews')}</span>
-            <ActiveBadge enabled={enabled} />
+            <ActiveBadge enabled={enableGdprConsent} />
           </div>
           <FormField
             control={control}
-            name="reviews.enable_gdpr"
+            name="reviews.enable_gdpr_consent"
             render={({ field: { value, onChange } }) => (
               <Switch checked={Boolean(value)} onCheckedChange={() => onChange(!value)} />
             )}
@@ -234,13 +234,13 @@ function DataProcessingConsentCard() {
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="reviews.before_message">{__('Before message', 'yay-reviews')}</Label>
+          <Label htmlFor="reviews.pre_gdpr_message">{__('Before message', 'yay-reviews')}</Label>
           <FormField
             control={control}
-            name="reviews.before_message"
+            name="reviews.pre_gdpr_message"
             render={({ field: { value, onChange } }) => (
               <Textarea
-                id="reviews.before_message"
+                id="reviews.pre_gdpr_message"
                 rows={4}
                 value={value}
                 onChange={onChange}
@@ -254,10 +254,12 @@ function DataProcessingConsentCard() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="reviews.gdpr_message">{__('Inline GDPR message', 'yay-reviews')}</Label>
+          <Label htmlFor="reviews.gdpr_consent_message">
+            {__('Inline GDPR message', 'yay-reviews')}
+          </Label>
           <FormField
             control={control}
-            name="reviews.gdpr_message"
+            name="reviews.gdpr_consent_message"
             render={({ field: { value, onChange } }) => (
               <Textarea
                 id="reviews.gdpr_message"
@@ -279,6 +281,7 @@ function WooCommerceSettingsCard() {
   const [isLoadingUpdate, setIsLoadingUpdate] = useState('');
 
   const handleChangeWooCommerceSettings = (name: string, value: boolean) => {
+    toast.dismiss();
     setIsLoadingUpdate(name);
     changeWcReviewsSettings(name, value).then((res) => {
       if (res.success) {
@@ -286,6 +289,17 @@ function WooCommerceSettingsCard() {
           ...wcReviewsSettings,
           [name]: value,
         });
+        toast.success(
+          (name === 'verification_label'
+            ? __('Verified owner label', 'yay-reviews')
+            : name === 'verification_required'
+              ? __('Verification required', 'yay-reviews')
+              : name === 'enable_review_rating'
+                ? __('Star ratings enabled', 'yay-reviews')
+                : __('Star ratings required', 'yay-reviews')) +
+            ': ' +
+            (value ? __('ON', 'yay-reviews') : __('OFF', 'yay-reviews')),
+        );
       } else {
         toast.error(res.data.mess);
       }
@@ -302,18 +316,6 @@ function WooCommerceSettingsCard() {
           </div>
         </div>
         <div className="border-t border-t-[#f0f0f0]" />
-      </div>
-
-      <div className="text-sm">
-        <span className="text-slate-500">{__('Manage ')}</span>
-        <span
-          className="cursor-pointer underline decoration-solid"
-          onClick={() => {
-            window.open(window.yayReviews.wc_settings_url, '_blank');
-          }}
-        >
-          {__('WooCommerce settings', 'yay-reviews')}
-        </span>
       </div>
 
       <div className="space-y-6">
@@ -380,6 +382,17 @@ function WooCommerceSettingsCard() {
             </Label>
           </div>
         )}
+      </div>
+      <div className="text-sm">
+        <span className="text-slate-500">{__('Manage ')}</span>
+        <span
+          className="cursor-pointer underline decoration-solid"
+          onClick={() => {
+            window.open(window.yayReviews.wc_settings_url, '_blank');
+          }}
+        >
+          {__('WooCommerce settings', 'yay-reviews')}
+        </span>
       </div>
     </Card>
   );

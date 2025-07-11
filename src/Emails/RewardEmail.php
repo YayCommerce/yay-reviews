@@ -46,21 +46,24 @@ class RewardEmail extends \WC_Email {
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
 				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-				if ( $result && ! empty( $comment->user_id ) ) {
-					// save customer meta for email sent
-					$reward_data = array(
-						'id'                 => $reward['id'],
-						'name'               => $reward['name'],
-						'coupon_id'          => $coupon->get_id(),
-						'coupon_code'        => $coupon->get_code(),
-						'coupon_amount'      => $coupon->get_amount(),
-						'coupon_type'        => $coupon->get_discount_type(),
-						'rating_requirement' => $reward['rating_requirement'],
-						'media_requirement'  => $reward['media_requirement'],
-						'frequency'          => $reward['frequency'],
-					);
-					update_user_meta( $comment->user_id, 'last_received_reward_time', time() );
-					update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
+				if ( $result ) {
+					update_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true );
+					if ( ! empty( $comment->user_id ) ) {
+						// save customer meta for email sent
+						$reward_data = array(
+							'id'                 => $reward['id'],
+							'name'               => $reward['name'],
+							'coupon_id'          => $coupon->get_id(),
+							'coupon_code'        => $coupon->get_code(),
+							'coupon_amount'      => $coupon->get_amount(),
+							'coupon_type'        => $coupon->get_discount_type(),
+							'rating_requirement' => $reward['rating_requirement'],
+							'media_requirement'  => $reward['media_requirement'],
+							'frequency'          => $reward['frequency'],
+						);
+						update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
+						update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
+					}
 				}
 				Helpers::modify_email_queue(
 					true,
@@ -78,7 +81,7 @@ class RewardEmail extends \WC_Email {
 								'product_name'       => $product->get_name(),
 								'rating_requirement' => $reward['rating_requirement'],
 								'media_requirement'  => $reward['media_requirement'],
-								'minimum_required_reviews_since_last_reward' => $reward['minimum_required_reviews_since_last_reward'],
+								'frequency'          => $reward['frequency'],
 							)
 						),
 					)
@@ -113,14 +116,6 @@ class RewardEmail extends \WC_Email {
 		return __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged', 'yay-reviews' );
 	}
 
-	public function get_default_footer() {
-		$reward_settings = Helpers::get_settings( 'email', 'reward', array() );
-		if ( isset( $reward_settings['footer'] ) ) {
-			return $reward_settings['footer'];
-		}
-		return __( 'Thank you for your review!', 'yay-reviews' );
-	}
-
 	public function get_content_html() {
 		return wc_get_template_html(
 			$this->template_html,
@@ -128,7 +123,6 @@ class RewardEmail extends \WC_Email {
 				'coupon'        => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
-				'email_footer'  => $this->get_default_footer(),
 				'sent_to_admin' => false,
 				'plain_text'    => false,
 				'email'         => $this,
@@ -145,7 +139,6 @@ class RewardEmail extends \WC_Email {
 				'coupon'        => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
-				'email_footer'  => $this->get_default_footer(),
 				'sent_to_admin' => false,
 				'plain_text'    => true,
 				'email'         => $this,
@@ -188,15 +181,6 @@ class RewardEmail extends \WC_Email {
 				/* translators: %s: list of available placeholders */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_name}, {coupon_code}</code>' ),
 				'placeholder' => $this->get_email_content(),
-				'default'     => '',
-			),
-			'footer'     => array(
-				'title'       => __( 'Email Footer', 'yay-reviews' ),
-				'type'        => 'textarea',
-				'desc_tip'    => true,
-				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
-				'placeholder' => $this->get_default_footer(),
 				'default'     => '',
 			),
 			'email_type' => array(

@@ -1,4 +1,3 @@
-import { ComboboxOption } from '@/components/ui/combobox';
 import { api } from './api';
 import { CouponFormData, SettingsFormData } from './schema';
 import { Coupon } from 'types/coupon';
@@ -18,30 +17,16 @@ export async function postCoupon(data: CouponFormData) {
   }>;
 }
 
-export async function getProducts(search: string, limit: number) {
-  const response = await api.get('products', {
-    searchParams: {
-      search,
-      limit,
-    },
-  });
-  return response.json() as Promise<ComboboxOption[]>;
-}
-
 export async function sendTestMail(
   email: string,
   subject: string,
-  heading: string,
   content: string,
-  footer: string,
 ) {
   const response = await api.post('send-test-mail', {
     json: {
       email,
       subject,
-      heading,
       content,
-      footer,
     },
   });
   return response.json();

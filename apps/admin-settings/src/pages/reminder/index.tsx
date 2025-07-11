@@ -14,7 +14,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 import PageTitle from '@/components/page-title';
 
 export default function ReminderPage() {
@@ -26,18 +25,18 @@ export default function ReminderPage() {
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
         <div className="text-xs">
-        <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
-        {` `}
-        <span
-          className="text-foreground cursor-pointer lowercase underline decoration-solid"
-          onClick={(e) => {
-            e.preventDefault();
-            changeTab('emails');
-          }}
-        >
-          {__('email template', 'yay-reviews')}
-        </span>
-      </div>
+          <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
+          {` `}
+          <span
+            className="text-foreground cursor-pointer lowercase underline decoration-solid"
+            onClick={(e) => {
+              e.preventDefault();
+              changeTab('emails');
+            }}
+          >
+            {__('email template', 'yay-reviews')}
+          </span>
+        </div>
       </div>
     </PageLayout>
   );
@@ -80,20 +79,20 @@ const productFilterOptions = [
 
 function ReminderInformation() {
   const { control, watch } = useFormContext();
-  const productsType = watch('reminder.products_type');
-  const productNumber = watch('reminder.max_products');
+  const productScope = watch('reminder.product_scope');
+  const maxProductsPerEmail = watch('reminder.max_products_per_email');
 
   const summaryText = useMemo(() => {
     const leadingText = __('Remind customers to review', 'yay-reviews');
     const productFilterLabel = productFilterOptions.find(
-      (item) => item.value === productsType,
+      (item) => item.value === productScope,
     )?.label;
     let productsText = productFilterLabel || __('All products', 'yay-reviews');
-    if (productsType !== 'all') {
-      productsText = `${productNumber ? productNumber : 'All'} "${productsText}"`;
+    if (productScope !== 'all') {
+      productsText = `${maxProductsPerEmail ? maxProductsPerEmail : 'All'} "${productsText}"`;
     }
-    return `${leadingText}: ${productsText} from an order`;
-  }, [productsType, productNumber]);
+    return `${leadingText}: ${productsText} ${__('from an order', 'yay-reviews')}`;
+  }, [productScope, maxProductsPerEmail]);
 
   return (
     <>
@@ -109,10 +108,10 @@ function ReminderInformation() {
             <div>
               <FormField
                 control={control}
-                name="reminder.send_after_value"
+                name="reminder.delay_amount"
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="reminder.send_after_value"
+                    id="reminder.delay_amount"
                     type="number"
                     value={value}
                     onChange={(e) => onChange(Math.max(1, Number(e.target.value)))}
@@ -124,10 +123,10 @@ function ReminderInformation() {
             </div>
             <FormField
               control={control}
-              name="reminder.send_after_unit"
+              name="reminder.delay_unit"
               render={({ field: { value, onChange } }) => (
-                <Select id="reminder.send_after_unit" value={value} onValueChange={onChange}>
-                  <SelectTrigger className="min-w-40">
+                <Select id="reminder.delay_unit" value={value} onValueChange={onChange}>
+                  <SelectTrigger className="w-full max-w-[130px]">
                     <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -163,18 +162,18 @@ function ReminderInformation() {
         </div>
         <Card className="gap-0 space-y-6 p-6">
           <div className="text-sm">{summaryText}</div>
-          <Label htmlFor="reminder.max_products" className="mb-2 w-fit">
+          <Label htmlFor="reminder.max_products_per_email" className="mb-2 w-fit">
             {__('Product filter', 'yay-reviews')}
           </Label>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <div>
               <FormField
                 control={control}
-                name={`reminder.max_products`}
+                name={`reminder.max_products_per_email`}
                 render={({ field: { value, onChange } }) => (
                   <Input
-                    id="reminder.max_products"
-                    disabled={productsType === 'all'}
+                    id="reminder.max_products_per_email"
+                    disabled={productScope === 'all'}
                     type="number"
                     value={value}
                     placeholder={__('All', 'yay-reviews')}
@@ -193,9 +192,9 @@ function ReminderInformation() {
             </div>
             <FormField
               control={control}
-              name="reminder.products_type"
+              name="reminder.product_scope"
               render={({ field: { value, onChange } }) => (
-                <Select id="reminder.products_type" value={value} onValueChange={onChange}>
+                <Select id="reminder.product_scope" value={value} onValueChange={onChange}>
                   <SelectTrigger className="w-full max-w-[210px]">
                     <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                   </SelectTrigger>

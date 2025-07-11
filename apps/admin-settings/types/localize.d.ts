@@ -1,7 +1,6 @@
 import jQuery from '@types/jquery';
 
 import { SettingsFormData } from '../lib/schema';
-import { ComboboxOption } from '../src/components/ui/combobox';
 import { Coupon } from './coupon';
 
 declare global {
@@ -9,6 +8,7 @@ declare global {
     jQuery: typeof jQuery;
     yayReviews: {
       admin_url: string;
+      currency_symbol: string;
       admin_email: string;
       wc_settings_url: string;
       wc_reviews_settings: Record<string, boolean>;
@@ -20,11 +20,8 @@ declare global {
       rest_base: string;
       rest_nonce: string;
       data_settings: SettingsFormData;
-      upload_max_size: number;
+      upload_max_filesize: number;
       sample_values: Record<string, string>;
-      coupon_types: Record<string, string>;
-      product_categories: ComboboxOption[];
-      product_brands: ComboboxOption[];
       wc_email_settings: Record<string, string>;
       default_email_templates: Record<string, Record<string, string>>;
       coupons: Coupon[];

@@ -9,6 +9,7 @@ class Helpers {
 		$settings = get_option( 'yay_reviews_settings', array() );
 		if ( empty( $settings ) ) {
 			$settings = self::add_default_settings( $settings );
+			update_option( 'yay_reviews_has_new_data', 'yes' );
 		}
 		return $settings;
 	}
@@ -27,7 +28,7 @@ class Helpers {
 		return $settings;
 	}
 
-	public static function print_media_list( $files, $comment, $echo = true ) {
+	public static function print_media_list( $files, $comment ) {
 		echo wc_get_template_html( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			'frontend/media-list.php',
 			array(
@@ -48,27 +49,27 @@ class Helpers {
 			$settings,
 			array(
 				'addons'          => array(
-					'reminder'        => true,
-					'reward'          => false,
-					'optional_fields' => false,
+					'reminder_enabled'        => true,
+					'reward_enabled'          => false,
+					'optional_fields_enabled' => false,
 				),
 				'reviews'         => array(
-					'upload_media'            => true,
-					'upload_required'         => false,
-					'media_type'              => 'video_image',
-					'max_upload_file_size'    => 2000, //kb
-					'max_upload_file_qty'     => '',
-					'upload_file_label'       => __( 'Upload media', 'yay-reviews' ),
-					'upload_file_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
-					'enable_gdpr'             => false,
-					'gdpr_message'            => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
-					'before_message'          => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
+					'enable_media_upload'      => true,
+					'require_media_upload'     => false,
+					'allowed_media_types'      => 'video_photo',
+					'max_upload_filesize'      => 2000, //kb
+					'max_upload_files'         => '',
+					'media_upload_label'       => __( 'Upload media', 'yay-reviews' ),
+					'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
+					'enable_gdpr_consent'      => false,
+					'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
+					'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 				),
 				'reminder'        => array(
-					'send_after_value' => 7,
-					'send_after_unit'  => 'days',
-					'max_products'     => '',
-					'products_type'    => 'all',
+					'delay_amount'           => 7,
+					'delay_unit'             => 'days',
+					'max_products_per_email' => '',
+					'product_scope'          => 'all',
 				),
 				'rewards'         => array(),
 				'optional_fields' => array(),
@@ -77,13 +78,11 @@ class Helpers {
 						'subject' => __( 'Reminder email', 'yay-reviews' ),
 						'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
 						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
-						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 					'reward'   => array(
 						'subject' => __( 'Review reward email', 'yay-reviews' ),
 						'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
 						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
-						'footer'  => __( '{site_title} — Built with YayReviews', 'yay-reviews' ),
 					),
 				),
 			)
@@ -109,52 +108,8 @@ class Helpers {
 		return $result;
 	}
 
-	public static function upload_max_size() {
+	public static function upload_max_filesize() {
 		return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
-	}
-
-	public static function upload_max_qty() {
-		return 20;
-	}
-
-	public static function get_product_categories() {
-		$categories = get_terms(
-			array(
-				'taxonomy'   => 'product_cat',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		return array_map(
-			function ( $category ) {
-				return array(
-					'value' => $category->term_id,
-					'label' => $category->name,
-				);
-			},
-			$categories
-		);
-	}
-
-	public static function get_product_brands() {
-		$brands = get_terms(
-			array(
-				'taxonomy'   => 'product_brand',
-				'hide_empty' => false,
-				'orderby'    => 'name',
-				'order'      => 'ASC',
-			)
-		);
-		return array_map(
-			function ( $brand ) {
-				return array(
-					'value' => $brand->term_id,
-					'label' => $brand->name,
-				);
-			},
-			$brands
-		);
 	}
 
 	public static function get_review_products( $order ) {
@@ -201,27 +156,27 @@ class Helpers {
 	}
 
 	public static function get_max_remind_products_for_email( $product_in_order ) {
-		$all_settings = self::get_all_settings();
-		$max_products = $all_settings['reminder']['max_products'] ?? 3;
-		$product_type = $all_settings['reminder']['products_type'] ?? 'normal';
+		$all_settings           = self::get_all_settings();
+		$max_products_per_email = $all_settings['reminder']['max_products_per_email'] ?? 3;
+		$product_scope          = $all_settings['reminder']['product_scope'] ?? 'all';
 
-		if ( 'all' === $product_type ) {
+		if ( 'all' === $product_scope ) {
 			return $product_in_order;
 		}
 
-		if ( '' === $max_products ) { // $max_products is empty it means no limit.
-			$max_products = 100; // Just 100 because it's impossible to have more than 100 products in an order.
+		if ( '' === $max_products_per_email ) { // $max_products_per_email is empty it means no limit.
+			$max_products_per_email = 100; // Just 100 because it's impossible to have more than 100 products in an order.
 		}
 
-		if ( 'normal' === $product_type ) {
-			return array_slice( $product_in_order, 0, $max_products );
+		if ( 'normal' === $product_scope ) {
+			return array_slice( $product_in_order, 0, $max_products_per_email );
 		}
 
 		$remind_product_ids = array();
 
-		$product_ids = Products::get_products_by_type( $product_type );
+		$product_ids = Products::get_products_by_scope( $product_scope );
 		foreach ( $product_ids as $product_id ) {
-			if ( count( $remind_product_ids ) >= $max_products ) {
+			if ( count( $remind_product_ids ) >= $max_products_per_email ) {
 				break;
 			}
 			if ( in_array( $product_id, $product_in_order ) ) {
@@ -327,13 +282,8 @@ class Helpers {
 			}
 		}
 
-		if ( 'at_least_3_stars' === $rating_requirement ) {
-			if ( $rating < 3 ) {
-				$valid = false;
-			}
-		}
-		if ( 'at_least_4_stars' === $rating_requirement ) {
-			if ( $rating < 4 ) {
+		if ( 'less_than_5_stars' === $rating_requirement ) {
+			if ( $rating >= 5 ) {
 				$valid = false;
 			}
 		}
@@ -343,93 +293,35 @@ class Helpers {
 				$valid = false;
 			}
 		}
-		if ( '4_stars' === $rating_requirement ) {
-			if ( 4 !== $rating ) {
-				$valid = false;
-			}
-		}
 
-		if ( 'none' !== $media_requirement ) {
-			$video_media = array_filter(
-				$media,
-				function ( $media ) {
-					return 'video' === $media['type'];
-				}
-			);
-
-			$image_media = array_filter(
-				$media,
-				function ( $media ) {
-					return 'image' === $media['type'];
-				}
-			);
-
-			if ( 'at_least_1_media' === $media_requirement ) {
-				if ( empty( $image_media ) ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_2_media' === $media_requirement ) {
-				if ( count( $media ) < 2 ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_1_image' === $media_requirement ) {
-				if ( empty( $image_media ) ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_1_video' === $media_requirement ) {
-				if ( empty( $video_media ) ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_2_videos' === $media_requirement ) {
-				if ( count( $video_media ) < 2 ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'at_least_2_images' === $media_requirement ) {
-				if ( count( $image_media ) < 2 ) {
-					$valid = false;
-				}
-			}
+		if ( 'none' !== $media_requirement && empty( $media ) ) {
+			$valid = false;
 		}
 
 		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
-			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_time', true );
-			$received_reward_data      = get_user_meta( $comment_user_id, 'received_reward_' . $reward['id'], true );
+			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_' . $reward['id'] . '_time', true );
 
 			$args = array(
-				'user_id'      => $comment_user_id,
-				'comment_type' => 'review',
-				'status'       => 'approve',
+				'user_id' => $comment_user_id,
+				'type'    => 'review',
+				'status'  => 'approve',
 			);
 
-			if ( 'every_2_reviews' === $frequency || 'every_3_reviews' === $frequency ) {
+			if ( ! empty( $last_received_reward_time ) ) {
 				$args['date_query'] = array(
-					'after' => $last_received_reward_time,
+					'after' => gmdate( 'Y-m-d H:i:s', $last_received_reward_time ),
 				);
 			}
 
+			$meta_query = self::meta_query_rating_and_media( $rating_requirement, $media_requirement );
+			if ( ! empty( $meta_query ) ) {
+				$args['meta_query'] = $meta_query;
+				if ( count( $meta_query ) > 1 ) {
+					$args['meta_query']['relation'] = 'AND';
+				}
+			}
+
 			$user_reviews_count = count( get_comments( $args ) );
-
-			if ( 'after_2_reviews' === $frequency ) {
-				if ( $user_reviews_count < 2 || ! empty( $received_reward_data ) ) {
-					$valid = false;
-				}
-			}
-
-			if ( 'after_3_reviews' === $frequency ) {
-				if ( $user_reviews_count < 3 || ! empty( $received_reward_data ) ) {
-					$valid = false;
-				}
-			}
 
 			if ( 'every_2_reviews' === $frequency ) {
 				if ( $user_reviews_count < 2 ) {
@@ -576,10 +468,80 @@ class Helpers {
 
 	public static function get_wc_reviews_settings() {
 		return array(
+			'reviews_enabled'        => wc_reviews_enabled(),
 			'verification_label'     => 'yes' === get_option( 'woocommerce_review_rating_verification_label' ),
 			'verification_required'  => 'yes' === get_option( 'woocommerce_review_rating_verification_required' ),
 			'enable_review_rating'   => 'yes' === get_option( 'woocommerce_enable_review_rating' ),
 			'review_rating_required' => 'yes' === get_option( 'woocommerce_review_rating_required' ),
 		);
+	}
+
+	public static function meta_query_rating_and_media( $rating_requirement, $media_requirement ) {
+		$meta_query = array();
+		if ( 'any' !== $rating_requirement ) {
+			$meta_query[] = array(
+				'key'     => 'rating',
+				'value'   => 5,
+				'compare' => '5_stars' === $rating_requirement ? '=' : '<',
+			);
+		}
+		if ( 'none' !== $media_requirement ) {
+			$meta_query[] = array(
+				'key'     => 'yay_reviews_files',
+				'value'   => '',
+				'compare' => '!=',
+			);
+		}
+		if ( empty( $meta_query ) ) {
+			return null;
+		}
+		return $meta_query;
+	}
+
+	/**
+	 * Generate a unique coupon code similar to WooCommerce's pattern
+	 *
+	 * @param int    $length Length of the random part (default: 8)
+	 * @param int    $max_attempts Maximum attempts to find a unique code (default: 100)
+	 * @return string|false Generated coupon code or false if unable to generate unique code
+	 */
+	public static function generate_unique_coupon_code( $length = 8, $max_attempts = 100 ) {
+		global $wpdb;
+
+		// Ensure length is reasonable
+		$length = max( 4, min( 20, intval( $length ) ) );
+
+		$attempts = 0;
+
+		while ( $attempts < $max_attempts ) {
+			// Generate random string using WooCommerce's pattern (uppercase letters and numbers)
+			$coupon_code = '';
+			$characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+			$char_length = strlen( $characters );
+
+			for ( $i = 0; $i < $length; $i++ ) {
+				$coupon_code .= $characters[ wp_rand( 0, $char_length - 1 ) ];
+			}
+
+			// Check if this coupon code already exists
+			$existing_coupon = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT post_title FROM {$wpdb->posts} 
+					WHERE post_type = 'shop_coupon' 
+					AND post_title = %s 
+					AND post_status = 'publish'",
+					$coupon_code
+				)
+			);
+
+			if ( ! $existing_coupon ) {
+				return $coupon_code;
+			}
+
+			++$attempts;
+		}
+
+		// If we couldn't generate a unique code after max attempts, return false
+		return false;
 	}
 }

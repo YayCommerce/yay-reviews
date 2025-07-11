@@ -1,35 +1,38 @@
 import { z } from 'zod';
 
 const addonsSchema = z.object({
-  reminder: z.boolean(),
-  reward: z.boolean(),
+  reminder_enabled: z.boolean(),
+  reward_enabled: z.boolean(),
 });
 
 const reviewsSchema = z.object({
-  upload_media: z.boolean(),
-  upload_required: z.boolean(),
-  media_type: z.string(),
-  max_upload_file_size: z.number(),
-  max_upload_file_qty: z.number().or(z.string()),
-  upload_file_label: z.string(),
-  upload_file_description: z.string(),
-  enable_gdpr: z.boolean(),
-  gdpr_message: z.string(),
-  before_message: z.string(),
+  enable_media_upload: z.boolean(),
+  require_media_upload: z.boolean(),
+  allowed_media_types: z.string(),
+  max_upload_filesize: z.number(),
+  max_upload_files: z.number().or(z.string()),
+  media_upload_label: z.string(),
+  media_upload_description: z.string(),
+  enable_gdpr_consent: z.boolean(),
+  gdpr_consent_message: z.string(),
+  pre_gdpr_message: z.string(),
 });
 
 const reminderSchema = z.object({
-  send_after_value: z.number(),
-  send_after_unit: z.string(),
-  max_products: z.number().or(z.string()),
-  products_type: z.string(),
+  delay_amount: z.number(),
+  delay_unit: z.string(),
+  max_products_per_email: z.number().or(z.string()),
+  product_scope: z.string(),
 });
 
 const rewardSchema = z.object({
   id: z.string(),
   name: z.string(),
   enabled: z.boolean(),
-  coupon_id: z.string(),
+  coupon_type: z.string(),
+  coupon_id: z.string().optional(),
+  coupon_value: z.number().optional(),
+  coupon_value_suffix: z.string().optional(),
   send_to: z.string(),
   rating_requirement: z.string(),
   media_requirement: z.string(),
@@ -57,67 +60,19 @@ const emailSchema = z.object({
     subject: z.string(),
     heading: z.string(),
     content: z.string(),
-    footer: z.string(),
   }),
   reward: z.object({
     subject: z.string(),
     heading: z.string(),
     content: z.string(),
-    footer: z.string(),
   }),
 });
 
 export const couponSchema = z.object({
   code: z.string().min(1, { message: 'Coupon code is required' }),
-  description: z.string(),
-  discount_type: z.string(),
   amount: z.number(),
-  free_shipping: z.boolean(),
+  amount_suffix: z.string(),
   expiry_date: z.date().optional(),
-  minimum_spend: z.number().optional(),
-  maximum_spend: z.number().optional(),
-  individual_use: z.boolean(),
-  exclude_sale_items: z.boolean(),
-  products: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    }),
-  ),
-  exclude_products: z.array(
-    z.object({
-      value: z.string(),
-      label: z.string(),
-    }),
-  ),
-  product_categories: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  exclude_product_categories: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  allowed_emails: z.string(),
-  product_brands: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  exclude_product_brands: z.array(
-    z.object({
-      value: z.number(),
-      label: z.string(),
-    }),
-  ),
-  usage_limit_per_coupon: z.number().optional(),
-  usage_limit_per_user: z.number().optional(),
-  limit_usage_to_x_items: z.number().optional(),
 });
 
 export const settingsSchema = z.object({

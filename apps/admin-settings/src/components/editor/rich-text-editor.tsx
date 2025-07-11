@@ -6,6 +6,8 @@ import CustomRichTextColor from './custom-rich-text-color';
 
 import './index.scss';
 
+import { updateEmailPreview } from '@/lib/utils';
+
 const RichTextEditor = ({
   ID,
   value,
@@ -40,6 +42,15 @@ const RichTextEditor = ({
         setup: (editor: any) => {
           editor.on('keyup ExecCommand change', () => {
             handleOnChange(editor.getContent());
+            updateEmailPreview(
+              editor.getContent(),
+              'content',
+              ID === 'yay-reviews-email-content-reminder'
+                ? 'reminder'
+                : ID === 'yay-reviews-email-content-reward'
+                  ? 'reward'
+                  : '',
+            );
           });
           editor.addButton('customforecolor', {
             id: `yay-reviews-editor-custom-fore-color_${ID}`,
@@ -61,6 +72,15 @@ const RichTextEditor = ({
             onselect: (e: any) => {
               editor.formatter.apply('fontweight', { value: e.control.value() });
               handleOnChange(editor.getContent());
+              updateEmailPreview(
+                editor.getContent(),
+                'content',
+                ID === 'yay-reviews-email-content-reminder'
+                  ? 'reminder'
+                  : ID === 'yay-reviews-email-content-reward'
+                    ? 'reward'
+                    : '',
+              );
             },
           });
 
@@ -79,7 +99,18 @@ const RichTextEditor = ({
                   colorType="ForeColor"
                   initialValue="#0F172A"
                   editorId={ID}
-                  onChange={handleOnChange}
+                  onChange={(e) => {
+                    handleOnChange(e);
+                    updateEmailPreview(
+                      e,
+                      'content',
+                      ID === 'yay-reviews-email-content-reminder'
+                        ? 'reminder'
+                        : ID === 'yay-reviews-email-content-reward'
+                          ? 'reward'
+                          : '',
+                    );
+                  }}
                 />,
               );
             }

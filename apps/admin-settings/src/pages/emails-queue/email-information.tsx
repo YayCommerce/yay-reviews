@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { __ } from '@wordpress/i18n';
 import { EmailQueue } from 'types/email-queue';
 
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 export default function EmailInformation({ email }: { email: EmailQueue | null }) {
   if (!email) {
@@ -11,7 +12,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
   }
 
   const productType = useMemo(() => {
-    switch (email.email_data?.products_type) {
+    switch (email.email_data?.product_scope) {
       case 'normal':
         return __('Normal products', 'yay-reviews');
       case 'featured':
@@ -29,21 +30,17 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       default:
         return __('All products', 'yay-reviews');
     }
-  }, [email.email_data?.products_type]);
+  }, [email.email_data?.product_scope]);
 
   const ratingRequirement = useMemo(() => {
     switch (email.email_data?.rating_requirement) {
       case 'none':
       case 'any':
         return __('Any rating', 'yay-reviews');
-      case '4_stars':
-        return __('4-star review', 'yay-reviews');
+      case 'less_than_5_stars':
+        return __('Less than 5★', 'yay-reviews');
       case '5_stars':
-        return __('5-star review', 'yay-reviews');
-      case 'at_least_3_stars':
-        return __('Review with 3+ stars', 'yay-reviews');
-      case 'at_least_4_stars':
-        return __('Review with 4+ stars', 'yay-reviews');
+        return __('5★ only', 'yay-reviews');
       default:
         return __('Any rating', 'yay-reviews');
     }
@@ -54,17 +51,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       case 'none':
         return __('No requirement', 'yay-reviews');
       case 'at_least_1_media':
-        return __('At least 1 media file in review', 'yay-reviews');
-      case 'at_least_2_media':
-        return __('At least 2 media files in review', 'yay-reviews');
-      case 'at_least_1_image':
-        return __('At least 1 image in review', 'yay-reviews');
-      case 'at_least_2_images':
-        return __('At least 2 images in review', 'yay-reviews');
-      case 'at_least_1_video':
-        return __('At least 1 video in review', 'yay-reviews');
-      case 'at_least_2_videos':
-        return __('At least 2 videos in review', 'yay-reviews');
+        return __('Photo or video required', 'yay-reviews');
       default:
         return __('No requirement', 'yay-reviews');
     }
@@ -79,10 +66,6 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
         return __('After every 2 reviews', 'yay-reviews');
       case 'every_3_reviews':
         return __('After every 3 reviews', 'yay-reviews');
-      case 'after_2_reviews':
-        return __('After submitting 2 reviews (one-time reward)', 'yay-reviews');
-      case 'after_3_reviews':
-        return __('After submitting 3 reviews (one-time reward)', 'yay-reviews');
       default:
         return __('No requirement', 'yay-reviews');
     }
@@ -90,60 +73,85 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
 
   return (
     <div className="space-y-6 px-4 pt-6">
-      <dl className="mt-4 grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
-        <dt className="text-sm font-semibold">{__('Type', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm capitalize">{email.type}</dd>
-        <dt className="text-sm font-semibold">{__('To', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm break-all">{email.customer_email}</dd>
-        <dt className="text-sm font-semibold">{__('Status', 'yay-reviews')}:</dt>
-        <dd className="pl-2 text-sm font-semibold capitalize">
-          <Badge
-            variant="default"
-            className={cn('transition-none', {
-              'bg-[#1668dc]': email.status === '0',
-              'bg-[#49aa19]': email.status === '1',
-              'bg-[#404040]': email.status === '2',
-            })}
-          >
-            {email.status === '0'
-              ? __('Pending', 'yay-reviews')
-              : email.status === '1'
-                ? __('Sent', 'yay-reviews')
-                : __('Cancelled', 'yay-reviews')}
-          </Badge>
-        </dd>
+      <Table>
+        <TableBody>
+          <TableRow>
+            <TableCell className="font-semibold">{__('Type', 'yay-reviews')}:</TableCell>
+            <TableCell className="capitalize">{email.type}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-semibold">{__('To', 'yay-reviews')}:</TableCell>
+            <TableCell className="break-all">{email.customer_email}</TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell className="font-semibold">{__('Status', 'yay-reviews')}:</TableCell>
+            <TableCell>
+              <Badge
+                variant="default"
+                className={cn('transition-none', {
+                  'bg-[#1668dc]': email.status === '0',
+                  'bg-[#49aa19]': email.status === '1',
+                  'bg-[#404040]': email.status === '2',
+                })}
+              >
+                {email.status === '0'
+                  ? __('Pending', 'yay-reviews')
+                  : email.status === '1'
+                    ? __('Sent', 'yay-reviews')
+                    : __('Cancelled', 'yay-reviews')}
+              </Badge>
+            </TableCell>
+          </TableRow>
 
-        {/* Section: Reward Details */}
-        {email.type === 'reward' && (
-          <>
-            <dt className="text-sm font-semibold">{__('Coupon', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{email.email_data?.coupon_code}</dd>
-            <dt className="text-sm font-semibold">{__('Product', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{email.email_data?.product_name}</dd>
-            <dt className="text-sm font-semibold">{__('Rating', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{ratingRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Media files', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{mediaRequirement}</dd>
-            <dt className="text-sm font-semibold">{__('Reward trigger', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">{minimumRequiredReviewsSinceLastReward}</dd>
-          </>
-        )}
-        {/* Section: Reminder Details */}
-        {email.type === 'reminder' && (
-          <>
-            <dt className="text-sm font-semibold">{__('Sent after', 'yay-reviews')}:</dt>
-            <dd className="pl-2 text-sm">
-              {email.email_data?.send_after_value} {email.email_data?.send_after_unit}
-            </dd>
-            <dt className="text-sm font-semibold">
-              {__('Remind products', 'yay-reviews')}:
-            </dt>
-            <dd className="pl-2 text-sm">
-              {email.email_data?.max_products} {productType}
-            </dd>
-          </>
-        )}
-      </dl>
+          {/* Section: Reward Details */}
+          {email.type === 'reward' && (
+            <>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Coupon', 'yay-reviews')}:</TableCell>
+                <TableCell>{email.email_data?.coupon_code}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Product', 'yay-reviews')}:</TableCell>
+                <TableCell>{email.email_data?.product_name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Rating', 'yay-reviews')}:</TableCell>
+                <TableCell>{ratingRequirement}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Media', 'yay-reviews')}:</TableCell>
+                <TableCell>{mediaRequirement}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Frequency', 'yay-reviews')}:</TableCell>
+                <TableCell>{minimumRequiredReviewsSinceLastReward}</TableCell>
+              </TableRow>
+            </>
+          )}
+          {/* Section: Reminder Details */}
+          {email.type === 'reminder' && (
+            <>
+              <TableRow>
+                <TableCell className="font-semibold">{__('Sent after', 'yay-reviews')}:</TableCell>
+                <TableCell>
+                  {email.email_data?.delay_amount} {email.email_data?.delay_unit}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-semibold">
+                  {__('Remind products', 'yay-reviews')}:
+                </TableCell>
+                <TableCell>
+                  {email.email_data?.product_scope !== 'all' &&
+                    email.email_data?.max_products_per_email &&
+                    `${email.email_data?.max_products_per_email} `}
+                  {productType}
+                </TableCell>
+              </TableRow>
+            </>
+          )}
+        </TableBody>
+      </Table>
     </div>
   );
 }

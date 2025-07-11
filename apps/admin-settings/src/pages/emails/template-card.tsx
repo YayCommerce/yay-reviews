@@ -4,7 +4,7 @@ import { Loader2Icon, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
-import { cn, getEmailSampleValues } from '@/lib/utils';
+import { cn, getEmailSampleValues, updateEmailPreview } from '@/lib/utils';
 import useEmailsContext from '@/hooks/use-emails-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -33,11 +33,10 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const [isSending, setIsSending] = useState(false);
   const [resetTemplateDialogOpen, setResetTemplateDialogOpen] = useState(false);
 
-  const { watch, control, setValue } = useFormContext();
+  const { watch, control, setValue, getValues } = useFormContext();
   const emailSubject = watch(`email.${templateId}.subject`);
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
-  const emailFooter = watch(`email.${templateId}.footer`);
 
   const defaultSampleValues = getEmailSampleValues();
 
@@ -70,25 +69,32 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
 
   const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
-  const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleResetTemplate = () => {
-    const resetKeys = ['subject', 'heading', 'content', 'footer'];
+    const resetKeys = ['subject', 'heading', 'content'];
     resetKeys.forEach((key) => {
       if (!window.yayReviews?.default_email_templates?.[templateId]?.[key]) {
         return;
       }
+      const currentValues = getValues(`email.${templateId}.${key}`);
       if (key === 'content') {
         const editor = window.tinymce?.get(`yay-reviews-email-content-${templateId}`);
         if (editor) {
           editor.setContent(window.yayReviews.default_email_templates[templateId].content);
         }
       }
+
       setValue(
         `email.${templateId}.${key}`,
         window.yayReviews.default_email_templates[templateId][key],
+        {
+          shouldDirty:
+            currentValues != window.yayReviews.default_email_templates[templateId][key]
+              ? true
+              : false,
+        },
       );
     });
   };
@@ -120,7 +126,15 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 control={control}
                 name={`email.${templateId}.heading`}
                 render={({ field: { value, onChange } }) => (
-                  <Input id={`email.${templateId}.heading`} value={value} onChange={onChange} />
+                  <Input
+                    id={`email.${templateId}.heading`}
+                    value={value}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      updateEmailPreview(e.target.value, 'heading', templateId);
+                      onChange(e);
+                    }}
+                  />
                 )}
               />
             </div>
@@ -158,19 +172,6 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               </div>
             </div>
 
-            {/* Email footer */}
-            <div>
-              <Label htmlFor={`email.${templateId}.footer`} className="mb-2 w-max font-normal">
-                {__('Email footer', 'yay-reviews')}
-              </Label>
-              <FormField
-                control={control}
-                name={`email.${templateId}.footer`}
-                render={({ field: { value, onChange } }) => (
-                  <Input id={`email.${templateId}.footer`} value={value} onChange={onChange} />
-                )}
-              />
-            </div>
             <div className="flex flex-col gap-2">
               <Dialog open={resetTemplateDialogOpen} onOpenChange={setResetTemplateDialogOpen}>
                 <DialogTrigger asChild>
@@ -300,7 +301,23 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                           onClick={(e) => {
                             e.preventDefault();
                             setIsSending(true);
-                            sendTestMail(testEmail, subject, heading, content, footer)
+                            const jQuery = window.jQuery;
+                            const previewEmail = jQuery('#yay-reviews-email-preview-iframe');
+                            if (!previewEmail) return;
+                            // get all html of iframe
+                            const iframeHtml = previewEmail.contents().find('html').html();
+                            // get language of iframe
+                            const iframeLanguage = previewEmail
+                              .contents()
+                              .find('html')
+                              .attr('lang');
+                            const previewContent =
+                              '<!DOCTYPE html><html lang="' +
+                              iframeLanguage +
+                              '">' +
+                              iframeHtml +
+                              '</html>';
+                            sendTestMail(testEmail, subject, previewContent)
                               .then((res: any) => {
                                 if (res.message === 'Email sent successfully') {
                                   toast.success(__('Email sent successfully', 'yay-reviews'));
@@ -328,7 +345,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               <Card
                 className={cn(
                   currentDevice === 'mobile' && 'yay-reviews-email-preview-mobile',
-                  'm-auto w-full rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
+                  'm-auto w-full gap-0 rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
                 )}
               >
                 <CardHeader className="border-border block border-b p-4 [.border-b]:pb-4">
@@ -345,13 +362,8 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent
-                  className={cn(
-                    'yay-reviews-email-preview-content px-8 py-2',
-                    currentDevice === 'mobile' && 'px-4 py-2',
-                  )}
-                >
-                  <EmailPreviewer heading={heading} content={content} footer={footer} />
+                <CardContent className="p-0">
+                  <EmailPreviewer heading={heading} content={content} templateId={templateId} />
                 </CardContent>
               </Card>
             </div>

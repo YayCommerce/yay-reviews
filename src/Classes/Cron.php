@@ -22,38 +22,38 @@ class Cron {
 			return;
 		}
 
-		$settings = Helpers::get_all_settings();
+		$settings         = Helpers::get_all_settings();
+		$reminder_enabled = isset( $settings['addons']['reminder_enabled'] ) ? $settings['addons']['reminder_enabled'] : false;
 
-		if ( ! isset( $settings['addons']['reminder'] ) || ! $settings['addons']['reminder'] ) {
+		if ( ! $reminder_enabled ) {
 			return;
 		}
 
-		$reminder_settings = $settings['reminder'];
-		$time              = time();
+		$reminder_settings      = $settings['reminder'];
+		$delay_amount           = isset( $reminder_settings['delay_amount'] ) ? $reminder_settings['delay_amount'] : 7;
+		$delay_unit             = isset( $reminder_settings['delay_unit'] ) ? $reminder_settings['delay_unit'] : 'days';
+		$max_products_per_email = isset( $reminder_settings['max_products_per_email'] ) ? $reminder_settings['max_products_per_email'] : 3;
+		$product_scope          = isset( $reminder_settings['product_scope'] ) ? $reminder_settings['product_scope'] : 'all';
+		$time                   = time();
 
-		if ( isset( $reminder_settings['send_after_value'] ) && $reminder_settings['send_after_value'] > 0 ) {
-			$unit = isset( $reminder_settings['send_after_unit'] ) ? $reminder_settings['send_after_unit'] : 'days';
-
-			switch ( $unit ) {
+		if ( $delay_amount > 0 ) {
+			switch ( $delay_unit ) {
 				case 'minutes':
-					$time += $reminder_settings['send_after_value'] * 60;
+					$time += $delay_amount * 60;
 					break;
 				case 'hours':
-					$time += $reminder_settings['send_after_value'] * 3600;
+					$time += $delay_amount * 3600;
 					break;
 				case 'days':
 				default:
-					$time += $reminder_settings['send_after_value'] * 86400;
+					$time += $delay_amount * 86400;
 					break;
 			}
 		}
 
-		$products_type = isset( $reminder_settings['products_type'] ) ? $reminder_settings['products_type'] : 'featured';
-		$max_products  = isset( $reminder_settings['max_products'] ) ? $reminder_settings['max_products'] : 3;
-
 		$email_id = 0;
-		// Check if products type different from featured or on sale or max products is 0. If so, schedule reminder email.
-		if ( ! in_array( $products_type, array( 'featured', 'on_sale' ) ) || 0 === $max_products ) {
+		// Check if product scope different from featured or on sale or max products per email is 0. If so, schedule reminder email.
+		if ( ! in_array( $product_scope, array( 'featured', 'on_sale' ) ) || 0 === $max_products_per_email ) {
 			// save email log
 
 			$email_id = Helpers::modify_email_queue(
@@ -72,16 +72,17 @@ class Cron {
 					),
 					'email_data'      => maybe_serialize(
 						array(
-							'send_after_value' => $reminder_settings['send_after_value'],
-							'send_after_unit'  => $reminder_settings['send_after_unit'],
-							'products_type'    => $reminder_settings['products_type'],
-							'max_products'     => $reminder_settings['max_products'],
+							'delay_amount'           => $delay_amount,
+							'delay_unit'             => $delay_unit,
+							'product_scope'          => $product_scope,
+							'max_products_per_email' => $max_products_per_email,
 						)
 					),
 				)
 			);
 			if ( $email_id ) {
 				wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+				update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
 			}
 			return;
 		}
@@ -102,10 +103,10 @@ class Cron {
 		}
 
 		// Check condition before create schedule reminder email
-		if ( 'featured' === $products_type ) {
+		if ( 'featured' === $product_scope ) {
 			$featured_product_ids = Products::get_featured_products();
 			$product_ids          = array_intersect( $product_ids, $featured_product_ids );
-		} elseif ( 'on_sale' === $products_type ) {
+		} elseif ( 'on_sale' === $product_scope ) {
 			$on_sale_product_ids = Products::get_on_sale_products();
 			$product_ids         = array_intersect( $product_ids, $on_sale_product_ids );
 		}
@@ -131,10 +132,10 @@ class Cron {
 				),
 				'email_data'      => maybe_serialize(
 					array(
-						'send_after_value' => $reminder_settings['send_after_value'],
-						'send_after_unit'  => $reminder_settings['send_after_unit'],
-						'products_type'    => $reminder_settings['products_type'],
-						'max_products'     => $reminder_settings['max_products'],
+						'delay_amount'           => $delay_amount,
+						'delay_unit'             => $delay_unit,
+						'product_scope'          => $product_scope,
+						'max_products_per_email' => $max_products_per_email,
 					)
 				),
 			)
@@ -142,6 +143,7 @@ class Cron {
 
 		if ( $email_id ) {
 			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
+			update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
 		}
 	}
 
@@ -151,7 +153,7 @@ class Cron {
 			return;
 		}
 
-		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 

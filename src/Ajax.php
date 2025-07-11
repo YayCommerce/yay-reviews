@@ -18,6 +18,7 @@ class Ajax {
 		add_action( 'wp_ajax_yay_reviews_dismiss_email', array( $this, 'dismiss_email' ) );
 		add_action( 'wp_ajax_yay_reviews_get_current_queue', array( $this, 'get_current_queue' ) );
 		add_action( 'wp_ajax_yay_reviews_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
+		add_action( 'wp_ajax_yay_reviews_preview_email', array( $this, 'preview_email' ) );
 	}
 
 	public function change_addon_status() {
@@ -74,6 +75,9 @@ class Ajax {
 							}
 						}
 					} else {
+						if ( ! class_exists( 'WC_Email' ) ) {
+							WC()->mailer();
+						}
 						if ( 'reminder' === $email_queue->type ) {
 							$email = new \YayReviews\Emails\ReminderEmail();
 						} else {
@@ -221,6 +225,9 @@ class Ajax {
 			$value        = isset( $_POST['value'] ) ? sanitize_text_field( wp_unslash( $_POST['value'] ) ) : '';
 
 			if ( ! empty( $update_field ) && ! empty( $value ) ) {
+				if ( 'reviews_enabled' === $update_field ) {
+					update_option( 'woocommerce_enable_reviews', 'true' === $value ? 'yes' : 'no' );
+				}
 				if ( 'verification_label' === $update_field ) {
 					update_option( 'woocommerce_review_rating_verification_label', 'true' === $value ? 'yes' : 'no' );
 				} elseif ( 'verification_required' === $update_field ) {
@@ -234,6 +241,40 @@ class Ajax {
 				wp_send_json_success( array( 'mess' => __( 'WC reviews settings updated successfully', 'yay-reviews' ) ) );
 			}
 			wp_send_json_error( array( 'mess' => __( 'Invalid update field or value', 'yay-reviews' ) ) );
+		} catch ( \Exception $e ) {
+			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	public function preview_email() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+		try {
+			$email = isset( $_POST['email'] ) ? sanitize_text_field( $_POST['email'] ) : '';
+			if ( ! empty( $email ) ) {
+				if ( 'reminder' === $email ) {
+					$email_class = 'YayReviews\Emails\ReminderEmail';
+				} else {
+					$email_class = 'YayReviews\Emails\RewardEmail';
+				}
+				$email_preview = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview::class );
+				$email_preview->set_email_type( $email_class );
+				$message = $email_preview->render();
+				$message = $email_preview->ensure_links_open_in_new_tab( $message );
+				$content = $message;
+				// wrap content in iframe
+				$nonce = esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) );
+				// add type to url
+				$content = '<iframe id="yay-reviews-email-preview-iframe" style="border-radius: 0 0 3px 3px;display: block;height: 100%;width: 100%;" src="' . $nonce . '&type=' . $email_class . '"></iframe>';
+			}
+			wp_send_json_success(
+				array(
+					'content' => $content,
+					'message' => __( 'Email previewed successfully', 'yay-reviews' ),
+				)
+			);
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}

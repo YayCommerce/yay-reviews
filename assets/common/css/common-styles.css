@@ -116,42 +116,16 @@
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
+
+.yay-reviews-modal-see-all-media:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .yay-reviews-review-details__media-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(max(80px), 1fr));
   gap: 10px;
-}
-
-/** Others */
-
-.columns-1,
-.columns-2,
-.columns-3,
-.columns-4,
-.columns-5,
-.columns-6,
-.columns-7,
-.columns-8,
-.columns-9,
-.columns-10 {
-  columns: auto;
-}
-
-.product .onsale {
-  box-sizing: initial;
-}
-
-button,
-input,
-select,
-optgroup,
-textarea,
-::file-selector-button {
-  box-sizing: border-box;
-  border-width: 1px;
-}
-select {
-  font: initial;
 }
 
 .yay-reviews-all-media-dialog {
@@ -242,6 +216,11 @@ select {
   position: relative;
 }
 
+.yay-reviews-modal-media-frame-content .thumbnail-image video {
+  max-width: 100%;
+  height: auto;
+}
+
 .yay-reviews-modal-media-frame-content-left {
   position: relative;
   float: left;
@@ -274,9 +253,74 @@ select {
   height: 100%;
 }
 
+.yay-reviews-modal-media-frame-content-right .comment-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-author-avatar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-author-avatar
+  .comment-avatar {
+  width: 24px;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 100%;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-author-avatar
+  .comment-avatar
+  img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-author-avatar
+  .comment-author {
+  color: #09090b;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 .yay-reviews-modal-comment-rating .star-rating {
   float: left !important;
   font-size: 16px !important;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-date {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.yay-reviews-modal-media-frame-content-right
+  .comment-details-wrapper
+  .comment-content {
+  color: #0f172a;
+  font-size: 14px;
 }
 
 /* Navigation Arrows */

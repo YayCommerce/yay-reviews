@@ -22,12 +22,13 @@ class Emails {
 		// Reminder Email
 		require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Emails/ReminderEmail.php';
 		require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Emails/RewardEmail.php';
-		$reminder_addon = Helpers::get_settings( 'addons', 'reminder' );
-		$reward_addon   = Helpers::get_settings( 'addons', 'reward' );
-		if ( $reminder_addon ) {
+		$settings         = Helpers::get_all_settings();
+		$reminder_enabled = isset( $settings['addons']['reminder_enabled'] ) ? $settings['addons']['reminder_enabled'] : false;
+		$reward_enabled   = isset( $settings['addons']['reward_enabled'] ) ? $settings['addons']['reward_enabled'] : false;
+		if ( $reminder_enabled ) {
 			$email_classes['Yay_Reviews_Reminder'] = new \YayReviews\Emails\ReminderEmail();
 		}
-		if ( $reward_addon ) {
+		if ( $reward_enabled ) {
 			$email_classes['Yay_Reviews_Reward'] = new \YayReviews\Emails\RewardEmail();
 		}
 
@@ -60,11 +61,9 @@ class Emails {
 		$subject                       = isset( $_POST['woocommerce_yay_reviews_reminder_subject'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_subject'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_subject'] ) : '';
 		$heading                       = isset( $_POST['woocommerce_yay_reviews_reminder_heading'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_heading'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_heading'] ) : '';
 		$content                       = isset( $_POST['woocommerce_yay_reviews_reminder_content'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_content'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_content'] ) : '';
-		$footer                        = isset( $_POST['woocommerce_yay_reviews_reminder_footer'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_footer'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_footer'] ) : '';
 		$email_settings['subject']     = ! empty( $subject ) ? $subject : $email_settings['subject'];
 		$email_settings['heading']     = ! empty( $heading ) ? $heading : $email_settings['heading'];
 		$email_settings['content']     = ! empty( $content ) ? $content : $email_settings['content'];
-		$email_settings['footer']      = ! empty( $footer ) ? $footer : $email_settings['footer'];
 		$settings['email']['reminder'] = $email_settings;
 		Helpers::update_settings( $settings );
 	}
@@ -88,11 +87,9 @@ class Emails {
 		$subject                     = isset( $_POST['woocommerce_yay_reviews_reward_subject'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_subject'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_subject'] ) : '';
 		$heading                     = isset( $_POST['woocommerce_yay_reviews_reward_heading'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_heading'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_heading'] ) : '';
 		$content                     = isset( $_POST['woocommerce_yay_reviews_reward_content'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_content'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_content'] ) : '';
-		$footer                      = isset( $_POST['woocommerce_yay_reviews_reward_footer'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_footer'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_footer'] ) : '';
 		$email_settings['subject']   = ! empty( $subject ) ? $subject : $email_settings['subject'];
 		$email_settings['heading']   = ! empty( $heading ) ? $heading : $email_settings['heading'];
 		$email_settings['content']   = ! empty( $content ) ? $content : $email_settings['content'];
-		$email_settings['footer']    = ! empty( $footer ) ? $footer : $email_settings['footer'];
 		$settings['email']['reward'] = $email_settings;
 		Helpers::update_settings( $settings );
 	}

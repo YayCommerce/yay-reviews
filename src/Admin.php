@@ -34,7 +34,7 @@ class Admin {
 		}
 	}
 
-	public function admin_enqueue_scripts( $hook ) {
+	public function admin_enqueue_scripts() {
 		$screen    = get_current_screen();
 		$screen_id = $screen ? $screen->id : '';
 
@@ -55,10 +55,11 @@ class Admin {
 					'ajax_url'                => admin_url( 'admin-ajax.php' ),
 					'rest_base'               => YAY_REVIEWS_REST_URL,
 					'image_url'               => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
+					'currency_symbol'         => get_woocommerce_currency_symbol(),
 					'wc_reviews_settings'     => Helpers::get_wc_reviews_settings(),
 					'wc_settings_url'         => admin_url( 'admin.php?page=wc-settings&tab=products' ),
 					'site_title'              => get_bloginfo( 'name' ),
-					'upload_max_size'         => Helpers::upload_max_size(),
+					'upload_max_filesize'     => Helpers::upload_max_filesize(),
 					'admin_email'             => get_option( 'admin_email' ),
 					'data_settings'           => Helpers::get_all_settings(),
 					'sample_values'           => array(
@@ -69,9 +70,6 @@ class Admin {
 						'{review_products}' => Helpers::get_review_products( 'sample' ),
 					),
 					'wc_email_settings'       => Helpers::get_wc_email_settings(),
-					'coupon_types'            => wc_get_coupon_types(),
-					'product_categories'      => Helpers::get_product_categories(),
-					'product_brands'          => Helpers::get_product_brands(),
 					'default_email_templates' => $default_settings['email'],
 					'coupons'                 => Helpers::get_coupons(),
 				)
@@ -83,7 +81,6 @@ class Admin {
 
 		if ( 'comment' === $screen_id ) {
 			wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-			wp_enqueue_script( 'yay-reviews-tailwind', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 			wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
 			wp_enqueue_script( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
 			wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
