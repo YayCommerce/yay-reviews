@@ -77,14 +77,12 @@ class RestAPI {
 			$reminder_email['subject'] = $data['email']['reminder']['subject'];
 			$reminder_email['heading'] = $data['email']['reminder']['heading'];
 			$reminder_email['content'] = $data['email']['reminder']['content'];
-			$reminder_email['footer']  = $data['email']['reminder']['footer'];
 			update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
 		}
 		if ( ! empty( $reward_email ) ) {
 			$reward_email['subject'] = $data['email']['reward']['subject'];
 			$reward_email['heading'] = $data['email']['reward']['heading'];
 			$reward_email['content'] = $data['email']['reward']['content'];
-			$reward_email['footer']  = $data['email']['reward']['footer'];
 			update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
 		}
 		return rest_ensure_response( $response );
@@ -153,18 +151,14 @@ class RestAPI {
 		$subject = $data['subject'];
 		$heading = $data['heading'];
 		$content = $data['content'];
-		$footer  = $data['footer'];
 
 		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}', '{product_name}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ), 'Sample Product' ), $content );
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
 		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );
-		$email_footer  = str_replace( '{site_title}', get_bloginfo( 'name' ), $footer );
-
 		$args          = array(
 			'heading' => $email_heading,
 			'content' => $email_content,
-			'footer'  => $email_footer,
 		);
 		$email_content = View::load( 'emails.preview-email', $args, false );
 

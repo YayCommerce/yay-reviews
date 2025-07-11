@@ -37,7 +37,6 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const emailSubject = watch(`email.${templateId}.subject`);
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
-  const emailFooter = watch(`email.${templateId}.footer`);
 
   const defaultSampleValues = getEmailSampleValues();
 
@@ -70,7 +69,6 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
 
   const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
   const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
-  const footer = emailFooter.replace(/\{site_title\}/g, sampleValues['{site_title}']);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -158,19 +156,6 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               </div>
             </div>
 
-            {/* Email footer */}
-            <div>
-              <Label htmlFor={`email.${templateId}.footer`} className="mb-2 w-max font-normal">
-                {__('Email footer', 'yay-reviews')}
-              </Label>
-              <FormField
-                control={control}
-                name={`email.${templateId}.footer`}
-                render={({ field: { value, onChange } }) => (
-                  <Input id={`email.${templateId}.footer`} value={value} onChange={onChange} />
-                )}
-              />
-            </div>
             <div className="flex flex-col gap-2">
               <Dialog open={resetTemplateDialogOpen} onOpenChange={setResetTemplateDialogOpen}>
                 <DialogTrigger asChild>
@@ -300,7 +285,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                           onClick={(e) => {
                             e.preventDefault();
                             setIsSending(true);
-                            sendTestMail(testEmail, subject, heading, content, footer)
+                            sendTestMail(testEmail, subject, heading, content)
                               .then((res: any) => {
                                 if (res.message === 'Email sent successfully') {
                                   toast.success(__('Email sent successfully', 'yay-reviews'));
@@ -328,7 +313,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               <Card
                 className={cn(
                   currentDevice === 'mobile' && 'yay-reviews-email-preview-mobile',
-                  'm-auto w-full rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
+                  'm-auto w-full gap-0 rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
                 )}
               >
                 <CardHeader className="border-border block border-b p-4 [.border-b]:pb-4">
@@ -345,13 +330,8 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                     </div>
                   </CardTitle>
                 </CardHeader>
-                <CardContent
-                  className={cn(
-                    'yay-reviews-email-preview-content px-8 py-2',
-                    currentDevice === 'mobile' && 'px-4 py-2',
-                  )}
-                >
-                  <EmailPreviewer heading={heading} content={content} footer={footer} />
+                <CardContent className="p-0">
+                  <EmailPreviewer heading={heading} content={content} templateId={templateId} />
                 </CardContent>
               </Card>
             </div>

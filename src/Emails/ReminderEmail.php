@@ -104,14 +104,6 @@ class ReminderEmail extends \WC_Email {
 		return __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged', 'yay-reviews' );
 	}
 
-	public function get_default_footer() {
-		$reminder_settings = Helpers::get_settings( 'email', 'reminder', array() );
-		if ( isset( $reminder_settings['footer'] ) ) {
-			return $reminder_settings['footer'];
-		}
-		return __( 'Thank you for your review!', 'yay-reviews' );
-	}
-
 	public function get_review_products() {
 		if ( ! $this->object ) {
 			return '';
@@ -152,7 +144,6 @@ class ReminderEmail extends \WC_Email {
 				'order'         => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
-				'email_footer'  => $this->get_default_footer(),
 				'sent_to_admin' => false,
 				'plain_text'    => false,
 				'email'         => $this,
@@ -169,7 +160,6 @@ class ReminderEmail extends \WC_Email {
 				'order'         => $this->object,
 				'email_heading' => $this->get_heading(),
 				'email_content' => $this->get_email_content(),
-				'email_footer'  => $this->get_default_footer(),
 				'sent_to_admin' => false,
 				'plain_text'    => true,
 				'email'         => $this,
@@ -212,15 +202,6 @@ class ReminderEmail extends \WC_Email {
 				/* translators: %s: list of available placeholders */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {review_products}</code>' ),
 				'placeholder' => $this->get_email_content(),
-				'default'     => '',
-			),
-			'footer'     => array(
-				'title'       => __( 'Email Footer', 'yay-reviews' ),
-				'type'        => 'textarea',
-				'desc_tip'    => true,
-				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
-				'placeholder' => $this->get_default_footer(),
 				'default'     => '',
 			),
 			'email_type' => array(

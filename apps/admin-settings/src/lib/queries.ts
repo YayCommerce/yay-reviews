@@ -22,7 +22,6 @@ export async function sendTestMail(
   subject: string,
   heading: string,
   content: string,
-  footer: string,
 ) {
   const response = await api.post('send-test-mail', {
     json: {
@@ -30,7 +29,6 @@ export async function sendTestMail(
       subject,
       heading,
       content,
-      footer,
     },
   });
   return response.json();

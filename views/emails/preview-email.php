@@ -4,7 +4,6 @@ use Automattic\WooCommerce\Utilities\FeaturesUtil;
 
 $email_heading              = $data['heading'];
 $content                    = $data['content'];
-$email_footer               = $data['footer'];
 $email_improvements_enabled = FeaturesUtil::feature_is_enabled( 'email_improvements' );
 
 // Load colors.
@@ -114,40 +113,7 @@ $font_family      = $email_improvements_enabled ? get_option( 'woocommerce_email
 									</table>
 								</td>
 							</tr>
-							<tr>
-								<td align="center" valign="top">
-									<!-- Footer -->
-									<table border="0" cellpadding="10" cellspacing="0" width="100%" id="template_footer">
-										<tr>
-											<td valign="top" style="padding: 0; border-radius: <?php echo $email_improvements_enabled ? '0' : '6px'; ?>;">
-												<table border="0" cellpadding="10" cellspacing="0" width="100%">
-													<tr>
-														<td colspan="2" valign="middle" style="text-align: center; padding: 32px;border-top: 1px solid <?php echo esc_attr( $border_color ); ?>;font-family: <?php echo esc_attr( $font_family ); ?>;font-size: 12px;line-height: 140%;color: <?php echo esc_attr( $footer_text ); ?>;">
-															<?php
-															echo wp_kses_post(
-																wpautop(
-																	wptexturize(
-																		/**
-																		 * Provides control over the email footer text used for most order emails.
-																		 *
-																		 * @since 4.0.0
-																		 *
-																		 * @param string $email_footer_text
-																		 */
-																		apply_filters( 'woocommerce_email_footer_text', $email_footer )
-																	)
-																)
-															);
-															?>
-														</td>
-													</tr>
-												</table>
-											</td>
-										</tr>
-									</table>
-									<!-- End Footer -->
-								</td>
-							</tr>
+							
 						</table>
 					</div>
 				</td>

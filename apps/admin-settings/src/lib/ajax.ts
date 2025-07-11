@@ -84,3 +84,20 @@ export async function changeWcReviewsSettings(updateField: string, value: boolea
     throw error;
   }
 }
+
+export async function previewEmail(email: string) {
+  try {
+    return await window.jQuery.ajax({
+      type: 'POST',
+      url: window.yayReviews.ajax_url,
+      data: {
+        action: 'yay_reviews_preview_email',
+        nonce: window.yayReviews.nonce,
+        email,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
