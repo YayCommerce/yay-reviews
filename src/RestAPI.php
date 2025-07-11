@@ -77,14 +77,12 @@ class RestAPI {
 			$reminder_email['subject'] = $data['email']['reminder']['subject'];
 			$reminder_email['heading'] = $data['email']['reminder']['heading'];
 			$reminder_email['content'] = $data['email']['reminder']['content'];
-			$reminder_email['footer']  = $data['email']['reminder']['footer'];
 			update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
 		}
 		if ( ! empty( $reward_email ) ) {
 			$reward_email['subject'] = $data['email']['reward']['subject'];
 			$reward_email['heading'] = $data['email']['reward']['heading'];
 			$reward_email['content'] = $data['email']['reward']['content'];
-			$reward_email['footer']  = $data['email']['reward']['footer'];
 			update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
 		}
 		return rest_ensure_response( $response );
@@ -148,41 +146,17 @@ class RestAPI {
 	}
 
 	public function send_test_mail( \WP_REST_Request $request ) {
-		$data    = $request->get_params();
-		$email   = $data['email'];
-		$subject = $data['subject'];
-		$heading = $data['heading'];
-		$content = $data['content'];
-		$footer  = $data['footer'];
-
-		$email_content = str_replace( array( '{customer_name}', '{site_title}', '{coupon_code}', '{review_products}', '{product_name}' ), array( 'John Doe', get_bloginfo( 'name' ), 'YAYREVIEW10', Helpers::get_review_products( 'sample' ), 'Sample Product' ), $content );
+		$data          = $request->get_params();
+		$email_address = $data['email'];
+		$subject       = $data['subject'];
+		$email_content = $data['content'];
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
-		$email_heading = str_replace( '{site_title}', get_bloginfo( 'name' ), $heading );
-		$email_footer  = str_replace( '{site_title}', get_bloginfo( 'name' ), $footer );
-
-		$args          = array(
-			'heading' => $email_heading,
-			'content' => $email_content,
-			'footer'  => $email_footer,
-		);
-		$email_content = View::load( 'emails.preview-email', $args, false );
-
-		$headers = array(
-			'Content-Type' => 'text/html; charset=UTF-8',
-		);
-		$headers = apply_filters( 'yay_reviews_email_headers', $headers );
-		$headers = array_map( 'trim', $headers );
-		$headers = array_filter( $headers );
-		$headers = array_unique( $headers );
-
-		$headers[] = 'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>';
-
-		$headers[] = 'Reply-To: ' . get_option( 'admin_email' );
-
-		$headers[] = 'Content-Type: text/html; charset=UTF-8';
-
-		$sent = wp_mail( $email, $email_subject, $email_content, $headers );
+		if ( ! class_exists( 'WC_Email' ) ) {
+			WC()->mailer();
+		}
+		$email = new \WC_Emails();
+		$sent  = $email->send( $email_address, $email_subject, $email_content );
 
 		if ( $sent ) {
 			return rest_ensure_response( array( 'message' => 'Email sent successfully' ) );

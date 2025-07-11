@@ -243,29 +243,6 @@
     min-height: unset;
   }
 
-  .yay-reviews-email-preview-content {
-    padding: 8px 0;
-  }
-
-  .yay-reviews-email-preview-content #inner_wrapper {
-    transform-origin: top;
-    transform: scale(0.8);
-  }
-
-  .yay-reviews-email-preview-content #template_header_image {
-    padding: 2rem 8px 0 8px;
-  }
-
-  .yay-reviews-email-preview-content .yay-reviews-email-preview-heading,
-  .yay-reviews-email-preview-content .yay-reviews-email-preview-inner-content,
-  .yay-reviews-email-preview-content .yay-reviews-email-preview-footer {
-    padding: 8px 8px 0 8px;
-  }
-
-  .yay-reviews-email-preview-footer-wrapper {
-    width: 75%;
-  }
-
   .yay-reviews-email-preview-mobile {
     transform: scale(0.8);
   }

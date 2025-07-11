@@ -20,17 +20,13 @@ export async function postCoupon(data: CouponFormData) {
 export async function sendTestMail(
   email: string,
   subject: string,
-  heading: string,
   content: string,
-  footer: string,
 ) {
   const response = await api.post('send-test-mail', {
     json: {
       email,
       subject,
-      heading,
       content,
-      footer,
     },
   });
   return response.json();

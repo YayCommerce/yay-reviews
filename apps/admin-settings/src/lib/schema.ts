@@ -60,13 +60,11 @@ const emailSchema = z.object({
     subject: z.string(),
     heading: z.string(),
     content: z.string(),
-    footer: z.string(),
   }),
   reward: z.object({
     subject: z.string(),
     heading: z.string(),
     content: z.string(),
-    footer: z.string(),
   }),
 });
 
