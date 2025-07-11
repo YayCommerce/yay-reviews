@@ -318,18 +318,6 @@ function WooCommerceSettingsCard() {
         <div className="border-t border-t-[#f0f0f0]" />
       </div>
 
-      <div className="text-sm">
-        <span className="text-slate-500">{__('Manage ')}</span>
-        <span
-          className="cursor-pointer underline decoration-solid"
-          onClick={() => {
-            window.open(window.yayReviews.wc_settings_url, '_blank');
-          }}
-        >
-          {__('WooCommerce settings', 'yay-reviews')}
-        </span>
-      </div>
-
       <div className="space-y-6">
         <div className="text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
           {__('Reviews', 'yay-reviews')}
@@ -394,6 +382,17 @@ function WooCommerceSettingsCard() {
             </Label>
           </div>
         )}
+      </div>
+      <div className="text-sm">
+        <span className="text-slate-500">{__('Manage ')}</span>
+        <span
+          className="cursor-pointer underline decoration-solid"
+          onClick={() => {
+            window.open(window.yayReviews.wc_settings_url, '_blank');
+          }}
+        >
+          {__('WooCommerce settings', 'yay-reviews')}
+        </span>
       </div>
     </Card>
   );
