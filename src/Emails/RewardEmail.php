@@ -3,6 +3,7 @@ namespace YayReviews\Emails;
 
 use YayReviews\Classes\Helpers;
 use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
+use YayReviews\Models\SettingsModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -93,7 +94,7 @@ class RewardEmail extends \WC_Email {
 	}
 
 	public function get_default_subject() {
-		$reward_settings = Helpers::get_settings( 'email', 'reward', array() );
+		$reward_settings = SettingsModel::get_settings( 'email.reward', array() );
 		if ( isset( $reward_settings['subject'] ) ) {
 			return $reward_settings['subject'];
 		}
@@ -101,7 +102,7 @@ class RewardEmail extends \WC_Email {
 	}
 
 	public function get_default_heading() {
-		$reward_settings = Helpers::get_settings( 'email', 'reward', array() );
+		$reward_settings = SettingsModel::get_settings( 'email.reward', array() );
 		if ( isset( $reward_settings['heading'] ) ) {
 			return $reward_settings['heading'];
 		}
@@ -109,7 +110,7 @@ class RewardEmail extends \WC_Email {
 	}
 
 	public function get_email_content() {
-		$reward_settings = Helpers::get_settings( 'email', 'reward', array() );
+		$reward_settings = SettingsModel::get_settings( 'email.reward', array() );
 		if ( isset( $reward_settings['content'] ) ) {
 			return $reward_settings['content'];
 		}

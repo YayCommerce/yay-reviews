@@ -1,32 +1,9 @@
 <?php
 namespace YayReviews\Classes;
 
-use YayReviews\Classes\Products;
 use Automattic\WooCommerce\Enums\ProductType;
 
 class Helpers {
-	public static function get_all_settings() {
-		$settings = get_option( 'yay_reviews_settings', array() );
-		if ( empty( $settings ) ) {
-			$settings = self::add_default_settings( $settings );
-			update_option( 'yay_reviews_has_new_data', 'yes' );
-		}
-		return $settings;
-	}
-
-	public static function get_settings( $key1, $key2 = null, $default = '' ) {
-		$settings = self::get_all_settings();
-		$val      = isset( $settings[ $key1 ] ) ? $settings[ $key1 ] : $default;
-		if ( ! is_null( $key2 ) && is_array( $val ) && isset( $val[ $key2 ] ) ) {
-			$val = $val[ $key2 ];
-		}
-		return $val;
-	}
-
-	public static function update_settings( $settings ) {
-		update_option( 'yay_reviews_settings', $settings, false );
-		return $settings;
-	}
 
 	public static function print_media_list( $files, $comment ) {
 		echo wc_get_template_html( //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -38,57 +15,6 @@ class Helpers {
 			'',
 			YAY_REVIEWS_PLUGIN_PATH . 'views/'
 		);
-	}
-
-	public static function add_default_settings( $settings ) {
-		if ( ! is_array( $settings ) ) {
-			$settings = array();
-		}
-
-		$settings = self::wp_parse_args_recursive(
-			$settings,
-			array(
-				'addons'          => array(
-					'reminder_enabled'        => true,
-					'reward_enabled'          => false,
-					'optional_fields_enabled' => false,
-				),
-				'reviews'         => array(
-					'enable_media_upload'      => true,
-					'require_media_upload'     => false,
-					'allowed_media_types'      => 'video_photo',
-					'max_upload_filesize'      => 2000, //kb
-					'max_upload_files'         => '',
-					'media_upload_label'       => __( 'Upload media', 'yay-reviews' ),
-					'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
-					'enable_gdpr_consent'      => false,
-					'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
-					'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
-				),
-				'reminder'        => array(
-					'delay_amount'           => 7,
-					'delay_unit'             => 'days',
-					'max_products_per_email' => '',
-					'product_scope'          => 'all',
-				),
-				'rewards'         => array(),
-				'optional_fields' => array(),
-				'email'           => array(
-					'reminder' => array(
-						'subject' => __( 'Reminder email', 'yay-reviews' ),
-						'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
-						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
-					),
-					'reward'   => array(
-						'subject' => __( 'Review reward email', 'yay-reviews' ),
-						'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
-						'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
-					),
-				),
-			)
-		);
-
-		return $settings;
 	}
 
 	public static function wp_parse_args_recursive( &$args, $defaults ) {

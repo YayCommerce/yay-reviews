@@ -1,6 +1,7 @@
 <?php
 namespace YayReviews\Classes;
 
+use YayReviews\Models\SettingsModel;
 use YayReviews\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +23,7 @@ class Cron {
 			return;
 		}
 
-		$settings         = Helpers::get_all_settings();
+		$settings         = SettingsModel::get_all_settings();
 		$reminder_enabled = isset( $settings['addons']['reminder_enabled'] ) ? $settings['addons']['reminder_enabled'] : false;
 
 		if ( ! $reminder_enabled ) {

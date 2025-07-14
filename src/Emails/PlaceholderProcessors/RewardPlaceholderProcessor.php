@@ -2,8 +2,14 @@
 
 namespace YayReviews\Emails\PlaceholderProcessors;
 
+/**
+ * RewardPlaceholderProcessor is a class that processes placeholders for the reward email.
+ */
 class RewardPlaceholderProcessor extends BaseProcessors {
 
+	/**
+	 * The default placeholders.
+	 */
 	public const DEFAULT_PLACEHOLDERS = array(
 		'{customer_name}' => '',
 		'{site_title}'    => '',
@@ -11,6 +17,11 @@ class RewardPlaceholderProcessor extends BaseProcessors {
 		'{product_name}'  => '',
 	);
 
+	/**
+	 * Get the placeholders.
+	 *
+	 * @return array The placeholders.
+	 */
 	public function get_placeholders() {
 		return array(
 			'{customer_name}' => $this->get_customer_name(),
@@ -20,18 +31,38 @@ class RewardPlaceholderProcessor extends BaseProcessors {
 		);
 	}
 
+	/**
+	 * Check if the comment is valid.
+	 *
+	 * @return bool True if the comment is valid, false otherwise.
+	 */
 	private function is_valid_comment() {
 		return ! empty( $this->data['comment'] ) && $this->data['comment'] instanceof \WP_Comment;
 	}
 
+	/**
+	 * Check if the coupon is valid.
+	 *
+	 * @return bool True if the coupon is valid, false otherwise.
+	 */
 	private function is_valid_coupon() {
 		return ! empty( $this->data['coupon'] ) && $this->data['coupon'] instanceof \WC_Coupon;
 	}
 
+	/**
+	 * Check if the product is valid.
+	 *
+	 * @return bool True if the product is valid, false otherwise.
+	 */
 	private function is_valid_product() {
 		return ! empty( $this->data['product'] ) && $this->data['product'] instanceof \WC_Product;
 	}
 
+	/**
+	 * Get the customer name.
+	 *
+	 * @return string The customer name.
+	 */
 	public function get_customer_name() {
 		if ( $this->is_sample ) {
 			return 'John Doe';
@@ -42,10 +73,20 @@ class RewardPlaceholderProcessor extends BaseProcessors {
 		return $this->data['comment']->comment_author;
 	}
 
+	/**
+	 * Get the site title.
+	 *
+	 * @return string The site title.
+	 */
 	public function get_site_title() {
 		return get_bloginfo( 'name' );
 	}
 
+	/**
+	 * Get the coupon code.
+	 *
+	 * @return string The coupon code.
+	 */
 	public function get_coupon_code() {
 		if ( $this->is_sample ) {
 			return 'YAYREVIEW10';
@@ -57,6 +98,11 @@ class RewardPlaceholderProcessor extends BaseProcessors {
 		return $this->data['coupon']->get_code();
 	}
 
+	/**
+	 * Get the product name.
+	 *
+	 * @return string The product name.
+	 */
 	public function get_product_name() {
 		if ( $this->is_sample ) {
 			return 'Sample Product';

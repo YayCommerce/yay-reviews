@@ -5,6 +5,7 @@ namespace YayReviews;
 use YayReviews\Classes\Helpers;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
 use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
+use YayReviews\Models\SettingsModel;
 use YayReviews\Register\ScriptName;
 
 class Admin {
@@ -45,7 +46,7 @@ class Admin {
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 			wp_enqueue_editor();
 
-			$default_settings = Helpers::add_default_settings( array() );
+			$default_settings = SettingsModel::get_default_settings();
 
 			wp_localize_script(
 				ScriptName::PAGE_SETTINGS,
@@ -63,7 +64,7 @@ class Admin {
 					'site_title'                => get_bloginfo( 'name' ),
 					'upload_max_filesize'       => Helpers::upload_max_filesize(),
 					'admin_email'               => get_option( 'admin_email' ),
-					'data_settings'             => Helpers::get_all_settings(),
+					'data_settings'             => SettingsModel::get_all_settings(),
 					'sample_email_placeholders' => array(
 						'reminder' => ( new ReminderPlaceholderProcessor() )->get_placeholders(),
 						'reward'   => ( new RewardPlaceholderProcessor() )->get_placeholders(),

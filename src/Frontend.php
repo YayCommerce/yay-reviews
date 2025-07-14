@@ -3,6 +3,8 @@ namespace YayReviews;
 
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
+use YayReviews\Models\SettingsModel;
+
 class Frontend {
 
 	use SingletonTrait;
@@ -22,7 +24,7 @@ class Frontend {
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.review-title', array(), false );
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.product-attributes', array(), false );
 
-		$settings            = Helpers::get_all_settings();
+		$settings            = SettingsModel::get_all_settings();
 		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
 		$enable_media_upload = isset( $reviews_settings['enable_media_upload'] ) ? $reviews_settings['enable_media_upload'] : false;
 		$enable_gdpr_consent = isset( $reviews_settings['enable_gdpr_consent'] ) ? $reviews_settings['enable_gdpr_consent'] : false;
@@ -51,7 +53,7 @@ class Frontend {
 		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
-		$settings            = Helpers::get_all_settings();
+		$settings            = SettingsModel::get_all_settings();
 		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
 		$rewards             = isset( $settings['rewards'] ) ? $settings['rewards'] : array();
 		$reward_enabled      = isset( $settings['addons']['reward_enabled'] ) ? $settings['addons']['reward_enabled'] : false;
@@ -60,7 +62,7 @@ class Frontend {
 			if ( isset( $_FILES['yay_reviews_media'] ) && ! empty( $_FILES['yay_reviews_media'] ) ) {
 				$files               = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files         = count( $files['name'] );
-				$max_upload_file_qty = Helpers::get_settings( 'reviews', 'max_upload_file_qty', '' );
+				$max_upload_file_qty = SettingsModel::get_settings( 'reviews.max_upload_file_qty', '' );
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
@@ -234,7 +236,7 @@ class Frontend {
 			return;
 		}
 
-		$settings             = Helpers::get_all_settings();
+		$settings             = SettingsModel::get_all_settings();
 		$reviews_settings     = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
 		$allowed_media_types  = isset( $reviews_settings['allowed_media_types'] ) ? $reviews_settings['allowed_media_types'] : array( 'video_photo' );
 		$max_upload_files     = isset( $reviews_settings['max_upload_files'] ) ? $reviews_settings['max_upload_files'] : 20;

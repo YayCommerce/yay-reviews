@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 const addonsSchema = z.object({
-  reminder_enabled: z.boolean(),
-  reward_enabled: z.boolean(),
+  reminder_enabled: z.boolean().or(z.null()),
+  reward_enabled: z.boolean().or(z.null()),
 });
 
 const reviewsSchema = z.object({

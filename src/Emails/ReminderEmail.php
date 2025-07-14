@@ -3,6 +3,7 @@ namespace YayReviews\Emails;
 
 use YayReviews\Classes\Helpers;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayReviews\Models\SettingsModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -75,7 +76,7 @@ class ReminderEmail extends \WC_Email {
 	}
 
 	public function get_default_subject() {
-		$reminder_settings = Helpers::get_settings( 'email', 'reminder', array() );
+		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
 		if ( isset( $reminder_settings['subject'] ) ) {
 			return $reminder_settings['subject'];
 		}
@@ -83,7 +84,7 @@ class ReminderEmail extends \WC_Email {
 	}
 
 	public function get_default_heading() {
-		$reminder_settings = Helpers::get_settings( 'email', 'reminder', array() );
+		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
 		if ( isset( $reminder_settings['heading'] ) ) {
 			return $reminder_settings['heading'];
 		}
@@ -91,7 +92,7 @@ class ReminderEmail extends \WC_Email {
 	}
 
 	public function get_email_content() {
-		$reminder_settings = Helpers::get_settings( 'email', 'reminder', array() );
+		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
 		if ( isset( $reminder_settings['content'] ) ) {
 			return $reminder_settings['content'];
 		}

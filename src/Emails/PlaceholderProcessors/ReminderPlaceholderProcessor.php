@@ -4,9 +4,16 @@ namespace YayReviews\Emails\PlaceholderProcessors;
 
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\Products;
+use YayReviews\Models\SettingsModel;
 
+/**
+ * ReminderPlaceholderProcessor is a class that processes placeholders for the reminder email.
+ */
 class ReminderPlaceholderProcessor extends BaseProcessors {
 
+	/**
+	 * The default placeholders.
+	 */
 	public const DEFAULT_PLACEHOLDERS = array(
 		'{order_date}'      => '',
 		'{order_number}'    => '',
@@ -15,6 +22,11 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		'{review_products}' => '',
 	);
 
+	/**
+	 * Get the placeholders.
+	 *
+	 * @return array The placeholders.
+	 */
 	public function get_placeholders() {
 		return array(
 			'{order_date}'      => $this->get_order_date(),
@@ -25,10 +37,20 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		);
 	}
 
+	/**
+	 * Check if the order is valid.
+	 *
+	 * @return bool True if the order is valid, false otherwise.
+	 */
 	private function is_valid_order() {
 		return ! empty( $this->data['order'] ) && $this->data['order'] instanceof \WC_Order;
 	}
 
+	/**
+	 * Get the order date.
+	 *
+	 * @return string The order date.
+	 */
 	public function get_order_date() {
 		if ( $this->is_sample ) {
 			return '2025-01-01';
@@ -39,6 +61,11 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		return \wc_format_datetime( $this->data['order']->get_date_created() );
 	}
 
+	/**
+	 * Get the order number.
+	 *
+	 * @return string The order number.
+	 */
 	public function get_order_number() {
 		if ( $this->is_sample ) {
 			return '123456';
@@ -49,6 +76,11 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		return $this->data['order']->get_order_number();
 	}
 
+	/**
+	 * Get the customer name.
+	 *
+	 * @return string The customer name.
+	 */
 	public function get_customer_name() {
 		if ( $this->is_sample ) {
 			return 'John Doe';
@@ -59,10 +91,20 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		return $this->data['order']->get_formatted_billing_full_name();
 	}
 
+	/**
+	 * Get the site title.
+	 *
+	 * @return string The site title.
+	 */
 	public function get_site_title() {
 		return get_bloginfo( 'name' );
 	}
 
+	/**
+	 * Get the review products.
+	 *
+	 * @return string The review products.
+	 */
 	public function get_review_products() {
 		if ( $this->is_sample ) {
 			return \wc_get_template_html(
@@ -109,6 +151,11 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		);
 	}
 
+	/**
+	 * Get the sample products.
+	 *
+	 * @return array The sample products.
+	 */
 	public static function get_sample_products() {
 		$products_data = array(
 			array(
@@ -144,8 +191,14 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 		);
 	}
 
+	/**
+	 * Filter the products.
+	 *
+	 * @param array $product_in_order The products in the order.
+	 * @return array The filtered products.
+	 */
 	public function filter_products( $product_in_order ) {
-		$all_settings           = Helpers::get_all_settings();
+		$all_settings           = SettingsModel::get_all_settings();
 		$max_products_per_email = $all_settings['reminder']['max_products_per_email'] ?? 3;
 		$product_scope          = $all_settings['reminder']['product_scope'] ?? 'all';
 

@@ -4,6 +4,7 @@ namespace YayReviews;
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
+use YayReviews\Models\SettingsModel;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -69,7 +70,7 @@ class RestAPI {
 
 	public function post_settings( $request ) {
 		$data     = $request->get_params();
-		$response = Helpers::update_settings( $data );
+		$response = SettingsModel::update_settings( $data );
 		// Update woocommerce email settings
 		$reminder_email = get_option( 'woocommerce_yay_reviews_reminder_settings', array() );
 		$reward_email   = get_option( 'woocommerce_yay_reviews_reward_settings', array() );

@@ -4,6 +4,7 @@ namespace YayReviews;
 
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
+use YayReviews\Models\SettingsModel;
 
 class Ajax {
 	use SingletonTrait;
@@ -31,11 +32,13 @@ class Ajax {
 			$status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
 
 			if ( ! empty( $addon_id ) && ! empty( $status ) ) {
-				$settings            = Helpers::get_all_settings();
-				$addons              = $settings['addons'];
-				$addons[ $addon_id ] = 'active' === $status ? true : false;
-				$settings['addons']  = $addons;
-				Helpers::update_settings( $settings );
+				SettingsModel::update_settings(
+					array(
+						'addons' => array(
+							$addon_id => 'active' === $status ? true : false,
+						),
+					)
+				);
 				wp_send_json_success( array( 'status' => $status ) );
 			}
 			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay-reviews' ) ) );
