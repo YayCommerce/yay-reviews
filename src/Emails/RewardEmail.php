@@ -2,6 +2,7 @@
 namespace YayReviews\Emails;
 
 use YayReviews\Classes\Helpers;
+use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,12 +18,7 @@ class RewardEmail extends \WC_Email {
 		$this->template_html  = 'emails/reward-email.php';
 		$this->template_plain = 'emails/plain/reward-email.php';
 		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
-		$this->placeholders   = array(
-			'{customer_name}' => '',
-			'{site_title}'    => '',
-			'{coupon_code}'   => '',
-			'{product_name}'  => '',
-		);
+		$this->placeholders   = RewardPlaceholderProcessor::DEFAULT_PLACEHOLDERS;
 
 		// Call parent constructor
 		parent::__construct();
@@ -36,12 +32,16 @@ class RewardEmail extends \WC_Email {
 
 		$recipient_email = $recipient_email;
 
-		$this->object                          = $coupon;
-		$this->recipient                       = $recipient_email;
-		$this->placeholders['{site_title}']    = get_bloginfo( 'name' );
-		$this->placeholders['{customer_name}'] = $comment->comment_author;
-		$this->placeholders['{coupon_code}']   = $coupon->get_code();
-		$this->placeholders['{product_name}']  = $product->get_name();
+		$this->object          = $coupon;
+		$this->recipient       = $recipient_email;
+		$placeholder_processor = new RewardPlaceholderProcessor(
+			array(
+				'comment' => $comment,
+				'coupon'  => $coupon,
+				'product' => $product,
+			)
+		);
+		$this->placeholders    = $placeholder_processor->get_placeholders();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
 			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {

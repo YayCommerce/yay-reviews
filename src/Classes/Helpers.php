@@ -155,37 +155,6 @@ class Helpers {
 		);
 	}
 
-	public static function get_max_remind_products_for_email( $product_in_order ) {
-		$all_settings           = self::get_all_settings();
-		$max_products_per_email = $all_settings['reminder']['max_products_per_email'] ?? 3;
-		$product_scope          = $all_settings['reminder']['product_scope'] ?? 'all';
-
-		if ( 'all' === $product_scope ) {
-			return $product_in_order;
-		}
-
-		if ( '' === $max_products_per_email ) { // $max_products_per_email is empty it means no limit.
-			$max_products_per_email = 100; // Just 100 because it's impossible to have more than 100 products in an order.
-		}
-
-		if ( 'normal' === $product_scope ) {
-			return array_slice( $product_in_order, 0, $max_products_per_email );
-		}
-
-		$remind_product_ids = array();
-
-		$product_ids = Products::get_products_by_scope( $product_scope );
-		foreach ( $product_ids as $product_id ) {
-			if ( count( $remind_product_ids ) >= $max_products_per_email ) {
-				break;
-			}
-			if ( in_array( $product_id, $product_in_order ) ) {
-				$remind_product_ids[] = $product_id;
-			}
-		}
-		return $remind_product_ids;
-	}
-
 	public static function is_coupon_expired( $coupon ) {
 		$expiry_date = $coupon->get_date_expires();
 

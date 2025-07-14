@@ -1,6 +1,8 @@
 <?php
 namespace YayReviews\Classes;
 
+use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
 use YayReviews\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -96,15 +98,10 @@ class Emails {
 
 	public function add_placeholders( $placeholders, $email_type ) {
 		if ( 'YayReviews\Emails\ReminderEmail' === $email_type ) {
-			$placeholders['{review_products}'] = Helpers::get_review_products( 'sample' );
-			$placeholders['{site_title}']      = get_bloginfo( 'name' );
-			$placeholders['{customer_name}']   = 'John Doe';
+			return ( new ReminderPlaceholderProcessor() )->get_placeholders();
 		}
 		if ( 'YayReviews\Emails\RewardEmail' === $email_type ) {
-			$placeholders['{site_title}']    = get_bloginfo( 'name' );
-			$placeholders['{customer_name}'] = 'John Doe';
-			$placeholders['{coupon_code}']   = '123456';
-			$placeholders['{product_name}']  = 'Sample Product';
+			return ( new RewardPlaceholderProcessor() )->get_placeholders();
 		}
 		return $placeholders;
 	}

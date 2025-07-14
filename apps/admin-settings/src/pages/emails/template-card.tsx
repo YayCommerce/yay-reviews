@@ -4,7 +4,7 @@ import { Loader2Icon, RefreshCcw } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { sendTestMail } from '@/lib/queries';
-import { cn, getEmailSampleValues, updateEmailPreview } from '@/lib/utils';
+import { cn, getSampleEmailPlaceholders, updateEmailPreview } from '@/lib/utils';
 import useEmailsContext from '@/hooks/use-emails-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -38,37 +38,19 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const emailHeading = watch(`email.${templateId}.heading`);
   const emailContent = watch(`email.${templateId}.content`);
 
-  const defaultSampleValues = getEmailSampleValues();
-
-  const sampleValues = useMemo(() => {
-    if (templateId === 'reward') {
-      return {
-        ...defaultSampleValues,
-        '{review_products}': '{review_products}',
-        '{site_title}': window.yayReviews.site_title,
-      };
-    }
-    if (templateId === 'reminder') {
-      return {
-        ...defaultSampleValues,
-        '{coupon_code}': '{coupon_code}',
-        '{product_name}': '{product_name}',
-        '{site_title}': window.yayReviews.site_title,
-      };
-    }
-
-    return defaultSampleValues;
+  const samplePlaceholders = useMemo(() => {
+    return getSampleEmailPlaceholders(templateId as 'reminder' | 'reward');
   }, [templateId]);
 
   const content = emailContent
-    .replace(/\{customer_name\}/g, sampleValues['{customer_name}'])
-    .replace(/\{site_title\}/g, sampleValues['{site_title}'])
-    .replace(/\{review_products\}/g, sampleValues['{review_products}'])
-    .replace(/\{coupon_code\}/g, sampleValues['{coupon_code}'])
-    .replace(/\{product_name\}/g, sampleValues['{product_name}']);
+    .replace(/\{customer_name\}/g, samplePlaceholders['{customer_name}'] ?? '')
+    .replace(/\{site_title\}/g, samplePlaceholders['{site_title}'] ?? '')
+    .replace(/\{review_products\}/g, samplePlaceholders['{review_products}'] ?? '')
+    .replace(/\{coupon_code\}/g, samplePlaceholders['{coupon_code}'] ?? '')
+    .replace(/\{product_name\}/g, samplePlaceholders['{product_name}'] ?? '');
 
-  const subject = emailSubject.replace(/\{site_title\}/g, sampleValues['{site_title}']);
-  const heading = emailHeading.replace(/\{site_title\}/g, sampleValues['{site_title}']);
+  const subject = emailSubject.replace(/\{site_title\}/g, samplePlaceholders['{site_title}']);
+  const heading = emailHeading.replace(/\{site_title\}/g, samplePlaceholders['{site_title}']);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 

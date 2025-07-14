@@ -2,6 +2,7 @@
 namespace YayReviews\Emails;
 
 use YayReviews\Classes\Helpers;
+use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,13 +18,7 @@ class ReminderEmail extends \WC_Email {
 		$this->template_html  = 'emails/reminder-email.php';
 		$this->template_plain = 'emails/plain/reminder-email.php';
 		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
-		$this->placeholders   = array(
-			'{order_date}'      => '',
-			'{order_number}'    => '',
-			'{customer_name}'   => '',
-			'{site_title}'      => '',
-			'{review_products}' => '',
-		);
+		$this->placeholders   = ReminderPlaceholderProcessor::DEFAULT_PLACEHOLDERS;
 
 		// Call parent constructor
 		parent::__construct();
@@ -45,13 +40,12 @@ class ReminderEmail extends \WC_Email {
 
 		$recipient_email = $order->get_billing_email();
 
-		$this->object                            = $order;
-		$this->recipient                         = $recipient_email;
-		$this->placeholders['{order_date}']      = wc_format_datetime( $this->object->get_date_created() );
-		$this->placeholders['{order_number}']    = $this->object->get_order_number();
-		$this->placeholders['{customer_name}']   = $this->object->get_formatted_billing_full_name();
-		$this->placeholders['{site_title}']      = get_bloginfo( 'name' );
-		$this->placeholders['{review_products}'] = $this->get_review_products();
+		$this->object    = $order;
+		$this->recipient = $recipient_email;
+
+		$placeholder_processor = new ReminderPlaceholderProcessor( array( 'order' => $order ) );
+
+		$this->placeholders = $placeholder_processor->get_placeholders();
 
 		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
 			return;
@@ -102,39 +96,6 @@ class ReminderEmail extends \WC_Email {
 			return $reminder_settings['content'];
 		}
 		return __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged', 'yay-reviews' );
-	}
-
-	public function get_review_products() {
-		if ( ! $this->object ) {
-			return '';
-		}
-
-		$product_in_order = array();
-		$items            = $this->object->get_items();
-		foreach ( $items as $item ) {
-			$product_in_order[] = $item->get_product_id();
-		}
-
-		if ( empty( $product_in_order ) ) {
-			return '';
-		}
-		$remind_products_ids = Helpers::get_max_remind_products_for_email( $product_in_order );
-		$remind_products     = array();
-		foreach ( $remind_products_ids as $product_id ) {
-			$remind_products[] = wc_get_product( $product_id );
-		}
-		if ( empty( $remind_products ) ) {
-			return '';
-		}
-
-		return wc_get_template_html(
-			'emails/review-products.php',
-			array(
-				'product_list' => $remind_products,
-			),
-			'',
-			$this->template_base
-		);
 	}
 
 	public function get_content_html() {

@@ -21,7 +21,10 @@ declare global {
       rest_nonce: string;
       data_settings: SettingsFormData;
       upload_max_filesize: number;
-      sample_values: Record<string, string>;
+      sample_email_placeholders: {
+        reminder: Record<string, Record<string, string>>;
+        reward: Record<string, Record<string, string>>;
+      };
       wc_email_settings: Record<string, string>;
       default_email_templates: Record<string, Record<string, string>>;
       coupons: Coupon[];
