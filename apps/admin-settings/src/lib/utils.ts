@@ -23,8 +23,6 @@ export const getSampleEmailPlaceholders = (type: 'reminder' | 'reward') => {
   );
 };
 
-const sampleEmailPlaceholders = window.yayReviews.sample_email_placeholders;
-
 const jQuery = window.jQuery;
 
 export const updateEmailPreview = (

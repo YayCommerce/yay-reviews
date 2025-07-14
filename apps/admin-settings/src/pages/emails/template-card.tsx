@@ -57,27 +57,24 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const handleResetTemplate = () => {
     const resetKeys = ['subject', 'heading', 'content'];
     resetKeys.forEach((key) => {
-      if (!window.yayReviews?.default_email_templates?.[templateId]?.[key]) {
+      const defaultValue = window.yayReviews?.default_email_templates?.[templateId]?.[key];
+      if (!defaultValue) {
         return;
       }
       const currentValues = getValues(`email.${templateId}.${key}`);
       if (key === 'content') {
         const editor = window.tinymce?.get(`yay-reviews-email-content-${templateId}`);
         if (editor) {
-          editor.setContent(window.yayReviews.default_email_templates[templateId].content);
+          editor.setContent(defaultValue);
         }
       }
 
-      setValue(
-        `email.${templateId}.${key}`,
-        window.yayReviews.default_email_templates[templateId][key],
-        {
-          shouldDirty:
-            currentValues != window.yayReviews.default_email_templates[templateId][key]
-              ? true
-              : false,
-        },
-      );
+      setValue(`email.${templateId}.${key}`, defaultValue, {
+        shouldDirty: currentValues != defaultValue ? true : false,
+      });
+      if (key !== 'subject') {
+        updateEmailPreview(defaultValue, key as 'heading' | 'content', templateId);
+      }
     });
   };
 
