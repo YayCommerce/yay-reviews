@@ -121,7 +121,7 @@ class Frontend {
 	public function send_reward_email( $comment_id ) {
 		// Check and send reward email
 		$comment = get_comment( $comment_id );
-		if ( ! $comment ) {
+		if ( ! $comment || '1' !== $comment->comment_approved || 'review' !== $comment->comment_type ) {
 			return;
 		}
 		$rewards        = SettingsModel::get_settings( 'rewards', array() );
