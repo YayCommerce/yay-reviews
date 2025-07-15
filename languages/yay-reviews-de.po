@@ -1,15 +1,16 @@
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: YayReviews\n"
-"POT-Creation-Date: 2025-06-18 14:56+0700\n"
-"PO-Revision-Date: 2025-06-18 10:08+0000\n"
+"Project-Id-Version: YayReviews - Product Reviews for WooCommerce\n"
+"POT-Creation-Date: 2025-07-15 15:40+0700\n"
+"PO-Revision-Date: 2025-07-15 16:02+0700\n"
 "Last-Translator: \n"
-"Language-Team: German\n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: yay-reviews.php\n"
@@ -19,927 +20,88 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
-"X-Poedit-SearchPathExcluded-1: apps/yay-reviews/node_modules\n"
-"Plural-Forms: nplurals=2; plural=n != 1;"
-
-#: src/License/views/expired-license-notification.php:5
-msgid " to download this update. "
-msgstr "um dieses Update herunterzuladen."
-
-#: assets/admin/dist/main.js:1
-msgid "..."
-msgstr "..."
-
-#. translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
-#: src/YayCommerceMenu/views/other-plugins-content.php:217
-#, php-format
-msgid ""
-"<a href=\"%1$s\">Please update WordPress</a>, and then <a href=\"%2$s\">"
-"learn more about updating PHP</a>."
-msgstr ""
-"<a href=\"%1$s\">Bitte aktualisieren Sie WordPress</a> und erfahren Sie dann "
-"<a href=\"%2$s\">mehr über das Aktualisieren von PHP</a>."
-
-#. translators: %s: URL to Update PHP page.
-#: src/YayCommerceMenu/views/other-plugins-content.php:231
-#: src/YayCommerceMenu/views/other-plugins-content.php:250
-#, php-format
-msgid "<a href=\"%s\">Learn more about updating PHP</a>."
-msgstr "<a href=\"%s\">Erfahre mehr über die PHP-Aktualisierung (engl.)</a>."
-
-#. translators: %s: URL to WordPress Updates screen.
-#: src/YayCommerceMenu/views/other-plugins-content.php:225
-#: src/YayCommerceMenu/views/other-plugins-content.php:241
-#, php-format
-msgid "<a href=\"%s\">Please update WordPress</a>."
-msgstr "<a href=\"%s\">Bitte aktualisiere WordPress.</a>."
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:149
-msgid "Activate"
-msgstr "Aktivieren"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:355
-msgid "Activate success"
-msgstr "Erfolg aktivieren"
-
-#: assets/admin/dist/main.js:1
-msgid "Active"
-msgstr "Aktiv"
-
-#: assets/admin/dist/main.js:1
-msgid "Add coupon"
-msgstr "Gutschein hinzufügen"
-
-#: assets/admin/dist/main.js:1
-msgid "Add new"
-msgstr "Neu hinzufügen"
-
-#: assets/admin/dist/main.js:1
-msgid "Addon Settings"
-msgstr "Addon-Einstellungen"
-
-#: assets/admin/dist/main.js:1
-msgid ""
-"Adds custom fields to review forms, letting customers share tailored "
-"feedback for your needs."
-msgstr ""
-"Fügt Überprüfungsformularen benutzerdefinierte Felder hinzu, sodass Kunden "
-"maßgeschneidertes Feedback zu Ihren Anforderungen geben können."
-
-#: assets/admin/dist/main.js:1
-msgid "After message"
-msgstr "Nach der Nachricht"
-
-#: assets/admin/dist/main.js:1
-msgid "After order completed"
-msgstr "Nach Auftragsabschluss"
-
-#: assets/admin/dist/main.js:1
-msgid "All"
-msgstr "Alle"
-
-#: assets/admin/dist/main.js:1
-msgid "All products"
-msgstr "Alle Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "Allow free shipping"
-msgstr "Kostenlosen Versand erlauben"
-
-#: assets/admin/dist/main.js:1
-msgid "Allowed emails"
-msgstr "Erlaubte E-Mails"
-
-#: assets/admin/dist/main.js:1
-msgid "And"
-msgstr "Und"
-
-#: assets/admin/dist/main.js:1
-msgid "Any brand"
-msgstr "Irgendeine Marke"
-
-#: assets/admin/dist/main.js:1
-msgid "Any category"
-msgstr "Jede Kategorie"
-
-#: assets/admin/dist/main.js:1
-msgid "Apply to all qualifying items in cart"
-msgstr "Auf alle zutreffenden Produkte im Warenkorb anwenden"
-
-#: views/frontend/media.php:76
-msgid "at"
-msgstr "bei"
-
-#. translators: %s: site title placeholder
-#. translators: %s: list of available placeholders
-#. translators: %s: site title placeholder
-#. translators: %s: list of available placeholders
-#. translators: %s: site title placeholder
-#: src/Emails/ReminderEmail.php:199 src/Emails/ReminderEmail.php:208
-#: src/Emails/ReminderEmail.php:217 src/Emails/ReminderEmail.php:226
-#: src/Emails/RewardEmail.php:132 src/Emails/RewardEmail.php:141
-#: src/Emails/RewardEmail.php:150 src/Emails/RewardEmail.php:159
-#, php-format
-msgid "Available placeholders: %s"
-msgstr "Verfügbare Platzhalter: %s"
-
-#: assets/admin/dist/main.js:1
-msgid "Before message"
-msgstr "Vor der Nachricht"
-
-#: assets/admin/dist/main.js:1
-msgid "Best selling products"
-msgstr "Best Verkaufte Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "Bold (700)"
-msgstr "Bold (700)"
-
-#: assets/admin/dist/main.js:1
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: assets/admin/dist/main.js:1
-msgid "Change"
-msgstr "Ändern"
-
-#: assets/admin/dist/main.js:1
-msgid ""
-"Check this box if the coupon cannot be used in conjunction with other "
-"coupons."
-msgstr ""
-"Aktivieren, wenn dieser Gutschein nicht zusammen mit anderen Gutscheinen "
-"verwendet werden darf."
-
-#: assets/admin/dist/main.js:1
-msgid "Check this box if the coupon grants free shipping."
-msgstr ""
-"Aktivieren Sie dieses Kontrollkästchen, wenn der Gutschein kostenlosen "
-"Versand gewähren soll."
-
-#: assets/admin/dist/main.js:1
-msgid "Check this box if the coupon should not apply to items on sale."
-msgstr ""
-"Aktivieren Sie dieses Kontrollkästchen, wenn der Gutschein nicht für Artikel "
-"gelten soll, die zum Verkauf angeboten werden."
-
-#: src/Emails/ReminderEmail.php:233 src/Emails/RewardEmail.php:166
-msgid "Choose which format of email to send."
-msgstr "Format für E-Mail-Versand auswählen."
-
-#: assets/admin/dist/main.js:1
-msgid "Coupon amount"
-msgstr "Gutscheinbetrag"
-
-#: assets/admin/dist/main.js:1
-msgid "coupon cannot be sent to customers as rewards. Please update its"
-msgstr ""
-"utscheine können nicht als Belohnung an Kunden gesendet werden. Bitte "
-"aktualisieren Sie den"
-
-#: assets/admin/dist/main.js:1
-msgid "Coupon code"
-msgstr "Gutscheincode"
-
-#: assets/admin/dist/main.js:1
-msgid "Coupon expiry date"
-msgstr "Verfallsdatum des Gutscheins"
-
-#: assets/admin/dist/main.js:1
-msgid "Create new"
-msgstr "Neu erstellen"
-
-#: assets/admin/dist/main.js:1
-msgid "Create new coupon"
-msgstr "Neuen Gutschein erstellen"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
 
 #: assets/admin/dist/main.js:1
 msgid "Dashboard"
 msgstr "Dashboard"
 
 #: assets/admin/dist/main.js:1
-msgid "Data processing consent"
-msgstr "Einwilligung zur Datenverarbeitung"
+msgid "Review"
+msgstr "Bewertung"
 
 #: assets/admin/dist/main.js:1
-msgid "Days"
-msgstr "Tage"
-
-#: src/License/views/information-card.php:38
-msgid "Deactivate"
-msgstr "Deaktivieren"
+msgid "Reminder"
+msgstr "Erinnerung"
 
 #: assets/admin/dist/main.js:1
-msgid "Delete"
-msgstr "Löschen"
-
-#: assets/admin/dist/main.js:1
-msgid "Description ( optional )"
-msgstr "Beschreibung (optional)"
-
-#: assets/admin/dist/main.js:1
-msgid "Discount type"
-msgstr "Rabattart"
-
-#: assets/admin/dist/main.js:1
-msgid "Duplicate"
-msgstr "Duplizieren"
-
-#: src/Emails/ReminderEmail.php:213 src/Emails/RewardEmail.php:146
-msgid "Email Content"
-msgstr "E-Mail Inhalt"
-
-#: assets/admin/dist/main.js:1
-msgid "Email content"
-msgstr "E-Mail-Inhalt"
-
-#: src/Emails/ReminderEmail.php:222 src/Emails/RewardEmail.php:155
-msgid "Email Footer"
-msgstr "Email Fußzeile"
-
-#: assets/admin/dist/main.js:1
-msgid "Email footer"
-msgstr "E-Mail-Fußzeile"
-
-#: src/Emails/ReminderEmail.php:204 src/Emails/RewardEmail.php:137
-msgid "Email Heading"
-msgstr "E-Mail-Kopfzeile"
-
-#: assets/admin/dist/main.js:1
-msgid "Email heading"
-msgstr "E-Mail-Überschrift"
-
-#: assets/admin/dist/main.js:1
-msgid "Email sending failed"
-msgstr "Sendung der E-Mail fehlgeschlagen"
-
-#: assets/admin/dist/main.js:1
-msgid "Email sent successfully"
-msgstr "E-Mail erfolgreich versandt"
-
-#: assets/admin/dist/main.js:1
-msgid "Email subject"
-msgstr "E-Mail-Betreff"
-
-#: assets/admin/dist/main.js:1
-msgid "email template"
-msgstr "E-Mail-Vorlage"
-
-#: assets/admin/dist/main.js:1
-msgid "Email Templates"
-msgstr "E-Mail Vorlagen"
-
-#: src/Emails/ReminderEmail.php:231 src/Emails/RewardEmail.php:164
-msgid "Email type"
-msgstr "E-Mail-Typ"
+msgid "Rewards"
+msgstr "Belohnungen"
 
 #: assets/admin/dist/main.js:1
 msgid "Emails"
 msgstr "E-Mails"
 
-#: src/Emails/ReminderEmail.php:191 src/Emails/RewardEmail.php:124
-msgid "Enable this email notification"
-msgstr "Diese E-Mail-Benachrichtigung aktivieren"
-
-#: src/Emails/ReminderEmail.php:189 src/Emails/RewardEmail.php:122
-msgid "Enable/Disable"
-msgstr "Aktivieren/Deaktivieren"
+#: assets/admin/dist/main.js:1
+msgid "Emails Queue"
+msgstr "E-Mail Warteschlange"
 
 #: assets/admin/dist/main.js:1
-msgid "encouraging great feedback and repeat purchases."
-msgstr "örderung von großartigem Feedback und Wiederholungskäufen."
+msgid "Yay Reviews"
+msgstr "Yay Reviews"
 
 #: assets/admin/dist/main.js:1
-msgid "Enter email addresses, one per line."
-msgstr "Geben Sie E-Mail-Adressen ein, eine pro Zeile."
-
-#: src/License/EDD_SL_Plugin_Updater.php:501
-msgid "Error"
-msgstr "Fehler"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:318
-#: src/YayCommerceMenu/OtherPluginsMenu.php:362
-#: src/YayCommerceMenu/OtherPluginsMenu.php:472
-msgid "Error exception."
-msgstr "Fehlerausnahme."
+#, fuzzy
+msgid "Save"
+msgstr "Speichern"
 
 #: assets/admin/dist/main.js:1
-msgid "Error fetching products:"
-msgstr "Fehler beim Abrufen der Produkte:"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:327
-#: src/YayCommerceMenu/OtherPluginsMenu.php:371
-#: src/YayCommerceMenu/OtherPluginsMenu.php:481
-msgid "Error."
-msgstr "Fehler."
-
-#: assets/admin/dist/main.js:1
-msgid "Except emails"
-msgstr "Außer E-Mails"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude product brands"
-msgstr "Produktmarken ausschließen"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude product categories"
-msgstr "Produktkategorien ausschließen"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude products"
-msgstr "Produkte ausschließen"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude sale items"
-msgstr "Produkte, die im Angebot sind, ausschließen"
-
-#: src/License/views/information-card.php:54
-msgid "Expiration Date:"
-msgstr "Ablaufdatum:"
-
-#: assets/admin/dist/main.js:1
-msgid "Expired"
-msgstr "Abgelaufen"
-
-#: assets/admin/dist/main.js:1
-msgid "expired"
-msgstr "abgelaufen"
-
-#: assets/admin/dist/main.js:1
-msgid "Extra Bold (800)"
-msgstr "Extra fett (800)"
-
-#: assets/admin/dist/main.js:1
-msgid "Failed to create coupon"
-msgstr "Gutschein konnte nicht erstellt werden"
-
-#: assets/admin/dist/main.js:1
-msgid "Failed to save settings"
-msgstr "Die Einstellungen konnten nicht gespeichert werden."
-
-#: assets/admin/dist/main.js:1
-msgid "Featured products"
-msgstr "Hervorgehobene  Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "Field description (optional)"
-msgstr "Feldbeschreibung (optional)"
-
-#: assets/admin/dist/main.js:1
-msgid "Field label (optional)"
-msgstr "Feldbezeichnung (optional)"
-
-#: assets/admin/dist/main.js:1
-msgid "Font Weight"
-msgstr "Schriftstärke"
-
-#: assets/admin/dist/main.js:1
-msgid "GDPR message"
-msgstr "GDPR-Nachricht"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:310
-msgid "Get data success"
-msgstr "Erhalten Sie Datenerfolg"
-
-#: assets/admin/dist/main.js:1
-msgid "Go to"
-msgstr "Gehe zu"
-
-#: assets/admin/dist/main.js:1
-msgid "Guests can receive reward?"
-msgstr "Können Gäste eine Belohnung erhalten?"
-
-#: src/YayCommerceMenu/RegisterMenu.php:80
-msgid "Help"
-msgstr "Hilfe"
-
-#: assets/admin/dist/main.js:1
-msgid "High-rated products"
-msgstr "Hoch bewertete Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "Hours"
-msgstr "Stunden"
-
-#. Author URI of the plugin/theme
-msgid "https://yaycommerce.com"
-msgstr "https://yaycommerce.com"
-
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:65
-msgid "I agree with your policy,..."
-msgstr "Ich stimme Ihrer Richtlinie zu, …"
-
-#: src/Frontend.php:128
-msgid "image"
-msgstr "Bild"
-
-#: src/Frontend.php:125
-msgid "image or video"
-msgstr "Bild oder Video"
+msgid "Active"
+msgstr "Aktiv"
 
 #: assets/admin/dist/main.js:1
 msgid "Inactive"
 msgstr "Inaktiv"
 
 #: assets/admin/dist/main.js:1
-msgid "Individual use only"
-msgstr "Nur einzeln anwendbar"
+msgid "Settings"
+msgstr "Einstellungen"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:77
-#: src/YayCommerceMenu/views/other-plugins-content.php:85
-msgid "Install Now"
-msgstr "Jetzt installieren"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:438
-msgid "Install success"
-msgstr "Erfolgreich installieren"
-
-#: src/Ajax.php:38
-msgid "Invalid addon id or status"
-msgstr "Ungültige Add-on-ID oder ungültiger Status"
-
-#: assets/admin/dist/main.js:1
-msgid "is required"
-msgstr "ist Erforderlich"
-
-#: assets/admin/dist/main.js:1
-msgid "Kbs"
-msgstr "Kbs"
-
-#: assets/admin/dist/main.js:1
-msgid "Leave empty to receive reward after every review"
-msgstr "Leer lassen, um nach jeder Bewertung eine Belohnung zu erhalten"
-
-#: src/YayCommerceMenu/RegisterMenu.php:118
-msgid "Licenses"
-msgstr "Lizenzen"
-
-#: assets/admin/dist/main.js:1
-msgid "Light (300)"
-msgstr "Leicht (300)"
-
-#: assets/admin/dist/main.js:1
-msgid "Limit usage to X items"
-msgstr "Nutzung auf X Produkte beschränken"
-
-#: src/Emails/ReminderEmail.php:111 src/Emails/RewardEmail.php:74
-msgid ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,"
-" when an unknown printer took a galley of type and scrambled it to make a "
-"type specimen book. It has survived not only five centuries, but also the "
-"leap into electronic typesetting, remaining essentially unchanged"
-msgstr ""
-"Lorem Ipsum ist ein Blindtext der Druck- und Satzindustrie. Lorem Ipsum ist "
-"seit dem 16. Jahrhundert der Standardblindtext der Branche, als ein "
-"unbekannter Drucker einen Abzug der Schriften nahm und ihn "
-"durcheinanderbrachte, um ein Schriftmusterbuch zu erstellen. Es hat nicht "
-"nur fünf Jahrhunderte überdauert, sondern auch den Sprung in den "
-"elektronischen Satz im Wesentlichen unverändert überstanden."
-
-#: assets/admin/dist/main.js:1
-msgid "Low-rated products"
-msgstr "Produkte mit niedriger Bewertung"
-
-msgid "Mark as required when submitting a review?"
-msgstr "Beim Einreichen einer Bewertung als erforderlich markieren?"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum"
-msgstr "Maximum"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum file size (Kbs)"
-msgstr "Maximale Dateigröße (Kbs)"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum files"
-msgstr "Maximale Dateien"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum files customer can upload"
-msgstr "Maximale Anzahl an Dateien, die der Kunde hochladen kann"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum products ( in order ) need to remind reviewing"
-msgstr ""
-"Maximale Produkte (in der Reihenfolge) müssen an die Überprüfung erinnert "
-"werden"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum spend"
-msgstr "Maximalbestellwert"
-
-#: src/Admin.php:22
-msgid "Media"
-msgstr "Medien"
-
-#: assets/admin/dist/main.js:1
-msgid "Media types"
-msgstr "Medien-Typen"
-
-#: views/frontend/media.php:80
-msgid "Medias in this review"
-msgstr "Medien in dieser Rezension"
-
-#: assets/admin/dist/main.js:1
-msgid "Medium (500)"
-msgstr "Medium (500)"
-
-#: assets/admin/dist/main.js:1
-msgid "Minimum media files uploaded"
-msgstr "Mindestanzahl hochgeladener Mediendateien"
-
-#: assets/admin/dist/main.js:1
-msgid "Minimum required rating"
-msgstr "Mindestbewertung erforderlich"
-
-#: assets/admin/dist/main.js:1
-msgid "Minimum required reviews posted since the last reward?"
-msgstr ""
-"Mindestanzahl an Bewertungen, die seit der letzten Belohnung abgegeben "
-"wurden?"
-
-#: assets/admin/dist/main.js:1
-msgid "Minimum spend"
-msgstr "Mindestbestellwert"
-
-#: assets/admin/dist/main.js:1
-msgid "Minutes"
-msgstr "Minuten"
-
-#: src/License/views/information-card.php:78
-msgid "Need more licenses?"
-msgstr "Benötigen Sie mehr Lizenzen?"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:162
-msgid "Network Activate"
-msgstr "Netzwerk aktivieren"
-
-#: assets/admin/dist/main.js:1
-msgid "Newest products"
-msgstr "Neueste Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "No brands"
-msgstr "Keine Marken"
-
-#: assets/admin/dist/main.js:1
-msgid "No categories"
-msgstr "Keine Kategorien"
-
-#: assets/admin/dist/main.js:1
-msgid "No coupons found"
-msgstr "Keine Gutscheine gefunden"
-
-#: assets/admin/dist/main.js:1
-msgid "No expiry"
-msgstr "Kein Ablaufdatum"
-
-#: assets/admin/dist/main.js:1
-msgid "No maximum"
-msgstr "Kein Maximalbetrag"
-
-#: assets/admin/dist/main.js:1
-msgid "No minimum"
-msgstr "Kein Mindestbetrag"
-
-#: assets/admin/dist/main.js:1
-msgid "No reward added"
-msgstr "Keine Belohnung hinzugefügt"
-
-#: assets/admin/dist/main.js:1
-msgid "No value found"
-msgstr "Kein Wert gefunden"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:292
-#: src/YayCommerceMenu/OtherPluginsMenu.php:341
-#: src/YayCommerceMenu/OtherPluginsMenu.php:389
-msgid "Nonce is invalid"
-msgstr "Nonce ist ungültig"
-
-#: assets/admin/dist/main.js:1
-msgid "Normal (400)"
-msgstr "Normal (400)"
-
-#: assets/admin/dist/main.js:1
-msgid "Normal products"
-msgstr "Normale Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "On-sale products"
-msgstr "Produkte im Angebot"
-
-#: assets/admin/dist/main.js:1
-msgid "Only image"
-msgstr "Nur Bild"
-
-#: assets/admin/dist/main.js:1
-msgid "Only send coupon for reviews from purchased customers."
-msgstr "Gutscheine nur für Bewertungen von Kaufkunden versenden."
-
-#: assets/admin/dist/main.js:1
-msgid "Only video"
-msgstr "Nur Video"
-
-#: assets/admin/dist/main.js:1
-msgid "Optional Fields"
-msgstr "Optional Felder"
-
-#: assets/admin/dist/main.js:1
-msgid "or"
-msgstr "oder"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:122
-msgid "Other Plugins"
-msgstr "Andere Plugins"
-
-#: src/YayCommerceMenu/RegisterMenu.php:127
-msgid "Other plugins"
-msgstr "Andere Plugins"
-
-#: assets/admin/dist/main.js:1
-msgid "Out of usage"
-msgstr "Außer Betrieb"
-
-#: assets/admin/dist/main.js:1
-msgid "out of usage"
-msgstr "außer Betrieb"
-
-#: yay-reviews.php:59
-msgid "Please activate WooCommerce to activate Yay Reviews"
-msgstr "Bitte aktivieren Sie WooCommerce, um Yay Reviews zu aktivieren"
-
-#: src/License/views/not-activate-license-notification.php:3
-msgid ""
-"Please activate your license for access to premium features and automatic "
-"updates"
-msgstr ""
-"Bitte aktivieren Sie Ihre Lizenz für den Zugriff auf Premiumfunktionen und "
-"automatische Updates"
-
-#: src/Frontend.php:142
-msgid "Please check GDPR checkbox."
-msgstr "Bitte aktivieren Sie das Kontrollkästchen DSGVO."
-
-#: src/License/views/expired-admin-notice.php:18
-msgid ""
-"Please click here to renew your license key and continue receiving automatic "
-"updates."
-msgstr ""
-"Klicken Sie hier, um Ihren Lizenzschlüssel zu erneuern und weiterhin "
-"automatische Updates zu erhalten."
-
-#. translators: %s: media type (image or video, video, image)
-#: src/Frontend.php:123
-#, php-format
-msgid "Please upload at least 1 %s."
-msgstr "Bitte laden Sie mindestens 1 %s hoch."
-
-#. translators: %s: Plugin name.
-#: src/YayCommerceMenu/views/other-plugins-content.php:151
-#, php-format
-msgctxt "plugin"
-msgid "Activate %s"
-msgstr "Aktiviere %s"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:144
-msgctxt "plugin"
-msgid "Activated"
-msgstr "Aktiviert"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:177
-msgctxt "plugin"
-msgid "Cannot Activate"
-msgstr "Aktivierung nicht möglich"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:91
-msgctxt "plugin"
-msgid "Cannot Install"
-msgstr "Installation nicht möglich"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:127
-msgctxt "plugin"
-msgid "Cannot Update"
-msgstr "Update nicht möglich"
-
-#. translators: %s: Plugin name and version.
-#: src/YayCommerceMenu/views/other-plugins-content.php:76
-#: src/YayCommerceMenu/views/other-plugins-content.php:84
-#, php-format
-msgctxt "plugin"
-msgid "Install %s now"
-msgstr "%s jetzt installieren"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:183
-msgctxt "plugin"
-msgid "Installed"
-msgstr "Installiert"
-
-#. translators: %s: Plugin name.
-#: src/YayCommerceMenu/views/other-plugins-content.php:164
-#, php-format
-msgctxt "plugin"
-msgid "Network Activate %s"
-msgstr "Netzwerk aktiv %s"
-
-#. translators: %s: Plugin name and version.
-#: src/YayCommerceMenu/views/other-plugins-content.php:108
-#: src/YayCommerceMenu/views/other-plugins-content.php:119
-#, php-format
-msgctxt "plugin"
-msgid "Update %s now"
-msgstr "Aktualisieren Sie %s jetzt"
-
-#: assets/admin/dist/main.js:1
-msgid "Preview"
-msgstr "Vorschau"
-
-#: views/emails/products-table.php:16
-msgid "Price"
-msgstr "Preis"
-
-#: views/emails/products-table.php:14
-msgid "Product"
-msgstr "Produkt"
-
-#: assets/admin/dist/main.js:1
-msgid "Product brands"
-msgstr "Produktmarken"
-
-#: assets/admin/dist/main.js:1
-msgid "Product categories"
-msgstr "Produktkategorien"
-
-#: assets/admin/dist/main.js:1
-msgid "Products"
-msgstr "Produkte"
-
-#: assets/admin/dist/main.js:1
-msgid "Reminder"
-msgstr "Erinnerung"
-
-#: src/Classes/Helpers.php:81 src/Emails/ReminderEmail.php:95
-msgid "Reminder email"
-msgstr "Email - Erinnerungen"
-
-#: src/Emails/ReminderEmail.php:103
-msgid "Reminder email for you"
-msgstr "Erinnerungs-E-Mail für Sie"
-
-#: assets/admin/dist/main.js:1
-msgid "Reminder Settings"
-msgstr "Erinnerungen Einstellungen"
-
-#: src/License/views/expired-license-notification.php:4
-msgid "renew this license"
-msgstr "diese Lizenz erneuern"
-
-#: assets/admin/dist/main.js:1
-msgid "restrictions"
-msgstr "Einschränkungen"
-
-#: assets/admin/dist/main.js:1
-msgid "Review"
-msgstr "Bewertung"
-
-#: assets/admin/dist/main.js:1
-msgid "Review criteria"
-msgstr "Bewertungskriterien"
-
-#: views/frontend/media.php:56
-msgid "Review Details"
-msgstr "Bewertungsdetails"
-
-#: src/Emails/ReminderEmail.php:15
-msgid "Review Reminder"
-msgstr "Bewertungs Erinnerung"
-
-#: assets/admin/dist/main.js:1 src/Emails/RewardEmail.php:15
-msgid "Review Reward"
-msgstr "Bewertungsbelohnung"
-
-#: src/Classes/Helpers.php:87
-msgid "Review reward email"
-msgstr "E-Mail mit Bewertungsbelohnung"
-
-#: assets/admin/dist/main.js:1
-msgid "Review Settings"
-msgstr "Einstellungen überprüfen"
-
-#: views/frontend/media.php:76
-msgid "Reviewed in "
-msgstr "Bewertet in"
-
-#: assets/admin/dist/main.js:1
-msgid "Reward"
-msgstr "Auszeichnung"
-
-#: src/Emails/RewardEmail.php:58
-msgid "Reward email"
-msgstr "Belohnungs-E-Mail"
-
-#: src/Emails/RewardEmail.php:66
-msgid "Reward email for you"
-msgstr "Belohnungs-E-Mail für Sie"
-
-#: assets/admin/dist/main.js:1
-msgid "Reward for reviewing the product"
-msgstr "Belohnung für die Bewertung des Produkts"
-
-#: assets/admin/dist/main.js:1
-msgid "reward set"
-msgstr "Belohnungsset"
-
-#: assets/admin/dist/main.js:1
-msgid "Save"
-msgstr "speichern"
-
-#: assets/admin/dist/main.js:1
-msgid "Search value"
-msgstr "Suchwert"
-
-#: assets/admin/dist/main.js:1
-msgid "Select coupon"
-msgstr "Coupon auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select coupon to be sent"
-msgstr "Zu versendenden Coupon auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select filter"
-msgstr "Filter auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select products"
-msgstr "Produkte auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select type"
-msgstr "Typ wählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select types"
-msgstr "Typen auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Select values"
-msgstr "Werte auswählen"
-
-#: assets/admin/dist/main.js:1
-msgid "Semi Bold (600)"
-msgstr "Semi Bold (600)"
-
-#: assets/admin/dist/main.js:1
-msgid "Send a reminder email"
-msgstr "Senden Sie eine Erinnerungs-E-Mail"
-
 #: assets/admin/dist/main.js:1
-msgid "Send a test email"
-msgstr "Ein Test E-Mail senden"
+msgid "Addon "
+msgstr "Zusatz "
 
 #: assets/admin/dist/main.js:1
-msgid "Send reminder when"
-msgstr "Erinnerung senden, wenn"
+msgid "ON"
+msgstr "AN"
 
 #: assets/admin/dist/main.js:1
-msgid "Send test mail"
-msgstr "Test-Email senden"
+msgid "OFF"
+msgstr "AUS"
 
 #: assets/admin/dist/main.js:1
-msgid "Send to"
-msgstr "Senden an"
+msgid "Something went wrong"
+msgstr "Leider ist ein Fehler aufgetreten"
 
 #: assets/admin/dist/main.js:1
-msgid "Send to customers"
-msgstr "An Kunden senden"
+msgid "You can change this any time in"
+msgstr "Sie können dies jederzeit ändern in"
 
 #: assets/admin/dist/main.js:1
-msgid "Send to guests"
-msgstr "An Gäste senden"
+msgid "Product reviews are disabled in WooCommerce."
+msgstr "Produktbewertungen sind in WooCommerce deaktiviert."
 
 #: assets/admin/dist/main.js:1
-msgid ""
-"Send yourself a test email to check how your email looks in different email "
-"apps."
-msgstr ""
-"Senden Sie sich selbst eine Test-E-Mail, um zu überprüfen, wie Ihre E-Mail "
-"in verschiedenen E-Mail-Apps aussieht."
+msgid "WooCommerce settings"
+msgstr "WooCommerce Einstellungen"
 
 #: assets/admin/dist/main.js:1
-msgid "Sends discount coupons for quality reviews meeting set criteria,"
-msgstr ""
-"Versendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
-"entsprechen,"
+msgid "Turn on"
+msgstr "Einschalten"
 
 #: assets/admin/dist/main.js:1
-msgid ""
-"Sends discount coupons for quality reviews meeting set criteria, encouraging "
-"great feedback and repeat purchases."
-msgstr ""
-"Sendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
-"entsprechen, und fördert so großartiges Feedback und Wiederholungskäufe."
+msgid "Review reminder"
+msgstr "Bewertungs-Erinnerung"
 
 #: assets/admin/dist/main.js:1
 msgid ""
@@ -950,198 +112,20 @@ msgstr ""
 "Engagement."
 
 #: assets/admin/dist/main.js:1
-msgid "Settings"
-msgstr "Einstellungen"
+msgid "Review rewards"
+msgstr "Belohnungen überprüfen"
 
 #: assets/admin/dist/main.js:1
-msgid "Settings saved successfully"
-msgstr "Einstellungen erfolgreich gespeichert"
-
-#: views/emails/products-table.php:15
-msgid "Short Description"
-msgstr "Kurzbeschreibung"
-
-#: assets/admin/dist/main.js:1
-msgid "Something went wrong"
-msgstr "Leider ist ein Fehler aufgetreten"
-
-#: src/Emails/ReminderEmail.php:195 src/Emails/RewardEmail.php:128
-msgid "Subject"
-msgstr "Betreff"
-
-#: assets/admin/dist/main.js:1
-msgid "Text color"
-msgstr "Textfarbe"
-
-#: src/Classes/Helpers.php:89
 msgid ""
-"Thank you for reviewing {product_name}! As a token of our appreciation, "
-"we've sent you coupon: {coupon_code} to use on your next purchase."
+"Sends discount coupons for quality reviews meeting set criteria, encouraging "
+"great feedback and repeat purchases."
 msgstr ""
-"Vielen Dank für Ihre Bewertung von {product_name}! Als Dankeschön haben wir "
-"Ihnen den Gutschein {coupon_code} für Ihren nächsten Einkauf zugesandt."
-
-#: src/Classes/Helpers.php:82
-msgid "Thank you for your purchase!"
-msgstr "Vielen Dank für Ihren Einkauf!"
-
-#: src/Classes/Helpers.php:83
-msgid ""
-"Thank you for your recent purchase! Please take a moment to share your "
-"thoughts by reviewing these products. Your feedback helps us improve and "
-"earns you reward! {products_table}"
-msgstr ""
-"Vielen Dank für Ihren Einkauf! Teilen Sie uns Ihre Meinung mit und bewerten "
-"Sie diese Produkte. Ihr Feedback hilft uns, uns zu verbessern und belohnt "
-"Sie! {products_table}"
-
-#: src/Classes/Helpers.php:88 src/Emails/ReminderEmail.php:119
-#: src/Emails/RewardEmail.php:82
-msgid "Thank you for your review!"
-msgstr "Vielen Dank für deine Bewertung!"
-
-#. translators: %1$s: file name, %2$s: max upload size
-#: src/Frontend.php:145
-#, php-format
-msgid ""
-"The size of the file %1$s is too large; the maximum allowed size is %2$sKB."
-msgstr ""
-"Die Größe der Datei %1$s ist zu groß; die maximal zulässige Größe beträgt "
-"%2$sKB."
-
-#: src/Emails/ReminderEmail.php:16
-msgid ""
-"This email is sent to customers to remind them to review their purchased "
-"products."
-msgstr ""
-"Diese E-Mail wird an Kunden gesendet, um sie daran zu erinnern, ihre "
-"gekauften Produkte zu bewerten."
-
-#: src/Emails/RewardEmail.php:16
-msgid "This email is sent to customers to reward them for their reviews."
-msgstr ""
-"Diese E-Mail wird an Kunden gesendet, um sie für ihre Bewertungen zu "
-"belohnen."
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:246
-msgid "This plugin doesn&#8217;t work with your version of PHP."
-msgstr "Dieses Plugin funktioniert nicht mit Ihrer PHP-Version."
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:237
-msgid "This plugin doesn&#8217;t work with your version of WordPress."
-msgstr "Dieses Plugin funktioniert nicht mit Ihrer WordPress-Version."
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:213
-msgid "This plugin doesn&#8217;t work with your versions of WordPress and PHP."
-msgstr ""
-"Dieses Plugin funktioniert nicht mit deinen Versionen von WordPress und PHP."
-
-#: assets/admin/dist/main.js:1
-msgid "Unlimited usage"
-msgstr "Unbegrenzte Nutzung"
-
-#: src/YayCommerceMenu/views/other-plugins-content.php:110
-#: src/YayCommerceMenu/views/other-plugins-content.php:121
-msgid "Update Now"
-msgstr "Jetzt aktualisieren"
-
-#: src/YayCommerceMenu/OtherPluginsMenu.php:462
-msgid "Update success"
-msgstr "Aktualisierung erfolgreich"
-
-#: src/License/views/information-card.php:78
-msgid "Upgrade to unlimited"
-msgstr "Upgrade auf unbegrenzt"
-
-#: views/frontend/reviews-form.php:30
-msgid "Upload"
-msgstr "Hochladen"
-
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:62
-msgid "Upload media"
-msgstr "Medien hochladen"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limit per coupon"
-msgstr "Anwendungsbeschränkung pro Gutschein"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limit per user"
-msgstr "Anwendungsbeschränkung pro Benutzer"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limits"
-msgstr "Anwendungsbeschränkungen / Limits"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage restriction"
-msgstr "Nutzungseinschränkungen"
-
-#: src/Ajax.php:22
-msgid "Verify nonce failed"
-msgstr "Sicherheitscheck ist fehlgeschlagen"
-
-#: src/Frontend.php:127
-msgid "video"
-msgstr "Video"
-
-#: assets/admin/dist/main.js:1
-msgid "Video and image"
-msgstr "Video und Bild"
-
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:66
-#: src/Classes/Helpers.php:67
-msgid ""
-"We value your privacy. By submitting this review, you consent to the "
-"processing of your personal data"
-msgstr ""
-"Wir legen Wert auf Ihre Privatsphäre. Mit dem Absenden dieser Bewertung "
-"stimmen Sie der Verarbeitung Ihrer personenbezogenen Daten zu"
+"Sendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
+"entsprechen, und fördert so großartiges Feedback und Wiederholungskäufe."
 
 #: assets/admin/dist/main.js:1
 msgid "Welcome to Yay Reviews"
 msgstr "Willkommen bei Yay Reviews"
-
-#: assets/admin/dist/main.js:1
-msgid "Yay Reviews"
-msgstr "Yay Reviews"
-
-#: src/AdminMenu.php:22
-msgid "Yay Reviews Settings"
-msgstr "Yay Reviews-Einstellungen"
-
-#. Author of the plugin/theme
-msgid "YayCommerce"
-msgstr "YayCommerce"
-
-#. Plugin Name of the plugin/theme
-#: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:176
-msgid "YayReviews"
-msgstr "YayReviews"
-
-#. Description of the plugin/theme
-msgid "YayReviews helps you to do more things with WooCommerce reviews."
-msgstr "YayReviews hilft Ihnen, mit WooCommerce-Bewertungen mehr zu tun."
-
-#. translators: %1$s: max upload quantity
-#: src/Frontend.php:147
-#, php-format
-msgid "You can only upload a maximum of %1$s files."
-msgstr "Sie können maximal %1$s Dateien hochladen."
-
-#: src/Classes/Helpers.php:63
-msgid "You can upload jpg/png & video (maximum 2000Kbs)"
-msgstr "Sie können JPG/PNG und Videos hochladen (maximal 2000 KB)."
-
-#: src/License/EDD_SL_Plugin_Updater.php:501
-msgid "You do not have permission to install plugin updates"
-msgstr ""
-"Du hast keine Berechtigung, um Aktualisierungen für Erweiterungen "
-"durchzuführen"
-
-#: assets/admin/dist/main.js:1
-msgid "You have"
-msgstr "Du hast"
 
 #: assets/admin/dist/main.js:1
 msgid ""
@@ -1152,30 +136,1201 @@ msgstr ""
 "Erinnerungen und Coupons mit einer intuitiven Benutzeroberfläche zur "
 "Überwachung und Optimierung des Kundenfeedbacks."
 
-#: src/License/views/expired-license-notification.php:3
-msgid "Your license has expired, please "
-msgstr "Ihre Lizenz ist abgelaufen, bitte"
+#: assets/admin/dist/main.js:1
+msgid "Go to"
+msgstr "Gehe zu"
 
 #: assets/admin/dist/main.js:1
-msgid "{coupon_code} - Coupon code"
-msgstr "{coupon_code} - Gutscheincode"
+msgid "Review settings"
+msgstr "Einstellungen überprüfen"
+
+#: assets/admin/dist/main.js:1
+msgid "Addon-on settings"
+msgstr "Addon-On-Einstellungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Text color"
+msgstr "Textfarbe"
+
+#: assets/admin/dist/main.js:1
+msgid "Font Weight"
+msgstr "Schriftstärke"
+
+#: assets/admin/dist/main.js:1
+msgid "Light (300)"
+msgstr "Leicht (300)"
+
+#: assets/admin/dist/main.js:1
+msgid "Normal (400)"
+msgstr "Normal (400)"
+
+#: assets/admin/dist/main.js:1
+msgid "Medium (500)"
+msgstr "Medium (500)"
+
+#: assets/admin/dist/main.js:1
+msgid "Semi Bold (600)"
+msgstr "Semi Bold (600)"
+
+#: assets/admin/dist/main.js:1
+msgid "Bold (700)"
+msgstr "Bold (700)"
+
+#: assets/admin/dist/main.js:1
+msgid "Extra Bold (800)"
+msgstr "Extra fett (800)"
+
+#: assets/admin/dist/main.js:1
+#, fuzzy
+msgid "Email subject"
+msgstr "E-Mail Betreff"
+
+#: assets/admin/dist/main.js:1
+msgid "Email heading"
+msgstr "E-Mail-Überschrift"
+
+#: assets/admin/dist/main.js:1
+msgid "Email content"
+msgstr "E-Mail-Inhalt"
 
 #: assets/admin/dist/main.js:1
 msgid "{customer_name} - Customer's name"
 msgstr "{customer_name} – Name des Kunden"
 
 #: assets/admin/dist/main.js:1
+msgid "{site_title} - Your site title"
+msgstr "{site_title} – Ihr Site-Titel"
+
+#: assets/admin/dist/main.js:1
+msgid "{review_products} - List products need review"
+msgstr ""
+"{review_products} - Auflisten von Produkten, die überprüft werden müssen"
+
+#: assets/admin/dist/main.js:1
+msgid "{coupon_code} - Coupon code"
+msgstr "{coupon_code} - Gutscheincode"
+
+#: assets/admin/dist/main.js:1
 msgid "{product_name} - Product name"
 msgstr "{product_name} – Produktname"
 
 #: assets/admin/dist/main.js:1
-msgid "{products_table} - Table of products need review"
-msgstr "{products_table} – Tabelle der Produkte, die überprüft werden müssen"
+msgid "Reset template"
+msgstr "Template zurücksetzen"
 
 #: assets/admin/dist/main.js:1
-msgid "{site_title} - Your site title"
-msgstr "{site_title} – Ihr Site-Titel"
+msgid "Reset the template to the default values."
+msgstr "Setzen Sie die Vorlage auf die Standardwerte zurück."
 
-#: src/Classes/Helpers.php:84 src/Classes/Helpers.php:90
-msgid "{site_title} — Built with YayReviews"
-msgstr "{site_title} – Erstellt mit YayReviews"
+#: assets/admin/dist/main.js:1
+#, fuzzy
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: assets/admin/dist/main.js:1
+msgid "Preview"
+msgstr "Vorschau"
+
+#: assets/admin/dist/main.js:1
+msgid "Desktop preview"
+msgstr "Desktop Vorschau"
+
+#: assets/admin/dist/main.js:1
+msgid "Mobile preview"
+msgstr "Vorschau Mobil"
+
+#: assets/admin/dist/main.js:1
+msgid "Send test mail"
+msgstr "Test-Email senden"
+
+#: assets/admin/dist/main.js:1
+msgid "Send a test email"
+msgstr "Ein Test E-Mail senden"
+
+#: assets/admin/dist/main.js:1
+msgid ""
+"Send yourself a test email to check how your email looks in different email "
+"apps."
+msgstr ""
+"Senden Sie sich selbst eine Test-E-Mail, um zu überprüfen, wie Ihre E-Mail "
+"in verschiedenen E-Mail-Apps aussieht."
+
+#: assets/admin/dist/main.js:1
+msgid "Enter your email address"
+msgstr "Geben Sie Ihre E-Mail-Adresse ein"
+
+#: assets/admin/dist/main.js:1 src/Ajax.php:95 src/Ajax.php:108
+msgid "Email sent successfully"
+msgstr "E-Mail erfolgreich versandt"
+
+#: assets/admin/dist/main.js:1 src/Ajax.php:101
+msgid "Email sending failed"
+msgstr "Sendung der E-Mail fehlgeschlagen"
+
+#: assets/admin/dist/main.js:1
+msgid "Email templates"
+msgstr "E-Mail Vorlagen"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward"
+msgstr "Auszeichnung"
+
+#: assets/admin/dist/main.js:1
+msgid "Normal products"
+msgstr "Normale Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "Featured products"
+msgstr "Hervorgehobene  Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "On sale products"
+msgstr "Im Angebot Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "Newest products"
+msgstr "Neueste Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "High rated products"
+msgstr "Hoch bewertete Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "Low rated products"
+msgstr "Produkte mit niedriger Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Best selling products"
+msgstr "Best Verkaufte Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "All products"
+msgstr "Alle Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "Any rating"
+msgstr "Jede Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Less than 5★"
+msgstr "Weniger als 5★"
+
+#: assets/admin/dist/main.js:1
+msgid "5★ only"
+msgstr "★ Nur 5"
+
+#: assets/admin/dist/main.js:1
+msgid "No requirement"
+msgstr "Keine Voraussetzung"
+
+#: assets/admin/dist/main.js:1
+msgid "Photo or video required"
+msgstr "Foto oder Video erforderlich"
+
+#: assets/admin/dist/main.js:1
+msgid "After every review"
+msgstr "Nach jeder Überprüfung"
+
+#: assets/admin/dist/main.js:1
+msgid "After every 2 reviews"
+msgstr "Nach jeweils 2 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "After every 3 reviews"
+msgstr "Nach jeweils 3 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Type"
+msgstr "Typ"
+
+#: assets/admin/dist/main.js:1
+msgid "To"
+msgstr "Bis"
+
+#: assets/admin/dist/main.js:1
+msgid "Status"
+msgstr "Status"
+
+#: assets/admin/dist/main.js:1
+msgid "Pending"
+msgstr "Ausstehend"
+
+#: assets/admin/dist/main.js:1
+msgid "Sent"
+msgstr "Gesendet"
+
+#: assets/admin/dist/main.js:1
+msgid "Cancelled"
+msgstr "Abgebrochen"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon"
+msgstr "Gutschein"
+
+#: assets/admin/dist/main.js:1
+msgid "Product"
+msgstr "Produkt"
+
+#: assets/admin/dist/main.js:1
+msgid "Rating"
+msgstr "Bewertung"
+
+#: assets/admin/dist/main.js:1 src/Admin.php:31
+msgid "Media"
+msgstr "Medien"
+
+#: assets/admin/dist/main.js:1
+msgid "Frequency"
+msgstr "Häufigkeit"
+
+#: assets/admin/dist/main.js:1
+msgid "Sent after"
+msgstr "Gesendet nach"
+
+#: assets/admin/dist/main.js:1
+msgid "Remind products"
+msgstr "Produkte erinnern"
+
+#: assets/admin/dist/main.js:1
+msgid "No email queue found."
+msgstr "Keine E-Mail-Warteschlange gefunden."
+
+#: assets/admin/dist/main.js:1 src/Emails/ReminderEmail.php:158
+#: src/Emails/RewardEmail.php:176
+msgid "Email type"
+msgstr "E-Mail-Typ"
+
+#: assets/admin/dist/main.js:1
+msgid "Customer email"
+msgstr "Kunden E-Mail"
+
+#: assets/admin/dist/main.js:1
+msgid "Delivery time"
+msgstr "Lieferzeit"
+
+#: assets/admin/dist/main.js:1
+msgid "View"
+msgstr "Anzeigen"
+
+#: assets/admin/dist/main.js:1
+msgid "Send"
+msgstr "Senden"
+
+#: assets/admin/dist/main.js:1
+msgid "Re-send"
+msgstr "Noch einmal senden"
+
+#: assets/admin/dist/main.js:1
+msgid "Dismiss"
+msgstr "Verwerfen"
+
+#: assets/admin/dist/main.js:1
+msgid "Dismiss email"
+msgstr "E-Mail schließen"
+
+#: assets/admin/dist/main.js:1
+msgid "Are you sure you want to dismiss this email?"
+msgstr "Sind Sie sicher, dass Sie diese E-Mail ablehnen möchten?"
+
+#: assets/admin/dist/main.js:1
+msgid "Information"
+msgstr "Information"
+
+#: assets/admin/dist/main.js:1
+msgid "Showing"
+msgstr "Anzeigen"
+
+#: assets/admin/dist/main.js:1
+msgid "of"
+msgstr "von"
+
+#: assets/admin/dist/main.js:1
+msgid "emails"
+msgstr "E-Mails"
+
+#: assets/admin/dist/main.js:1
+msgid "Change"
+msgstr "Ändern"
+
+#: assets/admin/dist/main.js:1
+msgid "email template"
+msgstr "E-Mail-Vorlage"
+
+#: assets/admin/dist/main.js:1
+msgid "On-sale products"
+msgstr "Produkte im Angebot"
+
+#: assets/admin/dist/main.js:1
+msgid "High-rated products"
+msgstr "Hoch bewertete Produkte"
+
+#: assets/admin/dist/main.js:1
+msgid "Low-rated products"
+msgstr "Produkte mit niedriger Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Remind customers to review"
+msgstr "Kunden an Bewertungen erinnern"
+
+#: assets/admin/dist/main.js:1
+msgid "from an order"
+msgstr "aus einer Bestellung"
+
+#: assets/admin/dist/main.js:1
+msgid "When should the reminder be sent?"
+msgstr "Wann soll die Erinnerung versendet werden?"
+
+#: assets/admin/dist/main.js:1
+msgid "Send a reminder email to customers"
+msgstr "Senden einer Erinnerungs-E-Mail an Kunden"
+
+#: assets/admin/dist/main.js:1
+msgid "Select filter"
+msgstr "Filter auswählen"
+
+#: assets/admin/dist/main.js:1
+msgid "Minute(s)"
+msgstr "Minute(n)"
+
+#: assets/admin/dist/main.js:1
+msgid "Hour(s)"
+msgstr "Stunde(n)"
+
+#: assets/admin/dist/main.js:1
+msgid "Day(s)"
+msgstr "Tag(e)"
+
+#: assets/admin/dist/main.js:1
+msgid "after order completed"
+msgstr "Nach Abschluss der Bestellung"
+
+#: assets/admin/dist/main.js:1
+msgid "What products should be reminded?"
+msgstr "An welche Produkte sollte erinnert werden?"
+
+#: assets/admin/dist/main.js:1
+msgid "Product filter"
+msgstr "Produktfilter"
+
+#: assets/admin/dist/main.js:1
+msgid "All"
+msgstr "Alle"
+
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:35
+msgid "Upload media"
+msgstr "Medien hochladen"
+
+#: assets/admin/dist/main.js:1
+msgid "Is media required when submitting a review?"
+msgstr "Sind Medien erforderlich, wenn Sie eine Bewertung abgeben?"
+
+#: assets/admin/dist/main.js:1
+msgid "Media types"
+msgstr "Medien-Typen"
+
+#: assets/admin/dist/main.js:1
+msgid "Select types"
+msgstr "Typen auswählen"
+
+#: assets/admin/dist/main.js:1
+msgid "Video and photo"
+msgstr "Video und Foto"
+
+#: assets/admin/dist/main.js:1
+msgid "Only video"
+msgstr "Nur Video"
+
+#: assets/admin/dist/main.js:1
+msgid "Only photo"
+msgstr "Nur Foto"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum files per review"
+msgstr "Maximale Anzahl von Dateien pro Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Unlimited"
+msgstr "Unbegrenzt"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum file size (Kb)"
+msgstr "Maximale Dateigröße (Kb)"
+
+#: assets/admin/dist/main.js:1
+msgid "Maximum 102400Kbs"
+msgstr "Maximal 102400 KBit/s"
+
+#: assets/admin/dist/main.js:1
+msgid "Field label (optional)"
+msgstr "Feldbezeichnung (optional)"
+
+#: assets/admin/dist/main.js:1
+msgid "Field description (optional)"
+msgstr "Feldbeschreibung (optional)"
+
+#: assets/admin/dist/main.js:1
+msgid "Type your description here"
+msgstr "Geben Sie hier Ihre Beschreibung ein"
+
+#: assets/admin/dist/main.js:1
+msgid "Data processing consent"
+msgstr "Einwilligung zur Datenverarbeitung"
+
+#: assets/admin/dist/main.js:1
+msgid "Before message"
+msgstr "Vor der Nachricht"
+
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:39
+msgid "We respect your privacy and need your consent to continue."
+msgstr ""
+"Wir respektieren Ihre Privatsphäre und benötigen Ihre Zustimmung, um "
+"fortzufahren."
+
+#: assets/admin/dist/main.js:1
+msgid "Inline GDPR message"
+msgstr "Inline-DSGVO-Nachricht"
+
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:38
+msgid "I agree to the Privacy Policy."
+msgstr "Ich stimme der Datenschutzerklärung zu."
+
+#: assets/admin/dist/main.js:1
+msgid "Verified owner label"
+msgstr "Siegel für verifizierten Eigentümer"
+
+#: assets/admin/dist/main.js:1
+msgid "Verification required"
+msgstr "Veritätsprüfung erforderlich"
+
+#: assets/admin/dist/main.js:1
+msgid "Star ratings enabled"
+msgstr "Sternebewertungen aktiviert"
+
+#: assets/admin/dist/main.js:1
+msgid "Star ratings required"
+msgstr "Sternebewertungen erforderlich"
+
+#: assets/admin/dist/main.js:1
+msgid "WooCommerce Settings"
+msgstr "WooCommerce Einstellungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Reviews"
+msgstr "Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Show \"verified owner\" label on customer reviews"
+msgstr "Kennzeichnung „Verifizierter Besitzer“ bei Kundenbewertungen anzeigen"
+
+#: assets/admin/dist/main.js:1
+msgid "Reviews can only be left by \"verified owners\""
+msgstr "Nur Bewertungen von „verifizierten Besitzern“ zulassen"
+
+#: assets/admin/dist/main.js:1
+msgid "Product ratings"
+msgstr "Produktbewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Enable star rating on reviews"
+msgstr "Sternenbewertung bei Rezensionen ermöglichen"
+
+#: assets/admin/dist/main.js:1
+msgid "Star ratings should be required, not optional"
+msgstr "Sterne-Bewertungen sollten erforderlich sein, nicht optional"
+
+#: assets/admin/dist/main.js:1
+msgid "Manage "
+msgstr "Verwalten"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward for reviewing the product"
+msgstr "Belohnung für die Bewertung des Produkts"
+
+#: assets/admin/dist/main.js:1
+msgid "Failed to create coupon"
+msgstr "Gutschein konnte nicht erstellt werden"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon code"
+msgstr "Gutscheincode"
+
+#: assets/admin/dist/main.js:1
+msgid "Placeholder"
+msgstr "Platzhalter"
+
+#: assets/admin/dist/main.js:1
+msgid "Generate"
+msgstr "Generieren"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon amount"
+msgstr "Gutscheinbetrag"
+
+#: assets/admin/dist/main.js:1
+msgid "Expiry date"
+msgstr "Ablaufdatum"
+
+#: assets/admin/dist/main.js:1
+msgid "No expiry"
+msgstr "Kein Ablaufdatum"
+
+#: assets/admin/dist/main.js:1
+msgid "Add coupon"
+msgstr "Gutschein hinzufügen"
+
+#: assets/admin/dist/main.js:1
+msgid "Create new coupon"
+msgstr "Neuen Gutschein erstellen"
+
+#: assets/admin/dist/main.js:1
+msgid "Every review"
+msgstr "Jede Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "every review"
+msgstr "Jede Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Every 2 reviews"
+msgstr "Alle 2 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "every 2 reviews"
+msgstr "Alle 2 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Every 3 reviews"
+msgstr "Alle 3 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "every 3 reviews"
+msgstr "Alle 3 Bewertungen"
+
+#: assets/admin/dist/main.js:1
+msgid "less than 5★"
+msgstr "weniger als 5★"
+
+#: assets/admin/dist/main.js:1
+msgid "5★"
+msgstr "★ 5"
+
+#: assets/admin/dist/main.js:1
+msgid "at least one photo or video"
+msgstr "Mindestens ein Foto oder Video"
+
+#: assets/admin/dist/main.js:1
+msgid "photo or video required"
+msgstr "Foto oder Video erforderlich"
+
+#: assets/admin/dist/main.js:1
+msgid "Expired"
+msgstr "Abgelaufen"
+
+#: assets/admin/dist/main.js:1
+msgid "Out of usage"
+msgstr "Außer Betrieb"
+
+#: assets/admin/dist/main.js:1
+msgid "off coupon"
+msgstr "Rabatt auf den Gutschein"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward will be given"
+msgstr "Die Belohnung wird vergeben"
+
+#: assets/admin/dist/main.js:1
+msgid "is"
+msgstr "ist"
+
+#: assets/admin/dist/main.js:1
+msgid "are"
+msgstr "sind"
+
+#: assets/admin/dist/main.js:1
+msgid "contains"
+msgstr "enthält"
+
+#: assets/admin/dist/main.js:1
+msgid "contain"
+msgstr "Einpassen"
+
+#: assets/admin/dist/main.js:1
+msgid " that"
+msgstr " das"
+
+#: assets/admin/dist/main.js:1
+msgid " and"
+msgstr " und"
+
+#: assets/admin/dist/main.js:1
+msgid "Enable/disable reward"
+msgstr "Belohnung aktivieren/deaktivieren"
+
+#: assets/admin/dist/main.js:1
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+#: assets/admin/dist/main.js:1
+msgid "Delete reward"
+msgstr "Belohnung löschen"
+
+#: assets/admin/dist/main.js:1
+msgid "Are you sure you want to delete this reward?"
+msgstr "Bist du sicher, dass du diese Prämie löschen möchtest?"
+
+#: assets/admin/dist/main.js:1
+msgid "Delete"
+msgstr "Löschen"
+
+#: assets/admin/dist/main.js:1
+msgid "Creates a unique one-time coupon for each review"
+msgstr "Erstellt einen einmaligen Gutschein für jede Bewertung"
+
+#: assets/admin/dist/main.js:1
+msgid "Manual coupon"
+msgstr "Manueller Gutschein"
+
+#: assets/admin/dist/main.js:1
+msgid "Select coupon to be sent"
+msgstr "Zu versendenden Coupon auswählen"
+
+#: assets/admin/dist/main.js:1
+msgid "Select coupon"
+msgstr "Coupon auswählen"
+
+#: assets/admin/dist/main.js:1
+msgid "expired"
+msgstr "abgelaufen"
+
+#: assets/admin/dist/main.js:1
+msgid "out of usage"
+msgstr "außer Betrieb"
+
+#: assets/admin/dist/main.js:1
+msgid "No coupons found"
+msgstr "Keine Gutscheine gefunden"
+
+#: assets/admin/dist/main.js:1
+msgid "or"
+msgstr "oder"
+
+#: assets/admin/dist/main.js:1
+msgid "coupon cannot be sent to customers as rewards. Please update its"
+msgstr ""
+"utscheine können nicht als Belohnung an Kunden gesendet werden. Bitte "
+"aktualisieren Sie den"
+
+#: assets/admin/dist/main.js:1
+msgid "restrictions"
+msgstr "Einschränkungen"
+
+#: assets/admin/dist/main.js:1
+msgid "Who can receive the reward?"
+msgstr "Wer kann die Belohnung erhalten?"
+
+#: assets/admin/dist/main.js:1
+msgid "Select value"
+msgstr "Wähle Wert"
+
+#: assets/admin/dist/main.js:1
+msgid "All reviewers (include guest users)"
+msgstr "Alle Prüfer (einschließlich Gastbenutzer)"
+
+#: assets/admin/dist/main.js:1
+msgid "Purchased customers only"
+msgstr "Nur gekaufte Kunden"
+
+#: assets/admin/dist/main.js:1
+msgid "Guest users only"
+msgstr "Nur Gastbenutzer"
+
+#: assets/admin/dist/main.js:1
+msgid "Conditions to trigger the reward"
+msgstr "Bedingungen zum Auslösen der Belohnung"
+
+#: assets/admin/dist/main.js:1
+msgid "Select requirement"
+msgstr "Anforderung auswählen"
+
+#: assets/admin/dist/main.js:1
+msgid "No reward added"
+msgstr "Keine Belohnung hinzugefügt"
+
+#: assets/admin/dist/main.js:1
+msgid "Sends discount coupons for quality reviews meeting set criteria,"
+msgstr ""
+"Versendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
+"entsprechen,"
+
+#: assets/admin/dist/main.js:1
+msgid "encouraging great feedback and repeat purchases."
+msgstr "örderung von großartigem Feedback und Wiederholungskäufen."
+
+#: assets/admin/dist/main.js:1
+msgid "Create new"
+msgstr "Neu erstellen"
+
+#: assets/admin/dist/main.js:1
+msgid "You have"
+msgstr "Du hast"
+
+#: assets/admin/dist/main.js:1
+msgid "reward sets"
+msgstr "Belohnungs-Sets"
+
+#: assets/admin/dist/main.js:1
+msgid "reward set"
+msgstr "Belohnungsset"
+
+#: assets/admin/dist/main.js:1
+msgid "Each review can trigger only one reward set"
+msgstr "Jede Bewertung kann nur einen Belohnungssatz auslösen"
+
+#: assets/admin/dist/main.js:1
+msgid "Add reward set"
+msgstr "Belohnungsset hinzufügen"
+
+#: assets/admin/dist/main.js:1
+msgid "Settings saved successfully"
+msgstr "Einstellungen erfolgreich gespeichert"
+
+#: assets/admin/dist/main.js:1
+msgid "Failed to save settings"
+msgstr "Die Einstellungen konnten nicht gespeichert werden"
+
+#: src/Admin.php:30
+msgid "Title"
+msgstr "Titel"
+
+#: src/AdminMenu.php:22
+msgid "Yay Reviews Settings"
+msgstr "Yay Reviews-Einstellungen"
+
+#: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:175
+msgid "YayReviews"
+msgstr "YayReviews"
+
+#: src/Ajax.php:29 src/Ajax.php:54 src/Ajax.php:122 src/Ajax.php:173
+#: src/Ajax.php:227 src/Ajax.php:259
+msgid "Verify nonce failed"
+msgstr "Sicherheitscheck ist fehlgeschlagen"
+
+#: src/Ajax.php:45
+msgid "Invalid addon id or status"
+msgstr "Ungültige Add-on-ID oder ungültiger Status"
+
+#: src/Ajax.php:113 src/Ajax.php:164 src/Ajax.php:216
+msgid "Invalid email id"
+msgstr "Ungültige E-Mail-ID"
+
+#: src/Ajax.php:160
+msgid "Email dismissed successfully"
+msgstr "E-Mail erfolgreich verworfen"
+
+#: src/Ajax.php:248
+msgid "WC reviews settings updated successfully"
+msgstr "WC-Überprüfungseinstellungen wurden erfolgreich aktualisiert"
+
+#: src/Ajax.php:250
+msgid "Invalid update field or value"
+msgstr "Ungültiges Aktualisierungsfeld oder ungültiger Aktualisierungswert"
+
+#: src/Ajax.php:282
+msgid "Email previewed successfully"
+msgstr "E-Mail erfolgreich in der Vorschau angezeigt"
+
+#: src/Classes/Helpers.php:70
+msgid "Reminder email"
+msgstr "Email - Erinnerungen"
+
+#: src/Classes/Helpers.php:71
+msgid "Thank you for your purchase!"
+msgstr "Vielen Dank für Ihren Einkauf!"
+
+#: src/Classes/Helpers.php:72
+msgid ""
+"Thank you for your recent purchase! Please take a moment to share your "
+"thoughts by reviewing these products. Your feedback helps us improve and "
+"earns you reward! {review_products}"
+msgstr ""
+"Vielen Dank für Ihren letzten Einkauf! Bitte nehmen Sie sich einen Moment "
+"Zeit, um Ihre Gedanken zu teilen, indem Sie diese Produkte bewerten. Ihr "
+"Feedback hilft uns, uns zu verbessern und bringt Ihnen eine Belohnung ein! "
+"{review_products}"
+
+#: src/Classes/Helpers.php:75
+msgid "Review reward email"
+msgstr "E-Mail mit Bewertungsbelohnung"
+
+#: src/Classes/Helpers.php:76
+msgid "Thank you for your review!"
+msgstr "Vielen Dank für deine Bewertung!"
+
+#: src/Classes/Helpers.php:77
+msgid ""
+"Thank you for reviewing {product_name}! As a token of our appreciation, "
+"we've sent you coupon: {coupon_code} to use on your next purchase."
+msgstr ""
+"Vielen Dank für Ihre Bewertung von {product_name}! Als Dankeschön haben wir "
+"Ihnen den Gutschein {coupon_code} für Ihren nächsten Einkauf zugesandt."
+
+#: src/Emails/ReminderEmail.php:17
+msgid "Review Reminder"
+msgstr "Bewertungs Erinnerung"
+
+#: src/Emails/ReminderEmail.php:18
+msgid ""
+"This email is sent to customers to remind them to review their purchased "
+"products."
+msgstr ""
+"Diese E-Mail wird an Kunden gesendet, um sie daran zu erinnern, ihre "
+"gekauften Produkte zu bewerten."
+
+#: src/Emails/ReminderEmail.php:125 src/Emails/RewardEmail.php:143
+msgid "Enable/Disable"
+msgstr "Aktivieren/Deaktivieren"
+
+#: src/Emails/ReminderEmail.php:127 src/Emails/RewardEmail.php:145
+msgid "Enable this email notification"
+msgstr "Diese E-Mail-Benachrichtigung aktivieren"
+
+#: src/Emails/ReminderEmail.php:131 src/Emails/RewardEmail.php:149
+msgid "Subject"
+msgstr "Betreff"
+
+#. translators: %s: site title placeholder
+#. translators: %s: list of available placeholders
+#. translators: %s: site title placeholder
+#. translators: %s: list of available placeholders
+#: src/Emails/ReminderEmail.php:135 src/Emails/ReminderEmail.php:144
+#: src/Emails/ReminderEmail.php:153 src/Emails/RewardEmail.php:153
+#: src/Emails/RewardEmail.php:162 src/Emails/RewardEmail.php:171
+#, php-format
+msgid "Available placeholders: %s"
+msgstr "Verfügbare Platzhalter: %s"
+
+#: src/Emails/ReminderEmail.php:140 src/Emails/RewardEmail.php:158
+msgid "Email Heading"
+msgstr "E-Mail-Kopfzeile"
+
+#: src/Emails/ReminderEmail.php:149 src/Emails/RewardEmail.php:167
+msgid "Email Content"
+msgstr "E-Mail Inhalt"
+
+#: src/Emails/ReminderEmail.php:160 src/Emails/RewardEmail.php:178
+msgid "Choose which format of email to send."
+msgstr "Format für E-Mail-Versand auswählen."
+
+#: src/Emails/RewardEmail.php:17
+msgid "Review Reward"
+msgstr "Bewertungsbelohnung"
+
+#: src/Emails/RewardEmail.php:18
+msgid "This email is sent to customers to reward them for their reviews."
+msgstr ""
+"Diese E-Mail wird an Kunden gesendet, um sie für ihre Bewertungen zu "
+"belohnen."
+
+#. translators: %s: media type (image or video, video, image)
+#: src/Frontend.php:233
+#, php-format
+msgid "Please upload at least 1 %s."
+msgstr "Bitte laden Sie mindestens 1 %s hoch."
+
+#: src/Frontend.php:235
+msgid "video or photo"
+msgstr "Video oder Foto"
+
+#: src/Frontend.php:237
+msgid "video"
+msgstr "Video"
+
+#: src/Frontend.php:238
+msgid "photo"
+msgstr "Foto"
+
+#: src/Frontend.php:253 views/frontend/media-list.php:86
+msgid "Verified owner"
+msgstr "Verifizierter Besitzer"
+
+#: src/Frontend.php:254
+msgid "Please check GDPR checkbox."
+msgstr "Bitte aktivieren Sie das Kontrollkästchen DSGVO."
+
+#. translators: %1$s: file name, %2$s: max allowed size
+#: src/Frontend.php:257
+#, php-format
+msgid ""
+"The size of the file %1$s is too large; the maximum allowed size is %2$sKB."
+msgstr ""
+"Die Größe der Datei %1$s ist zu groß; die maximal zulässige Größe beträgt "
+"%2$sKB."
+
+#. translators: %1$s: max allowed files
+#: src/Frontend.php:259
+#, php-format
+msgid "You can only upload a maximum of %1$s files."
+msgstr "Sie können maximal %1$s Dateien hochladen."
+
+#: src/Frontend.php:260
+msgid "The review title must be less than 60 characters."
+msgstr "Der Titel der Bewertung muss weniger als 60 Zeichen lang sein."
+
+#: src/Models/SettingsModel.php:36
+msgid "You can upload jpg/png & video (maximum 2000Kbs)"
+msgstr "Sie können JPG/PNG und Videos hochladen (maximal 2000 KB)."
+
+#: src/RestAPI.php:179
+msgid "Send in"
+msgstr "Einsenden"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:122
+msgid "Other Plugins"
+msgstr "Andere Plugins"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:292
+#: src/YayCommerceMenu/OtherPluginsMenu.php:341
+#: src/YayCommerceMenu/OtherPluginsMenu.php:389
+msgid "Nonce is invalid"
+msgstr "Nonce ist ungültig"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:310
+msgid "Get data success"
+msgstr "Erhalten Sie Datenerfolg"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:318
+#: src/YayCommerceMenu/OtherPluginsMenu.php:362
+#: src/YayCommerceMenu/OtherPluginsMenu.php:472
+msgid "Error exception."
+msgstr "Fehlerausnahme."
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:327
+#: src/YayCommerceMenu/OtherPluginsMenu.php:371
+#: src/YayCommerceMenu/OtherPluginsMenu.php:481
+msgid "Error."
+msgstr "Fehler."
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:355
+msgid "Activate success"
+msgstr "Erfolg aktivieren"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:438
+msgid "Install success"
+msgstr "Erfolgreich installieren"
+
+#: src/YayCommerceMenu/OtherPluginsMenu.php:462
+msgid "Update success"
+msgstr "Aktualisierung erfolgreich"
+
+#: src/YayCommerceMenu/RegisterMenu.php:80
+msgid "Help"
+msgstr "Hilfe"
+
+#: src/YayCommerceMenu/RegisterMenu.php:117
+msgid "Licenses"
+msgstr "Lizenzen"
+
+#: src/YayCommerceMenu/RegisterMenu.php:126
+msgid "Other plugins"
+msgstr "Andere Plugins"
+
+#. translators: %s: Plugin name and version.
+#: src/YayCommerceMenu/views/other-plugins-content.php:78
+#: src/YayCommerceMenu/views/other-plugins-content.php:86
+#, php-format
+msgctxt "plugin"
+msgid "Install %s now"
+msgstr "%s jetzt installieren"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:79
+#: src/YayCommerceMenu/views/other-plugins-content.php:87
+msgid "Install Now"
+msgstr "Jetzt installieren"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:93
+msgctxt "plugin"
+msgid "Cannot Install"
+msgstr "Installation nicht möglich"
+
+#. translators: %s: Plugin name and version.
+#: src/YayCommerceMenu/views/other-plugins-content.php:110
+#: src/YayCommerceMenu/views/other-plugins-content.php:121
+#, php-format
+msgctxt "plugin"
+msgid "Update %s now"
+msgstr "Aktualisieren Sie %s jetzt"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:112
+#: src/YayCommerceMenu/views/other-plugins-content.php:123
+msgid "Update Now"
+msgstr "Jetzt aktualisieren"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:129
+msgctxt "plugin"
+msgid "Cannot Update"
+msgstr "Update nicht möglich"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:146
+msgctxt "plugin"
+msgid "Activated"
+msgstr "Aktiviert"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:151
+msgid "Activate"
+msgstr "Aktivieren"
+
+#. translators: %s: Plugin name.
+#: src/YayCommerceMenu/views/other-plugins-content.php:153
+#, php-format
+msgctxt "plugin"
+msgid "Activate %s"
+msgstr "Aktiviere %s"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:164
+msgid "Network Activate"
+msgstr "Netzwerk aktivieren"
+
+#. translators: %s: Plugin name.
+#: src/YayCommerceMenu/views/other-plugins-content.php:166
+#, php-format
+msgctxt "plugin"
+msgid "Network Activate %s"
+msgstr "Netzwerk aktiv %s"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:179
+msgctxt "plugin"
+msgid "Cannot Activate"
+msgstr "Aktivierung nicht möglich"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:185
+msgctxt "plugin"
+msgid "Installed"
+msgstr "Installiert"
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:215
+msgid "This plugin doesn&#8217;t work with your versions of WordPress and PHP."
+msgstr ""
+"Dieses Plugin funktioniert nicht mit deinen Versionen von WordPress und PHP."
+
+#. translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
+#: src/YayCommerceMenu/views/other-plugins-content.php:219
+#, php-format
+msgid ""
+"<a href=\"%1$s\">Please update WordPress</a>, and then <a "
+"href=\"%2$s\">learn more about updating PHP</a>."
+msgstr ""
+"<a href=\"%1$s\">Bitte aktualisieren Sie WordPress</a> und erfahren Sie dann "
+"<a href=\"%2$s\">mehr über das Aktualisieren von PHP</a>."
+
+#. translators: %s: URL to WordPress Updates screen.
+#: src/YayCommerceMenu/views/other-plugins-content.php:227
+#: src/YayCommerceMenu/views/other-plugins-content.php:243
+#, php-format
+msgid "<a href=\"%s\">Please update WordPress</a>."
+msgstr "<a href=\"%s\">Bitte aktualisiere WordPress.</a>."
+
+#. translators: %s: URL to Update PHP page.
+#: src/YayCommerceMenu/views/other-plugins-content.php:233
+#: src/YayCommerceMenu/views/other-plugins-content.php:252
+#, php-format
+msgid "<a href=\"%s\">Learn more about updating PHP</a>."
+msgstr "<a href=\"%s\">Erfahre mehr über die PHP-Aktualisierung (engl.)</a>."
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:239
+msgid "This plugin doesn&#8217;t work with your version of WordPress."
+msgstr "Dieses Plugin funktioniert nicht mit Ihrer WordPress-Version."
+
+#: src/YayCommerceMenu/views/other-plugins-content.php:248
+msgid "This plugin doesn&#8217;t work with your version of PHP."
+msgstr "Dieses Plugin funktioniert nicht mit Ihrer PHP-Version."
+
+#: views/emails/review-products.php:34
+msgid "Product Image"
+msgstr "Produktbild"
+
+#: views/emails/review-products.php:54
+msgid "Leave a review"
+msgstr "Bewertung schreiben"
+
+#: views/frontend/all-reviews-media.php:9
+msgid "Reviews with media"
+msgstr "Bewertungen mit Medien"
+
+#: views/frontend/all-reviews-media.php:10 views/frontend/media-list.php:51
+msgid "See all media"
+msgstr "Alle Medien anzeigen"
+
+#: views/frontend/all-reviews-media.php:15
+msgid "All media"
+msgstr "Alle Medien"
+
+#: views/frontend/media-list.php:49
+msgid "Review Details"
+msgstr "Bewertungsdetails"
+
+#: views/frontend/media-list.php:124
+msgid "Reviewed in "
+msgstr "Bewertet in"
+
+#: views/frontend/media-list.php:124
+msgid "at"
+msgstr "bei"
+
+#: views/frontend/media-list.php:128
+msgid "Medias in this review"
+msgstr "Medien in dieser Rezension"
+
+#: views/frontend/review-form/media.php:54
+msgid "Upload"
+msgstr "Hochladen"
+
+#: views/frontend/review-form/product-attributes.php:55
+msgid "Product Attributes (Optional)"
+msgstr "Produktattribute (optional)"
+
+#: views/frontend/review-form/product-attributes.php:66
+msgid "Select"
+msgstr "Auswählen"
+
+#: views/frontend/review-form/review-title.php:8
+msgid "Title (optional)"
+msgstr "Titel (optional)"
+
+#: views/frontend/review-form/review-title.php:10
+msgid "Maximum 60 characters"
+msgstr "Maximal 60 Zeichen"
+
+#: views/frontend/reviews-overview.php:43
+msgid "No ratings"
+msgstr "Noch keine Bewertungen"
+
+#. translators: %1$s: rating, %2$s: see all reviews link
+#: views/frontend/reviews-overview.php:95
+#, php-format
+msgid ""
+"You are currently viewing the reviews that provided a rating of <strong>%1$s "
+"stars</strong>. <a href=\"%2$s\">See all reviews</a>"
+msgstr ""
+"Sie sehen sich gerade die Bewertungen an, die eine Sternebewertung "
+"<strong>%1$s</strong>abgegeben haben. <a href=\"%2$s\">Alle Bewertungen "
+"ansehen</a>"
+
+#: yay-reviews.php:44
+msgid "Please activate WooCommerce to activate Yay Reviews"
+msgstr "Bitte aktivieren Sie WooCommerce, um Yay Reviews zu aktivieren"
+
+#. Plugin Name of the plugin/theme
+msgid "YayReviews - Product Reviews for WooCommerce"
+msgstr "YayReviews - Produktbewertungen für WooCommerce"
+
+#. Description of the plugin/theme
+msgid "YayReviews helps you to do more things with WooCommerce reviews."
+msgstr "YayReviews hilft Ihnen, mit WooCommerce-Bewertungen mehr zu tun."
+
+#. Author of the plugin/theme
+msgid "YayCommerce"
+msgstr "YayCommerce"
+
+#. Author URI of the plugin/theme
+msgid "https://yaycommerce.com"
+msgstr "https://yaycommerce.com"

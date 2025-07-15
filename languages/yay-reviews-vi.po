@@ -1,15 +1,16 @@
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: YayReviews\n"
-"POT-Creation-Date: 2025-06-18 14:11+0700\n"
-"PO-Revision-Date: 2025-06-18 14:55+0700\n"
+"Project-Id-Version: YayReviews - Product Reviews for WooCommerce\n"
+"POT-Creation-Date: 2025-07-15 15:40+0700\n"
+"PO-Revision-Date: 2025-07-15 15:43+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: yay-reviews.php\n"
@@ -19,19 +20,87 @@ msgstr ""
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
-"X-Poedit-SearchPathExcluded-1: apps/yay-reviews/node_modules\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+
+#: assets/admin/dist/main.js:1
+msgid "Dashboard"
+msgstr "Bảng điều khiển"
+
+#: assets/admin/dist/main.js:1
+msgid "Review"
+msgstr "Đánh giá"
 
 #: assets/admin/dist/main.js:1
 msgid "Reminder"
 msgstr "Nhắc nhở"
 
-#: assets/admin/dist/main.js:1 src/Emails/RewardEmail.php:15
-msgid "Review Reward"
-msgstr "Quà tặng"
+#: assets/admin/dist/main.js:1
+msgid "Rewards"
+msgstr "Phần thưởng"
 
 #: assets/admin/dist/main.js:1
-msgid "Optional Fields"
-msgstr "Trường tuỳ chỉnh"
+msgid "Emails"
+msgstr "Email"
+
+#: assets/admin/dist/main.js:1
+msgid "Emails Queue"
+msgstr "Hàng đợi email"
+
+#: assets/admin/dist/main.js:1
+msgid "Yay Reviews"
+msgstr "Yay Reviews"
+
+#: assets/admin/dist/main.js:1
+msgid "Save"
+msgstr "Lưu"
+
+#: assets/admin/dist/main.js:1
+msgid "Active"
+msgstr "Kích hoạt"
+
+#: assets/admin/dist/main.js:1
+msgid "Inactive"
+msgstr "Không hoạt động"
+
+#: assets/admin/dist/main.js:1
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: assets/admin/dist/main.js:1
+msgid "Addon "
+msgstr "Tiện ích bổ sung "
+
+#: assets/admin/dist/main.js:1
+msgid "ON"
+msgstr "BẬT"
+
+#: assets/admin/dist/main.js:1
+msgid "OFF"
+msgstr "TẮT"
+
+#: assets/admin/dist/main.js:1
+msgid "Something went wrong"
+msgstr "Đã xảy ra lỗi"
+
+#: assets/admin/dist/main.js:1
+msgid "You can change this any time in"
+msgstr "Bạn có thể thay đổi điều này bất cứ lúc nào trong"
+
+#: assets/admin/dist/main.js:1
+msgid "Product reviews are disabled in WooCommerce."
+msgstr "Đánh giá sản phẩm bị vô hiệu hóa trong WooCommerce."
+
+#: assets/admin/dist/main.js:1
+msgid "WooCommerce settings"
+msgstr "Cài đặt WooCommerce"
+
+#: assets/admin/dist/main.js:1
+msgid "Turn on"
+msgstr "Bật"
+
+#: assets/admin/dist/main.js:1
+msgid "Review reminder"
+msgstr "Nhắc nhở đánh giá"
 
 #: assets/admin/dist/main.js:1
 msgid ""
@@ -42,36 +111,16 @@ msgstr ""
 "tăng cường sự tương tác."
 
 #: assets/admin/dist/main.js:1
+msgid "Review rewards"
+msgstr "Đánh giá phần thưởng"
+
+#: assets/admin/dist/main.js:1
 msgid ""
 "Sends discount coupons for quality reviews meeting set criteria, encouraging "
 "great feedback and repeat purchases."
 msgstr ""
 "Gửi phiếu giảm giá cho những đánh giá chất lượng đáp ứng các tiêu chí đã đề "
 "ra, khuyến khích phản hồi tốt và mua hàng lặp lại."
-
-#: assets/admin/dist/main.js:1
-msgid ""
-"Adds custom fields to review forms, letting customers share tailored "
-"feedback for your needs."
-msgstr ""
-"Thêm các trường tùy chỉnh vào biểu mẫu đánh giá, cho phép khách hàng chia sẻ "
-"phản hồi phù hợp với nhu cầu của bạn."
-
-#: assets/admin/dist/main.js:1
-msgid "Active"
-msgstr "Kích hoạt"
-
-#: assets/admin/dist/main.js:1
-msgid "Inactive"
-msgstr "Chưa kích hoạt"
-
-#: assets/admin/dist/main.js:1
-msgid "Settings"
-msgstr "Cài đặt"
-
-#: assets/admin/dist/main.js:1
-msgid "Something went wrong"
-msgstr "Đã xảy ra lỗi"
 
 #: assets/admin/dist/main.js:1
 msgid "Welcome to Yay Reviews"
@@ -90,12 +139,12 @@ msgid "Go to"
 msgstr "Đi đến"
 
 #: assets/admin/dist/main.js:1
-msgid "Review Settings"
-msgstr "Cài đặt đánh giá"
+msgid "Review settings"
+msgstr "Xem lại cài đặt"
 
 #: assets/admin/dist/main.js:1
-msgid "Addon Settings"
-msgstr "Cài đặt bổ sung"
+msgid "Addon-on settings"
+msgstr "Cài đặt tiện ích bổ sung"
 
 #: assets/admin/dist/main.js:1
 msgid "Text color"
@@ -123,7 +172,7 @@ msgstr "Bán đậm (600)"
 
 #: assets/admin/dist/main.js:1
 msgid "Bold (700)"
-msgstr "Đậm (700)"
+msgstr "Đậm 700"
 
 #: assets/admin/dist/main.js:1
 msgid "Extra Bold (800)"
@@ -135,7 +184,7 @@ msgstr "Tiêu đề email"
 
 #: assets/admin/dist/main.js:1
 msgid "Email heading"
-msgstr "Lời mở đầu email"
+msgstr "Tiêu đề email"
 
 #: assets/admin/dist/main.js:1
 msgid "Email content"
@@ -150,8 +199,8 @@ msgid "{site_title} - Your site title"
 msgstr "{site_title} - Tiêu đề trang web"
 
 #: assets/admin/dist/main.js:1
-msgid "{products_table} - Table of products need review"
-msgstr "{products_table} - Bảng product cần đánh giá"
+msgid "{review_products} - List products need review"
+msgstr "{review_products} - Liệt kê sản phẩm cần xem xét"
 
 #: assets/admin/dist/main.js:1
 msgid "{coupon_code} - Coupon code"
@@ -162,12 +211,28 @@ msgid "{product_name} - Product name"
 msgstr "{product_name} - Tên sản phẩm"
 
 #: assets/admin/dist/main.js:1
-msgid "Email footer"
-msgstr "Lời cuối của email"
+msgid "Reset template"
+msgstr "Đặt lại giao diện"
+
+#: assets/admin/dist/main.js:1
+msgid "Reset the template to the default values."
+msgstr "Đặt lại mẫu về giá trị mặc định."
+
+#: assets/admin/dist/main.js:1
+msgid "Cancel"
+msgstr "Hủy"
 
 #: assets/admin/dist/main.js:1
 msgid "Preview"
 msgstr "Xem trước"
+
+#: assets/admin/dist/main.js:1
+msgid "Desktop preview"
+msgstr "Xem trước máy tính để bàn"
+
+#: assets/admin/dist/main.js:1
+msgid "Mobile preview"
+msgstr "Xem trước ở điện thoại"
 
 #: assets/admin/dist/main.js:1
 msgid "Send test mail"
@@ -186,68 +251,24 @@ msgstr ""
 "thế nào trong các ứng dụng email khác nhau."
 
 #: assets/admin/dist/main.js:1
-msgid "Send to"
-msgstr "Gửi đến"
+msgid "Enter your email address"
+msgstr "Nhập địa chỉ email của bạn"
 
-#: assets/admin/dist/main.js:1
-msgid "Cancel"
-msgstr "Huỷ"
-
-#: assets/admin/dist/main.js:1
+#: assets/admin/dist/main.js:1 src/Ajax.php:95 src/Ajax.php:108
 msgid "Email sent successfully"
 msgstr "Email đã được gửi thành công"
 
-#: assets/admin/dist/main.js:1
+#: assets/admin/dist/main.js:1 src/Ajax.php:101
 msgid "Email sending failed"
 msgstr "Gửi email thất bại"
 
 #: assets/admin/dist/main.js:1
-msgid "Email Templates"
+msgid "Email templates"
 msgstr "Mẫu Email"
 
 #: assets/admin/dist/main.js:1
 msgid "Reward"
 msgstr "Phần thưởng"
-
-#: assets/admin/dist/main.js:1
-msgid "Reminder Settings"
-msgstr "Cài đặt nhắc nhở"
-
-#: assets/admin/dist/main.js:1
-msgid "Send reminder when"
-msgstr "Gửi thông báo nhắc nhở khi"
-
-#: assets/admin/dist/main.js:1
-msgid "Send a reminder email"
-msgstr "Gửi một thông báo nhắc nhở khi"
-
-#: assets/admin/dist/main.js:1
-msgid "Select filter"
-msgstr "Chọn bộ lọc"
-
-#: assets/admin/dist/main.js:1
-msgid "Minutes"
-msgstr "Phút"
-
-#: assets/admin/dist/main.js:1
-msgid "Hours"
-msgstr "Giờ"
-
-#: assets/admin/dist/main.js:1
-msgid "Days"
-msgstr "Ngày"
-
-#: assets/admin/dist/main.js:1
-msgid "After order completed"
-msgstr "Sau khi đơn hàng hoàn tất"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum products ( in order ) need to remind reviewing"
-msgstr "Sản phẩm tối đa (theo thứ tự) cần nhắc nhở để đánh giá"
-
-#: assets/admin/dist/main.js:1
-msgid "All products"
-msgstr "Tất cả sản phẩm"
 
 #: assets/admin/dist/main.js:1
 msgid "Normal products"
@@ -258,12 +279,181 @@ msgid "Featured products"
 msgstr "Sản phẩm nổi bật"
 
 #: assets/admin/dist/main.js:1
-msgid "On-sale products"
+msgid "On sale products"
 msgstr "Sản phẩm giảm giá"
 
 #: assets/admin/dist/main.js:1
 msgid "Newest products"
 msgstr "Sản phẩm mới"
+
+#: assets/admin/dist/main.js:1
+msgid "High rated products"
+msgstr "Sản phẩm được đánh giá cao"
+
+#: assets/admin/dist/main.js:1
+msgid "Low rated products"
+msgstr "Sản phẩm được đánh giá thấp"
+
+#: assets/admin/dist/main.js:1
+msgid "Best selling products"
+msgstr "Sản phẩm bán chạy nhất"
+
+#: assets/admin/dist/main.js:1
+msgid "All products"
+msgstr "Tất cả sản phẩm"
+
+#: assets/admin/dist/main.js:1
+msgid "Any rating"
+msgstr "Bất kỳ đánh giá nào"
+
+#: assets/admin/dist/main.js:1
+msgid "Less than 5★"
+msgstr "Dưới 5★"
+
+#: assets/admin/dist/main.js:1
+msgid "5★ only"
+msgstr "Chỉ 5★"
+
+#: assets/admin/dist/main.js:1
+msgid "No requirement"
+msgstr "Không yêu cầu"
+
+#: assets/admin/dist/main.js:1
+msgid "Photo or video required"
+msgstr "Yêu cầu chụp ảnh hoặc video"
+
+#: assets/admin/dist/main.js:1
+msgid "After every review"
+msgstr "Sau mỗi lần đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "After every 2 reviews"
+msgstr "Sau mỗi 2 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "After every 3 reviews"
+msgstr "Sau mỗi 3 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Type"
+msgstr "Loại"
+
+#: assets/admin/dist/main.js:1
+msgid "To"
+msgstr "Đến"
+
+#: assets/admin/dist/main.js:1
+msgid "Status"
+msgstr "Trạng thái"
+
+#: assets/admin/dist/main.js:1
+msgid "Pending"
+msgstr "Đang chờ xử lý"
+
+#: assets/admin/dist/main.js:1
+msgid "Sent"
+msgstr "Đã gửi"
+
+#: assets/admin/dist/main.js:1
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+#: assets/admin/dist/main.js:1
+msgid "Coupon"
+msgstr "Mã giảm giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Product"
+msgstr "Sản phẩm"
+
+#: assets/admin/dist/main.js:1
+msgid "Rating"
+msgstr "Đánh giá"
+
+#: assets/admin/dist/main.js:1 src/Admin.php:31
+msgid "Media"
+msgstr "Đa phương tiện"
+
+#: assets/admin/dist/main.js:1
+msgid "Frequency"
+msgstr "Tần suất"
+
+#: assets/admin/dist/main.js:1
+msgid "Sent after"
+msgstr "Gửi sau"
+
+#: assets/admin/dist/main.js:1
+msgid "Remind products"
+msgstr "Nhắc nhở sản phẩm"
+
+#: assets/admin/dist/main.js:1
+msgid "No email queue found."
+msgstr "Không tìm thấy hàng đợi email."
+
+#: assets/admin/dist/main.js:1 src/Emails/ReminderEmail.php:158
+#: src/Emails/RewardEmail.php:176
+msgid "Email type"
+msgstr "Loại email"
+
+#: assets/admin/dist/main.js:1
+msgid "Customer email"
+msgstr "Email khách hàng"
+
+#: assets/admin/dist/main.js:1
+msgid "Delivery time"
+msgstr "Thời gian giao hàng"
+
+#: assets/admin/dist/main.js:1
+msgid "View"
+msgstr "Xem"
+
+#: assets/admin/dist/main.js:1
+msgid "Send"
+msgstr "Gửi"
+
+#: assets/admin/dist/main.js:1
+msgid "Re-send"
+msgstr "Gửi lại"
+
+#: assets/admin/dist/main.js:1
+msgid "Dismiss"
+msgstr "Bỏ qua"
+
+#: assets/admin/dist/main.js:1
+msgid "Dismiss email"
+msgstr "Loại bỏ email"
+
+#: assets/admin/dist/main.js:1
+msgid "Are you sure you want to dismiss this email?"
+msgstr "Bạn có chắc chắn muốn loại bỏ email này không?"
+
+#: assets/admin/dist/main.js:1
+msgid "Information"
+msgstr "Thông tin"
+
+#: assets/admin/dist/main.js:1
+msgid "Showing"
+msgstr "Hiển thị"
+
+#: assets/admin/dist/main.js:1
+msgid "of"
+msgstr "của"
+
+#: assets/admin/dist/main.js:1
+msgid "emails"
+msgstr "email"
+
+#: assets/admin/dist/main.js:1
+msgid "Change"
+msgstr "Thay đổi"
+
+#: assets/admin/dist/main.js:1
+msgid "email template"
+msgstr "mẫu email"
+
+#: assets/admin/dist/main.js:1
+msgid "On-sale products"
+msgstr "Sản phẩm giảm giá"
 
 #: assets/admin/dist/main.js:1
 msgid "High-rated products"
@@ -274,40 +464,60 @@ msgid "Low-rated products"
 msgstr "Sản phẩm được đánh giá thấp"
 
 #: assets/admin/dist/main.js:1
-msgid "Best selling products"
-msgstr "Sản phẩm bán chạy nhất"
+msgid "Remind customers to review"
+msgstr "Nhắc nhở khách hàng đánh giá"
 
 #: assets/admin/dist/main.js:1
-msgid "Send to customers"
-msgstr "Gửi đến các khách hàng"
+msgid "from an order"
+msgstr "từ một đơn đặt hàng"
 
 #: assets/admin/dist/main.js:1
-msgid "Except emails"
-msgstr "Loại trừ emails"
+msgid "When should the reminder be sent?"
+msgstr "Khi nào nên gửi lời nhắc?"
 
 #: assets/admin/dist/main.js:1
-msgid "Enter email addresses, one per line."
-msgstr "Nhập địa chỉ email, mỗi dòng một địa chỉ."
+msgid "Send a reminder email to customers"
+msgstr "Gửi email nhắc nhở cho khách hàng"
 
 #: assets/admin/dist/main.js:1
-msgid "Send to guests"
-msgstr "Gửi cho khách"
+msgid "Select filter"
+msgstr "Chọn bộ lọc"
 
 #: assets/admin/dist/main.js:1
-msgid "Change"
-msgstr "Thay đổi"
+msgid "Minute(s)"
+msgstr "Phút"
 
 #: assets/admin/dist/main.js:1
-msgid "email template"
-msgstr "mẫu email"
+msgid "Hour(s)"
+msgstr "Giờ"
 
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:62
+#: assets/admin/dist/main.js:1
+msgid "Day(s)"
+msgstr "Ngày"
+
+#: assets/admin/dist/main.js:1
+msgid "after order completed"
+msgstr "Sau khi đặt hàng xong"
+
+#: assets/admin/dist/main.js:1
+msgid "What products should be reminded?"
+msgstr "Những sản phẩm nào cần được nhắc nhở?"
+
+#: assets/admin/dist/main.js:1
+msgid "Product filter"
+msgstr "Bộ lọc sản phẩm"
+
+#: assets/admin/dist/main.js:1
+msgid "All"
+msgstr "Tất cả các"
+
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:35
 msgid "Upload media"
 msgstr "Tải lên phương tiện"
 
 #: assets/admin/dist/main.js:1
-msgid "is required"
-msgstr "bắt buộc"
+msgid "Is media required when submitting a review?"
+msgstr "Phương tiện truyền thông có cần thiết khi gửi đánh giá không?"
 
 #: assets/admin/dist/main.js:1
 msgid "Media types"
@@ -318,36 +528,32 @@ msgid "Select types"
 msgstr "Chọn loại"
 
 #: assets/admin/dist/main.js:1
-msgid "Video and image"
-msgstr "Video và hình ảnh"
+msgid "Video and photo"
+msgstr "Video và ảnh"
 
 #: assets/admin/dist/main.js:1
 msgid "Only video"
 msgstr "Chỉ video"
 
 #: assets/admin/dist/main.js:1
-msgid "Only image"
-msgstr "Chỉ hình ảnh"
+msgid "Only photo"
+msgstr "Chỉ ảnh"
 
 #: assets/admin/dist/main.js:1
-msgid "Maximum files"
-msgstr "Số lượng tệp lớn nhất"
+msgid "Maximum files per review"
+msgstr "Số lượng tệp tối đa cho mỗi lần đánh giá"
 
 #: assets/admin/dist/main.js:1
-msgid "Maximum files customer can upload"
-msgstr "Số lượng tập tin tối đa mà khách hàng có thể tải lên"
+msgid "Unlimited"
+msgstr "Không giới hạn"
 
 #: assets/admin/dist/main.js:1
-msgid "Maximum file size (Kbs)"
-msgstr "Kích thước tệp tối đa (Kbs)"
+msgid "Maximum file size (Kb)"
+msgstr "Kích thước tệp tối đa (Kb)"
 
 #: assets/admin/dist/main.js:1
-msgid "Maximum"
-msgstr "Tối đa"
-
-#: assets/admin/dist/main.js:1
-msgid "Kbs"
-msgstr "Kbs"
+msgid "Maximum 102400Kbs"
+msgstr "Tối đa 102400Kbs"
 
 #: assets/admin/dist/main.js:1
 msgid "Field label (optional)"
@@ -358,57 +564,82 @@ msgid "Field description (optional)"
 msgstr "Mô tả trường (tùy chọn)"
 
 #: assets/admin/dist/main.js:1
-msgid "..."
-msgstr "…"
+msgid "Type your description here"
+msgstr "Nhập mô tả của bạn vào đây"
 
 #: assets/admin/dist/main.js:1
 msgid "Data processing consent"
 msgstr "Sự đồng ý xử lý dữ liệu"
 
 #: assets/admin/dist/main.js:1
-msgid "GDPR message"
-msgstr "Thông báo GDPR"
-
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:65
-msgid "I agree with your policy,..."
-msgstr "Tôi đồng ý với chính sách của bạn,…"
-
-#: assets/admin/dist/main.js:1
 msgid "Before message"
 msgstr "Trước tin nhắn"
 
-#: assets/admin/dist/main.js:1 src/Classes/Helpers.php:66
-#: src/Classes/Helpers.php:67
-msgid ""
-"We value your privacy. By submitting this review, you consent to the "
-"processing of your personal data"
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:39
+msgid "We respect your privacy and need your consent to continue."
 msgstr ""
-"Chúng tôi coi trọng sự riêng tư của bạn. Bằng cách gửi đánh giá này, bạn "
-"đồng ý với việc xử lý dữ liệu cá nhân của bạn"
+"Chúng tôi tôn trọng quyền riêng tư của bạn và cần sự đồng ý của bạn để tiếp "
+"tục."
 
 #: assets/admin/dist/main.js:1
-msgid "After message"
-msgstr "Sau tin nhắn"
+msgid "Inline GDPR message"
+msgstr "Thông báo GDPR nội tuyến"
+
+#: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:38
+msgid "I agree to the Privacy Policy."
+msgstr "Tôi đồng ý với Chính sách bảo mật."
 
 #: assets/admin/dist/main.js:1
-msgid "Select values"
-msgstr "Chọn giá trị"
+msgid "Verified owner label"
+msgstr "Nhãn chủ sở hữu đã xác minh"
 
 #: assets/admin/dist/main.js:1
-msgid "Search value"
-msgstr "Tìm kiếm giá trị"
+msgid "Verification required"
+msgstr "Yêu cầu xác minh"
 
 #: assets/admin/dist/main.js:1
-msgid "No value found"
-msgstr "Không tìm thấy giá trị"
+msgid "Star ratings enabled"
+msgstr "Đã bật xếp hạng sao"
 
 #: assets/admin/dist/main.js:1
-msgid "All"
-msgstr "Tất cả"
+msgid "Star ratings required"
+msgstr "Yêu cầu xếp hạng sao"
 
 #: assets/admin/dist/main.js:1
-msgid "Error fetching products:"
-msgstr "Lỗi khi tải sản phẩm:"
+msgid "WooCommerce Settings"
+msgstr "Cài đặt Bán Hàng Online"
+
+#: assets/admin/dist/main.js:1
+msgid "Reviews"
+msgstr "Đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Show \"verified owner\" label on customer reviews"
+msgstr "Hiển thị nhãn \"Khách đã sử dụng dịch vụ\" cho đánh giá của khách hàng"
+
+#: assets/admin/dist/main.js:1
+msgid "Reviews can only be left by \"verified owners\""
+msgstr "Chỉ cho phép đánh giá từ \"Khách đã sử dụng dịch vụ\""
+
+#: assets/admin/dist/main.js:1
+msgid "Product ratings"
+msgstr "Xếp hạng sản phẩm"
+
+#: assets/admin/dist/main.js:1
+msgid "Enable star rating on reviews"
+msgstr "Cho phép xếp hạng sao trên các đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Star ratings should be required, not optional"
+msgstr "Xếp hạng sao nên được yêu cầu, không bắt buộc"
+
+#: assets/admin/dist/main.js:1
+msgid "Manage "
+msgstr "Điều khiển "
+
+#: assets/admin/dist/main.js:1
+msgid "Reward for reviewing the product"
+msgstr "Phần thưởng cho việc đánh giá sản phẩm"
 
 #: assets/admin/dist/main.js:1
 msgid "Failed to create coupon"
@@ -419,154 +650,24 @@ msgid "Coupon code"
 msgstr "Mã giảm giá"
 
 #: assets/admin/dist/main.js:1
-msgid "Description ( optional )"
-msgstr "Mô tả trường (tùy chọn)"
+msgid "Placeholder"
+msgstr "Giữ chỗ"
 
 #: assets/admin/dist/main.js:1
-msgid "Discount type"
-msgstr "Loại giảm giá"
-
-#: assets/admin/dist/main.js:1
-msgid "Select type"
-msgstr "Lựa chọn kiểu"
+msgid "Generate"
+msgstr "Tạo"
 
 #: assets/admin/dist/main.js:1
 msgid "Coupon amount"
 msgstr "Số tiền giảm giá"
 
 #: assets/admin/dist/main.js:1
-msgid "Allow free shipping"
-msgstr "Cho phép vận chuyển miễn phí"
-
-#: assets/admin/dist/main.js:1
-msgid "Check this box if the coupon grants free shipping."
-msgstr "Đánh dấu vào ô này nếu phiếu giảm giá cho phép miễn phí vận chuyển."
-
-#: assets/admin/dist/main.js:1
-msgid "Coupon expiry date"
-msgstr "Ngày hết hạn giảm giá"
+msgid "Expiry date"
+msgstr "Ngày hết hạn"
 
 #: assets/admin/dist/main.js:1
 msgid "No expiry"
 msgstr "Không có ngày hết hạn"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage restriction"
-msgstr "Hạn chế sử dụng"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limits"
-msgstr "Giới hạn sử dụng"
-
-#: assets/admin/dist/main.js:1
-msgid "Minimum spend"
-msgstr "Chi tiêu tối thiểu"
-
-#: assets/admin/dist/main.js:1
-msgid "No minimum"
-msgstr "Không tối thiểu"
-
-#: assets/admin/dist/main.js:1
-msgid "Maximum spend"
-msgstr "Chi tiêu tối đa"
-
-#: assets/admin/dist/main.js:1
-msgid "No maximum"
-msgstr "Không có tối đa"
-
-#: assets/admin/dist/main.js:1
-msgid "Individual use only"
-msgstr "Chỉ sử dụng cá nhân"
-
-#: assets/admin/dist/main.js:1
-msgid ""
-"Check this box if the coupon cannot be used in conjunction with other "
-"coupons."
-msgstr ""
-"Chọn hộp này nếu không thể sử dụng phiếu giảm giá kết hợp với các phiếu giảm "
-"giá khác."
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude sale items"
-msgstr "Loại trừ các sản phẩm giảm giá"
-
-#: assets/admin/dist/main.js:1
-msgid "Check this box if the coupon should not apply to items on sale."
-msgstr ""
-"Đánh dấu hộp kiểm này nếu các phiếu giảm giá không áp dụng cho các mặt hàng "
-"giảm giá trong các chương trình giảm giá khác."
-
-#: assets/admin/dist/main.js:1
-msgid "And"
-msgstr "Và"
-
-#: assets/admin/dist/main.js:1
-msgid "Products"
-msgstr "Sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "Select products"
-msgstr "Chọn sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude products"
-msgstr "Không bao gồm các sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "Product categories"
-msgstr "Danh mục sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "Any category"
-msgstr "Bất kì danh mục"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude product categories"
-msgstr "Không bao gồm các danh mục sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "No categories"
-msgstr "Không có danh mục"
-
-#: assets/admin/dist/main.js:1
-msgid "Allowed emails"
-msgstr "Email được phép"
-
-#: assets/admin/dist/main.js:1
-msgid "Product brands"
-msgstr "Thương hiệu sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "Any brand"
-msgstr "Bất kì thương hiệu"
-
-#: assets/admin/dist/main.js:1
-msgid "Exclude product brands"
-msgstr "Loại trừ thương hiệu sản phẩm"
-
-#: assets/admin/dist/main.js:1
-msgid "No brands"
-msgstr "Không có thương hiệu"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limit per coupon"
-msgstr "Giới hạn sử dụng trên mỗi phiếu giảm giá"
-
-#: assets/admin/dist/main.js:1
-msgid "Unlimited usage"
-msgstr "Không giới hạn sử dụng"
-
-#: assets/admin/dist/main.js:1
-msgid "Limit usage to X items"
-msgstr "Giới hạn sử dụng cho các mục X"
-
-#: assets/admin/dist/main.js:1
-msgid "Apply to all qualifying items in cart"
-msgstr "Áp dụng cho tất cả các mặt hàng đủ điều kiện trong giỏ hàng"
-
-#: assets/admin/dist/main.js:1
-msgid "Usage limit per user"
-msgstr "Giới hạn theo người dùng"
 
 #: assets/admin/dist/main.js:1
 msgid "Add coupon"
@@ -577,6 +678,46 @@ msgid "Create new coupon"
 msgstr "Tạo mới mã giảm giá"
 
 #: assets/admin/dist/main.js:1
+msgid "Every review"
+msgstr "Mọi đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "every review"
+msgstr "Mọi đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Every 2 reviews"
+msgstr "Mỗi 2 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "every 2 reviews"
+msgstr "mỗi 2 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Every 3 reviews"
+msgstr "Mỗi 3 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "every 3 reviews"
+msgstr "mỗi 3 đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "less than 5★"
+msgstr "ít hơn 5★"
+
+#: assets/admin/dist/main.js:1
+msgid "5★"
+msgstr "5★"
+
+#: assets/admin/dist/main.js:1
+msgid "at least one photo or video"
+msgstr "ít nhất một ảnh hoặc video"
+
+#: assets/admin/dist/main.js:1
+msgid "photo or video required"
+msgstr "Yêu cầu ảnh hoặc video"
+
+#: assets/admin/dist/main.js:1
 msgid "Expired"
 msgstr "Đã hết hạn"
 
@@ -585,20 +726,72 @@ msgid "Out of usage"
 msgstr "Hết số lần sử dụng"
 
 #: assets/admin/dist/main.js:1
+msgid "off coupon"
+msgstr "Phiếu giảm giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Reward will be given"
+msgstr "Phần thưởng sẽ được trao"
+
+#: assets/admin/dist/main.js:1
+msgid "is"
+msgstr "là"
+
+#: assets/admin/dist/main.js:1
+msgid "are"
+msgstr "là"
+
+#: assets/admin/dist/main.js:1
+msgid "contains"
+msgstr "có chứa"
+
+#: assets/admin/dist/main.js:1
+msgid "contain"
+msgstr "chứa"
+
+#: assets/admin/dist/main.js:1
+msgid " that"
+msgstr " đó"
+
+#: assets/admin/dist/main.js:1
+msgid " and"
+msgstr " và"
+
+#: assets/admin/dist/main.js:1
+msgid "Enable/disable reward"
+msgstr "Bật/tắt phần thưởng"
+
+#: assets/admin/dist/main.js:1
 msgid "Duplicate"
-msgstr "Bản sao"
+msgstr "Nhân bản"
+
+#: assets/admin/dist/main.js:1
+msgid "Delete reward"
+msgstr "Xóa phần thưởng"
+
+#: assets/admin/dist/main.js:1
+msgid "Are you sure you want to delete this reward?"
+msgstr "Bạn có chắc chắn muốn xóa phần thưởng này không?"
 
 #: assets/admin/dist/main.js:1
 msgid "Delete"
 msgstr "Xóa"
 
 #: assets/admin/dist/main.js:1
+msgid "Creates a unique one-time coupon for each review"
+msgstr "Tạo một phiếu giảm giá một lần duy nhất cho mỗi bài đánh giá"
+
+#: assets/admin/dist/main.js:1
+msgid "Manual coupon"
+msgstr "Phiếu giảm giá thủ công"
+
+#: assets/admin/dist/main.js:1
 msgid "Select coupon to be sent"
 msgstr "Chọn phiếu giảm giá để gửi"
 
 #: assets/admin/dist/main.js:1
-msgid "select_coupon"
-msgstr "Chọn mã giảm "
+msgid "Select coupon"
+msgstr "Chọn phiếu giảm giá"
 
 #: assets/admin/dist/main.js:1
 msgid "expired"
@@ -627,38 +820,32 @@ msgid "restrictions"
 msgstr "hạn chế"
 
 #: assets/admin/dist/main.js:1
-msgid "Review criteria"
-msgstr "Tiêu chí đánh giá"
+msgid "Who can receive the reward?"
+msgstr "Ai có thể nhận được phần thưởng?"
 
 #: assets/admin/dist/main.js:1
-msgid "Only send coupon for reviews from purchased customers."
-msgstr "Chỉ gửi phiếu giảm giá cho những đánh giá từ khách hàng đã mua hàng."
+msgid "Select value"
+msgstr "Chọn giá trị"
 
 #: assets/admin/dist/main.js:1
-msgid "Guests can receive reward?"
-msgstr "Khách có thể nhận được phần thưởng không?"
+msgid "All reviewers (include guest users)"
+msgstr "Tất cả người đánh giá (bao gồm cả người dùng khách)"
 
 #: assets/admin/dist/main.js:1
-msgid "Minimum required rating"
-msgstr "Xếp hạng tối thiểu bắt buộc"
+msgid "Purchased customers only"
+msgstr "Chỉ dành cho khách hàng đã mua"
 
 #: assets/admin/dist/main.js:1
-msgid "Minimum media files uploaded"
-msgstr "Số lượng tập tin phương tiện tối thiểu được tải lên"
+msgid "Guest users only"
+msgstr "Chỉ người dùng khách"
 
 #: assets/admin/dist/main.js:1
-msgid "Minimum required reviews posted since the last reward?"
-msgstr ""
-"Số lượng đánh giá tối thiểu được đăng kể từ phần thưởng cuối cùng là bao "
-"nhiêu?"
+msgid "Conditions to trigger the reward"
+msgstr "Điều kiện để kích hoạt phần thưởng"
 
 #: assets/admin/dist/main.js:1
-msgid "Leave empty to receive reward after every review"
-msgstr "Để trống để nhận phần thưởng sau mỗi lần đánh giá"
-
-#: assets/admin/dist/main.js:1
-msgid "Reward for reviewing the product"
-msgstr "Phần thưởng cho việc đánh giá sản phẩm"
+msgid "Select requirement"
+msgstr "Chọn yêu cầu"
 
 #: assets/admin/dist/main.js:1
 msgid "No reward added"
@@ -683,98 +870,98 @@ msgid "You have"
 msgstr "Bạn có"
 
 #: assets/admin/dist/main.js:1
+msgid "reward sets"
+msgstr "Bộ phần thưởng"
+
+#: assets/admin/dist/main.js:1
 msgid "reward set"
 msgstr "bộ phần thưởng"
 
 #: assets/admin/dist/main.js:1
-msgid "Add new"
-msgstr "Thêm mới"
+msgid "Each review can trigger only one reward set"
+msgstr "Mỗi bài đánh giá chỉ có thể kích hoạt một bộ phần thưởng"
 
 #: assets/admin/dist/main.js:1
-msgid "Dashboard"
-msgstr "Bảng điều khiển"
+msgid "Add reward set"
+msgstr "Thêm bộ phần thưởng"
 
 #: assets/admin/dist/main.js:1
-msgid "Review"
-msgstr "Đánh giá"
+msgid "Settings saved successfully"
+msgstr "Cài đặt được lưu thành công"
 
 #: assets/admin/dist/main.js:1
-msgid "Emails"
-msgstr "Email"
-
-#: assets/admin/dist/main.js:1
-msgid "settings_saved_successfully"
-msgstr "Cài đặt đã được lưu thành công"
-
-#: assets/admin/dist/main.js:1
-msgid "failed_to_save_settings"
+msgid "Failed to save settings"
 msgstr "Không lưu được cài đặt"
 
-#: assets/admin/dist/main.js:1
-msgid "Yay Reviews"
-msgstr "Yay Reviews"
-
-#: assets/admin/dist/main.js:1
-msgid "Save"
-msgstr "Lưu"
-
-#: src/Admin.php:22
-msgid "Media"
-msgstr "Đa phương tiện"
+#: src/Admin.php:30
+msgid "Title"
+msgstr "Tiêu đề"
 
 #: src/AdminMenu.php:22
 msgid "Yay Reviews Settings"
 msgstr "Cài đặt Yay "
 
-#. Plugin Name of the plugin/theme
-#: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:176
+#: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:175
 msgid "YayReviews"
 msgstr "YayReviews"
 
-#: src/Ajax.php:22
+#: src/Ajax.php:29 src/Ajax.php:54 src/Ajax.php:122 src/Ajax.php:173
+#: src/Ajax.php:227 src/Ajax.php:259
 msgid "Verify nonce failed"
 msgstr "Xác minh nonce không thành công"
 
-#: src/Ajax.php:38
+#: src/Ajax.php:45
 msgid "Invalid addon id or status"
 msgstr "ID hoặc trạng thái của tiện ích bổ sung không hợp lệ"
 
-#: src/Classes/Helpers.php:63
-msgid "You can upload jpg/png & video (maximum 2000Kbs)"
-msgstr "Bạn có thể tải lên jpg/png & video (tối đa 2000Kbs)"
+#: src/Ajax.php:113 src/Ajax.php:164 src/Ajax.php:216
+msgid "Invalid email id"
+msgstr "Id email không hợp lệ"
 
-#: src/Classes/Helpers.php:81 src/Emails/ReminderEmail.php:95
+#: src/Ajax.php:160
+msgid "Email dismissed successfully"
+msgstr "Email bị loại bỏ thành công"
+
+#: src/Ajax.php:248
+msgid "WC reviews settings updated successfully"
+msgstr "Cài đặt đánh giá WC được cập nhật thành công"
+
+#: src/Ajax.php:250
+msgid "Invalid update field or value"
+msgstr "Trường hoặc giá trị cập nhật không hợp lệ"
+
+#: src/Ajax.php:282
+msgid "Email previewed successfully"
+msgstr "Email được xem trước thành công"
+
+#: src/Classes/Helpers.php:70
 msgid "Reminder email"
 msgstr "Email nhắc "
 
-#: src/Classes/Helpers.php:82
+#: src/Classes/Helpers.php:71
 msgid "Thank you for your purchase!"
 msgstr "Cảm ơn bạn đã mua!"
 
-#: src/Classes/Helpers.php:83
+#: src/Classes/Helpers.php:72
 msgid ""
 "Thank you for your recent purchase! Please take a moment to share your "
 "thoughts by reviewing these products. Your feedback helps us improve and "
-"earns you reward! {products_table}"
+"earns you reward! {review_products}"
 msgstr ""
-"Cảm ơn bạn đã mua hàng gần đây! Hãy dành chút thời gian để chia sẻ suy nghĩ "
-"của bạn bằng cách đánh giá các sản phẩm này. Phản hồi của bạn giúp chúng tôi "
-"cải thiện và giúp bạn nhận được phần thưởng! {products_table}"
+"Cảm ơn bạn đã mua hàng gần đây của bạn! Vui lòng dành một chút thời gian để "
+"chia sẻ suy nghĩ của bạn bằng cách đánh giá các sản phẩm này. Phản hồi của "
+"bạn giúp chúng tôi cải thiện và kiếm được phần thưởng cho bạn! "
+"{review_products}"
 
-#: src/Classes/Helpers.php:84 src/Classes/Helpers.php:90
-msgid "{site_title} — Built with YayReviews"
-msgstr "{site_title} — Được xây dựng với YayReviews"
-
-#: src/Classes/Helpers.php:87
+#: src/Classes/Helpers.php:75
 msgid "Review reward email"
 msgstr "Email phần thưởng sau khi đánh giá"
 
-#: src/Classes/Helpers.php:88 src/Emails/ReminderEmail.php:119
-#: src/Emails/RewardEmail.php:82
+#: src/Classes/Helpers.php:76
 msgid "Thank you for your review!"
 msgstr "Cảm ơn bạn đã đánh giá!"
 
-#: src/Classes/Helpers.php:89
+#: src/Classes/Helpers.php:77
 msgid ""
 "Thank you for reviewing {product_name}! As a token of our appreciation, "
 "we've sent you coupon: {coupon_code} to use on your next purchase."
@@ -783,44 +970,26 @@ msgstr ""
 "gửi cho bạn phiếu giảm giá: {coupon_code} để sử dụng cho lần mua hàng tiếp "
 "theo của bạn."
 
-#: src/Emails/ReminderEmail.php:15
+#: src/Emails/ReminderEmail.php:17
 msgid "Review Reminder"
 msgstr "Nhắc nhở đánh giá"
 
-#: src/Emails/ReminderEmail.php:16
+#: src/Emails/ReminderEmail.php:18
 msgid ""
 "This email is sent to customers to remind them to review their purchased "
 "products."
 msgstr ""
 "Email này được gửi tới khách hàng để nhắc nhở họ xem lại sản phẩm đã mua."
 
-#: src/Emails/ReminderEmail.php:103
-msgid "Reminder email for you"
-msgstr "Email nhắc nhở cho bạn"
-
-#: src/Emails/ReminderEmail.php:111 src/Emails/RewardEmail.php:74
-msgid ""
-"Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-"Lorem Ipsum has been the industry's standard dummy text ever since the "
-"1500s, when an unknown printer took a galley of type and scrambled it to "
-"make a type specimen book. It has survived not only five centuries, but also "
-"the leap into electronic typesetting, remaining essentially unchanged"
-msgstr ""
-"Lorem Ipsum chỉ đơn giản là văn bản giả của ngành in ấn và sắp chữ. Lorem "
-"Ipsum đã là văn bản giả chuẩn của ngành kể từ những năm 1500, khi một thợ in "
-"vô danh lấy một galley chữ và xáo trộn nó để tạo ra một cuốn sách mẫu chữ. "
-"Nó đã tồn tại không chỉ năm thế kỷ, mà còn vượt qua cả bước nhảy vọt vào sắp "
-"chữ điện tử, về cơ bản vẫn không thay đổi"
-
-#: src/Emails/ReminderEmail.php:189 src/Emails/RewardEmail.php:122
+#: src/Emails/ReminderEmail.php:125 src/Emails/RewardEmail.php:143
 msgid "Enable/Disable"
-msgstr "Bật/Tắt"
+msgstr "Kích hoạt/Vô hiệu hóa"
 
-#: src/Emails/ReminderEmail.php:191 src/Emails/RewardEmail.php:124
+#: src/Emails/ReminderEmail.php:127 src/Emails/RewardEmail.php:145
 msgid "Enable this email notification"
 msgstr "Kích hoạt thông báo email này"
 
-#: src/Emails/ReminderEmail.php:195 src/Emails/RewardEmail.php:128
+#: src/Emails/ReminderEmail.php:131 src/Emails/RewardEmail.php:149
 msgid "Subject"
 msgstr "Tiêu đề"
 
@@ -828,134 +997,84 @@ msgstr "Tiêu đề"
 #. translators: %s: list of available placeholders
 #. translators: %s: site title placeholder
 #. translators: %s: list of available placeholders
-#. translators: %s: site title placeholder
-#: src/Emails/ReminderEmail.php:199 src/Emails/ReminderEmail.php:208
-#: src/Emails/ReminderEmail.php:217 src/Emails/ReminderEmail.php:226
-#: src/Emails/RewardEmail.php:132 src/Emails/RewardEmail.php:141
-#: src/Emails/RewardEmail.php:150 src/Emails/RewardEmail.php:159
+#: src/Emails/ReminderEmail.php:135 src/Emails/ReminderEmail.php:144
+#: src/Emails/ReminderEmail.php:153 src/Emails/RewardEmail.php:153
+#: src/Emails/RewardEmail.php:162 src/Emails/RewardEmail.php:171
 #, php-format
 msgid "Available placeholders: %s"
 msgstr "Các trường nhập có sẵn: %s"
 
-#: src/Emails/ReminderEmail.php:204 src/Emails/RewardEmail.php:137
+#: src/Emails/ReminderEmail.php:140 src/Emails/RewardEmail.php:158
 msgid "Email Heading"
 msgstr "Tiêu đề email"
 
-#: src/Emails/ReminderEmail.php:213 src/Emails/RewardEmail.php:146
+#: src/Emails/ReminderEmail.php:149 src/Emails/RewardEmail.php:167
 msgid "Email Content"
 msgstr "Nội dung "
 
-#: src/Emails/ReminderEmail.php:222 src/Emails/RewardEmail.php:155
-msgid "Email Footer"
-msgstr "Cuối email"
-
-#: src/Emails/ReminderEmail.php:231 src/Emails/RewardEmail.php:164
-msgid "Email type"
-msgstr "Loại email"
-
-#: src/Emails/ReminderEmail.php:233 src/Emails/RewardEmail.php:166
+#: src/Emails/ReminderEmail.php:160 src/Emails/RewardEmail.php:178
 msgid "Choose which format of email to send."
 msgstr "Chọn định dạng email gửi đi."
 
-#: src/Emails/RewardEmail.php:16
+#: src/Emails/RewardEmail.php:17
+msgid "Review Reward"
+msgstr "Quà tặng"
+
+#: src/Emails/RewardEmail.php:18
 msgid "This email is sent to customers to reward them for their reviews."
 msgstr "Email này được gửi tới khách hàng để khen thưởng vì đã đánh giá."
 
-#: src/Emails/RewardEmail.php:58
-msgid "Reward email"
-msgstr "Email phần thưởng sau khi đánh giá"
-
-#: src/Emails/RewardEmail.php:66
-msgid "Reward email for you"
-msgstr "Email phần thưởng dành cho bạn"
-
 #. translators: %s: media type (image or video, video, image)
-#: src/Frontend.php:123
+#: src/Frontend.php:233
 #, php-format
 msgid "Please upload at least 1 %s."
 msgstr "Vui lòng tải lên ít nhất 1 %s."
 
-#: src/Frontend.php:125
-msgid "image or video"
-msgstr "hình ảnh hoặc video"
+#: src/Frontend.php:235
+msgid "video or photo"
+msgstr "Video hoặc ảnh"
 
-#: src/Frontend.php:127
+#: src/Frontend.php:237
 msgid "video"
 msgstr "video"
 
-#: src/Frontend.php:128
-msgid "image"
-msgstr "hình ảnh"
+#: src/Frontend.php:238
+msgid "photo"
+msgstr "chụp hình"
 
-#: src/Frontend.php:142
+#: src/Frontend.php:253 views/frontend/media-list.php:86
+msgid "Verified owner"
+msgstr "Chủ sở hữu đã xác minh"
+
+#: src/Frontend.php:254
 msgid "Please check GDPR checkbox."
 msgstr "Vui lòng đánh dấu vào ô GDPR."
 
-#. translators: %1$s: file name, %2$s: max upload size
-#: src/Frontend.php:145
+#. translators: %1$s: file name, %2$s: max allowed size
+#: src/Frontend.php:257
 #, php-format
 msgid ""
 "The size of the file %1$s is too large; the maximum allowed size is %2$sKB."
 msgstr ""
 "Kích thước của tệp %1$s quá lớn; kích thước tối đa được phép là %2$sKB."
 
-#. translators: %1$s: max upload quantity
-#: src/Frontend.php:147
+#. translators: %1$s: max allowed files
+#: src/Frontend.php:259
 #, php-format
 msgid "You can only upload a maximum of %1$s files."
 msgstr "Bạn chỉ có thể tải lên tối đa %1$s tệp."
 
-#: src/License/EDD_SL_Plugin_Updater.php:501
-msgid "You do not have permission to install plugin updates"
-msgstr "Bạn không có quyền cài đặt cập nhật plugin"
+#: src/Frontend.php:260
+msgid "The review title must be less than 60 characters."
+msgstr "Tiêu đề đánh giá phải nhỏ hơn 60 ký tự."
 
-#: src/License/EDD_SL_Plugin_Updater.php:501
-msgid "Error"
-msgstr "Lỗi"
+#: src/Models/SettingsModel.php:36
+msgid "You can upload jpg/png & video (maximum 2000Kbs)"
+msgstr "Bạn có thể tải lên jpg/png & video (tối đa 2000Kbs)"
 
-#: src/License/views/expired-admin-notice.php:18
-msgid ""
-"Please click here to renew your license key and continue receiving automatic "
-"updates."
-msgstr ""
-"Vui lòng nhấp vào đây để gia hạn khóa cấp phép và tiếp tục nhận bản cập nhật "
-"tự động."
-
-#: src/License/views/expired-license-notification.php:3
-msgid "Your license has expired, please "
-msgstr "Giấy phép của bạn đã hết hạn, vui lòng"
-
-#: src/License/views/expired-license-notification.php:4
-msgid "renew this license"
-msgstr "Gia hạn giấy phép"
-
-#: src/License/views/expired-license-notification.php:5
-msgid " to download this update. "
-msgstr "để tải xuống bản cập nhật "
-
-#: src/License/views/information-card.php:38
-msgid "Deactivate"
-msgstr "Hủy kích hoạt"
-
-#: src/License/views/information-card.php:54
-msgid "Expiration Date:"
-msgstr "Ngày hết hạn:"
-
-#: src/License/views/information-card.php:78
-msgid "Need more licenses?"
-msgstr "Bạn cần thêm giấy phép?"
-
-#: src/License/views/information-card.php:78
-msgid "Upgrade to unlimited"
-msgstr "Nâng cấp lên không giới hạn"
-
-#: src/License/views/not-activate-license-notification.php:3
-msgid ""
-"Please activate your license for access to premium features and automatic "
-"updates"
-msgstr ""
-"Vui lòng kích hoạt giấy phép của bạn để truy cập vào các tính năng cao cấp "
-"và cập nhật tự động"
+#: src/RestAPI.php:179
+msgid "Send in"
+msgstr "Gửi vào"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:122
 msgid "Other Plugins"
@@ -999,93 +1118,93 @@ msgstr "Cập nhật thành "
 msgid "Help"
 msgstr "Trợ giúp"
 
-#: src/YayCommerceMenu/RegisterMenu.php:118
+#: src/YayCommerceMenu/RegisterMenu.php:117
 msgid "Licenses"
 msgstr "Giấy phép"
 
-#: src/YayCommerceMenu/RegisterMenu.php:127
+#: src/YayCommerceMenu/RegisterMenu.php:126
 msgid "Other plugins"
-msgstr "Các Plugin khác"
+msgstr "Các plugin khác"
 
 #. translators: %s: Plugin name and version.
-#: src/YayCommerceMenu/views/other-plugins-content.php:76
-#: src/YayCommerceMenu/views/other-plugins-content.php:84
+#: src/YayCommerceMenu/views/other-plugins-content.php:78
+#: src/YayCommerceMenu/views/other-plugins-content.php:86
 #, php-format
 msgctxt "plugin"
 msgid "Install %s now"
 msgstr "Cài đặt %s ngay"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:77
-#: src/YayCommerceMenu/views/other-plugins-content.php:85
+#: src/YayCommerceMenu/views/other-plugins-content.php:79
+#: src/YayCommerceMenu/views/other-plugins-content.php:87
 msgid "Install Now"
 msgstr "Cài đặt ngay"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:91
+#: src/YayCommerceMenu/views/other-plugins-content.php:93
 msgctxt "plugin"
 msgid "Cannot Install"
 msgstr "Không thể cài đặt "
 
 #. translators: %s: Plugin name and version.
-#: src/YayCommerceMenu/views/other-plugins-content.php:108
-#: src/YayCommerceMenu/views/other-plugins-content.php:119
+#: src/YayCommerceMenu/views/other-plugins-content.php:110
+#: src/YayCommerceMenu/views/other-plugins-content.php:121
 #, php-format
 msgctxt "plugin"
 msgid "Update %s now"
 msgstr "Cập nhật %s ngay"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:110
-#: src/YayCommerceMenu/views/other-plugins-content.php:121
+#: src/YayCommerceMenu/views/other-plugins-content.php:112
+#: src/YayCommerceMenu/views/other-plugins-content.php:123
 msgid "Update Now"
 msgstr "Cập nhật ngay"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:127
+#: src/YayCommerceMenu/views/other-plugins-content.php:129
 msgctxt "plugin"
 msgid "Cannot Update"
 msgstr "Không thể cập nhật "
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:144
+#: src/YayCommerceMenu/views/other-plugins-content.php:146
 msgctxt "plugin"
 msgid "Activated"
 msgstr "Đã kích hoạt"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:149
+#: src/YayCommerceMenu/views/other-plugins-content.php:151
 msgid "Activate"
 msgstr "Kích hoạt"
 
 #. translators: %s: Plugin name.
-#: src/YayCommerceMenu/views/other-plugins-content.php:151
+#: src/YayCommerceMenu/views/other-plugins-content.php:153
 #, php-format
 msgctxt "plugin"
 msgid "Activate %s"
 msgstr "Kích hoạt %s"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:162
+#: src/YayCommerceMenu/views/other-plugins-content.php:164
 msgid "Network Activate"
 msgstr "Mạng kích hoạt"
 
 #. translators: %s: Plugin name.
-#: src/YayCommerceMenu/views/other-plugins-content.php:164
+#: src/YayCommerceMenu/views/other-plugins-content.php:166
 #, php-format
 msgctxt "plugin"
 msgid "Network Activate %s"
 msgstr "Kích hoạt mạng %s"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:177
+#: src/YayCommerceMenu/views/other-plugins-content.php:179
 msgctxt "plugin"
 msgid "Cannot Activate"
 msgstr "Không thể khích hoạt "
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:183
+#: src/YayCommerceMenu/views/other-plugins-content.php:185
 msgctxt "plugin"
 msgid "Installed"
 msgstr "Đã cài đặt"
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:213
+#: src/YayCommerceMenu/views/other-plugins-content.php:215
 msgid "This plugin doesn&#8217;t work with your versions of WordPress and PHP."
 msgstr "Plugin này không hoạt động với phiên bản WordPress và PHP của bạn."
 
 #. translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
-#: src/YayCommerceMenu/views/other-plugins-content.php:217
+#: src/YayCommerceMenu/views/other-plugins-content.php:219
 #, php-format
 msgid ""
 "<a href=\"%1$s\">Please update WordPress</a>, and then <a "
@@ -1095,62 +1214,104 @@ msgstr ""
 "hiểu thêm về việc cập nhật PHP</a>."
 
 #. translators: %s: URL to WordPress Updates screen.
-#: src/YayCommerceMenu/views/other-plugins-content.php:225
-#: src/YayCommerceMenu/views/other-plugins-content.php:241
+#: src/YayCommerceMenu/views/other-plugins-content.php:227
+#: src/YayCommerceMenu/views/other-plugins-content.php:243
 #, php-format
 msgid "<a href=\"%s\">Please update WordPress</a>."
 msgstr "<a href=“%s”>Vui lòng cập nhật WordPress</a>."
 
 #. translators: %s: URL to Update PHP page.
-#: src/YayCommerceMenu/views/other-plugins-content.php:231
-#: src/YayCommerceMenu/views/other-plugins-content.php:250
+#: src/YayCommerceMenu/views/other-plugins-content.php:233
+#: src/YayCommerceMenu/views/other-plugins-content.php:252
 #, php-format
 msgid "<a href=\"%s\">Learn more about updating PHP</a>."
 msgstr "<a href=“%s”>Tìm hiểu thêm về việc cập nhật PHP</a>."
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:237
+#: src/YayCommerceMenu/views/other-plugins-content.php:239
 msgid "This plugin doesn&#8217;t work with your version of WordPress."
 msgstr "Plugin này không hoạt động với phiên bản WordPress của bạn."
 
-#: src/YayCommerceMenu/views/other-plugins-content.php:246
+#: src/YayCommerceMenu/views/other-plugins-content.php:248
 msgid "This plugin doesn&#8217;t work with your version of PHP."
 msgstr "Plugin này không hoạt động với phiên bản PHP của bạn."
 
-#: views/emails/products-table.php:14
-msgid "Product"
-msgstr "Sản phẩm"
+#: views/emails/review-products.php:34
+msgid "Product Image"
+msgstr "Ảnh sản phẩm"
 
-#: views/emails/products-table.php:15
-msgid "Short Description"
-msgstr "Mô tả ngắn"
+#: views/emails/review-products.php:54
+msgid "Leave a review"
+msgstr "Gởi đánh giá"
 
-#: views/emails/products-table.php:16
-msgid "Price"
-msgstr "Giá"
+#: views/frontend/all-reviews-media.php:9
+msgid "Reviews with media"
+msgstr "Đánh giá với phương tiện truyền thông"
 
-#: views/frontend/media.php:56
+#: views/frontend/all-reviews-media.php:10 views/frontend/media-list.php:51
+msgid "See all media"
+msgstr "Xem tất cả phương tiện truyền thông"
+
+#: views/frontend/all-reviews-media.php:15
+msgid "All media"
+msgstr "Tất cả các phương tiện truyền thông"
+
+#: views/frontend/media-list.php:49
 msgid "Review Details"
-msgstr "Chi tiết đánh giá"
+msgstr "Xem chi tiết"
 
-#: views/frontend/media.php:76
+#: views/frontend/media-list.php:124
 msgid "Reviewed in "
 msgstr "Đã được đánh giá trong"
 
-#: views/frontend/media.php:76
+#: views/frontend/media-list.php:124
 msgid "at"
-msgstr "tại"
+msgstr "lúc"
 
-#: views/frontend/media.php:80
+#: views/frontend/media-list.php:128
 msgid "Medias in this review"
 msgstr "Phương tiện truyền thông trong bài đánh giá này"
 
-#: views/frontend/reviews-form.php:30
+#: views/frontend/review-form/media.php:54
 msgid "Upload"
 msgstr "Tải lên"
 
-#: yay-reviews.php:59
+#: views/frontend/review-form/product-attributes.php:55
+msgid "Product Attributes (Optional)"
+msgstr "Thuộc tính sản phẩm (Không bắt buộc)"
+
+#: views/frontend/review-form/product-attributes.php:66
+msgid "Select"
+msgstr "Chọn"
+
+#: views/frontend/review-form/review-title.php:8
+msgid "Title (optional)"
+msgstr "Tiêu đề (tùy chọn)"
+
+#: views/frontend/review-form/review-title.php:10
+msgid "Maximum 60 characters"
+msgstr "Tối đa 60 ký tự"
+
+#: views/frontend/reviews-overview.php:43
+msgid "No ratings"
+msgstr "Không có xếp hạng"
+
+#. translators: %1$s: rating, %2$s: see all reviews link
+#: views/frontend/reviews-overview.php:95
+#, php-format
+msgid ""
+"You are currently viewing the reviews that provided a rating of <strong>%1$s "
+"stars</strong>. <a href=\"%2$s\">See all reviews</a>"
+msgstr ""
+"Bạn hiện đang xem các bài đánh giá cung cấp xếp hạng <strong>%1$s sao</"
+"strong>. <a href=\"%2$s\">Xem tất cả các đánh giá</a>"
+
+#: yay-reviews.php:44
 msgid "Please activate WooCommerce to activate Yay Reviews"
 msgstr "Vui lòng kích hoạt WooCommerce để kích hoạt Yay Reviews"
+
+#. Plugin Name of the plugin/theme
+msgid "YayReviews - Product Reviews for WooCommerce"
+msgstr "YayReviews - Đánh giá sản phẩm cho WooCommerce"
 
 #. Description of the plugin/theme
 msgid "YayReviews helps you to do more things with WooCommerce reviews."

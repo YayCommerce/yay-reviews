@@ -16,10 +16,12 @@ pnpm-workspace.yaml
 turbo.json
 yay-reviews.zip
 /release.sh
+/run.sh
 
 /phpcs.xml
 /log.xml
 /composer.lock
+/composer.json
 
 /build
 /apps
@@ -28,3 +30,4 @@ yay-reviews.zip
 /release
 /packages
 /vendor/squizlabs
+/vendor/bin

@@ -3,10 +3,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: YayReviews - Product Reviews for WooCommerce\n"
 "POT-Creation-Date: 2025-07-15 15:40+0700\n"
-"PO-Revision-Date: 2025-07-15 16:03+0700\n"
+"PO-Revision-Date: 2025-07-15 16:04+0700\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: de_DE\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,691 +24,682 @@ msgstr ""
 
 #: assets/admin/dist/main.js:1
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "仪表盘"
 
 #: assets/admin/dist/main.js:1
 msgid "Review"
-msgstr "Bewertung"
+msgstr "评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Reminder"
-msgstr "Erinnerung"
+msgstr "提醒"
 
 #: assets/admin/dist/main.js:1
 msgid "Rewards"
-msgstr "Belohnungen"
+msgstr "奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Emails"
-msgstr "E-Mails"
+msgstr "电子邮件"
 
 #: assets/admin/dist/main.js:1
 msgid "Emails Queue"
-msgstr "E-Mail Warteschlange"
+msgstr "电子邮件队列"
 
 #: assets/admin/dist/main.js:1
 msgid "Yay Reviews"
-msgstr "Yay Reviews"
+msgstr "Yay 评论"
+
+#: assets/admin/dist/main.js:1
+msgid "Save"
+msgstr "保存"
 
 #: assets/admin/dist/main.js:1
 #, fuzzy
-msgid "Save"
-msgstr "Speichern"
-
-#: assets/admin/dist/main.js:1
 msgid "Active"
-msgstr "Aktiv"
+msgstr "激活"
 
 #: assets/admin/dist/main.js:1
 msgid "Inactive"
-msgstr "Inaktiv"
+msgstr "未激活"
 
 #: assets/admin/dist/main.js:1
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "设置"
 
 #: assets/admin/dist/main.js:1
 msgid "Addon "
-msgstr "Zusatz "
+msgstr "插件"
 
 #: assets/admin/dist/main.js:1
 msgid "ON"
-msgstr "AN"
+msgstr "开启"
 
 #: assets/admin/dist/main.js:1
 msgid "OFF"
-msgstr "AUS"
+msgstr "关闭"
 
 #: assets/admin/dist/main.js:1
 msgid "Something went wrong"
-msgstr "Leider ist ein Fehler aufgetreten"
+msgstr "出了些问题"
 
 #: assets/admin/dist/main.js:1
 msgid "You can change this any time in"
-msgstr "Sie können dies jederzeit ändern in"
+msgstr "您可以随时在"
 
 #: assets/admin/dist/main.js:1
 msgid "Product reviews are disabled in WooCommerce."
-msgstr "Produktbewertungen sind in WooCommerce deaktiviert."
+msgstr "产品评论在 WooCommerce 中被禁用。"
 
 #: assets/admin/dist/main.js:1
 msgid "WooCommerce settings"
-msgstr "WooCommerce Einstellungen"
+msgstr "WooCommerce设置"
 
 #: assets/admin/dist/main.js:1
 msgid "Turn on"
-msgstr "Einschalten"
+msgstr "打开"
 
 #: assets/admin/dist/main.js:1
 msgid "Review reminder"
-msgstr "Bewertungs-Erinnerung"
+msgstr "评论提醒"
 
 #: assets/admin/dist/main.js:1
 msgid ""
 "Sends reminders to customers after buying, encouraging reviews and "
 "increasing engagement."
-msgstr ""
-"Sendet Kunden nach dem Kauf Erinnerungen, fördert Bewertungen und erhöht das "
-"Engagement."
+msgstr "在买家购买后发送提醒，鼓励评论并提高参与度。"
 
 #: assets/admin/dist/main.js:1
 msgid "Review rewards"
-msgstr "Belohnungen überprüfen"
+msgstr "评论奖励"
 
 #: assets/admin/dist/main.js:1
 msgid ""
 "Sends discount coupons for quality reviews meeting set criteria, encouraging "
 "great feedback and repeat purchases."
-msgstr ""
-"Sendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
-"entsprechen, und fördert so großartiges Feedback und Wiederholungskäufe."
+msgstr "为符合设定标准的质量评论发送折扣券，鼓励良好的反馈和重复购买。"
 
 #: assets/admin/dist/main.js:1
 msgid "Welcome to Yay Reviews"
-msgstr "Willkommen bei Yay Reviews"
+msgstr "欢迎来到 Yay 评论"
 
 #: assets/admin/dist/main.js:1
 msgid ""
 "Your central hub for managing review forms, reminders, and coupons, "
 "providing an intuitive interface to monitor and optimize customer feedback."
 msgstr ""
-"Ihre zentrale Anlaufstelle für die Verwaltung von Bewertungsformularen, "
-"Erinnerungen und Coupons mit einer intuitiven Benutzeroberfläche zur "
-"Überwachung und Optimierung des Kundenfeedbacks."
+"用于管理评论表单、提醒和优惠券的中心枢纽，提供直观的界面来监控和优化客户反"
+"馈。"
 
 #: assets/admin/dist/main.js:1
 msgid "Go to"
-msgstr "Gehe zu"
+msgstr "转到"
 
 #: assets/admin/dist/main.js:1
 msgid "Review settings"
-msgstr "Einstellungen überprüfen"
+msgstr "评价设置"
 
 #: assets/admin/dist/main.js:1
 msgid "Addon-on settings"
-msgstr "Addon-On-Einstellungen"
+msgstr "Addon-on 设置"
 
 #: assets/admin/dist/main.js:1
 msgid "Text color"
-msgstr "Textfarbe"
+msgstr "文本颜色"
 
 #: assets/admin/dist/main.js:1
 msgid "Font Weight"
-msgstr "Schriftstärke"
+msgstr "字体粗细"
 
 #: assets/admin/dist/main.js:1
 msgid "Light (300)"
-msgstr "Leicht (300)"
+msgstr "细体（300）"
 
 #: assets/admin/dist/main.js:1
 msgid "Normal (400)"
-msgstr "Normal (400)"
+msgstr "正常（400）"
 
 #: assets/admin/dist/main.js:1
 msgid "Medium (500)"
-msgstr "Medium (500)"
+msgstr "中等（500）"
 
 #: assets/admin/dist/main.js:1
 msgid "Semi Bold (600)"
-msgstr "Semi Bold (600)"
+msgstr "半粗(600)"
 
 #: assets/admin/dist/main.js:1
 msgid "Bold (700)"
-msgstr "Bold (700)"
+msgstr "粗体 (700)"
 
 #: assets/admin/dist/main.js:1
 msgid "Extra Bold (800)"
-msgstr "Extra fett (800)"
+msgstr "超粗 (800)"
 
 #: assets/admin/dist/main.js:1
-#, fuzzy
 msgid "Email subject"
-msgstr "E-Mail Betreff"
+msgstr "电子邮件主题"
 
 #: assets/admin/dist/main.js:1
 msgid "Email heading"
-msgstr "E-Mail-Überschrift"
+msgstr "邮件标题"
 
 #: assets/admin/dist/main.js:1
 msgid "Email content"
-msgstr "E-Mail-Inhalt"
+msgstr "邮件内容"
 
 #: assets/admin/dist/main.js:1
 msgid "{customer_name} - Customer's name"
-msgstr "{customer_name} – Name des Kunden"
+msgstr "{customer_name} - 客户姓名"
 
 #: assets/admin/dist/main.js:1
 msgid "{site_title} - Your site title"
-msgstr "{site_title} – Ihr Site-Titel"
+msgstr "{site_title} - 您的网站标题"
 
 #: assets/admin/dist/main.js:1
 msgid "{review_products} - List products need review"
-msgstr ""
-"{review_products} - Auflisten von Produkten, die überprüft werden müssen"
+msgstr "{review_products} - 列出需要审核的商品"
 
 #: assets/admin/dist/main.js:1
 msgid "{coupon_code} - Coupon code"
-msgstr "{coupon_code} - Gutscheincode"
+msgstr "{coupon_code} - 优惠券代码"
 
 #: assets/admin/dist/main.js:1
 msgid "{product_name} - Product name"
-msgstr "{product_name} – Produktname"
+msgstr "{product_name} - 产品名称"
 
 #: assets/admin/dist/main.js:1
 msgid "Reset template"
-msgstr "Template zurücksetzen"
+msgstr "重置模板"
 
 #: assets/admin/dist/main.js:1
 msgid "Reset the template to the default values."
-msgstr "Setzen Sie die Vorlage auf die Standardwerte zurück."
+msgstr "将模板重置为默认值。"
 
 #: assets/admin/dist/main.js:1
-#, fuzzy
 msgid "Cancel"
-msgstr "Abbrechen"
+msgstr "取消"
 
 #: assets/admin/dist/main.js:1
 msgid "Preview"
-msgstr "Vorschau"
+msgstr "预览"
 
 #: assets/admin/dist/main.js:1
 msgid "Desktop preview"
-msgstr "Desktop Vorschau"
+msgstr "桌面预览"
 
 #: assets/admin/dist/main.js:1
 msgid "Mobile preview"
-msgstr "Vorschau Mobil"
+msgstr "手机预览"
 
 #: assets/admin/dist/main.js:1
 msgid "Send test mail"
-msgstr "Test-Email senden"
+msgstr "发送测试邮件"
 
 #: assets/admin/dist/main.js:1
 msgid "Send a test email"
-msgstr "Ein Test E-Mail senden"
+msgstr "发送测试电子邮件"
 
 #: assets/admin/dist/main.js:1
 msgid ""
 "Send yourself a test email to check how your email looks in different email "
 "apps."
 msgstr ""
-"Senden Sie sich selbst eine Test-E-Mail, um zu überprüfen, wie Ihre E-Mail "
-"in verschiedenen E-Mail-Apps aussieht."
+"向自己发送一封测试电子邮件，以检查您的电子邮件在不同电子邮件应用程序中的外"
+"观。"
 
 #: assets/admin/dist/main.js:1
 msgid "Enter your email address"
-msgstr "Geben Sie Ihre E-Mail-Adresse ein"
+msgstr "输入你的电子邮箱地址"
 
 #: assets/admin/dist/main.js:1 src/Ajax.php:95 src/Ajax.php:108
 msgid "Email sent successfully"
-msgstr "E-Mail erfolgreich versandt"
+msgstr "电子邮件发送成功"
 
 #: assets/admin/dist/main.js:1 src/Ajax.php:101
 msgid "Email sending failed"
-msgstr "Sendung der E-Mail fehlgeschlagen"
+msgstr "电子邮件发送失败"
 
 #: assets/admin/dist/main.js:1
 msgid "Email templates"
-msgstr "E-Mail Vorlagen"
+msgstr "电子邮件模板"
 
 #: assets/admin/dist/main.js:1
 msgid "Reward"
-msgstr "Auszeichnung"
+msgstr "奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Normal products"
-msgstr "Normale Produkte"
+msgstr "普通产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Featured products"
-msgstr "Hervorgehobene  Produkte"
+msgstr "特色产品"
 
 #: assets/admin/dist/main.js:1
 msgid "On sale products"
-msgstr "Im Angebot Produkte"
+msgstr "在售产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Newest products"
-msgstr "Neueste Produkte"
+msgstr "最新产品"
 
 #: assets/admin/dist/main.js:1
 msgid "High rated products"
-msgstr "Hoch bewertete Produkte"
+msgstr "高评价产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Low rated products"
-msgstr "Produkte mit niedriger Bewertung"
+msgstr "低评级产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Best selling products"
-msgstr "Best Verkaufte Produkte"
+msgstr "最畅销产品"
 
 #: assets/admin/dist/main.js:1
 msgid "All products"
-msgstr "Alle Produkte"
+msgstr "所有产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Any rating"
-msgstr "Jede Bewertung"
+msgstr "任何评分"
 
 #: assets/admin/dist/main.js:1
 msgid "Less than 5★"
-msgstr "Weniger als 5★"
+msgstr "小于 5★ 个"
 
 #: assets/admin/dist/main.js:1
 msgid "5★ only"
-msgstr "★ Nur 5"
+msgstr "★ 仅 5 个"
 
 #: assets/admin/dist/main.js:1
 msgid "No requirement"
-msgstr "Keine Voraussetzung"
+msgstr "无要求"
 
 #: assets/admin/dist/main.js:1
 msgid "Photo or video required"
-msgstr "Foto oder Video erforderlich"
+msgstr "需要照片或视频"
 
 #: assets/admin/dist/main.js:1
 msgid "After every review"
-msgstr "Nach jeder Überprüfung"
+msgstr "每次审核后"
 
 #: assets/admin/dist/main.js:1
 msgid "After every 2 reviews"
-msgstr "Nach jeweils 2 Bewertungen"
+msgstr "每 2 条评论后"
 
 #: assets/admin/dist/main.js:1
 msgid "After every 3 reviews"
-msgstr "Nach jeweils 3 Bewertungen"
+msgstr "每 3 条评论后"
 
 #: assets/admin/dist/main.js:1
 msgid "Type"
-msgstr "Typ"
+msgstr "类型"
 
 #: assets/admin/dist/main.js:1
+#, fuzzy
 msgid "To"
-msgstr "Bis"
+msgstr "到"
 
 #: assets/admin/dist/main.js:1
 msgid "Status"
-msgstr "Status"
+msgstr "状态"
 
 #: assets/admin/dist/main.js:1
 msgid "Pending"
-msgstr "Ausstehend"
+msgstr "待定"
 
 #: assets/admin/dist/main.js:1
 msgid "Sent"
-msgstr "Gesendet"
+msgstr "发送"
 
 #: assets/admin/dist/main.js:1
 msgid "Cancelled"
-msgstr "Abgebrochen"
+msgstr "已取消"
 
 #: assets/admin/dist/main.js:1
 msgid "Coupon"
-msgstr "Gutschein"
+msgstr "优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Product"
-msgstr "Produkt"
+msgstr "产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Rating"
-msgstr "Bewertung"
+msgstr "评分"
 
 #: assets/admin/dist/main.js:1 src/Admin.php:31
 msgid "Media"
-msgstr "Medien"
+msgstr "媒体"
 
 #: assets/admin/dist/main.js:1
 msgid "Frequency"
-msgstr "Häufigkeit"
+msgstr "频率"
 
 #: assets/admin/dist/main.js:1
 msgid "Sent after"
-msgstr "Gesendet nach"
+msgstr "发送时间"
 
 #: assets/admin/dist/main.js:1
 msgid "Remind products"
-msgstr "Produkte erinnern"
+msgstr "提醒产品"
 
 #: assets/admin/dist/main.js:1
 msgid "No email queue found."
-msgstr "Keine E-Mail-Warteschlange gefunden."
+msgstr "未找到电子邮件队列。"
 
 #: assets/admin/dist/main.js:1 src/Emails/ReminderEmail.php:158
 #: src/Emails/RewardEmail.php:176
 msgid "Email type"
-msgstr "E-Mail-Typ"
+msgstr "电子邮件类型"
 
 #: assets/admin/dist/main.js:1
 msgid "Customer email"
-msgstr "Kunden E-Mail"
+msgstr "客户邮箱"
 
 #: assets/admin/dist/main.js:1
 msgid "Delivery time"
-msgstr "Lieferzeit"
+msgstr "交付时间"
 
 #: assets/admin/dist/main.js:1
 msgid "View"
-msgstr "Anzeigen"
+msgstr "查看"
 
 #: assets/admin/dist/main.js:1
 msgid "Send"
-msgstr "Senden"
+msgstr "发送"
 
 #: assets/admin/dist/main.js:1
 msgid "Re-send"
-msgstr "Noch einmal senden"
+msgstr "重新发送验证电子邮件→"
 
 #: assets/admin/dist/main.js:1
 msgid "Dismiss"
-msgstr "Verwerfen"
+msgstr "忽略"
 
 #: assets/admin/dist/main.js:1
 msgid "Dismiss email"
-msgstr "E-Mail schließen"
+msgstr "关闭电子邮件"
 
 #: assets/admin/dist/main.js:1
 msgid "Are you sure you want to dismiss this email?"
-msgstr "Sind Sie sicher, dass Sie diese E-Mail ablehnen möchten?"
+msgstr "您确定要关闭此电子邮件吗？"
 
 #: assets/admin/dist/main.js:1
 msgid "Information"
-msgstr "Information"
+msgstr "信息"
 
 #: assets/admin/dist/main.js:1
 msgid "Showing"
-msgstr "Anzeigen"
+msgstr "显示"
 
 #: assets/admin/dist/main.js:1
 msgid "of"
-msgstr "von"
+msgstr "的"
 
 #: assets/admin/dist/main.js:1
 msgid "emails"
-msgstr "E-Mails"
+msgstr "邮箱"
 
 #: assets/admin/dist/main.js:1
 msgid "Change"
-msgstr "Ändern"
+msgstr "更改"
 
 #: assets/admin/dist/main.js:1
 msgid "email template"
-msgstr "E-Mail-Vorlage"
+msgstr "电子邮件模板"
 
 #: assets/admin/dist/main.js:1
 msgid "On-sale products"
-msgstr "Produkte im Angebot"
+msgstr "促销商品"
 
 #: assets/admin/dist/main.js:1
 msgid "High-rated products"
-msgstr "Hoch bewertete Produkte"
+msgstr "高评价产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Low-rated products"
-msgstr "Produkte mit niedriger Bewertung"
+msgstr "低评级产品"
 
 #: assets/admin/dist/main.js:1
 msgid "Remind customers to review"
-msgstr "Kunden an Bewertungen erinnern"
+msgstr "提醒客户评论"
 
 #: assets/admin/dist/main.js:1
 msgid "from an order"
-msgstr "aus einer Bestellung"
+msgstr "从订单"
 
 #: assets/admin/dist/main.js:1
 msgid "When should the reminder be sent?"
-msgstr "Wann soll die Erinnerung versendet werden?"
+msgstr "应该何时发送提醒？"
 
 #: assets/admin/dist/main.js:1
 msgid "Send a reminder email to customers"
-msgstr "Senden einer Erinnerungs-E-Mail an Kunden"
+msgstr "向客户发送提醒电子邮件"
 
 #: assets/admin/dist/main.js:1
 msgid "Select filter"
-msgstr "Filter auswählen"
+msgstr "选择筛选"
 
 #: assets/admin/dist/main.js:1
 msgid "Minute(s)"
-msgstr "Minute(n)"
+msgstr "分钟"
 
 #: assets/admin/dist/main.js:1
 msgid "Hour(s)"
-msgstr "Stunde(n)"
+msgstr "小时"
 
 #: assets/admin/dist/main.js:1
 msgid "Day(s)"
-msgstr "Tag(e)"
+msgstr "天"
 
 #: assets/admin/dist/main.js:1
 msgid "after order completed"
-msgstr "Nach Abschluss der Bestellung"
+msgstr "订单完成后"
 
 #: assets/admin/dist/main.js:1
 msgid "What products should be reminded?"
-msgstr "An welche Produkte sollte erinnert werden?"
+msgstr "应提醒哪些产品？"
 
 #: assets/admin/dist/main.js:1
 msgid "Product filter"
-msgstr "Produktfilter"
+msgstr "产品筛选 - Ajax"
 
 #: assets/admin/dist/main.js:1
 msgid "All"
-msgstr "Alle"
+msgstr "所有"
 
 #: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:35
 msgid "Upload media"
-msgstr "Medien hochladen"
+msgstr "上传媒体文件"
 
 #: assets/admin/dist/main.js:1
 msgid "Is media required when submitting a review?"
-msgstr "Sind Medien erforderlich, wenn Sie eine Bewertung abgeben?"
+msgstr "提交评论时是否需要提供媒体内容？"
 
 #: assets/admin/dist/main.js:1
 msgid "Media types"
-msgstr "Medien-Typen"
+msgstr "媒体类型"
 
 #: assets/admin/dist/main.js:1
 msgid "Select types"
-msgstr "Typen auswählen"
+msgstr "选择类型"
 
 #: assets/admin/dist/main.js:1
 msgid "Video and photo"
-msgstr "Video und Foto"
+msgstr "视频和照片"
 
 #: assets/admin/dist/main.js:1
 msgid "Only video"
-msgstr "Nur Video"
+msgstr "限制视频"
 
 #: assets/admin/dist/main.js:1
 msgid "Only photo"
-msgstr "Nur Foto"
+msgstr "仅照片"
 
 #: assets/admin/dist/main.js:1
 msgid "Maximum files per review"
-msgstr "Maximale Anzahl von Dateien pro Bewertung"
+msgstr "每次审阅的最大文件数"
 
 #: assets/admin/dist/main.js:1
 msgid "Unlimited"
-msgstr "Unbegrenzt"
+msgstr "无限"
 
 #: assets/admin/dist/main.js:1
 msgid "Maximum file size (Kb)"
-msgstr "Maximale Dateigröße (Kb)"
+msgstr "最大文件大小 （Kb）"
 
 #: assets/admin/dist/main.js:1
 msgid "Maximum 102400Kbs"
-msgstr "Maximal 102400 KBit/s"
+msgstr "最大 102400Kbs"
 
 #: assets/admin/dist/main.js:1
 msgid "Field label (optional)"
-msgstr "Feldbezeichnung (optional)"
+msgstr "字段标签（可选）"
 
 #: assets/admin/dist/main.js:1
 msgid "Field description (optional)"
-msgstr "Feldbeschreibung (optional)"
+msgstr "字段描述（可选）"
 
 #: assets/admin/dist/main.js:1
 msgid "Type your description here"
-msgstr "Geben Sie hier Ihre Beschreibung ein"
+msgstr "在此处输入您的描述"
 
 #: assets/admin/dist/main.js:1
 msgid "Data processing consent"
-msgstr "Einwilligung zur Datenverarbeitung"
+msgstr "数据处理同意"
 
 #: assets/admin/dist/main.js:1
 msgid "Before message"
-msgstr "Vor der Nachricht"
+msgstr "Before 消息"
 
 #: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:39
 msgid "We respect your privacy and need your consent to continue."
-msgstr ""
-"Wir respektieren Ihre Privatsphäre und benötigen Ihre Zustimmung, um "
-"fortzufahren."
+msgstr "我们尊重您的隐私，需要您的同意才能继续。"
 
 #: assets/admin/dist/main.js:1
 msgid "Inline GDPR message"
-msgstr "Inline-DSGVO-Nachricht"
+msgstr "内联 GDPR 消息"
 
 #: assets/admin/dist/main.js:1 src/Models/SettingsModel.php:38
 msgid "I agree to the Privacy Policy."
-msgstr "Ich stimme der Datenschutzerklärung zu."
+msgstr "我同意隐私政策。"
 
 #: assets/admin/dist/main.js:1
 msgid "Verified owner label"
-msgstr "Siegel für verifizierten Eigentümer"
+msgstr "已验证的所有者标签"
 
 #: assets/admin/dist/main.js:1
 msgid "Verification required"
-msgstr "Veritätsprüfung erforderlich"
+msgstr "需要验证"
 
 #: assets/admin/dist/main.js:1
 msgid "Star ratings enabled"
-msgstr "Sternebewertungen aktiviert"
+msgstr "已启用星级评分"
 
 #: assets/admin/dist/main.js:1
 msgid "Star ratings required"
-msgstr "Sternebewertungen erforderlich"
+msgstr "需要星级评分"
 
 #: assets/admin/dist/main.js:1
 msgid "WooCommerce Settings"
-msgstr "WooCommerce Einstellungen"
+msgstr "WooCommerce设置"
 
 #: assets/admin/dist/main.js:1
 msgid "Reviews"
-msgstr "Bewertungen"
+msgstr "评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Show \"verified owner\" label on customer reviews"
-msgstr "Kennzeichnung „Verifizierter Besitzer“ bei Kundenbewertungen anzeigen"
+msgstr "显示“验证所有者”标签的客户评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Reviews can only be left by \"verified owners\""
-msgstr "Nur Bewertungen von „verifizierten Besitzern“ zulassen"
+msgstr "只能由 \"已验证的所有者\" 留下评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Product ratings"
-msgstr "Produktbewertungen"
+msgstr "产品等级"
 
 #: assets/admin/dist/main.js:1
 msgid "Enable star rating on reviews"
-msgstr "Sternenbewertung bei Rezensionen ermöglichen"
+msgstr "在评论上启用星级评分"
 
 #: assets/admin/dist/main.js:1
 msgid "Star ratings should be required, not optional"
-msgstr "Sterne-Bewertungen sollten erforderlich sein, nicht optional"
+msgstr "星级应该是必需的，而不是可选的"
 
 #: assets/admin/dist/main.js:1
 msgid "Manage "
-msgstr "Verwalten"
+msgstr "管理 "
 
 #: assets/admin/dist/main.js:1
 msgid "Reward for reviewing the product"
-msgstr "Belohnung für die Bewertung des Produkts"
+msgstr "评论产品的奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Failed to create coupon"
-msgstr "Gutschein konnte nicht erstellt werden"
+msgstr "创建优惠券失败"
 
 #: assets/admin/dist/main.js:1
 msgid "Coupon code"
-msgstr "Gutscheincode"
+msgstr "优惠券代码"
 
 #: assets/admin/dist/main.js:1
 msgid "Placeholder"
-msgstr "Platzhalter"
+msgstr "占位符"
 
 #: assets/admin/dist/main.js:1
 msgid "Generate"
-msgstr "Generieren"
+msgstr "生成"
 
 #: assets/admin/dist/main.js:1
 msgid "Coupon amount"
-msgstr "Gutscheinbetrag"
+msgstr "优惠券金额"
 
 #: assets/admin/dist/main.js:1
 msgid "Expiry date"
-msgstr "Ablaufdatum"
+msgstr "到期日"
 
 #: assets/admin/dist/main.js:1
 msgid "No expiry"
-msgstr "Kein Ablaufdatum"
+msgstr "未到期"
 
 #: assets/admin/dist/main.js:1
 msgid "Add coupon"
-msgstr "Gutschein hinzufügen"
+msgstr "添加优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Create new coupon"
-msgstr "Neuen Gutschein erstellen"
+msgstr "创建新优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Every review"
-msgstr "Jede Bewertung"
+msgstr "每条评论"
 
 #: assets/admin/dist/main.js:1
 msgid "every review"
-msgstr "Jede Bewertung"
+msgstr "每条评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Every 2 reviews"
-msgstr "Alle 2 Bewertungen"
+msgstr "每 2 个评价"
 
 #: assets/admin/dist/main.js:1
 msgid "every 2 reviews"
-msgstr "Alle 2 Bewertungen"
+msgstr "每 2 条评论"
 
 #: assets/admin/dist/main.js:1
 msgid "Every 3 reviews"
-msgstr "Alle 3 Bewertungen"
+msgstr "每 3 条评价"
 
 #: assets/admin/dist/main.js:1
 msgid "every 3 reviews"
-msgstr "Alle 3 Bewertungen"
+msgstr "每 3 评论"
 
 #: assets/admin/dist/main.js:1
 msgid "less than 5★"
-msgstr "weniger als 5★"
+msgstr "小于 5★"
 
 #: assets/admin/dist/main.js:1
 msgid "5★"
@@ -716,236 +707,232 @@ msgstr "★ 5"
 
 #: assets/admin/dist/main.js:1
 msgid "at least one photo or video"
-msgstr "Mindestens ein Foto oder Video"
+msgstr "至少一张照片或视频"
 
 #: assets/admin/dist/main.js:1
 msgid "photo or video required"
-msgstr "Foto oder Video erforderlich"
+msgstr "需要照片或视频"
 
 #: assets/admin/dist/main.js:1
 msgid "Expired"
-msgstr "Abgelaufen"
+msgstr "过期"
 
 #: assets/admin/dist/main.js:1
 msgid "Out of usage"
-msgstr "Außer Betrieb"
+msgstr "已停用"
 
 #: assets/admin/dist/main.js:1
 msgid "off coupon"
-msgstr "Rabatt auf den Gutschein"
+msgstr "优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Reward will be given"
-msgstr "Die Belohnung wird vergeben"
+msgstr "将给予奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "is"
-msgstr "ist"
+msgstr "是"
 
 #: assets/admin/dist/main.js:1
 msgid "are"
-msgstr "sind"
+msgstr "是"
 
 #: assets/admin/dist/main.js:1
 msgid "contains"
-msgstr "enthält"
+msgstr "包含"
 
 #: assets/admin/dist/main.js:1
 msgid "contain"
-msgstr "Einpassen"
+msgstr "包含"
 
 #: assets/admin/dist/main.js:1
 msgid " that"
-msgstr " das"
+msgstr "那"
 
 #: assets/admin/dist/main.js:1
 msgid " and"
-msgstr " und"
+msgstr " 和"
 
 #: assets/admin/dist/main.js:1
 msgid "Enable/disable reward"
-msgstr "Belohnung aktivieren/deaktivieren"
+msgstr "启用/禁用奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Duplicate"
-msgstr "Duplizieren"
+msgstr "复制"
 
 #: assets/admin/dist/main.js:1
 msgid "Delete reward"
-msgstr "Belohnung löschen"
+msgstr "删除奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Are you sure you want to delete this reward?"
-msgstr "Bist du sicher, dass du diese Prämie löschen möchtest?"
+msgstr "您确定要删除此奖励吗？"
 
 #: assets/admin/dist/main.js:1
 msgid "Delete"
-msgstr "Löschen"
+msgstr "删除"
 
 #: assets/admin/dist/main.js:1
 msgid "Creates a unique one-time coupon for each review"
-msgstr "Erstellt einen einmaligen Gutschein für jede Bewertung"
+msgstr "为每条评论创建唯一的一次性优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Manual coupon"
-msgstr "Manueller Gutschein"
+msgstr "手动优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Select coupon to be sent"
-msgstr "Zu versendenden Coupon auswählen"
+msgstr "选择要发送的优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "Select coupon"
-msgstr "Coupon auswählen"
+msgstr "选择优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "expired"
-msgstr "abgelaufen"
+msgstr "过期"
 
 #: assets/admin/dist/main.js:1
 msgid "out of usage"
-msgstr "außer Betrieb"
+msgstr "已停用"
 
 #: assets/admin/dist/main.js:1
 msgid "No coupons found"
-msgstr "Keine Gutscheine gefunden"
+msgstr "沒有找到优惠券"
 
 #: assets/admin/dist/main.js:1
 msgid "or"
-msgstr "oder"
+msgstr "或"
 
 #: assets/admin/dist/main.js:1
 msgid "coupon cannot be sent to customers as rewards. Please update its"
-msgstr ""
-"utscheine können nicht als Belohnung an Kunden gesendet werden. Bitte "
-"aktualisieren Sie den"
+msgstr "优惠券不能作为奖励发送给客户。请更新其"
 
 #: assets/admin/dist/main.js:1
 msgid "restrictions"
-msgstr "Einschränkungen"
+msgstr "限制条件"
 
 #: assets/admin/dist/main.js:1
 msgid "Who can receive the reward?"
-msgstr "Wer kann die Belohnung erhalten?"
+msgstr "谁可以获得奖励？"
 
 #: assets/admin/dist/main.js:1
 msgid "Select value"
-msgstr "Wähle Wert"
+msgstr "选择值"
 
 #: assets/admin/dist/main.js:1
 msgid "All reviewers (include guest users)"
-msgstr "Alle Prüfer (einschließlich Gastbenutzer)"
+msgstr "所有审阅者（包括来宾用户）"
 
 #: assets/admin/dist/main.js:1
 msgid "Purchased customers only"
-msgstr "Nur gekaufte Kunden"
+msgstr "仅限已购买客户"
 
 #: assets/admin/dist/main.js:1
 msgid "Guest users only"
-msgstr "Nur Gastbenutzer"
+msgstr "仅限来宾用户"
 
 #: assets/admin/dist/main.js:1
 msgid "Conditions to trigger the reward"
-msgstr "Bedingungen zum Auslösen der Belohnung"
+msgstr "触发奖励的条件"
 
 #: assets/admin/dist/main.js:1
 msgid "Select requirement"
-msgstr "Anforderung auswählen"
+msgstr "选择要求"
 
 #: assets/admin/dist/main.js:1
 msgid "No reward added"
-msgstr "Keine Belohnung hinzugefügt"
+msgstr "未添加奖励"
 
 #: assets/admin/dist/main.js:1
 msgid "Sends discount coupons for quality reviews meeting set criteria,"
-msgstr ""
-"Versendet Rabattcoupons für Qualitätsbewertungen, die festgelegten Kriterien "
-"entsprechen,"
+msgstr "为符合设定标准的质量评论发送折扣券，"
 
 #: assets/admin/dist/main.js:1
 msgid "encouraging great feedback and repeat purchases."
-msgstr "örderung von großartigem Feedback und Wiederholungskäufen."
+msgstr "鼓励良好的反馈和重复购买。"
 
 #: assets/admin/dist/main.js:1
 msgid "Create new"
-msgstr "Neu erstellen"
+msgstr "创建新的"
 
 #: assets/admin/dist/main.js:1
 msgid "You have"
-msgstr "Du hast"
+msgstr "您有"
 
 #: assets/admin/dist/main.js:1
 msgid "reward sets"
-msgstr "Belohnungs-Sets"
+msgstr "奖励集"
 
 #: assets/admin/dist/main.js:1
 msgid "reward set"
-msgstr "Belohnungsset"
+msgstr "奖励套装"
 
 #: assets/admin/dist/main.js:1
 msgid "Each review can trigger only one reward set"
-msgstr "Jede Bewertung kann nur einen Belohnungssatz auslösen"
+msgstr "每条评价只能触发一个奖励集"
 
 #: assets/admin/dist/main.js:1
 msgid "Add reward set"
-msgstr "Belohnungsset hinzufügen"
+msgstr "添加奖励集"
 
 #: assets/admin/dist/main.js:1
 msgid "Settings saved successfully"
-msgstr "Einstellungen erfolgreich gespeichert"
+msgstr "设置保存成功"
 
 #: assets/admin/dist/main.js:1
 msgid "Failed to save settings"
-msgstr "Die Einstellungen konnten nicht gespeichert werden"
+msgstr "无法保存设置"
 
 #: src/Admin.php:30
 msgid "Title"
-msgstr "Titel"
+msgstr "标题"
 
 #: src/AdminMenu.php:22
 msgid "Yay Reviews Settings"
-msgstr "Yay Reviews-Einstellungen"
+msgstr "Yay Reviews 设置"
 
 #: src/AdminMenu.php:23 src/YayCommerceMenu/RegisterMenu.php:175
 msgid "YayReviews"
-msgstr "YayReviews"
+msgstr "Yay评论"
 
 #: src/Ajax.php:29 src/Ajax.php:54 src/Ajax.php:122 src/Ajax.php:173
 #: src/Ajax.php:227 src/Ajax.php:259
 msgid "Verify nonce failed"
-msgstr "Sicherheitscheck ist fehlgeschlagen"
+msgstr "验证 nonce 失败"
 
 #: src/Ajax.php:45
 msgid "Invalid addon id or status"
-msgstr "Ungültige Add-on-ID oder ungültiger Status"
+msgstr "无效的插件 ID 或状态"
 
 #: src/Ajax.php:113 src/Ajax.php:164 src/Ajax.php:216
 msgid "Invalid email id"
-msgstr "Ungültige E-Mail-ID"
+msgstr "电子邮件 ID 无效"
 
 #: src/Ajax.php:160
 msgid "Email dismissed successfully"
-msgstr "E-Mail erfolgreich verworfen"
+msgstr "电子邮件已成功关闭"
 
 #: src/Ajax.php:248
 msgid "WC reviews settings updated successfully"
-msgstr "WC-Überprüfungseinstellungen wurden erfolgreich aktualisiert"
+msgstr "WC 审核设置已成功更新"
 
 #: src/Ajax.php:250
 msgid "Invalid update field or value"
-msgstr "Ungültiges Aktualisierungsfeld oder ungültiger Aktualisierungswert"
+msgstr "更新字段或值无效"
 
 #: src/Ajax.php:282
 msgid "Email previewed successfully"
-msgstr "E-Mail erfolgreich in der Vorschau angezeigt"
+msgstr "电子邮件预览成功"
 
 #: src/Classes/Helpers.php:70
 msgid "Reminder email"
-msgstr "Email - Erinnerungen"
+msgstr "提醒电子邮件"
 
 #: src/Classes/Helpers.php:71
 msgid "Thank you for your purchase!"
-msgstr "Vielen Dank für Ihren Einkauf!"
+msgstr "感谢您的购买！"
 
 #: src/Classes/Helpers.php:72
 msgid ""
@@ -953,50 +940,46 @@ msgid ""
 "thoughts by reviewing these products. Your feedback helps us improve and "
 "earns you reward! {review_products}"
 msgstr ""
-"Vielen Dank für Ihren letzten Einkauf! Bitte nehmen Sie sich einen Moment "
-"Zeit, um Ihre Gedanken zu teilen, indem Sie diese Produkte bewerten. Ihr "
-"Feedback hilft uns, uns zu verbessern und bringt Ihnen eine Belohnung ein! "
-"{review_products}"
+"感谢您最近的购买！请花点时间通过评论这些产品来分享您的想法。您的反馈有助于我"
+"们改进并为您赢得奖励！{review_products}"
 
 #: src/Classes/Helpers.php:75
 msgid "Review reward email"
-msgstr "E-Mail mit Bewertungsbelohnung"
+msgstr "查看奖励电子邮件"
 
 #: src/Classes/Helpers.php:76
 msgid "Thank you for your review!"
-msgstr "Vielen Dank für deine Bewertung!"
+msgstr "谢谢您，对于您的评论！"
 
 #: src/Classes/Helpers.php:77
 msgid ""
 "Thank you for reviewing {product_name}! As a token of our appreciation, "
 "we've sent you coupon: {coupon_code} to use on your next purchase."
 msgstr ""
-"Vielen Dank für Ihre Bewertung von {product_name}! Als Dankeschön haben wir "
-"Ihnen den Gutschein {coupon_code} für Ihren nächsten Einkauf zugesandt."
+"感谢您的评论 {product_name}！为了表示感谢，我们向您发送了优惠券："
+"{coupon_code} 供您下次购买时使用。"
 
 #: src/Emails/ReminderEmail.php:17
 msgid "Review Reminder"
-msgstr "Bewertungs Erinnerung"
+msgstr "评论提醒"
 
 #: src/Emails/ReminderEmail.php:18
 msgid ""
 "This email is sent to customers to remind them to review their purchased "
 "products."
-msgstr ""
-"Diese E-Mail wird an Kunden gesendet, um sie daran zu erinnern, ihre "
-"gekauften Produkte zu bewerten."
+msgstr "此电子邮件将发送给客户，以提醒他们查看所购买的产品。"
 
 #: src/Emails/ReminderEmail.php:125 src/Emails/RewardEmail.php:143
 msgid "Enable/Disable"
-msgstr "Aktivieren/Deaktivieren"
+msgstr "启用/禁用"
 
 #: src/Emails/ReminderEmail.php:127 src/Emails/RewardEmail.php:145
 msgid "Enable this email notification"
-msgstr "Diese E-Mail-Benachrichtigung aktivieren"
+msgstr "启用此电子邮件通知"
 
 #: src/Emails/ReminderEmail.php:131 src/Emails/RewardEmail.php:149
 msgid "Subject"
-msgstr "Betreff"
+msgstr "主题"
 
 #. translators: %s: site title placeholder
 #. translators: %s: list of available placeholders
@@ -1007,132 +990,128 @@ msgstr "Betreff"
 #: src/Emails/RewardEmail.php:162 src/Emails/RewardEmail.php:171
 #, php-format
 msgid "Available placeholders: %s"
-msgstr "Verfügbare Platzhalter: %s"
+msgstr "可用的占位符：%s"
 
 #: src/Emails/ReminderEmail.php:140 src/Emails/RewardEmail.php:158
 msgid "Email Heading"
-msgstr "E-Mail-Kopfzeile"
+msgstr "邮件标题"
 
 #: src/Emails/ReminderEmail.php:149 src/Emails/RewardEmail.php:167
 msgid "Email Content"
-msgstr "E-Mail Inhalt"
+msgstr "邮件内容"
 
 #: src/Emails/ReminderEmail.php:160 src/Emails/RewardEmail.php:178
 msgid "Choose which format of email to send."
-msgstr "Format für E-Mail-Versand auswählen."
+msgstr "选择要发送的电子邮件格式。"
 
 #: src/Emails/RewardEmail.php:17
 msgid "Review Reward"
-msgstr "Bewertungsbelohnung"
+msgstr "评论奖励"
 
 #: src/Emails/RewardEmail.php:18
 msgid "This email is sent to customers to reward them for their reviews."
-msgstr ""
-"Diese E-Mail wird an Kunden gesendet, um sie für ihre Bewertungen zu "
-"belohnen."
+msgstr "此电子邮件将发送给客户，以奖励他们的评论。"
 
 #. translators: %s: media type (image or video, video, image)
 #: src/Frontend.php:233
 #, php-format
 msgid "Please upload at least 1 %s."
-msgstr "Bitte laden Sie mindestens 1 %s hoch."
+msgstr "请至少上传 1 %s。"
 
 #: src/Frontend.php:235
 msgid "video or photo"
-msgstr "Video oder Foto"
+msgstr "视频或照片"
 
 #: src/Frontend.php:237
 msgid "video"
-msgstr "Video"
+msgstr "视频"
 
 #: src/Frontend.php:238
 msgid "photo"
-msgstr "Foto"
+msgstr "照片"
 
 #: src/Frontend.php:253 views/frontend/media-list.php:86
 msgid "Verified owner"
-msgstr "Verifizierter Besitzer"
+msgstr "验证所有者"
 
 #: src/Frontend.php:254
 msgid "Please check GDPR checkbox."
-msgstr "Bitte aktivieren Sie das Kontrollkästchen DSGVO."
+msgstr "请选中 GDPR 复选框。"
 
 #. translators: %1$s: file name, %2$s: max allowed size
 #: src/Frontend.php:257
 #, php-format
 msgid ""
 "The size of the file %1$s is too large; the maximum allowed size is %2$sKB."
-msgstr ""
-"Die Größe der Datei %1$s ist zu groß; die maximal zulässige Größe beträgt "
-"%2$sKB."
+msgstr "%1$s文件大小太大;允许的最大大小为 %2$sKB。"
 
 #. translators: %1$s: max allowed files
 #: src/Frontend.php:259
 #, php-format
 msgid "You can only upload a maximum of %1$s files."
-msgstr "Sie können maximal %1$s Dateien hochladen."
+msgstr "您最多只能上传 %1$s 个文件。"
 
 #: src/Frontend.php:260
 msgid "The review title must be less than 60 characters."
-msgstr "Der Titel der Bewertung muss weniger als 60 Zeichen lang sein."
+msgstr "评论标题必须少于 60 个字符。"
 
 #: src/Models/SettingsModel.php:36
 msgid "You can upload jpg/png & video (maximum 2000Kbs)"
-msgstr "Sie können JPG/PNG und Videos hochladen (maximal 2000 KB)."
+msgstr "您可以上传jpg/png和视频（最大2000Kbs）"
 
 #: src/RestAPI.php:179
 msgid "Send in"
-msgstr "Einsenden"
+msgstr "发送进来"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:122
 msgid "Other Plugins"
-msgstr "Andere Plugins"
+msgstr "其它插件"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:292
 #: src/YayCommerceMenu/OtherPluginsMenu.php:341
 #: src/YayCommerceMenu/OtherPluginsMenu.php:389
 msgid "Nonce is invalid"
-msgstr "Nonce ist ungültig"
+msgstr "Nonce 无效"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:310
 msgid "Get data success"
-msgstr "Erhalten Sie Datenerfolg"
+msgstr "获得数据成功"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:318
 #: src/YayCommerceMenu/OtherPluginsMenu.php:362
 #: src/YayCommerceMenu/OtherPluginsMenu.php:472
 msgid "Error exception."
-msgstr "Fehlerausnahme."
+msgstr "错误异常。"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:327
 #: src/YayCommerceMenu/OtherPluginsMenu.php:371
 #: src/YayCommerceMenu/OtherPluginsMenu.php:481
 msgid "Error."
-msgstr "Fehler."
+msgstr "错误."
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:355
 msgid "Activate success"
-msgstr "Erfolg aktivieren"
+msgstr "激活成功"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:438
 msgid "Install success"
-msgstr "Erfolgreich installieren"
+msgstr "安装成功"
 
 #: src/YayCommerceMenu/OtherPluginsMenu.php:462
 msgid "Update success"
-msgstr "Aktualisierung erfolgreich"
+msgstr "更新成功"
 
 #: src/YayCommerceMenu/RegisterMenu.php:80
 msgid "Help"
-msgstr "Hilfe"
+msgstr "帮助"
 
 #: src/YayCommerceMenu/RegisterMenu.php:117
 msgid "Licenses"
-msgstr "Lizenzen"
+msgstr "许可证"
 
 #: src/YayCommerceMenu/RegisterMenu.php:126
 msgid "Other plugins"
-msgstr "Andere Plugins"
+msgstr "其他插件"
 
 #. translators: %s: Plugin name and version.
 #: src/YayCommerceMenu/views/other-plugins-content.php:78
@@ -1140,17 +1119,17 @@ msgstr "Andere Plugins"
 #, php-format
 msgctxt "plugin"
 msgid "Install %s now"
-msgstr "%s jetzt installieren"
+msgstr "现在安装 %s"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:79
 #: src/YayCommerceMenu/views/other-plugins-content.php:87
 msgid "Install Now"
-msgstr "Jetzt installieren"
+msgstr "现在安装"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:93
 msgctxt "plugin"
 msgid "Cannot Install"
-msgstr "Installation nicht möglich"
+msgstr "无法安装"
 
 #. translators: %s: Plugin name and version.
 #: src/YayCommerceMenu/views/other-plugins-content.php:110
@@ -1158,59 +1137,59 @@ msgstr "Installation nicht möglich"
 #, php-format
 msgctxt "plugin"
 msgid "Update %s now"
-msgstr "Aktualisieren Sie %s jetzt"
+msgstr "立即更新 %s"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:112
 #: src/YayCommerceMenu/views/other-plugins-content.php:123
 msgid "Update Now"
-msgstr "Jetzt aktualisieren"
+msgstr "现在更新"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:129
 msgctxt "plugin"
 msgid "Cannot Update"
-msgstr "Update nicht möglich"
+msgstr "无法更新"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:146
 msgctxt "plugin"
 msgid "Activated"
-msgstr "Aktiviert"
+msgstr "激活"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:151
 msgid "Activate"
-msgstr "Aktivieren"
+msgstr "启用"
 
 #. translators: %s: Plugin name.
 #: src/YayCommerceMenu/views/other-plugins-content.php:153
 #, php-format
 msgctxt "plugin"
 msgid "Activate %s"
-msgstr "Aktiviere %s"
+msgstr "激活 %s"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:164
 msgid "Network Activate"
-msgstr "Netzwerk aktivieren"
+msgstr "网络激活"
 
 #. translators: %s: Plugin name.
 #: src/YayCommerceMenu/views/other-plugins-content.php:166
 #, php-format
 msgctxt "plugin"
 msgid "Network Activate %s"
-msgstr "Netzwerk aktiv %s"
+msgstr "网络激活 %s"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:179
 msgctxt "plugin"
 msgid "Cannot Activate"
-msgstr "Aktivierung nicht möglich"
+msgstr "无法启用"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:185
 msgctxt "plugin"
 msgid "Installed"
-msgstr "Installiert"
+msgstr "已安装"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:215
+#, fuzzy
 msgid "This plugin doesn&#8217;t work with your versions of WordPress and PHP."
-msgstr ""
-"Dieses Plugin funktioniert nicht mit deinen Versionen von WordPress und PHP."
+msgstr "该插件不适用于您的 WordPress 和 PHP 版本。"
 
 #. translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page.
 #: src/YayCommerceMenu/views/other-plugins-content.php:219
@@ -1219,90 +1198,93 @@ msgid ""
 "<a href=\"%1$s\">Please update WordPress</a>, and then <a "
 "href=\"%2$s\">learn more about updating PHP</a>."
 msgstr ""
-"<a href=\"%1$s\">Bitte aktualisieren Sie WordPress</a> und erfahren Sie dann "
-"<a href=\"%2$s\">mehr über das Aktualisieren von PHP</a>."
+"<a href=\"%1$s\">请更新 WordPress</a>，然后<a href=\"%2$s\">详细了解如何更新 "
+"PHP</a>。"
 
 #. translators: %s: URL to WordPress Updates screen.
 #: src/YayCommerceMenu/views/other-plugins-content.php:227
 #: src/YayCommerceMenu/views/other-plugins-content.php:243
-#, php-format
+#, fuzzy, php-format
 msgid "<a href=\"%s\">Please update WordPress</a>."
-msgstr "<a href=\"%s\">Bitte aktualisiere WordPress.</a>."
+msgstr "<a href=\"%s\">请更新 WordPress</a>。"
 
 #. translators: %s: URL to Update PHP page.
 #: src/YayCommerceMenu/views/other-plugins-content.php:233
 #: src/YayCommerceMenu/views/other-plugins-content.php:252
-#, php-format
+#, fuzzy, php-format
 msgid "<a href=\"%s\">Learn more about updating PHP</a>."
-msgstr "<a href=\"%s\">Erfahre mehr über die PHP-Aktualisierung (engl.)</a>."
+msgstr "<a href=\"%s\">了解有关更新PHP的更多信息</a>。"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:239
+#, fuzzy
 msgid "This plugin doesn&#8217;t work with your version of WordPress."
-msgstr "Dieses Plugin funktioniert nicht mit Ihrer WordPress-Version."
+msgstr "该插件不适用于您的 WordPress 版本。"
 
 #: src/YayCommerceMenu/views/other-plugins-content.php:248
+#, fuzzy
 msgid "This plugin doesn&#8217;t work with your version of PHP."
-msgstr "Dieses Plugin funktioniert nicht mit Ihrer PHP-Version."
+msgstr "该插件不适用于您的 PHP 版本。"
 
 #: views/emails/review-products.php:34
 msgid "Product Image"
-msgstr "Produktbild"
+msgstr "产品图片"
 
 #: views/emails/review-products.php:54
 msgid "Leave a review"
-msgstr "Bewertung schreiben"
+msgstr "留下评论"
 
 #: views/frontend/all-reviews-media.php:9
 msgid "Reviews with media"
-msgstr "Bewertungen mit Medien"
+msgstr "媒体评论"
 
 #: views/frontend/all-reviews-media.php:10 views/frontend/media-list.php:51
 msgid "See all media"
-msgstr "Alle Medien anzeigen"
+msgstr "查看所有媒体"
 
 #: views/frontend/all-reviews-media.php:15
 msgid "All media"
-msgstr "Alle Medien"
+msgstr "所有媒体"
 
 #: views/frontend/media-list.php:49
 msgid "Review Details"
-msgstr "Bewertungsdetails"
+msgstr "评价详情"
 
 #: views/frontend/media-list.php:124
 msgid "Reviewed in "
-msgstr "Bewertet in"
+msgstr "审阅时间"
 
 #: views/frontend/media-list.php:124
 msgid "at"
-msgstr "bei"
+msgstr "在"
 
 #: views/frontend/media-list.php:128
 msgid "Medias in this review"
-msgstr "Medien in dieser Rezension"
+msgstr "本综述中的媒体"
 
 #: views/frontend/review-form/media.php:54
 msgid "Upload"
-msgstr "Hochladen"
+msgstr "上传"
 
 #: views/frontend/review-form/product-attributes.php:55
 msgid "Product Attributes (Optional)"
-msgstr "Produktattribute (optional)"
+msgstr "产品属性（可选）"
 
 #: views/frontend/review-form/product-attributes.php:66
+#, fuzzy
 msgid "Select"
-msgstr "Auswählen"
+msgstr "选择"
 
 #: views/frontend/review-form/review-title.php:8
 msgid "Title (optional)"
-msgstr "Titel (optional)"
+msgstr "标题（可选）"
 
 #: views/frontend/review-form/review-title.php:10
 msgid "Maximum 60 characters"
-msgstr "Maximal 60 Zeichen"
+msgstr "最多 60 个字符"
 
 #: views/frontend/reviews-overview.php:43
 msgid "No ratings"
-msgstr "Noch keine Bewertungen"
+msgstr "无评级"
 
 #. translators: %1$s: rating, %2$s: see all reviews link
 #: views/frontend/reviews-overview.php:95
@@ -1311,25 +1293,24 @@ msgid ""
 "You are currently viewing the reviews that provided a rating of <strong>%1$s "
 "stars</strong>. <a href=\"%2$s\">See all reviews</a>"
 msgstr ""
-"Sie sehen sich gerade die Bewertungen an, die eine Sternebewertung "
-"<strong>%1$s</strong>abgegeben haben. <a href=\"%2$s\">Alle Bewertungen "
-"ansehen</a>"
+"您当前正在查看提供星级评分<strong>%1$s</strong>的评论。<a href=\"%2$s\">查看"
+"所有评论</a>"
 
 #: yay-reviews.php:44
 msgid "Please activate WooCommerce to activate Yay Reviews"
-msgstr "Bitte aktivieren Sie WooCommerce, um Yay Reviews zu aktivieren"
+msgstr "请激活 WooCommerce 以激活 Yay Reviews"
 
 #. Plugin Name of the plugin/theme
 msgid "YayReviews - Product Reviews for WooCommerce"
-msgstr "YayReviews - Produktbewertungen für WooCommerce"
+msgstr "YayReviews - 产品评价 WooCommerce"
 
 #. Description of the plugin/theme
 msgid "YayReviews helps you to do more things with WooCommerce reviews."
-msgstr "YayReviews hilft Ihnen, mit WooCommerce-Bewertungen mehr zu tun."
+msgstr "YayReviews 可帮助您使用 WooCommerce 评论做更多的事情。"
 
 #. Author of the plugin/theme
 msgid "YayCommerce"
-msgstr "YayCommerce"
+msgstr "雅商"
 
 #. Author URI of the plugin/theme
 msgid "https://yaycommerce.com"
