@@ -113,7 +113,7 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 					'product_list' => self::get_sample_products(),
 				),
 				'',
-				YAY_REVIEWS_PLUGIN_PATH . 'views/'
+				YAYREV_PLUGIN_PATH . 'views/'
 			);
 
 		}
@@ -147,7 +147,7 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 				'product_list' => $remind_products,
 			),
 			'',
-			YAY_REVIEWS_PLUGIN_PATH . 'views/'
+			YAYREV_PLUGIN_PATH . 'views/'
 		);
 	}
 

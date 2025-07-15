@@ -57,7 +57,7 @@ if ( empty( $attribute_options ) ) {
 				<?php echo esc_html( $attribute_data['label'] ); ?>
 			</label>
 			<select 
-				name="yay_reviews_attributes[<?php echo esc_attr( $attribute_name ); ?>]" 
+				name="yayrev_attributes[<?php echo esc_attr( $attribute_name ); ?>]" 
 				id="yay-reviews-attribute-<?php echo esc_attr( $attribute_name ); ?>"
 				class="yay-reviews-product-attributes__select"
 			>

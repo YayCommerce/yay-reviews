@@ -17,7 +17,7 @@ class RegisterFacade {
 		add_filter( 'script_loader_tag', array( $this, 'add_entry_as_module' ), 10, 3 );
 		add_action( 'init', array( $this, 'register_all_assets' ) );
 		add_filter( 'pre_load_script_translations', array( $this, 'use_mo_file_for_script_translations' ), 10, 4 );
-		$is_prod = ! defined( 'YAY_REVIEWS_IS_DEVELOPMENT' ) || YAY_REVIEWS_IS_DEVELOPMENT !== true;
+		$is_prod = ! defined( 'YAYREV_IS_DEVELOPMENT' ) || YAYREV_IS_DEVELOPMENT !== true;
 		if ( $is_prod && class_exists( '\YayReviews\Register\RegisterProd' ) ) {
 			\YayReviews\Register\RegisterProd::get_instance();
 		} elseif ( ! $is_prod && class_exists( '\YayReviews\Register\RegisterDev' ) ) {
@@ -38,12 +38,12 @@ class RegisterFacade {
 	public function register_all_assets() {
 		wp_register_style(
 			ScriptName::STYLE_SETTINGS,
-			YAY_REVIEWS_PLUGIN_URL . 'assets/admin/dist/main.css',
+			YAYREV_PLUGIN_URL . 'assets/admin/dist/main.css',
 			array(
 				'woocommerce_admin_styles',
 				'wp-components',
 			),
-			YAY_REVIEWS_VERSION
+			YAYREV_VERSION
 		);
 	}
 

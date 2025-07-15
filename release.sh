@@ -23,7 +23,7 @@ composer run cbf ../release
 cd ..
 
 # STEP3 Remove Development files
-sed -i "" "/'YAY_REVIEWS_IS_DEVELOPMENT', true/d" "$DEST_PATH/yay-reviews.php"
+sed -i "" "/'YAYREV_IS_DEVELOPMENT', true/d" "$DEST_PATH/yay-reviews.php"
 rm -rf "$DEST_PATH/includes/Engine/Register/RegisterDev.php"
 
 echo "Generating zip file..."

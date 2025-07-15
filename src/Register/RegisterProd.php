@@ -18,12 +18,12 @@ class RegisterProd {
 
 		wp_register_script(
 			ScriptName::PAGE_SETTINGS,
-			YAY_REVIEWS_PLUGIN_URL . 'assets/admin/dist/main.js',
+			YAYREV_PLUGIN_URL . 'assets/admin/dist/main.js',
 			$deps,
-			YAY_REVIEWS_VERSION,
+			YAYREV_VERSION,
 			true
 		);
-		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAY_REVIEWS_PLUGIN_PATH . 'languages' );
+		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAYREV_PLUGIN_PATH . 'languages' );
 		wp_script_add_data( ScriptName::PAGE_SETTINGS, 'type', 'module' );
 	}
 }

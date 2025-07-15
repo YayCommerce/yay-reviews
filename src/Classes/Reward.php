@@ -76,7 +76,7 @@ class Reward {
 
 		$valid           = true;
 		$rating          = (float) get_comment_meta( $comment->comment_ID, 'rating', true );
-		$media           = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		$media           = get_comment_meta( $comment->comment_ID, 'yayrev_files', true );
 		$comment_user_id = $comment->user_id;
 
 		$send_to            = $this->data['send_to'] ?? '';
@@ -147,7 +147,7 @@ class Reward {
 			}
 			if ( 'none' !== $media_requirement ) {
 				$meta_query[] = array(
-					'key'     => 'yay_reviews_files',
+					'key'     => 'yayrev_files',
 					'value'   => '',
 					'compare' => '!=',
 				);

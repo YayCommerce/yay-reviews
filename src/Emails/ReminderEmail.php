@@ -12,20 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class ReminderEmail extends \WC_Email {
 
 	public function __construct() {
-		$this->id             = 'yay_reviews_reminder';
+		$this->id             = 'yayrev_reminder';
 		$this->customer_email = true;
 		$this->title          = __( 'Review Reminder', 'yay-reviews' );
 		$this->description    = __( 'This email is sent to customers to remind them to review their purchased products.', 'yay-reviews' );
 		$this->template_html  = 'emails/reminder-email.php';
 		$this->template_plain = 'emails/plain/reminder-email.php';
-		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
+		$this->template_base  = YAYREV_PLUGIN_PATH . 'views/';
 		$this->placeholders   = ReminderPlaceholderProcessor::DEFAULT_PLACEHOLDERS;
 
 		// Call parent constructor
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yay_reviews_reminder_email_notification', array( $this, 'trigger' ), 10, 3 );
+		add_action( 'yayrev_reminder_email_notification', array( $this, 'trigger' ), 10, 3 );
 	}
 
 	public function trigger( $order_id, $order = false, $email_id = 0 ) {
@@ -48,7 +48,7 @@ class ReminderEmail extends \WC_Email {
 
 		$this->placeholders = $placeholder_processor->get_placeholders();
 
-		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		if ( 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 
@@ -68,7 +68,7 @@ class ReminderEmail extends \WC_Email {
 				);
 			}
 			if ( $result ) {
-				update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'sent' );
+				update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
 			}
 		}
 

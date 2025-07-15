@@ -12,14 +12,14 @@ class Cron {
 	use SingletonTrait;
 
 	public function __construct() {
-		add_action( 'yay_reviews_reminder_email', array( $this, 'send_reminder_email' ), 10, 2 );
+		add_action( 'yayrev_reminder_email', array( $this, 'send_reminder_email' ), 10, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_reminder_email' ), 10, 1 );
 	}
 
 	public function schedule_reminder_email( $order_id ) {
 		$order = wc_get_order( $order_id );
 
-		if ( get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) || ! $order ) {
+		if ( get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) || ! $order ) {
 			return;
 		}
 
@@ -66,7 +66,7 @@ class Cron {
 					'scheduled_event' => maybe_serialize(
 						array(
 							'timestamp' => $time,
-							'hook'      => 'yay_reviews_reminder_email',
+							'hook'      => 'yayrev_reminder_email',
 							'order_id'  => $order_id,
 						)
 					),
@@ -81,8 +81,8 @@ class Cron {
 				)
 			);
 			if ( $email_id ) {
-				wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
-				update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
+				wp_schedule_single_event( $time, 'yayrev_reminder_email', array( $order_id, $email_id ) );
+				update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'pending' );
 			}
 			return;
 		}
@@ -126,7 +126,7 @@ class Cron {
 				'scheduled_event' => maybe_serialize(
 					array(
 						'timestamp' => $time,
-						'hook'      => 'yay_reviews_reminder_email',
+						'hook'      => 'yayrev_reminder_email',
 						'order_id'  => $order_id,
 					)
 				),
@@ -142,8 +142,8 @@ class Cron {
 		);
 
 		if ( $email_id ) {
-			wp_schedule_single_event( $time, 'yay_reviews_reminder_email', array( $order_id, $email_id ) );
-			update_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', 'pending' );
+			wp_schedule_single_event( $time, 'yayrev_reminder_email', array( $order_id, $email_id ) );
+			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'pending' );
 		}
 	}
 
@@ -153,7 +153,7 @@ class Cron {
 			return;
 		}
 
-		if ( 'sent' === get_post_meta( $order_id, '_yay_reviews_reminder_email_scheduled_sent', true ) ) {
+		if ( 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 
@@ -169,6 +169,6 @@ class Cron {
 		}
 
 		// Trigger reminder email notification
-		do_action( 'yay_reviews_reminder_email_notification', $order_id, $order, $email_id );
+		do_action( 'yayrev_reminder_email_notification', $order_id, $order, $email_id );
 	}
 }

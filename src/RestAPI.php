@@ -24,7 +24,7 @@ class RestAPI {
 	 */
 	public function register_rest_api() {
 		register_rest_route(
-			YAY_REVIEWS_REST_URL,
+			YAYREV_REST_URL,
 			'/settings',
 			array(
 				array(
@@ -36,7 +36,7 @@ class RestAPI {
 		);
 
 		register_rest_route(
-			YAY_REVIEWS_REST_URL,
+			YAYREV_REST_URL,
 			'/coupons',
 			array(
 				array(
@@ -48,7 +48,7 @@ class RestAPI {
 		);
 
 		register_rest_route(
-			YAY_REVIEWS_REST_URL,
+			YAYREV_REST_URL,
 			'/send-test-mail',
 			array(
 				'methods'             => 'POST',
@@ -58,7 +58,7 @@ class RestAPI {
 		);
 
 		register_rest_route(
-			YAY_REVIEWS_REST_URL,
+			YAYREV_REST_URL,
 			'/emails-queue',
 			array(
 				'methods'             => 'GET',
@@ -74,16 +74,16 @@ class RestAPI {
 		unset( $data['email'] );
 		SettingsModel::update_settings( $data );
 		// Update woocommerce email settings
-		$reminder_email = get_option( 'woocommerce_yay_reviews_reminder_settings', array() );
-		$reward_email   = get_option( 'woocommerce_yay_reviews_reward_settings', array() );
+		$reminder_email = get_option( 'woocommerce_yayrev_reminder_settings', array() );
+		$reward_email   = get_option( 'woocommerce_yayrev_reward_settings', array() );
 		if ( ! empty( $email_settings ) ) {
 			$reminder_email = wp_parse_args( $email_settings['reminder'], $reminder_email );
 			$reward_email   = wp_parse_args( $email_settings['reward'], $reward_email );
 			if ( ! empty( $reminder_email ) ) {
-				update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
+				update_option( 'woocommerce_yayrev_reminder_settings', $reminder_email );
 			}
 			if ( ! empty( $reward_email ) ) {
-				update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
+				update_option( 'woocommerce_yayrev_reward_settings', $reward_email );
 			}
 		}
 		return rest_ensure_response( true );
@@ -169,12 +169,12 @@ class RestAPI {
 		$offset = ( $page - 1 ) * $per_page;
 
 		// Get total count
-		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_queue" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yayrev_email_queue" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Get paginated results
 		$emails = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
+				"SELECT * FROM {$wpdb->prefix}yayrev_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
 				$per_page,
 				$offset
 			),

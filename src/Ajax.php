@@ -14,17 +14,17 @@ class Ajax {
 	}
 
 	protected function init_hooks() {
-		add_action( 'wp_ajax_yay_reviews_change_addon_status', array( $this, 'change_addon_status' ) );
-		add_action( 'wp_ajax_yay_reviews_send_email', array( $this, 'send_email' ) );
-		add_action( 'wp_ajax_yay_reviews_dismiss_email', array( $this, 'dismiss_email' ) );
-		add_action( 'wp_ajax_yay_reviews_get_current_queue', array( $this, 'get_current_queue' ) );
-		add_action( 'wp_ajax_yay_reviews_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
-		add_action( 'wp_ajax_yay_reviews_preview_email', array( $this, 'preview_email' ) );
+		add_action( 'wp_ajax_yayrev_change_addon_status', array( $this, 'change_addon_status' ) );
+		add_action( 'wp_ajax_yayrev_send_email', array( $this, 'send_email' ) );
+		add_action( 'wp_ajax_yayrev_dismiss_email', array( $this, 'dismiss_email' ) );
+		add_action( 'wp_ajax_yayrev_get_current_queue', array( $this, 'get_current_queue' ) );
+		add_action( 'wp_ajax_yayrev_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
+		add_action( 'wp_ajax_yayrev_preview_email', array( $this, 'preview_email' ) );
 	}
 
 	public function change_addon_status() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
@@ -49,14 +49,14 @@ class Ajax {
 
 	public function send_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
 			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					if ( 'reminder' === $email_queue->type && '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
@@ -66,11 +66,11 @@ class Ajax {
 							$order_id     = intval( $scheduled_event['order_id'] );
 							$email_id_int = intval( $email_id );
 
-							do_action( 'yay_reviews_reminder_email', $order_id, $email_id_int );
+							do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
 
 							if ( $timestamp > 0 ) {
 								// Try to unschedule the event with proper error handling
-								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ) );
+								$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
 									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
@@ -118,14 +118,14 @@ class Ajax {
 
 	public function dismiss_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
 				global $wpdb;
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					// if status = 0, type = reminder, delete the scheduled event
 					if ( '0' === $email_queue->status && 'reminder' === $email_queue->type ) {
@@ -138,7 +138,7 @@ class Ajax {
 
 							if ( $timestamp > 0 ) {
 								// Try to unschedule the event with proper error handling
-								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ), true );
+								$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ), true );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
 									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
@@ -170,14 +170,14 @@ class Ajax {
 
 	public function get_current_queue() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
 			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					if ( '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
@@ -187,11 +187,11 @@ class Ajax {
 							$order_id     = intval( $scheduled_event['order_id'] );
 							$email_id_int = intval( $email_id );
 
-							do_action( 'yay_reviews_reminder_email', $order_id, $email_id_int );
+							do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
 
 							if ( $timestamp > 0 ) {
 								// Try to unschedule the event with proper error handling
-								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ) );
+								$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
 									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
@@ -225,7 +225,7 @@ class Ajax {
 
 	public function update_wc_reviews_settings() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 
@@ -257,7 +257,7 @@ class Ajax {
 
 	public function preview_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yay_reviews_nonce' ) ) {
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {

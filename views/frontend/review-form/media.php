@@ -34,7 +34,7 @@ if ( 'only_video' === $allowed_media_types ) {
 
 $accept = implode( ',', $accept_mime_types );
 ?>
-<?php wp_nonce_field( 'yay-reviews-nonce', 'yay_reviews_nonce' ); ?>
+<?php wp_nonce_field( 'yay-reviews-nonce', 'yayrev_nonce' ); ?>
 <div class="yay-reviews-upload-media">
 	<?php if ( ! empty( $label ) ) : ?>
 		<label class="yay-reviews-upload-media__label" for="yay-reviews-file-input"><?php echo esc_html( $label ); ?><?php echo $require_media_upload ? '&nbsp;<span class="required">*</span>' : ''; ?></label>
@@ -52,7 +52,7 @@ $accept = implode( ',', $accept_mime_types );
 			<span><?php echo esc_html__( 'Upload', 'yay-reviews' ); ?></span>
 		</div>
 	</div>
-	<input type="file" name="yay_reviews_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $require_media_upload ? 'required' : ''; ?>>
+	<input type="file" name="yayrev_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $require_media_upload ? 'required' : ''; ?>>
 	<?php if ( ! empty( $description ) ) : ?>
 		<p class="yay-reviews-upload-media__description"><?php echo esc_html( $description ); ?></p>
 	<?php endif; ?>

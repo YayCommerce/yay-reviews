@@ -12,20 +12,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 class RewardEmail extends \WC_Email {
 
 	public function __construct() {
-		$this->id             = 'yay_reviews_reward';
+		$this->id             = 'yayrev_reward';
 		$this->customer_email = true;
 		$this->title          = __( 'Review Reward', 'yay-reviews' );
 		$this->description    = __( 'This email is sent to customers to reward them for their reviews.', 'yay-reviews' );
 		$this->template_html  = 'emails/reward-email.php';
 		$this->template_plain = 'emails/plain/reward-email.php';
-		$this->template_base  = YAY_REVIEWS_PLUGIN_PATH . 'views/';
+		$this->template_base  = YAYREV_PLUGIN_PATH . 'views/';
 		$this->placeholders   = RewardPlaceholderProcessor::DEFAULT_PLACEHOLDERS;
 
 		// Call parent constructor
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yay_reviews_reward_email_notification', array( $this, 'trigger' ), 10, 5 );
+		add_action( 'yayrev_reward_email_notification', array( $this, 'trigger' ), 10, 5 );
 	}
 
 	public function trigger( $reward, $comment, $coupon, $product, $recipient_email ) {
@@ -45,10 +45,10 @@ class RewardEmail extends \WC_Email {
 		$this->placeholders    = $placeholder_processor->get_placeholders();
 
 		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
-			if ( ! get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
+			if ( ! get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
 				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 				if ( $result ) {
-					update_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true );
+					update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true );
 					if ( ! empty( $comment->user_id ) ) {
 						// save customer meta for email sent
 						$reward_data = array(

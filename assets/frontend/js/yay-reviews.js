@@ -250,10 +250,10 @@ jQuery(document).ready(function ($) {
     }
 
     // Add nonce to form data
-    var nonce = $("#yay_reviews_nonce").val();
+    var nonce = $("#yayrev_nonce").val();
     if (nonce) {
       $(this).append(
-        '<input type="hidden" name="yay_reviews_nonce" value="' + nonce + '">'
+        '<input type="hidden" name="yayrev_nonce" value="' + nonce + '">'
       );
     }
   });

@@ -5,7 +5,7 @@ class View {
 	public static function load( $file, $data = array(), $echo = true ) {
 		$file = implode( '/', explode( '.', $file ) );
 
-		$full_path = YAY_REVIEWS_VIEW_PATH . $file . '.php';
+		$full_path = YAYREV_VIEW_PATH . $file . '.php';
 		if ( file_exists( $full_path ) ) {
 			extract( $data ); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 			ob_start();

@@ -12,7 +12,7 @@ class SettingsModel {
 	/**
 	 * The name of the option that stores the settings.
 	 */
-	public const OPTION_NAME = 'yay_reviews_settings';
+	public const OPTION_NAME = 'yayrev_settings';
 
 	/**
 	 * Get the default settings.

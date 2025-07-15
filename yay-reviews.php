@@ -19,28 +19,28 @@ namespace YayReviews;
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'YAY_REVIEWS_FILE', __FILE__ );
-define( 'YAY_REVIEWS_PLUGIN_URL', plugin_dir_url( YAY_REVIEWS_FILE ) );
-define( 'YAY_REVIEWS_PLUGIN_BASENAME', plugin_basename( YAY_REVIEWS_FILE ) );
-define( 'YAY_REVIEWS_PLUGIN_PATH', plugin_dir_path( YAY_REVIEWS_FILE ) );
-define( 'YAY_REVIEWS_VIEW_PATH', YAY_REVIEWS_PLUGIN_PATH . 'views/' );
+define( 'YAYREV_FILE', __FILE__ );
+define( 'YAYREV_PLUGIN_URL', plugin_dir_url( YAYREV_FILE ) );
+define( 'YAYREV_PLUGIN_BASENAME', plugin_basename( YAYREV_FILE ) );
+define( 'YAYREV_PLUGIN_PATH', plugin_dir_path( YAYREV_FILE ) );
+define( 'YAYREV_VIEW_PATH', YAYREV_PLUGIN_PATH . 'views/' );
 
-define( 'YAY_REVIEWS_REST_URL', 'yay-reviews/v1' );
+define( 'YAYREV_REST_URL', 'yay-reviews/v1' );
 
-define( 'YAY_REVIEWS_VERSION', '1.0.0' );
-define( 'YAY_REVIEWS_IS_DEVELOPMENT', true );
+define( 'YAYREV_VERSION', '1.0.0' );
+define( 'YAYREV_IS_DEVELOPMENT', true );
 
 add_action(
 	'init',
 	function () {
-		load_plugin_textdomain( 'yay-reviews', false, dirname( YAY_REVIEWS_PLUGIN_BASENAME ) . '/languages' );
+		load_plugin_textdomain( 'yay-reviews', false, dirname( YAYREV_PLUGIN_BASENAME ) . '/languages' );
 	}
 );
 
-require_once YAY_REVIEWS_PLUGIN_PATH . 'vendor/autoload.php';
+require_once YAYREV_PLUGIN_PATH . 'vendor/autoload.php';
 
 if ( ! class_exists( 'woocommerce' ) ) {
-	function yay_reviews_admin_notice() {
+	function yayrev_admin_notice() {
 		?>
 		<div class="notice notice-warning is-dismissible"> 
 			<p>
@@ -50,7 +50,7 @@ if ( ! class_exists( 'woocommerce' ) ) {
 		</div>
 		<?php
 	}
-	add_action( 'admin_notices', 'YayReviews\\yay_reviews_admin_notice' );
+	add_action( 'admin_notices', 'YayReviews\\yayrev_admin_notice' );
 	return;
 }
 

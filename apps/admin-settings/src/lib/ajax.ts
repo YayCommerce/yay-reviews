@@ -4,7 +4,7 @@ export async function changeAddonStatus(addon_id: string, status: string) {
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_change_addon_status',
+        action: 'yayrev_change_addon_status',
         nonce: window.yayReviews.nonce,
         addon_id,
         status,
@@ -22,7 +22,7 @@ export async function sendEmail(emailId: string) {
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_send_email',
+        action: 'yayrev_send_email',
         nonce: window.yayReviews.nonce,
         email_id: emailId,
       },
@@ -39,7 +39,7 @@ export async function dismissEmail(emailId: string) {
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_dismiss_email',
+        action: 'yayrev_dismiss_email',
         nonce: window.yayReviews.nonce,
         email_id: emailId,
       },
@@ -56,7 +56,7 @@ export async function getCurrentQueue(emailId: string) {
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_get_current_queue',
+        action: 'yayrev_get_current_queue',
         nonce: window.yayReviews.nonce,
         email_id: emailId,
       },
@@ -73,7 +73,7 @@ export async function changeWcReviewsSettings(updateField: string, value: boolea
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_update_wc_reviews_settings',
+        action: 'yayrev_update_wc_reviews_settings',
         nonce: window.yayReviews.nonce,
         update_field: updateField,
         value: value,
@@ -91,7 +91,7 @@ export async function previewEmail(email: string) {
       type: 'POST',
       url: window.yayReviews.ajax_url,
       data: {
-        action: 'yay_reviews_preview_email',
+        action: 'yayrev_preview_email',
         nonce: window.yayReviews.nonce,
         email,
       },

@@ -13,7 +13,7 @@ class Helpers {
 				'comment' => $comment,
 			),
 			'',
-			YAY_REVIEWS_PLUGIN_PATH . 'views/'
+			YAYREV_PLUGIN_PATH . 'views/'
 		);
 	}
 
@@ -83,8 +83,8 @@ class Helpers {
 
 		$default_email_templates = self::get_wc_email_settings_default();
 
-		$reminder_email = get_option( 'woocommerce_yay_reviews_reminder_settings', null );
-		$reward_email   = get_option( 'woocommerce_yay_reviews_reward_settings', null );
+		$reminder_email = get_option( 'woocommerce_yayrev_reminder_settings', null );
+		$reward_email   = get_option( 'woocommerce_yayrev_reward_settings', null );
 
 		return array(
 			'reminder' => array(
@@ -171,7 +171,7 @@ class Helpers {
 		global $wpdb;
 		if ( $is_insert ) {
 			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$wpdb->prefix . 'yay_reviews_email_queue',
+				$wpdb->prefix . 'yayrev_email_queue',
 				$data
 			);
 			if ( ! empty( $wpdb->insert_id ) ) {
@@ -181,7 +181,7 @@ class Helpers {
 			$id = $data['id'];
 			unset( $data['id'] );
 			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$wpdb->prefix . 'yay_reviews_email_queue',
+				$wpdb->prefix . 'yayrev_email_queue',
 				$data,
 				array( 'id' => $id )
 			);
@@ -211,7 +211,7 @@ class Helpers {
 		}
 		if ( 'none' !== $media_requirement ) {
 			$meta_query[] = array(
-				'key'     => 'yay_reviews_files',
+				'key'     => 'yayrev_files',
 				'value'   => '',
 				'compare' => '!=',
 			);

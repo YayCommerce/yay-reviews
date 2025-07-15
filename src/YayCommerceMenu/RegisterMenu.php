@@ -48,15 +48,15 @@ class RegisterMenu {
 	 * Constructor
 	 */
 	public function __construct() {
-		if ( ! defined( 'YAY_REVIEWS_MENU_ORDER' ) ) {
-			define( 'YAY_REVIEWS_MENU_ORDER', 16 );
+		if ( ! defined( 'YAYREV_MENU_ORDER' ) ) {
+			define( 'YAYREV_MENU_ORDER', 16 );
 		}
-		if ( ! defined( 'YAY_REVIEWS_MENU_PRIORITY' ) ) {
-			define( 'YAY_REVIEWS_MENU_PRIORITY', 100 );
+		if ( ! defined( 'YAYREV_MENU_PRIORITY' ) ) {
+			define( 'YAYREV_MENU_PRIORITY', 100 );
 		}
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_yaycommerce_menu_scripts' ) );
 		add_action( 'admin_menu', array( $this, 'settings_menu' ) );
-		add_action( 'admin_menu', array( $this, 'add_placeholder_menu' ), YAY_REVIEWS_MENU_PRIORITY + 1 );
+		add_action( 'admin_menu', array( $this, 'add_placeholder_menu' ), YAYREV_MENU_PRIORITY + 1 );
 		OtherPluginsMenu::get_instance();
 	}
 

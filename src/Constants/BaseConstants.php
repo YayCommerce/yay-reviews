@@ -4,7 +4,7 @@ namespace YayReviews\Constants;
 
 class BaseConstants {
 
-	const VIDEO_THUMBNAIL_URL = YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png';
+	const VIDEO_THUMBNAIL_URL = YAYREV_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png';
 
 	const SUPPORTED_VIDEO_EXTENSIONS = array(
 		'mp4',

@@ -24,7 +24,7 @@ $uploads = wp_upload_dir();
 						<?php
 						/* @codingStandardsIgnoreStart */
 						 ?>
-						<img class="yay-reviews-media-card__video-thumbnail yay-reviews-video_thumbnail" src="<?php echo esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" alt="video_thumbnail" />
+						<img class="yay-reviews-media-card__video-thumbnail yay-reviews-video_thumbnail" src="<?php echo esc_url( YAYREV_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" alt="video_thumbnail" />
 						<?php /* @codingStandardsIgnoreEnd */ ?>
 						<div class="yay-reviews-media-card__video-details"></div>
 					<?php else : ?>
@@ -137,7 +137,7 @@ $uploads = wp_upload_dir();
 										<?php
 										/* @codingStandardsIgnoreStart */
 										 ?>
-										<img class="yay-reviews-video_thumbnail" src="<?php echo esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" alt="Media preview" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" />
+										<img class="yay-reviews-video_thumbnail" src="<?php echo esc_url( YAYREV_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" alt="Media preview" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" />
 										<?php /* @codingStandardsIgnoreEnd */ ?>
 										<div class="yay-reviews-media-card__video-details"></div>
 									</div>

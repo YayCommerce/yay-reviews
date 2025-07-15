@@ -51,13 +51,13 @@ class Frontend {
 	}
 
 	public function save_custom_review_fields( $comment_id ) {
-		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
 		$enable_media_upload = SettingsModel::get_settings( 'reviews.enable_media_upload', false );
 		if ( $enable_media_upload ) {
-			if ( isset( $_FILES['yay_reviews_media'] ) && ! empty( $_FILES['yay_reviews_media'] ) ) {
-				$files               = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( isset( $_FILES['yayrev_media'] ) && ! empty( $_FILES['yayrev_media'] ) ) {
+				$files               = $_FILES['yayrev_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files         = count( $files['name'] );
 				$max_upload_file_qty = SettingsModel::get_settings( 'reviews.max_upload_file_qty', '' );
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
@@ -99,17 +99,17 @@ class Frontend {
 						$paths[]  = $uploads['subdir'] . "/$filename";
 					}
 				}
-				add_comment_meta( $comment_id, 'yay_reviews_files', $paths );
+				add_comment_meta( $comment_id, 'yayrev_files', $paths );
 			}
 		}
 		// save review title
 		if ( isset( $_POST['yay-reviews-title'] ) ) {
-			add_comment_meta( $comment_id, 'yay_reviews_title', sanitize_text_field( wp_unslash( $_POST['yay-reviews-title'] ) ) );
+			add_comment_meta( $comment_id, 'yayrev_title', sanitize_text_field( wp_unslash( $_POST['yay-reviews-title'] ) ) );
 		}
 		// save attribute values
-		if ( isset( $_POST['yay_reviews_attributes'] ) ) {
+		if ( isset( $_POST['yayrev_attributes'] ) ) {
 			/* @codingStandardsIgnoreStart */
-			$attributes = $_POST['yay_reviews_attributes'];
+			$attributes = $_POST['yayrev_attributes'];
 			/* @codingStandardsIgnoreEnd */
 			// check attribute has value not empty
 			$attributes_values = array();
@@ -118,12 +118,12 @@ class Frontend {
 					$attributes_values[ $attribute_name ] = $attribute_value;
 				}
 			}
-			add_comment_meta( $comment_id, 'yay_reviews_attributes', $attributes_values );
+			add_comment_meta( $comment_id, 'yayrev_attributes', $attributes_values );
 		}
 	}
 
 	public function send_reward_email( $comment_id ) {
-		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
 		// Check and send reward email
@@ -185,7 +185,7 @@ class Frontend {
 					if ( ! class_exists( 'WC_Email' ) ) {
 						\WC()->mailer();
 					}
-					do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, $email_address );
+					do_action( 'yayrev_reward_email_notification', $reward, $comment, $coupon, $product, $email_address );
 					break;
 				}
 			}
@@ -193,7 +193,7 @@ class Frontend {
 	}
 
 	public function review_after_comment_text( $comment ) {
-		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		$media = get_comment_meta( $comment->comment_ID, 'yayrev_files', true );
 		if ( is_array( $media ) && count( $media ) > 0 ) {
 			Helpers::print_media_list( $media, $comment );
 		}
@@ -201,7 +201,7 @@ class Frontend {
 
 	public function add_custom_review_meta( $comment ) {
 		global $comment;
-		$attributes = get_comment_meta( $comment->comment_ID, 'yay_reviews_attributes', true );
+		$attributes = get_comment_meta( $comment->comment_ID, 'yayrev_attributes', true );
 		if ( is_array( $attributes ) && count( $attributes ) > 0 ) {
 			// print attributes
 			echo '<p class="meta yay-reviews-attribute-list">';
@@ -238,9 +238,9 @@ class Frontend {
 					__( 'photo', 'yay-reviews' )
 				)
 		);
-		wp_enqueue_script( 'yay-reviews-script', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-		wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-		wp_enqueue_script( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-script', YAYREV_PLUGIN_URL . 'assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAYREV_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-media-modal', YAYREV_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAYREV_VERSION, true );
+		wp_enqueue_script( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAYREV_VERSION, true );
 		wp_localize_script(
 			'yay-reviews-script',
 			'yay_reviews',
@@ -261,9 +261,9 @@ class Frontend {
 				),
 			)
 		);
-		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
-		wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
-		wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
+		wp_enqueue_style( 'yay-reviews-style', YAYREV_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAYREV_VERSION );
+		wp_enqueue_style( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAYREV_VERSION );
+		wp_enqueue_style( 'yay-reviews-common-styles', YAYREV_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAYREV_VERSION );
 	}
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {
@@ -293,7 +293,7 @@ class Frontend {
 
 		if ( empty( $render_before_reviews_check_point ) ) {
 			$render_before_reviews_check_point = true;
-			return YAY_REVIEWS_PLUGIN_PATH . 'views/frontend/before-reviews.php';
+			return YAYREV_PLUGIN_PATH . 'views/frontend/before-reviews.php';
 		}
 
 		return $template;

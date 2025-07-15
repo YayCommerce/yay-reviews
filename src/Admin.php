@@ -33,7 +33,7 @@ class Admin {
 	}
 
 	public function reviews_metabox_callback( $comment ) {
-		$media = get_comment_meta( $comment->comment_ID, 'yay_reviews_files', true );
+		$media = get_comment_meta( $comment->comment_ID, 'yayrev_files', true );
 		if ( is_array( $media ) ) {
 			Helpers::print_media_list( $media, $comment );
 		}
@@ -52,12 +52,12 @@ class Admin {
 				ScriptName::PAGE_SETTINGS,
 				'yayReviews',
 				array(
-					'nonce'                     => wp_create_nonce( 'yay_reviews_nonce' ),
+					'nonce'                     => wp_create_nonce( 'yayrev_nonce' ),
 					'rest_nonce'                => wp_create_nonce( 'wp_rest' ),
 					'rest_url'                  => esc_url_raw( rest_url() ),
 					'ajax_url'                  => admin_url( 'admin-ajax.php' ),
-					'rest_base'                 => YAY_REVIEWS_REST_URL,
-					'image_url'                 => YAY_REVIEWS_PLUGIN_URL . 'assets/admin/images',
+					'rest_base'                 => YAYREV_REST_URL,
+					'image_url'                 => YAYREV_PLUGIN_URL . 'assets/admin/images',
 					'currency_symbol'           => get_woocommerce_currency_symbol(),
 					'wc_reviews_settings'       => Helpers::get_wc_reviews_settings(),
 					'wc_settings_url'           => admin_url( 'admin.php?page=wc-settings&tab=products' ),
@@ -79,15 +79,15 @@ class Admin {
 		}
 
 		if ( 'comment' === $screen_id ) {
-			wp_enqueue_script( 'yay-reviews-media-modal', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-			wp_enqueue_style( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAY_REVIEWS_VERSION );
-			wp_enqueue_script( 'yay-reviews-tooltip', YAY_REVIEWS_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAY_REVIEWS_VERSION, true );
-			wp_enqueue_style( 'yay-reviews-common-styles', YAY_REVIEWS_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAY_REVIEWS_VERSION );
+			wp_enqueue_script( 'yay-reviews-media-modal', YAYREV_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAYREV_VERSION, true );
+			wp_enqueue_style( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAYREV_VERSION );
+			wp_enqueue_script( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAYREV_VERSION, true );
+			wp_enqueue_style( 'yay-reviews-common-styles', YAYREV_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAYREV_VERSION );
 		}
 	}
 
 	public function comment_text( $comment_text, $comment ) {
-		$title = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
+		$title = get_comment_meta( $comment->comment_ID, 'yayrev_title', true );
 		if ( $title ) {
 			$comment_text = '<p class="meta yay-reviews-title"><strong>' . esc_html( $title ) . '</strong></p>' . $comment_text;
 		}
@@ -95,7 +95,7 @@ class Admin {
 	}
 
 	public function reviews_title_metabox_callback( $comment ) {
-		$title = get_comment_meta( $comment->comment_ID, 'yay_reviews_title', true );
+		$title = get_comment_meta( $comment->comment_ID, 'yayrev_title', true );
 		if ( $title ) {
 			echo '<p class="meta yay-reviews-title">' . esc_html( $title ) . '</p>';
 		}
@@ -105,7 +105,7 @@ class Admin {
 		if ( ! $comment ) {
 			return;
 		}
-		$waiting_review_reward_sent = get_comment_meta( $comment->comment_ID, 'yay_reviews_waiting_review_reward_sent', true );
+		$waiting_review_reward_sent = get_comment_meta( $comment->comment_ID, 'yayrev_waiting_review_reward_sent', true );
 		if ( $waiting_review_reward_sent ) {
 			return; // if the reward is already sent, return
 		}
@@ -149,8 +149,8 @@ class Admin {
 						if ( ! class_exists( 'WC_Email' ) ) {
 							WC()->mailer();
 						}
-						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, get_user_meta( $comment->user_id, 'billing_email', true ) );
-						update_comment_meta( $comment->comment_ID, 'yay_reviews_waiting_review_reward_sent', true );
+						do_action( 'yayrev_reward_email_notification', $reward, $comment, $coupon, $product, get_user_meta( $comment->user_id, 'billing_email', true ) );
+						update_comment_meta( $comment->comment_ID, 'yayrev_waiting_review_reward_sent', true );
 						break;
 					}
 				}
