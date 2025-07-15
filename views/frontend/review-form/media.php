@@ -8,6 +8,8 @@
  * - allowed_media_types
  */
 
+defined( 'ABSPATH' ) || exit;
+
 use YayReviews\Constants\BaseConstants;
 
 $video_mime_types = array_map(

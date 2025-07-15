@@ -27,3 +27,4 @@ yay-reviews.zip
 /node_modules
 /release
 /packages
+/vendor/squizlabs

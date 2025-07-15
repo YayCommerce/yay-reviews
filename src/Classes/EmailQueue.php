@@ -67,13 +67,17 @@ class EmailQueue {
 	public static function insert_queue( $data ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
+		/* @codingStandardsIgnoreStart */
 		return $wpdb->insert( $table_name, $data );
+		/* @codingStandardsIgnoreEnd */
 	}
 
 	public static function update_queue( $id, $data ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
+		/* @codingStandardsIgnoreStart */
 		$wpdb->update( $table_name, $data, array( 'id' => $id ) );
+		/* @codingStandardsIgnoreEnd */
 		return $wpdb->last_error;
 	}
 }

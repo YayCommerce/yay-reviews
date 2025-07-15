@@ -6,6 +6,8 @@
  * @var object $comment Comment object
  */
 
+defined( 'ABSPATH' ) || exit;
+
 use YayReviews\Constants\BaseConstants;
 
 $uploads = wp_upload_dir();

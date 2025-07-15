@@ -6,6 +6,8 @@
  * - inline_message
  */
 
+defined( 'ABSPATH' ) || exit;
+
 if ( empty( trim( $pre_message ) ) && empty( trim( $gdpr_message ) ) ) {
 	return;
 }

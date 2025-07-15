@@ -1,3 +1,9 @@
+<?php
+
+defined( 'ABSPATH' ) || exit;
+
+?>
+
 <div class="yay-reviews-all-media">
 	<div class="yay-reviews-all-media__title">
 		<h3><?php echo esc_html__( 'Reviews with media', 'yay-reviews' ); ?></h3>

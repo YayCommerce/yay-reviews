@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use YayReviews\Classes\View;
 
 echo View::load( 'frontend.reviews-overview', array(), false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped

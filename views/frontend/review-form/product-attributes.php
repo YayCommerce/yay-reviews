@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 global $product;
 
 if ( ! is_user_logged_in() ) {

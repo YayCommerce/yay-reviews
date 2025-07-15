@@ -7,8 +7,6 @@
  * Author URI: https://yaycommerce.com
  * Text Domain: yay-reviews
  * Domain Path: /languages
- * Requires at least: 4.7
- * Requires PHP: 5.4
  * WC requires at least: 3.0.0
  * WC tested up to: 10.0.0
  * License: GPL v3 or later

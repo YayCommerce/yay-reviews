@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use YayReviews\Classes\Helpers;
 
 $overview_data = Helpers::get_overview_data();

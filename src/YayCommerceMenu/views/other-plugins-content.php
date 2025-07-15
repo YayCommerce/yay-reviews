@@ -1,5 +1,7 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 $plugins_allowed_tags = array(
 	'a'       => array(
 		'href'   => array(),
