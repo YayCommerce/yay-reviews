@@ -25,7 +25,7 @@ declare global {
         reminder: Record<string, Record<string, string>>;
         reward: Record<string, Record<string, string>>;
       };
-      wc_email_settings: Record<string, string>;
+      wc_email_settings: Record<string, any>;
       default_email_templates: Record<string, Record<string, string>>;
       coupons: Coupon[];
     };

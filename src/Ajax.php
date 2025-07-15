@@ -28,8 +28,8 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			$addon_id = isset( $_POST['addon_id'] ) ? sanitize_text_field( $_POST['addon_id'] ) : '';
-			$status   = isset( $_POST['status'] ) ? sanitize_text_field( $_POST['status'] ) : '';
+			$addon_id = isset( $_POST['addon_id'] ) ? sanitize_text_field( wp_unslash( $_POST['addon_id'] ) ) : '';
+			$status   = isset( $_POST['status'] ) ? sanitize_text_field( wp_unslash( $_POST['status'] ) ) : '';
 
 			if ( ! empty( $addon_id ) && ! empty( $status ) ) {
 				SettingsModel::update_settings(
@@ -54,7 +54,7 @@ class Ajax {
 		}
 		try {
 			global $wpdb;
-			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
 				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
 				if ( ! empty( $email_queue ) ) {
@@ -73,7 +73,9 @@ class Ajax {
 								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ) );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
-									error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() );
+									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+										error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+									}
 								}
 							}
 						}
@@ -120,7 +122,7 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
 				global $wpdb;
 				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
@@ -139,7 +141,9 @@ class Ajax {
 								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ), true );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
-									error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() );
+									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+										error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+									}
 								}
 							}
 						}
@@ -171,7 +175,7 @@ class Ajax {
 		}
 		try {
 			global $wpdb;
-			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( $_POST['email_id'] ) : '';
+			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
 				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
 				if ( ! empty( $email_queue ) ) {
@@ -190,7 +194,9 @@ class Ajax {
 								$unscheduled = wp_unschedule_event( $timestamp, 'yay_reviews_reminder_email', array( $order_id, $email_id_int ) );
 								if ( is_wp_error( $unscheduled ) ) {
 									// Log the error but don't fail the entire operation
-									error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() );
+									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+										error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+									}
 								}
 							}
 							wp_send_json_success(
@@ -255,7 +261,7 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			$email = isset( $_POST['email'] ) ? sanitize_text_field( $_POST['email'] ) : '';
+			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			if ( ! empty( $email ) ) {
 				if ( 'reminder' === $email ) {
 					$email_class = 'YayReviews\Emails\ReminderEmail';

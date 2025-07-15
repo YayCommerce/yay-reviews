@@ -16,8 +16,6 @@ class Emails {
 	public function __construct() {
 		add_filter( 'woocommerce_email_classes', array( $this, 'register_email_classes' ) );
 		add_filter( 'woocommerce_email_actions', array( $this, 'register_email_actions' ) );
-		add_action( 'woocommerce_update_options_email_yay_reviews_reminder', array( $this, 'save_reminder_email_settings' ) );
-		add_action( 'woocommerce_update_options_email_yay_reviews_reward', array( $this, 'save_reward_email_settings' ) );
 		add_filter( 'woocommerce_email_preview_placeholders', array( $this, 'add_placeholders' ), 10, 2 );
 	}
 
@@ -43,59 +41,6 @@ class Emails {
 		$actions[] = 'yay_reviews_reminder_email_notification';
 		$actions[] = 'yay_reviews_reward_email_notification';
 		return $actions;
-	}
-
-	public function save_reminder_email_settings() {
-		if ( ! isset( $_GET['page'] ) || 'wc-settings' !== $_GET['page'] ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['tab'] ) || 'email' !== $_GET['tab'] ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['section'] ) || 'yay_reviews_reminder' !== $_GET['section'] ) {
-			return;
-		}
-
-		SettingsModel::update_settings(
-			array(
-				'email' => array(
-					'reminder' => array(
-						'subject' => isset( $_POST['woocommerce_yay_reviews_reminder_subject'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_subject'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_subject'] ) : '',
-						'heading' => isset( $_POST['woocommerce_yay_reviews_reminder_heading'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_heading'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_heading'] ) : '',
-						'content' => isset( $_POST['woocommerce_yay_reviews_reminder_content'] ) && ! empty( $_POST['woocommerce_yay_reviews_reminder_content'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reminder_content'] ) : '',
-					),
-				),
-			)
-		);
-	}
-
-	public function save_reward_email_settings() {
-		if ( ! isset( $_GET['page'] ) || 'wc-settings' !== $_GET['page'] ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['tab'] ) || 'email' !== $_GET['tab'] ) {
-			return;
-		}
-
-		if ( ! isset( $_GET['section'] ) || 'yay_reviews_reward' !== $_GET['section'] ) {
-			return;
-		}
-
-		// Save reward email settings
-		SettingsModel::update_settings(
-			array(
-				'email' => array(
-					'reward' => array(
-						'subject' => isset( $_POST['woocommerce_yay_reviews_reward_subject'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_subject'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_subject'] ) : '',
-						'heading' => isset( $_POST['woocommerce_yay_reviews_reward_heading'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_heading'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_heading'] ) : '',
-						'content' => isset( $_POST['woocommerce_yay_reviews_reward_content'] ) && ! empty( $_POST['woocommerce_yay_reviews_reward_content'] ) ? sanitize_text_field( $_POST['woocommerce_yay_reviews_reward_content'] ) : '',
-					),
-				),
-			)
-		);
 	}
 
 	public function add_placeholders( $placeholders, $email_type ) {

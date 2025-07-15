@@ -48,8 +48,6 @@ class Admin {
 			wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 			wp_enqueue_editor();
 
-			$default_settings = SettingsModel::get_default_settings();
-
 			wp_localize_script(
 				ScriptName::PAGE_SETTINGS,
 				'yayReviews',
@@ -72,7 +70,6 @@ class Admin {
 						'reward'   => ( new RewardPlaceholderProcessor() )->get_placeholders(),
 					),
 					'wc_email_settings'         => Helpers::get_wc_email_settings(),
-					'default_email_templates'   => $default_settings['email'],
 					'coupons'                   => Helpers::get_coupons(),
 				)
 			);

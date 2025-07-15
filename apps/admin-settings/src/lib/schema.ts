@@ -57,15 +57,15 @@ const optionalFieldsSchema = z.array(optionalFieldSchema);
 
 const emailSchema = z.object({
   reminder: z.object({
-    subject: z.string(),
-    heading: z.string(),
-    content: z.string(),
-  }),
+    subject: z.string().optional(),
+    heading: z.string().optional(),
+    content: z.string().optional(),
+  }).optional(),
   reward: z.object({
-    subject: z.string(),
-    heading: z.string(),
-    content: z.string(),
-  }),
+    subject: z.string().optional(),
+    heading: z.string().optional(),
+    content: z.string().optional(),
+  }).optional(),
 });
 
 export const couponSchema = z.object({

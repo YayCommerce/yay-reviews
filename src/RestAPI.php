@@ -69,24 +69,24 @@ class RestAPI {
 	}
 
 	public function save_settings( $request ) {
-		$data     = $request->get_params();
-		$response = SettingsModel::update_settings( $data );
+		$data           = $request->get_params();
+		$email_settings = $data['email'];
+		unset( $data['email'] );
+		SettingsModel::update_settings( $data );
 		// Update woocommerce email settings
 		$reminder_email = get_option( 'woocommerce_yay_reviews_reminder_settings', array() );
 		$reward_email   = get_option( 'woocommerce_yay_reviews_reward_settings', array() );
-		if ( ! empty( $reminder_email ) ) {
-			$reminder_email['subject'] = $data['email']['reminder']['subject'];
-			$reminder_email['heading'] = $data['email']['reminder']['heading'];
-			$reminder_email['content'] = $data['email']['reminder']['content'];
-			update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
+		if ( ! empty( $email_settings ) ) {
+			$reminder_email = wp_parse_args( $email_settings['reminder'], $reminder_email );
+			$reward_email   = wp_parse_args( $email_settings['reward'], $reward_email );
+			if ( ! empty( $reminder_email ) ) {
+				update_option( 'woocommerce_yay_reviews_reminder_settings', $reminder_email );
+			}
+			if ( ! empty( $reward_email ) ) {
+				update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
+			}
 		}
-		if ( ! empty( $reward_email ) ) {
-			$reward_email['subject'] = $data['email']['reward']['subject'];
-			$reward_email['heading'] = $data['email']['reward']['heading'];
-			$reward_email['content'] = $data['email']['reward']['content'];
-			update_option( 'woocommerce_yay_reviews_reward_settings', $reward_email );
-		}
-		return rest_ensure_response( $response );
+		return rest_ensure_response( true );
 	}
 
 	public function create_coupon( \WP_REST_Request $request ) {

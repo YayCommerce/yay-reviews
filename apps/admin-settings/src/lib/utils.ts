@@ -10,9 +10,21 @@ export function cn(...inputs: ClassValue[]) {
 
 export const getSettings = (): SettingsFormData => {
   let settings = window.yayReviews.data_settings;
+  const wcEmailSettings = window.yayReviews.wc_email_settings;
   if (settings.rewards.length === 0) {
     settings.rewards = {};
   }
+  if (!settings.email) {
+    settings.email = {};
+  }
+
+  if (wcEmailSettings.reminder?.current) {
+    settings.email.reminder = wcEmailSettings.reminder.current;
+  }
+  if (wcEmailSettings.reward?.current) {
+    settings.email.reward = wcEmailSettings.reward.current;
+  }
+
   return settings;
 };
 

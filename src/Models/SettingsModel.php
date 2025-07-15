@@ -46,18 +46,6 @@ class SettingsModel {
 			),
 			'rewards'         => array(),
 			'optional_fields' => array(),
-			'email'           => array(
-				'reminder' => array(
-					'subject' => __( 'Reminder email', 'yay-reviews' ),
-					'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
-					'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
-				),
-				'reward'   => array(
-					'subject' => __( 'Review reward email', 'yay-reviews' ),
-					'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
-					'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
-				),
-			),
 		);
 	}
 

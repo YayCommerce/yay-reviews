@@ -42,22 +42,30 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
     return getSampleEmailPlaceholders(templateId as 'reminder' | 'reward');
   }, [templateId]);
 
-  const content = emailContent
+  const defaultEmailSettings = window.yayReviews.wc_email_settings[templateId].default;
+
+  const content = (emailContent || defaultEmailSettings.content)
     .replace(/\{customer_name\}/g, samplePlaceholders['{customer_name}'] ?? '')
     .replace(/\{site_title\}/g, samplePlaceholders['{site_title}'] ?? '')
     .replace(/\{review_products\}/g, samplePlaceholders['{review_products}'] ?? '')
     .replace(/\{coupon_code\}/g, samplePlaceholders['{coupon_code}'] ?? '')
     .replace(/\{product_name\}/g, samplePlaceholders['{product_name}'] ?? '');
-
-  const subject = emailSubject.replace(/\{site_title\}/g, samplePlaceholders['{site_title}']);
-  const heading = emailHeading.replace(/\{site_title\}/g, samplePlaceholders['{site_title}']);
+    
+  const subject = (emailSubject || defaultEmailSettings.subject).replace(
+    /\{site_title\}/g,
+    samplePlaceholders['{site_title}'] ?? '',
+  );
+  const heading = (emailHeading || defaultEmailSettings.heading).replace(
+    /\{site_title\}/g,
+    samplePlaceholders['{site_title}'] ?? '',
+  );
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleResetTemplate = () => {
     const resetKeys = ['subject', 'heading', 'content'];
     resetKeys.forEach((key) => {
-      const defaultValue = window.yayReviews?.default_email_templates?.[templateId]?.[key];
+      const defaultValue = window.yayReviews?.wc_email_settings?.[templateId]?.[key]?.default;
       if (!defaultValue) {
         return;
       }
@@ -91,8 +99,12 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               <FormField
                 control={control}
                 name={`email.${templateId}.subject`}
-                render={({ field: { value, onChange } }) => (
-                  <Input id={`email.${templateId}.subject`} value={value} onChange={onChange} />
+                render={({ field: { onChange } }) => (
+                  <Input
+                    id={`email.${templateId}.subject`}
+                    value={emailSubject || defaultEmailSettings.subject}
+                    onChange={onChange}
+                  />
                 )}
               />
             </div>
@@ -104,10 +116,10 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               <FormField
                 control={control}
                 name={`email.${templateId}.heading`}
-                render={({ field: { value, onChange } }) => (
+                render={({ field: { onChange } }) => (
                   <Input
                     id={`email.${templateId}.heading`}
-                    value={value}
+                    value={emailHeading || defaultEmailSettings.heading}
                     onChange={(e) => {
                       e.preventDefault();
                       updateEmailPreview(e.target.value, 'heading', templateId);
@@ -127,10 +139,10 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 <FormField
                   control={control}
                   name={`email.${templateId}.content`}
-                  render={({ field: { value, onChange } }) => (
+                  render={({ field: { onChange } }) => (
                     <RichTextEditor
                       ID={`yay-reviews-email-content-${templateId}`}
-                      value={value}
+                      value={emailContent || defaultEmailSettings.content}
                       handleOnChange={onChange}
                     />
                   )}

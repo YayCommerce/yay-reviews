@@ -76,27 +76,15 @@ class ReminderEmail extends \WC_Email {
 	}
 
 	public function get_default_subject() {
-		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
-		if ( isset( $reminder_settings['subject'] ) ) {
-			return $reminder_settings['subject'];
-		}
-		return __( 'Reminder email', 'yay-reviews' );
+		return Helpers::get_wc_email_settings_default()['reminder']['subject'];
 	}
 
 	public function get_default_heading() {
-		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
-		if ( isset( $reminder_settings['heading'] ) ) {
-			return $reminder_settings['heading'];
-		}
-		return __( 'Reminder email for you', 'yay-reviews' );
+		return Helpers::get_wc_email_settings_default()['reminder']['heading'];
 	}
 
 	public function get_email_content() {
-		$reminder_settings = SettingsModel::get_settings( 'email.reminder', array() );
-		if ( isset( $reminder_settings['content'] ) ) {
-			return $reminder_settings['content'];
-		}
-		return __( 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged', 'yay-reviews' );
+		return Helpers::get_wc_email_settings_default()['reminder']['content'];
 	}
 
 	public function get_content_html() {
