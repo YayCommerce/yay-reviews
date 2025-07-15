@@ -1,9 +1,9 @@
 <?php
 namespace YayReviews;
 
+use YayReviews\Classes\EmailQueue;
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
-use YayReviews\Classes\View;
 use YayReviews\Models\SettingsModel;
 
 defined( 'ABSPATH' ) || exit;
@@ -159,27 +159,16 @@ class RestAPI {
 	}
 
 	public function get_emails_queue( \WP_REST_Request $request ) {
-		global $wpdb;
 
 		// Get pagination parameters
 		$page     = absint( $request->get_param( 'page' ) ?? 1 );
 		$per_page = absint( $request->get_param( 'per_page' ) ?? 10 );
 
-		// Calculate offset
-		$offset = ( $page - 1 ) * $per_page;
-
 		// Get total count
-		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yayrev_email_queue" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$total_count = EmailQueue::get_queue_count();
 
 		// Get paginated results
-		$emails = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-			$wpdb->prepare(
-				"SELECT * FROM {$wpdb->prefix}yayrev_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
-				$per_page,
-				$offset
-			),
-			ARRAY_A
-		);
+		$emails = EmailQueue::get_queue_list( $page, $per_page );
 
 		foreach ( $emails as $key => $email ) {
 			// if status is 0, set delivery_time to current time

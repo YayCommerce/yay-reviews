@@ -168,26 +168,19 @@ class Helpers {
 	}
 
 	public static function modify_email_queue( $is_insert = false, $data = array() ) {
-		global $wpdb;
 		if ( $is_insert ) {
-			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$wpdb->prefix . 'yayrev_email_queue',
-				$data
-			);
-			if ( ! empty( $wpdb->insert_id ) ) {
-				return $wpdb->insert_id;
-			}
-		} else {
-			$id = $data['id'];
-			unset( $data['id'] );
-			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$wpdb->prefix . 'yayrev_email_queue',
-				$data,
-				array( 'id' => $id )
-			);
-			return $wpdb->last_error;
+			/**
+			 * Insert email queue data
+			 */
+			return EmailQueue::insert_queue( $data );
 		}
-		return false;
+
+		/**
+		 * Update email queue data
+		 */
+		$id = $data['id'];
+		unset( $data['id'] );
+		return EmailQueue::update_queue( $id, $data );
 	}
 
 	public static function get_wc_reviews_settings() {

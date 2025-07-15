@@ -2,6 +2,7 @@
 
 namespace YayReviews;
 
+use YayReviews\Classes\EmailQueue;
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
 use YayReviews\Models\SettingsModel;
@@ -53,10 +54,9 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = EmailQueue::get_queue( $email_id );
 				if ( ! empty( $email_queue ) ) {
 					if ( 'reminder' === $email_queue->type && '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
@@ -124,8 +124,7 @@ class Ajax {
 		try {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				global $wpdb;
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = EmailQueue::get_queue( $email_id );
 				if ( ! empty( $email_queue ) ) {
 					// if status = 0, type = reminder, delete the scheduled event
 					if ( '0' === $email_queue->status && 'reminder' === $email_queue->type ) {
@@ -174,10 +173,9 @@ class Ajax {
 			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
-			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yayrev_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$email_queue = EmailQueue::get_queue( $email_id );
 				if ( ! empty( $email_queue ) ) {
 					if ( '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
