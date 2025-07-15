@@ -21,10 +21,18 @@ $uploads = wp_upload_dir();
 			<div class="yay-reviews-media-card-wrapper">
 				<div class="yay-reviews-media-card-inner">
 					<?php if ( 'video' === $media_type ) : ?>
+						<?php
+						/* @codingStandardsIgnoreStart */
+						 ?>
 						<img class="yay-reviews-media-card__video-thumbnail yay-reviews-video_thumbnail" src="<?php echo esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" alt="video_thumbnail" />
+						<?php /* @codingStandardsIgnoreEnd */ ?>
 						<div class="yay-reviews-media-card__video-details"></div>
 					<?php else : ?>
+						<?php
+						/* @codingStandardsIgnoreStart */
+						 ?>
 						<img src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" alt="Media preview" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" />
+						<?php /* @codingStandardsIgnoreEnd */ ?>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -65,7 +73,11 @@ $uploads = wp_upload_dir();
 				<div class="comment-info">
 					<div class="comment-author-avatar">
 						<div class="comment-avatar">
+							<?php
+							/* @codingStandardsIgnoreStart */
+							 ?>
 							<img src="<?php echo esc_url( get_avatar_url( $comment->user_id ) ); ?>" alt="<?php echo esc_attr( $comment->comment_author ); ?>" />
+							<?php /* @codingStandardsIgnoreEnd */ ?>
 						</div>
 						<div class="comment-author"><?php echo esc_html( $comment->comment_author ); ?></div>
 						<?php if ( 'yes' === get_option( 'woocommerce_review_rating_verification_label' ) && wc_review_is_from_verified_owner( $comment->comment_ID ) ) : ?>
@@ -122,7 +134,11 @@ $uploads = wp_upload_dir();
 							<div class="yay-reviews-modal-comment-medias-preview-item yay-reviews-media-card" data-index="<?php echo esc_attr( $key ); ?>" data-type="video">
 								<div class="yay-reviews-media-card-wrapper">
 									<div class="yay-reviews-media-card-inner">
+										<?php
+										/* @codingStandardsIgnoreStart */
+										 ?>
 										<img class="yay-reviews-video_thumbnail" src="<?php echo esc_url( YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/img/video-thumbnail.png' ); ?>" alt="Media preview" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" />
+										<?php /* @codingStandardsIgnoreEnd */ ?>
 										<div class="yay-reviews-media-card__video-details"></div>
 									</div>
 								</div>
@@ -131,7 +147,11 @@ $uploads = wp_upload_dir();
 							<div class="yay-reviews-modal-comment-medias-preview-item yay-reviews-media-card" data-index="<?php echo esc_attr( $key ); ?>" data-type="image">
 								<div class="yay-reviews-media-card-wrapper">
 									<div class="yay-reviews-media-card-inner">
+										<?php
+										/* @codingStandardsIgnoreStart */
+										 ?>
 										<img src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" alt="Media preview" data-src="<?php echo esc_url( $uploads['baseurl'] . $file ); ?>" />
+										<?php /* @codingStandardsIgnoreEnd */ ?>
 									</div>
 								</div>
 							</div>

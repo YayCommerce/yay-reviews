@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: YayReviews
+ * Plugin Name: YayReviews - Product Reviews for WooCommerce
  * Description: YayReviews helps you to do more things with WooCommerce reviews.
  * Version: 1.0.0
  * Author: YayCommerce

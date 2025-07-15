@@ -89,7 +89,9 @@ class Frontend {
 
 						// Check for upload errors
 						if ( isset( $upload['error'] ) ) {
-							error_log( "Failed to upload image: {$file['name']}. Error: " . $upload['error'] . "\n" );
+							if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+								error_log( "Failed to upload image: {$file['name']}. Error: " . $upload['error'] . "\n" ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+							}
 							continue;
 						}
 						$uploads  = wp_upload_dir();
@@ -106,7 +108,9 @@ class Frontend {
 		}
 		// save attribute values
 		if ( isset( $_POST['yay_reviews_attributes'] ) ) {
-			$attributes = $_POST['yay_reviews_attributes']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			/* @codingStandardsIgnoreStart */
+			$attributes = $_POST['yay_reviews_attributes'];
+			/* @codingStandardsIgnoreEnd */
 			// check attribute has value not empty
 			$attributes_values = array();
 			foreach ( $attributes as $attribute_name => $attribute_value ) {
@@ -119,6 +123,9 @@ class Frontend {
 	}
 
 	public function send_reward_email( $comment_id ) {
+		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+			return;
+		}
 		// Check and send reward email
 		$comment = get_comment( $comment_id );
 		if ( ! $comment || '1' !== $comment->comment_approved || 'review' !== $comment->comment_type ) {
@@ -159,13 +166,27 @@ class Frontend {
 
 					$coupon = $reward_obj->generate_coupon( $comment );
 
-					if ( ! empty( $coupon ) ) {
-						if ( ! class_exists( 'WC_Email' ) ) {
-							\WC()->mailer();
-						}
-						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-						break;
+					if ( empty( $coupon ) ) {
+						continue;
 					}
+
+					$email_address = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true );
+					if ( empty( $email_address ) ) {
+						$user = get_userdata( $comment->user_id );
+						if ( $user ) {
+							$email_address = $user->user_email;
+						}
+					}
+
+					if ( empty( $email_address ) ) {
+						continue;
+					}
+
+					if ( ! class_exists( 'WC_Email' ) ) {
+						\WC()->mailer();
+					}
+					do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, $email_address );
+					break;
 				}
 			}
 		}

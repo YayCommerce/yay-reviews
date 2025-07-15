@@ -31,7 +31,9 @@ class Reward {
 		if ( 'one_time_coupon' === ( $this->data['coupon_type'] ?? 'manual_coupon' ) ) {
 			$coupon_code = Helpers::generate_unique_coupon_code( 8 );
 			if ( ! $coupon_code ) {
-				error_log( 'YayReviews: Unable to generate unique coupon code for comment ID: ' . $comment->comment_ID );
+				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+					error_log( 'YayReviews: Unable to generate unique coupon code for comment ID: ' . $comment->comment_ID ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+				}
 				return null;
 			}
 			// TODO: check coupon code exists
@@ -151,7 +153,7 @@ class Reward {
 				);
 			}
 			if ( ! empty( $meta_query ) ) {
-				$args['meta_query'] = $meta_query;
+				$args['meta_query'] = $meta_query; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				if ( count( $meta_query ) > 1 ) {
 					$args['meta_query']['relation'] = 'AND';
 				}

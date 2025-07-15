@@ -19,7 +19,7 @@ class Products {
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => $limit,
 				'order'               => 'asc',
-				'tax_query'           => $tax_query,
+				'tax_query'           => $tax_query, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			)
 		);
 
@@ -43,7 +43,7 @@ class Products {
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => $limit,
 				'order'               => 'asc',
-				'meta_query'          => array(
+				'meta_query'          => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 					'relation' => 'OR',
 					array(
 						'key'     => '_sale_price',
@@ -59,7 +59,7 @@ class Products {
 					),
 
 				),
-				'tax_query'           => array(
+				'tax_query'           => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 					array(
 						'taxonomy' => 'product_type',
 						'field'    => 'slug',
@@ -88,7 +88,7 @@ class Products {
 			'orderby'   => 'date',
 			'order'     => 'DESC',
 			'status'    => 'publish',
-			'tax_query' => array(
+			'tax_query' => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 				array(
 					'taxonomy' => 'product_type',
 					'field'    => 'slug',
@@ -117,7 +117,7 @@ class Products {
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => $limit,
 				'orderby'             => 'meta_value_num',
-				'meta_key'            => '_wc_average_rating',
+				'meta_key'            => '_wc_average_rating', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'order'               => 'DESC',
 			)
 		);
@@ -142,7 +142,7 @@ class Products {
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => $limit,
 				'orderby'             => 'meta_value_num',
-				'meta_key'            => '_wc_average_rating',
+				'meta_key'            => '_wc_average_rating', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'order'               => 'ASC',
 			)
 		);
@@ -167,7 +167,7 @@ class Products {
 				'ignore_sticky_posts' => 1,
 				'posts_per_page'      => $limit,
 				'orderby'             => 'meta_value_num',
-				'meta_key'            => 'total_sales',
+				'meta_key'            => 'total_sales', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
 				'order'               => 'DESC',
 			)
 		);

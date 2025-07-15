@@ -56,7 +56,7 @@ class Ajax {
 			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					if ( 'reminder' === $email_queue->type && '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
@@ -125,7 +125,7 @@ class Ajax {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
 				global $wpdb;
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					// if status = 0, type = reminder, delete the scheduled event
 					if ( '0' === $email_queue->status && 'reminder' === $email_queue->type ) {
@@ -177,7 +177,7 @@ class Ajax {
 			global $wpdb;
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( ! empty( $email_id ) ) {
-				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) );
+				$email_queue = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue WHERE id = %d", $email_id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				if ( ! empty( $email_queue ) ) {
 					if ( '0' === $email_queue->status ) {
 						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );

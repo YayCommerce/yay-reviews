@@ -111,7 +111,7 @@ class Helpers {
 		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
 
 		global $wpdb;
-		$reviews = $wpdb->get_results(
+		$reviews = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
 				"SELECT * FROM {$wpdb->comments} 
 				WHERE comment_post_ID = %d 
@@ -170,7 +170,7 @@ class Helpers {
 	public static function modify_email_queue( $is_insert = false, $data = array() ) {
 		global $wpdb;
 		if ( $is_insert ) {
-			$wpdb->insert(
+			$wpdb->insert( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prefix . 'yay_reviews_email_queue',
 				$data
 			);
@@ -180,7 +180,7 @@ class Helpers {
 		} else {
 			$id = $data['id'];
 			unset( $data['id'] );
-			$wpdb->update(
+			$wpdb->update( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prefix . 'yay_reviews_email_queue',
 				$data,
 				array( 'id' => $id )
@@ -248,7 +248,7 @@ class Helpers {
 			}
 
 			// Check if this coupon code already exists
-			$existing_coupon = $wpdb->get_var(
+			$existing_coupon = $wpdb->get_var( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 				$wpdb->prepare(
 					"SELECT post_title FROM {$wpdb->posts} 
 					WHERE post_type = 'shop_coupon' 

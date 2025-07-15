@@ -169,10 +169,10 @@ class RestAPI {
 		$offset = ( $page - 1 ) * $per_page;
 
 		// Get total count
-		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_queue" );
+		$total_count = $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}yay_reviews_email_queue" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		// Get paginated results
-		$emails = $wpdb->get_results(
+		$emails = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
 				"SELECT * FROM {$wpdb->prefix}yay_reviews_email_queue ORDER BY created_at DESC LIMIT %d OFFSET %d",
 				$per_page,

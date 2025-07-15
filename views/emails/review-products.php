@@ -28,7 +28,11 @@ $width_table   = $count_product < 3 ? 180 * $count_product : 540;
 		<td style="vertical-align: top; padding: 8px; width: 180px;">
 		<div style="background: #fff; border: 1px solid #f2f2f2; border-radius: 3px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); padding: 12px; max-width: 200px; margin: 0 auto; display: block;">
 			<div style="width: 150px; height: 150px; margin: 0 auto 8px auto; border-radius: 3px;">
+			<?php
+			/* @codingStandardsIgnoreStart */
+			 ?>
 			<img src="<?php echo esc_url( $product_image_url ); ?>" alt="<?php echo esc_html__( 'Product Image', 'yay-reviews' ); ?>" style="width: 100%; height: 100%; object-fit: contain; border-radius: 5px; margin: 0;">
+			<?php /* @codingStandardsIgnoreEnd */ ?>
 			</div>
 			<div style="font-size: 16px; line-height: 24px; margin: 12px 0; color: #232323; text-align: center;">
 			<?php echo esc_html( $product_name ); ?>

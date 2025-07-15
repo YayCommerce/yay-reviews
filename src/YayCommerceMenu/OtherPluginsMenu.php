@@ -287,12 +287,12 @@ class OtherPluginsMenu {
 	public function yay_recommended_get_plugin_data() {
 		try {
 			if ( isset( $_POST['tab'] ) ) {
-				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
 					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
 				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-				$tab                 = sanitize_text_field( $_POST['tab'] );
+				$tab                 = sanitize_text_field( wp_unslash( $_POST['tab'] ) );
 				$recommended_plugins = array();
 				$recommended_data    = apply_filters( 'yay_recommended_plugins_excluded', self::get_other_plugins() );
 				foreach ( $recommended_data as $key => $plugin ) {
@@ -336,11 +336,11 @@ class OtherPluginsMenu {
 	public function yay_recommended_activate_plugin() {
 		try {
 			if ( isset( $_POST['file'] ) ) {
-				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
 					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
-				$file   = sanitize_text_field( $_POST['file'] );
+				$file   = sanitize_file_name( wp_unslash( $_POST['file'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotUnslashed
 				$result = activate_plugin( $file );
 
 				if ( is_wp_error( $result ) ) {
@@ -384,12 +384,12 @@ class OtherPluginsMenu {
 			require_once ABSPATH . 'wp-admin/includes/class-wp-ajax-upgrader-skin.php';
 			require_once ABSPATH . 'wp-admin/includes/class-plugin-upgrader.php';
 			if ( isset( $_POST['plugin'] ) ) {
-				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
+				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
 					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
-				$plugin   = sanitize_text_field( $_POST['plugin'] );
-				$type     = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'install';
+				$plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
+				$type     = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'install';
 				$skin     = new \WP_Ajax_Upgrader_Skin();
 				$upgrader = new \Plugin_Upgrader( $skin );
 				if ( 'install' === $type ) {

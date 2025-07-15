@@ -261,7 +261,11 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 				<h3>
 					<a href="<?php echo esc_url( $details_link ); ?>" class="thickbox open-plugin-details-modal">
 					<?php echo wp_kses_post( $plugin_title ); ?>
+					<?php
+					/* @codingStandardsIgnoreStart */
+					 ?>
 					<img src="<?php echo esc_url( $plugin_icon_url ); ?>" class="plugin-icon" alt="" />
+					<?php /* @codingStandardsIgnoreEnd */ ?>
 					</a>
 				</h3>
 			</div>

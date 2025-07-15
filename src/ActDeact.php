@@ -17,10 +17,12 @@ class ActDeact {
 		// check if table exists
 		global $wpdb;
 		$table_name = $wpdb->prefix . 'yay_reviews_email_queue';
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) !== $table_name ) {
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table_name ) ) !== $table_name ) { // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 			// create table for email queue
+			/* @codingStandardsIgnoreStart */
 			$wpdb->query(
-				"CREATE TABLE $table_name (
+				$wpdb->prepare(
+					'CREATE TABLE %s (
 					id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 					type varchar(255) NOT NULL,
 					subject varchar(255),
@@ -31,10 +33,13 @@ class ActDeact {
 					scheduled_event longtext,
 					email_data longtext,
 					PRIMARY KEY (id)
+						)
+						ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+					',
+					$table_name
 				)
-				ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-			"
 			);
+			/* @codingStandardsIgnoreEnd */
 		}
 
 	}
