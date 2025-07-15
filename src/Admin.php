@@ -108,6 +108,11 @@ class Admin {
 		if ( ! $comment ) {
 			return;
 		}
+		$waiting_review_reward_sent = get_comment_meta( $comment->comment_ID, 'yay_reviews_waiting_review_reward_sent', true );
+		if ( $waiting_review_reward_sent ) {
+			return; // if the reward is already sent, return
+		}
+
 		$rewards        = SettingsModel::get_settings( 'rewards', array() );
 		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled', false );
 		if ( $reward_enabled && count( $rewards ) > 0 ) {
@@ -138,9 +143,6 @@ class Admin {
 			$product    = wc_get_product( $product_id );
 			if ( $product ) {
 				foreach ( $rewards as $reward ) {
-					if ( get_comment_meta( $comment->comment_ID, 'yay_reviews_reward_sent_' . $reward['id'], true ) ) {
-						break;
-					}
 					$reward_obj = new Reward( $reward );
 
 					$coupon = $reward_obj->generate_coupon( $comment );
@@ -151,6 +153,7 @@ class Admin {
 							WC()->mailer();
 						}
 						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, get_user_meta( $comment->user_id, 'billing_email', true ) );
+						update_comment_meta( $comment->comment_ID, 'yay_reviews_waiting_review_reward_sent', true );
 						break;
 					}
 				}
