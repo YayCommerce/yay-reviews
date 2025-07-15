@@ -25,24 +25,23 @@ class Frontend {
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.review-title', array(), false );
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.product-attributes', array(), false );
 
-		$settings            = SettingsModel::get_all_settings();
-		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
-		$enable_media_upload = isset( $reviews_settings['enable_media_upload'] ) ? $reviews_settings['enable_media_upload'] : false;
-		$enable_gdpr_consent = isset( $reviews_settings['enable_gdpr_consent'] ) ? $reviews_settings['enable_gdpr_consent'] : false;
+		$reviews_settings    = SettingsModel::get_settings( 'reviews', array() );
+		$enable_media_upload = $reviews_settings['enable_media_upload'] ?? false;
+		$enable_gdpr_consent = $reviews_settings['enable_gdpr_consent'] ?? false;
 		if ( $enable_media_upload ) {
 			$upload_media_data              = array(
-				'require_media_upload' => isset( $reviews_settings['require_media_upload'] ) ? $reviews_settings['require_media_upload'] : false,
-				'label'                => isset( $reviews_settings['media_upload_label'] ) ? $reviews_settings['media_upload_label'] : '',
-				'description'          => isset( $reviews_settings['media_upload_description'] ) ? $reviews_settings['media_upload_description'] : '',
-				'allowed_media_types'  => isset( $reviews_settings['allowed_media_types'] ) ? $reviews_settings['allowed_media_types'] : array( 'video_photo' ),
+				'require_media_upload' => $reviews_settings['require_media_upload'] ?? false,
+				'label'                => $reviews_settings['media_upload_label'] ?? '',
+				'description'          => $reviews_settings['media_upload_description'] ?? '',
+				'allowed_media_types'  => $reviews_settings['allowed_media_types'] ?? array( 'video_photo' ),
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
 		}
 
 		if ( $enable_gdpr_consent ) {
 			$gdpr_data                      = array(
-				'pre_message'  => isset( $reviews_settings['pre_gdpr_message'] ) ? $reviews_settings['pre_gdpr_message'] : '',
-				'gdpr_message' => isset( $reviews_settings['gdpr_consent_message'] ) ? $reviews_settings['gdpr_consent_message'] : '',
+				'pre_message'  => $reviews_settings['pre_gdpr_message'] ?? '',
+				'gdpr_message' => $reviews_settings['gdpr_consent_message'] ?? '',
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
 		}
