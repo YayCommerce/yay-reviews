@@ -12,7 +12,8 @@ class Frontend {
 
 	public function __construct() {
 		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ), 100, 1 );
-		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ) );
+		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ), 10 );
+		add_action( 'comment_post', array( $this, 'send_reward_email' ), 11 );
 		add_action( 'woocommerce_review_meta', array( $this, 'add_custom_review_meta' ), 10 );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
@@ -53,11 +54,7 @@ class Frontend {
 		if ( ! isset( $_POST['yay_reviews_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yay_reviews_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
-		$settings            = SettingsModel::get_all_settings();
-		$reviews_settings    = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
-		$rewards             = isset( $settings['rewards'] ) ? $settings['rewards'] : array();
-		$reward_enabled      = isset( $settings['addons']['reward_enabled'] ) ? $settings['addons']['reward_enabled'] : false;
-		$enable_media_upload = isset( $reviews_settings['enable_media_upload'] ) ? $reviews_settings['enable_media_upload'] : false;
+		$enable_media_upload = SettingsModel::get_settings( 'reviews.enable_media_upload', false );
 		if ( $enable_media_upload ) {
 			if ( isset( $_FILES['yay_reviews_media'] ) && ! empty( $_FILES['yay_reviews_media'] ) ) {
 				$files               = $_FILES['yay_reviews_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -66,7 +63,7 @@ class Frontend {
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
-				$max_upload_filesize = $reviews_settings['max_upload_filesize'] * 1000;//converts to byte
+				$max_upload_filesize = SettingsModel::get_settings( 'reviews.max_upload_filesize', 2000 ) * 1000;//converts to byte
 
 				include_once ABSPATH . 'wp-admin/includes/image.php';
 				include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -119,11 +116,16 @@ class Frontend {
 			}
 			add_comment_meta( $comment_id, 'yay_reviews_attributes', $attributes_values );
 		}
+	}
+
+	public function send_reward_email( $comment_id ) {
 		// Check and send reward email
 		$comment = get_comment( $comment_id );
 		if ( ! $comment ) {
 			return;
 		}
+		$rewards        = SettingsModel::get_settings( 'rewards', array() );
+		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled', false );
 		if ( $reward_enabled && count( $rewards ) > 0 ) {
 			// sort rewards by rating_requirement
 			usort(
@@ -158,6 +160,9 @@ class Frontend {
 					$coupon = $reward_obj->generate_coupon( $comment );
 
 					if ( ! empty( $coupon ) ) {
+						if ( ! class_exists( 'WC_Email' ) ) {
+							WC()->mailer();
+						}
 						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 						break;
 					}
