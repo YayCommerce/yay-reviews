@@ -77,7 +77,7 @@ class RegisterMenu {
 
 		$submenus['yaycommerce-help'] = array(
 			'parent'             => 'yaycommerce',
-			'name'               => __( 'Help', 'yaycommerce' ),
+			'name'               => __( 'Help', 'yay-reviews' ),
 			'capability'         => 'manage_options',
 			'render_callback'    => false,
 			'load_data_callback' => false,
@@ -114,7 +114,7 @@ class RegisterMenu {
 		if ( ! empty( $licensing_plugins_yay_mail ) || ! empty( $licensing_plugins_yay_pricing ) || ! empty( $licensing_plugins_yay_currency ) || ! empty( $licensing_plugins_yay_swatches ) || ! empty( $licensing_plugins_yay_extra ) || ! empty( $licensing_plugins_yay_smtp ) || ! empty( $yay_licensing_plugins ) ) {
 			$submenus['yaycommerce-licenses'] = array(
 				'parent'             => 'yaycommerce',
-				'name'               => __( 'Licenses', 'yaycommerce' ),
+				'name'               => __( 'Licenses', 'yay-reviews' ),
 				'capability'         => 'manage_options',
 				'render_callback'    => array( '\YayReviews\YayCommerceMenu\LicensesMenu', 'render' ),
 				'load_data_callback' => array( '\YayReviews\YayCommerceMenu\LicensesMenu', 'load_data' ),
@@ -123,7 +123,7 @@ class RegisterMenu {
 
 		$submenus['yaycommerce-other-plugins'] = array(
 			'parent'             => 'yaycommerce',
-			'name'               => __( 'Other plugins', 'yaycommerce' ),
+			'name'               => __( 'Other plugins', 'yay-reviews' ),
 			'capability'         => 'manage_options',
 			'render_callback'    => array( '\YayReviews\YayCommerceMenu\OtherPluginsMenu', 'render' ),
 			'load_data_callback' => array( '\YayReviews\YayCommerceMenu\OtherPluginsMenu', 'load_data' ),

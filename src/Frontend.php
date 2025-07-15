@@ -161,7 +161,7 @@ class Frontend {
 
 					if ( ! empty( $coupon ) ) {
 						if ( ! class_exists( 'WC_Email' ) ) {
-							WC()->mailer();
+							\WC()->mailer();
 						}
 						do_action( 'yay_reviews_reward_email_notification', $reward, $comment, $coupon, $product, isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true ) ); //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 						break;
@@ -224,18 +224,20 @@ class Frontend {
 			'yay-reviews-script',
 			'yay_reviews',
 			array(
-				'ajax_url'                       => admin_url( 'admin-ajax.php' ),
-				'nonce'                          => wp_create_nonce( 'yay-reviews-nonce' ),
-				'max_upload_files'               => $max_upload_files,
-				'max_upload_filesize'            => intval( $max_upload_filesize ),
-				'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
-				'file_required_notice'           => $file_required_notice,
-				// translators: %1$s: file name, %2$s: max upload filesize
-				'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
-				// translators: %1$s: max upload files
-				'file_quantity_notice'           => sprintf( __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ), $max_upload_files ),
-				'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
-				'verified_owner_text'            => __( 'Verified Owner', 'yay-reviews' ),
+				'ajax_url'            => admin_url( 'admin-ajax.php' ),
+				'nonce'               => wp_create_nonce( 'yay-reviews-nonce' ),
+				'max_upload_files'    => $max_upload_files,
+				'max_upload_filesize' => intval( $max_upload_filesize ),
+				'texts'               => array(
+					'verified_owner'                 => __( 'Verified owner', 'yay-reviews' ),
+					'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
+					'file_required_notice'           => $file_required_notice,
+					// translators: %1$s: file name, %2$s: max allowed size
+					'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
+					// translators: %1$s: max allowed files
+					'file_quantity_notice'           => __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ),
+					'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
+				),
 			)
 		);
 		wp_enqueue_style( 'yay-reviews-style', YAY_REVIEWS_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAY_REVIEWS_VERSION );
@@ -244,16 +246,17 @@ class Frontend {
 	}
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {
-		if ( ! is_product() ) {
+		if ( ! \is_product() ) {
 			return $clauses;
 		}
 
-		if ( isset( $_GET['rating_filter'] ) && intval( $_GET['rating_filter'] ) > 0 ) {
+		$rating_filter = isset( $_GET['rating_filter'] ) ? intval( sanitize_text_field( wp_unslash( $_GET['rating_filter'] ) ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+
+		if ( $rating_filter > 0 ) {
 			global $wpdb;
-			$rating = intval( $_GET['rating_filter'] );
 			if ( ! empty( $comment_query->query_vars['post_id'] ) ) {
 				$clauses['join']  .= " LEFT JOIN {$wpdb->commentmeta} AS ratingmeta ON {$wpdb->comments}.comment_ID = ratingmeta.comment_id ";
-				$clauses['where'] .= $wpdb->prepare( " AND ratingmeta.meta_key = 'rating' AND ratingmeta.meta_value = %d", $rating );
+				$clauses['where'] .= $wpdb->prepare( " AND ratingmeta.meta_key = 'rating' AND ratingmeta.meta_value = %d", $rating_filter );
 			}
 		}
 		return $clauses;

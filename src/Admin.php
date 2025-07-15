@@ -27,8 +27,8 @@ class Admin {
 		$screen_id = $screen ? $screen->id : '';
 
 		if ( 'comment' === $screen_id && isset( $_GET['c'] ) && metadata_exists( 'comment', wc_clean( wp_unslash( $_GET['c'] ) ), 'rating' ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-			add_meta_box( 'woocommerce-rating-yay-reviews-title', __( 'Title', 'yayreviews' ), array( $this, 'reviews_title_metabox_callback' ), 'comment', 'normal', 'high' );
-			add_meta_box( 'woocommerce-rating-yay-reviews', __( 'Media', 'yayreviews' ), array( $this, 'reviews_metabox_callback' ), 'comment', 'normal', 'high' );
+			add_meta_box( 'woocommerce-rating-yay-reviews-title', __( 'Title', 'yay-reviews' ), array( $this, 'reviews_title_metabox_callback' ), 'comment', 'normal', 'high' );
+			add_meta_box( 'woocommerce-rating-yay-reviews', __( 'Media', 'yay-reviews' ), array( $this, 'reviews_metabox_callback' ), 'comment', 'normal', 'high' );
 		}
 	}
 

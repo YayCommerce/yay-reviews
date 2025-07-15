@@ -79,7 +79,7 @@ class Ajax {
 						}
 					} else {
 						if ( ! class_exists( 'WC_Email' ) ) {
-							WC()->mailer();
+							\WC()->mailer();
 						}
 						if ( 'reminder' === $email_queue->type ) {
 							$email = new \YayReviews\Emails\ReminderEmail();

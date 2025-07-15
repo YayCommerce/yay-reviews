@@ -94,8 +94,15 @@ class Helpers {
 		$total_reviews  = get_post_meta( $product_id, '_wc_review_count', true );
 
 		global $wpdb;
-		$sql     = "SELECT * FROM {$wpdb->comments} WHERE comment_post_ID = %d AND comment_type = 'review' AND comment_approved = '1'";
-		$reviews = $wpdb->get_results( $wpdb->prepare( $sql, $product_id ) );
+		$reviews = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->comments} 
+				WHERE comment_post_ID = %d 
+				AND comment_type = 'review' 
+				AND comment_approved = '1'",
+				$product_id
+			)
+		);
 
 		// count 1->5 stars
 		$stars_count = array();
@@ -134,15 +141,7 @@ class Helpers {
 				$query->the_post();
 				$coupon = new \WC_Coupon( get_the_ID() );
 				if ( ! empty( $coupon->get_code() ) ) {
-					$coupons[] = array(
-						'id'           => (string) $coupon->get_id(),
-						'code'         => $coupon->get_code(),
-						'expired'      => self::is_coupon_expired( $coupon ),
-						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
-						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
-						'amount'       => $coupon->get_amount(),
-						'type'         => $coupon->get_discount_type(),
-					);
+					$coupons[] = self::get_coupon_data( $coupon );
 				}
 			}
 		}
@@ -251,5 +250,17 @@ class Helpers {
 
 		// If we couldn't generate a unique code after max attempts, return false
 		return false;
+	}
+
+	public static function get_coupon_data( $coupon ) {
+		return array(
+			'id'           => (string) $coupon->get_id(),
+			'code'         => $coupon->get_code(),
+			'expired'      => self::is_coupon_expired( $coupon ),
+			'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
+			'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
+			'amount'       => $coupon->get_amount(),
+			'type'         => $coupon->get_discount_type(),
+		);
 	}
 }

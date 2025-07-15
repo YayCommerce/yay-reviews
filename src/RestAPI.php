@@ -29,7 +29,7 @@ class RestAPI {
 			array(
 				array(
 					'methods'             => 'POST',
-					'callback'            => array( $this, 'post_settings' ),
+					'callback'            => array( $this, 'save_settings' ),
 					'permission_callback' => array( $this, 'permission_callback' ),
 				),
 			)
@@ -41,7 +41,7 @@ class RestAPI {
 			array(
 				array(
 					'methods'             => 'POST',
-					'callback'            => array( $this, 'post_coupon' ),
+					'callback'            => array( $this, 'create_coupon' ),
 					'permission_callback' => array( $this, 'permission_callback' ),
 				),
 			)
@@ -68,7 +68,7 @@ class RestAPI {
 		);
 	}
 
-	public function post_settings( $request ) {
+	public function save_settings( $request ) {
 		$data     = $request->get_params();
 		$response = SettingsModel::update_settings( $data );
 		// Update woocommerce email settings
@@ -89,7 +89,7 @@ class RestAPI {
 		return rest_ensure_response( $response );
 	}
 
-	public function post_coupon( \WP_REST_Request $request ) {
+	public function create_coupon( \WP_REST_Request $request ) {
 		$data = $request->get_params();
 		// check coupon code exists
 		$coupon_id = wc_get_coupon_id_by_code( $data['code'] );
@@ -121,15 +121,7 @@ class RestAPI {
 		if ( $coupon->get_id() ) {
 			return rest_ensure_response(
 				array(
-					'coupon'    => array(
-						'id'           => (string) $coupon->get_id(),
-						'code'         => $coupon->get_code(),
-						'expired'      => Helpers::is_coupon_expired( $coupon ),
-						'out_of_usage' => $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false,
-						'edit_url'     => get_edit_post_link( $coupon->get_id(), 'edit' ),
-						'amount'       => $coupon->get_amount(),
-						'type'         => $coupon->get_discount_type(),
-					),
+					'coupon'    => Helpers::get_coupon_data( $coupon ),
 					'is_exists' => false,
 					'message'   => 'Coupon created successfully',
 				)
@@ -154,7 +146,7 @@ class RestAPI {
 
 		$email_subject = str_replace( '{site_title}', get_bloginfo( 'name' ), $subject );
 		if ( ! class_exists( 'WC_Email' ) ) {
-			WC()->mailer();
+			\WC()->mailer();
 		}
 		$email = new \WC_Emails();
 		$sent  = $email->send( $email_address, $email_subject, $email_content );
@@ -170,8 +162,8 @@ class RestAPI {
 		global $wpdb;
 
 		// Get pagination parameters
-		$page     = absint( $request->get_param( 'page' ) ) ?: 1;
-		$per_page = absint( $request->get_param( 'per_page' ) ) ?: 10;
+		$page     = absint( $request->get_param( 'page' ) ?? 1 );
+		$per_page = absint( $request->get_param( 'per_page' ) ?? 10 );
 
 		// Calculate offset
 		$offset = ( $page - 1 ) * $per_page;

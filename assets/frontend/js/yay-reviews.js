@@ -227,7 +227,7 @@ jQuery(document).ready(function ($) {
       fileInput[0].files.length === 0
     ) {
       e.preventDefault();
-      alert(yay_reviews.file_required_notice);
+      alert(yay_reviews.texts.file_required_notice);
       return false;
     }
 
@@ -235,7 +235,7 @@ jQuery(document).ready(function ($) {
     var reviewTitle = $("#yay-reviews-title").val();
     if (reviewTitle && reviewTitle.length > 60) {
       e.preventDefault();
-      alert(yay_reviews.review_title_max_length_notice);
+      alert(yay_reviews.texts.review_title_max_length_notice);
       return false;
     }
 
@@ -245,7 +245,7 @@ jQuery(document).ready(function ($) {
       !$("#yay-reviews-gdpr-checkbox").is(":checked")
     ) {
       e.preventDefault();
-      alert(yay_reviews.gdpr_notice);
+      alert(yay_reviews.texts.gdpr_notice);
       return false;
     }
 
@@ -303,7 +303,7 @@ jQuery(document).ready(function ($) {
           // Check if file size is too large before adding to array
           if (file.size > max_upload_filesize * 1024) {
             alert(
-              yay_reviews.file_size_notice
+              yay_reviews.texts.file_size_notice
                 .replace("%1$s", file.name)
                 .replace("%2$s", max_upload_filesize)
             );
@@ -315,7 +315,12 @@ jQuery(document).ready(function ($) {
 
       // Limit total files
       if (max_upload_files && yayReviewsFilesArr.length > max_upload_files) {
-        alert(yay_reviews.file_quantity_notice);
+        alert(
+          yay_reviews.texts.file_quantity_notice.replace(
+            "%1$s",
+            max_upload_files
+          )
+        );
         yayReviewsFilesArr = yayReviewsFilesArr.slice(0, max_upload_files);
       }
 
@@ -416,7 +421,7 @@ jQuery(document).ready(function ($) {
     </defs>
   </svg>`;
   verifiedOwnerBadge.each(function () {
-    const text = yay_reviews.verified_owner_text;
+    const text = yay_reviews.texts.verified_owner;
     const parent = $(this).parent();
     const author = parent.find(".woocommerce-review__author");
     $(this).remove();

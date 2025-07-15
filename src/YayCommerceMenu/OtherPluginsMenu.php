@@ -119,7 +119,7 @@ class OtherPluginsMenu {
 			<div class="yay-recommended-plugins-layout">
 				<div class="yay-recommended-plugins-layout-header">
 					<div class="wp-filter yay-recommended-plugins-header">
-						<h2 class="yay-recommended-plugins-header-title"><?php esc_attr_e( 'Other Plugins', 'filebird' ); ?></h2>
+						<h2 class="yay-recommended-plugins-header-title"><?php esc_attr_e( 'Other Plugins', 'yay-reviews' ); ?></h2>
 						<ul class="filter-links">
 							<?php
 							echo wp_kses_post( $featured_tab );
@@ -213,8 +213,8 @@ class OtherPluginsMenu {
 				'slug'              => 'yaypricing',
 				'name'              => 'YayPricing - WooCommerce Dynamic Pricing & Discounts',
 				'short_description' => 'Offer automatic pricing and discounts to design a powerful marketing strategy for your WooCommerce store.',
-				'icon'              => 'https://yaycommerce.com/wp-content/uploads/2022/11/yaypricing-256x256-1.png',
-				'download_link'     => 'https://yaycommerce.com/yaypricing-woocommerce-dynamic-pricing-and-discounts/',
+				'icon'              => 'https://ps.w.org/yaypricing/assets/icon-256x256.png',
+				'download_link'     => 'https://downloads.wordpress.org/plugin/yaypricing.zip',
 				'type'              => array( 'woocommerce' ),
 				'version'           => 0,
 			),
@@ -289,7 +289,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['tab'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yaycommerce' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
 				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 				$tab                 = sanitize_text_field( $_POST['tab'] );
@@ -307,7 +307,7 @@ class OtherPluginsMenu {
 				ob_end_clean();
 				wp_send_json_success(
 					array(
-						'mess' => __( 'Get data success', 'yaycommerce' ),
+						'mess' => __( 'Get data success', 'yay-reviews' ),
 						'html' => $html,
 					)
 				);
@@ -315,7 +315,7 @@ class OtherPluginsMenu {
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yaycommerce' ),
+					'mess' => __( 'Error exception.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),
@@ -324,7 +324,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yaycommerce' ),
+					'mess' => __( 'Error.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),
@@ -338,7 +338,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['file'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yaycommerce' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
 				$file   = sanitize_text_field( $_POST['file'] );
 				$result = activate_plugin( $file );
@@ -352,14 +352,14 @@ class OtherPluginsMenu {
 				}
 				wp_send_json_success(
 					array(
-						'mess' => __( 'Activate success', 'yaycommerce' ),
+						'mess' => __( 'Activate success', 'yay-reviews' ),
 					)
 				);
 			}
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yaycommerce' ),
+					'mess' => __( 'Error exception.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),
@@ -368,7 +368,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yaycommerce' ),
+					'mess' => __( 'Error.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),
@@ -386,7 +386,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['plugin'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( $_POST['nonce'] ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yaycommerce' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
 				}
 				$plugin   = sanitize_text_field( $_POST['plugin'] );
 				$type     = isset( $_POST['type'] ) ? sanitize_text_field( $_POST['type'] ) : 'install';
@@ -435,7 +435,7 @@ class OtherPluginsMenu {
 						} else {
 							wp_send_json_success(
 								array(
-									'mess' => __( 'Install success', 'yaycommerce' ),
+									'mess' => __( 'Install success', 'yay-reviews' ),
 								)
 							);
 						}
@@ -459,7 +459,7 @@ class OtherPluginsMenu {
 						activate_plugin( $plugin );
 						wp_send_json_success(
 							array(
-								'mess'   => __( 'Update success', 'yaycommerce' ),
+								'mess'   => __( 'Update success', 'yay-reviews' ),
 								'active' => $is_active,
 							)
 						);
@@ -469,7 +469,7 @@ class OtherPluginsMenu {
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yaycommerce' ),
+					'mess' => __( 'Error exception.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),
@@ -478,7 +478,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yaycommerce' ),
+					'mess' => __( 'Error.', 'yay-reviews' ),
 					array(
 						'error' => $ex,
 					),

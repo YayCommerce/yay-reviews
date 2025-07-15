@@ -159,10 +159,10 @@ class Cron {
 
 		// Ensure WooCommerce email classes are loaded
 		if ( ! class_exists( 'WC_Email' ) ) {
-			WC()->mailer();
+			\WC()->mailer();
 		}
 
-		$order = wc_get_order( $order_id );
+		$order = \wc_get_order( $order_id );
 
 		if ( ! $order || ! is_a( $order, 'WC_Order' ) ) {
 			return;

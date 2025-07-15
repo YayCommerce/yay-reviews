@@ -12,14 +12,14 @@ $average_rating        = $overview_data['average_rating'];
 $total_reviews         = $overview_data['total_reviews'];
 $reviews_text          = $overview_data['reviews_text'] ?? 'reviews';
 $stars_count           = $overview_data['stars_count'];
-$current_rating_filter = isset( $_GET['rating_filter'] ) ? intval( $_GET['rating_filter'] ) : null;
+$current_rating_filter = isset( $_GET['rating_filter'] ) ? intval( sanitize_text_field( wp_unslash( $_GET['rating_filter'] ) ) ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 $rating       = intval( $average_rating );
 $rating_stars = '';
 
-if ( $rating && wc_review_ratings_enabled() ) {
+if ( $rating && \wc_review_ratings_enabled() ) {
 	if ( wp_get_theme()->get_template() === 'brandy' ) {
-		$rating_stars = wc_get_template_html(
+		$rating_stars = \wc_get_template_html(
 			'template-parts/rating.php',
 			array(
 				'rating'          => $rating,
@@ -38,9 +38,9 @@ if ( $rating && wc_review_ratings_enabled() ) {
 	<div class="yay-reviews-reviews-overview__summary">
 		<span class="yay-reviews-reviews-overview__summary-avg-rating"><?php echo esc_html( $average_rating ); ?></span>
 		<?php if ( empty( $total_reviews ) ) : ?>
-			<span style="font-size:1rem;">(<?php esc_html_e( 'No rating', 'woocommerce' ); ?>)</span>
+			<span style="font-size:1rem;">(<?php esc_html_e( 'No ratings', 'yay-reviews' ); ?>)</span>
 		<?php else : ?>
-			<?php echo $rating_stars; // WPCS: XSS ok. ?>
+			<?php echo wp_kses_post( $rating_stars ); ?>
 		<?php endif; ?>
 		<span class="yay-reviews-reviews-overview__summary-total-reviews"><?php echo esc_html( $total_reviews ); ?> <?php echo esc_html( $reviews_text ); ?></span>
 	</div>
@@ -89,7 +89,8 @@ if ( $current_rating_filter ) :
 	<div class="yay-reviews-filter-message">
 		<?php
 		printf(
-			__( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-reviews' ),
+			// translators: %1$s: rating, %2$s: see all reviews link
+			wp_kses_post( __( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-reviews' ) ),
 			esc_html( $current_rating_filter ),
 			esc_url( remove_query_arg( 'rating_filter' ) . '#tab-reviews' )
 		);
