@@ -198,9 +198,9 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 	 * @return array The filtered products.
 	 */
 	public function filter_products( $product_in_order ) {
-		$all_settings           = SettingsModel::get_all_settings();
-		$max_products_per_email = $all_settings['reminder']['max_products_per_email'] ?? 3;
-		$product_scope          = $all_settings['reminder']['product_scope'] ?? 'all';
+		$reminder_settings      = SettingsModel::get_settings( 'reminder', array() );
+		$max_products_per_email = $reminder_settings['max_products_per_email'] ?? 3;
+		$product_scope          = $reminder_settings['product_scope'] ?? 'all';
 
 		if ( 'all' === $product_scope ) {
 			return $product_in_order;

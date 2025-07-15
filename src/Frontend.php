@@ -203,11 +203,10 @@ class Frontend {
 			return;
 		}
 
-		$settings             = SettingsModel::get_all_settings();
-		$reviews_settings     = isset( $settings['reviews'] ) ? $settings['reviews'] : array();
-		$allowed_media_types  = isset( $reviews_settings['allowed_media_types'] ) ? $reviews_settings['allowed_media_types'] : array( 'video_photo' );
-		$max_upload_files     = isset( $reviews_settings['max_upload_files'] ) ? $reviews_settings['max_upload_files'] : 20;
-		$max_upload_filesize  = intval( isset( $reviews_settings['max_upload_filesize'] ) ? $reviews_settings['max_upload_filesize'] : Helpers::upload_max_filesize() );
+		$reviews_settings     = SettingsModel::get_settings( 'reviews', array() );
+		$allowed_media_types  = $reviews_settings['allowed_media_types'] ?? array( 'video_photo' );
+		$max_upload_files     = $reviews_settings['max_upload_files'] ?? 20;
+		$max_upload_filesize  = intval( $reviews_settings['max_upload_filesize'] ?? Helpers::upload_max_filesize() );
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
 			__( 'Please upload at least 1 %s.', 'yay-reviews' ),

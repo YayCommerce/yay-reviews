@@ -25,9 +25,9 @@ class Emails {
 		// Reminder Email
 		require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Emails/ReminderEmail.php';
 		require_once YAY_REVIEWS_PLUGIN_PATH . 'src/Emails/RewardEmail.php';
-		$settings         = SettingsModel::get_all_settings();
-		$reminder_enabled = isset( $settings['addons']['reminder_enabled'] ) ? $settings['addons']['reminder_enabled'] : false;
-		$reward_enabled   = isset( $settings['addons']['reward_enabled'] ) ? $settings['addons']['reward_enabled'] : false;
+		$addon_settings   = SettingsModel::get_settings( 'addons', array() );
+		$reminder_enabled = $addon_settings['reminder_enabled'] ?? false;
+		$reward_enabled   = $addon_settings['reward_enabled'] ?? false;
 		if ( $reminder_enabled ) {
 			$email_classes['Yay_Reviews_Reminder'] = new \YayReviews\Emails\ReminderEmail();
 		}

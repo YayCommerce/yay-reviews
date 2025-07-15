@@ -23,17 +23,16 @@ class Cron {
 			return;
 		}
 
-		$settings         = SettingsModel::get_all_settings();
-		$reminder_enabled = isset( $settings['addons']['reminder_enabled'] ) ? $settings['addons']['reminder_enabled'] : false;
+		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled', false );
 
 		if ( ! $reminder_enabled ) {
 			return;
 		}
 
-		$reminder_settings      = $settings['reminder'];
-		$delay_amount           = isset( $reminder_settings['delay_amount'] ) ? $reminder_settings['delay_amount'] : 7;
-		$delay_unit             = isset( $reminder_settings['delay_unit'] ) ? $reminder_settings['delay_unit'] : 'days';
-		$max_products_per_email = isset( $reminder_settings['max_products_per_email'] ) ? $reminder_settings['max_products_per_email'] : 3;
+		$reminder_settings      = SettingsModel::get_settings( 'reminder', array() );
+		$delay_amount           = $reminder_settings['delay_amount'] ?? 7;
+		$delay_unit             = $reminder_settings['delay_unit'] ?? 'days';
+		$max_products_per_email = $reminder_settings['max_products_per_email'] ?? 3;
 		$product_scope          = isset( $reminder_settings['product_scope'] ) ? $reminder_settings['product_scope'] : 'all';
 		$time                   = time();
 
