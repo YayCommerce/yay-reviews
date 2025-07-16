@@ -64,6 +64,21 @@ class EmailQueue {
 		/* @codingStandardsIgnoreEnd */
 	}
 
+	/**
+	 * Insert email queue
+	 * 
+	 * @param array $data An associative array of data to insert.
+	 *   - 'type' (string): The type of the email queue.
+	 *   - 'subject' (string): The subject of the email queue.
+	 *   - 'body' (string): The body of the email queue.
+	 *   - 'status' (int): The status of the email queue. 0: pending, 1: sent, 2: dismissed
+	 *   - 'customer_email' (string): The customer email of the email queue.
+	 *   - 'created_at' (string): The created at of the email queue.
+	 *   - 'scheduled_event' (string): The scheduled event of the email queue.
+	 *   - 'email_data' (string): The email data of the email queue.
+	 * 
+	 * @return string The last error message from the database insert.
+	 */
 	public static function insert_queue( $data ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
@@ -72,6 +87,22 @@ class EmailQueue {
 		/* @codingStandardsIgnoreEnd */
 	}
 
+	/**
+	 * Update email queue
+	 * 
+	 * @param int $id The ID of the email queue to update.
+	 * @param array $data An associative array of data to update.
+	 *   - 'type' (string): The type of the email queue.
+	 *   - 'subject' (string): The subject of the email queue.
+	 *   - 'body' (string): The body of the email queue.
+	 *   - 'status' (int): The status of the email queue. 0: pending, 1: sent, 2: dismissed
+	 *   - 'customer_email' (string): The customer email of the email queue.
+	 *   - 'created_at' (string): The created at of the email queue.
+	 *   - 'scheduled_event' (string): The scheduled event of the email queue.
+	 *   - 'email_data' (string): The email data of the email queue.
+	 * 
+	 * @return string The last error message from the database update.
+	 */
 	public static function update_queue( $id, $data ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;

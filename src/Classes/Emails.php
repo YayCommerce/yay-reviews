@@ -15,14 +15,11 @@ class Emails {
 
 	public function __construct() {
 		add_filter( 'woocommerce_email_classes', array( $this, 'register_email_classes' ) );
-		add_filter( 'woocommerce_email_actions', array( $this, 'register_email_actions' ) );
+		// add_filter( 'woocommerce_email_actions', array( $this, 'register_email_actions' ) );
 		add_filter( 'woocommerce_email_preview_placeholders', array( $this, 'add_placeholders' ), 10, 2 );
 	}
 
 	public function register_email_classes( $email_classes ) {
-		// Reminder Email
-		require_once YAYREV_PLUGIN_PATH . 'src/Emails/ReminderEmail.php';
-		require_once YAYREV_PLUGIN_PATH . 'src/Emails/RewardEmail.php';
 		$addon_settings   = SettingsModel::get_settings( 'addons', array() );
 		$reminder_enabled = $addon_settings['reminder_enabled'] ?? false;
 		$reward_enabled   = $addon_settings['reward_enabled'] ?? false;

@@ -1,9 +1,9 @@
 <?php
 namespace YayReviews\Emails;
 
+use YayReviews\Classes\EmailQueue;
 use YayReviews\Classes\Helpers;
 use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
-use YayReviews\Models\SettingsModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -32,9 +32,6 @@ class RewardEmail extends \WC_Email {
 		$this->setup_locale();
 
 		$recipient_email = $recipient_email;
-
-		$this->object          = $coupon;
-		$this->recipient       = $recipient_email;
 		$placeholder_processor = new RewardPlaceholderProcessor(
 			array(
 				'comment' => $comment,
@@ -42,65 +39,108 @@ class RewardEmail extends \WC_Email {
 				'product' => $product,
 			)
 		);
+
+		$this->object          = $coupon;
+		$this->recipient       = $recipient_email;
 		$this->placeholders    = $placeholder_processor->get_placeholders();
 
-		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
-			if ( ! get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
-				$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
-				if ( $result ) {
-					update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true );
-					if ( ! empty( $comment->user_id ) ) {
-						// save customer meta for email sent
-						$reward_data = array(
-							'id'                 => $reward['id'],
-							'name'               => $reward['name'],
-							'coupon_id'          => $coupon->get_id(),
+		try {
+
+			if ( ! $this->is_enabled() ) {
+				throw new \Exception( __( 'Email is not enabled', 'yay-reviews' ) );
+			}
+
+			if ( empty( $recipient_email ) ) {
+				throw new \Exception( __( 'Recipient email is empty', 'yay-reviews' ) );
+			}
+
+			if ( get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
+				throw new \Exception( __( 'Email has already been sent', 'yay-reviews' ) );
+			}
+
+
+			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+
+			/**
+			 * Add to email queue
+			 * If email is sent, update email queue status to 1
+			 */
+			EmailQueue::insert_queue(
+				array(
+					'type'           => 'reward',
+					'subject'        => $this->get_subject(),
+					'body'           => $this->get_content(),
+					'status'         => $result ? 1 : 2,
+					'customer_email' => $recipient_email,
+					'created_at'     => current_time( 'mysql' ),
+					'email_data'     => maybe_serialize(
+						array(
+							'reward_id'          => $reward['id'],
 							'coupon_code'        => $coupon->get_code(),
-							'coupon_amount'      => $coupon->get_amount(),
-							'coupon_type'        => $coupon->get_discount_type(),
+							'product_name'       => $product->get_name(),
 							'rating_requirement' => $reward['rating_requirement'],
 							'media_requirement'  => $reward['media_requirement'],
 							'frequency'          => $reward['frequency'],
-						);
-						update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
-						update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
-					}
-				}
-				Helpers::modify_email_queue(
-					true,
-					array(
-						'type'           => 'reward',
-						'subject'        => $this->get_subject(),
-						'body'           => $this->get_content(),
-						'status'         => $result ? 1 : 2,
-						'customer_email' => $recipient_email,
-						'created_at'     => current_time( 'mysql' ),
-						'email_data'     => maybe_serialize(
-							array(
-								'reward_id'          => $reward['id'],
-								'coupon_code'        => $coupon->get_code(),
-								'product_name'       => $product->get_name(),
-								'rating_requirement' => $reward['rating_requirement'],
-								'media_requirement'  => $reward['media_requirement'],
-								'frequency'          => $reward['frequency'],
-							)
-						),
-					)
-				);
-			}
-		}
+						)
+					),
+				)
+			);
 
-		$this->restore_locale();
+			if ( ! $result ) {
+				throw new \Exception( __( 'Email sent failed', 'yay-reviews' ) );
+			}
+
+			update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true );
+			if ( ! empty( $comment->user_id ) ) {
+				// save customer meta for email sent
+				$reward_data = array(
+					'id'                 => $reward['id'],
+					'name'               => $reward['name'],
+					'coupon_id'          => $coupon->get_id(),
+					'coupon_code'        => $coupon->get_code(),
+					'coupon_amount'      => $coupon->get_amount(),
+					'coupon_type'        => $coupon->get_discount_type(),
+					'rating_requirement' => $reward['rating_requirement'],
+					'media_requirement'  => $reward['media_requirement'],
+					'frequency'          => $reward['frequency'],
+				);
+				update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
+				update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
+			}
+
+		} catch ( \Exception $e ) {
+			/**
+			 * TODO: Log error
+			 */
+		} finally {
+
+			$this->restore_locale();
+		}
 	}
 
+	/*
+	 * Get default subject
+	 * 
+	 * @return string
+	 */
 	public function get_default_subject() {
 		return Helpers::get_wc_email_settings_default()['reward']['subject'];
 	}
 
+	/**
+	 * Get default heading
+	 * 
+	 * @return string
+	 */
 	public function get_default_heading() {
 		return Helpers::get_wc_email_settings_default()['reward']['heading'];
 	}
 
+	/**
+	 * Get email content
+	 * 
+	 * @return string
+	 */
 	public function get_email_content() {
 		return Helpers::get_wc_email_settings_default()['reward']['content'];
 	}
@@ -183,5 +223,3 @@ class RewardEmail extends \WC_Email {
 		);
 	}
 }
-
-return new RewardEmail();

@@ -148,13 +148,13 @@ class Ajax {
 						}
 					}
 				}
-				Helpers::modify_email_queue(
-					false,
-					array(
-						'id'     => $email_id,
+				EmailQueue::update_queue( 
+					$email_id, 
+					[
 						'status' => 2,
-					)
+					]
 				);
+
 				wp_send_json_success(
 					array(
 						'mess' => __( 'Email dismissed successfully', 'yay-reviews' ),

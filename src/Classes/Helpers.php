@@ -167,22 +167,6 @@ class Helpers {
 		return $coupons;
 	}
 
-	public static function modify_email_queue( $is_insert = false, $data = array() ) {
-		if ( $is_insert ) {
-			/**
-			 * Insert email queue data
-			 */
-			return EmailQueue::insert_queue( $data );
-		}
-
-		/**
-		 * Update email queue data
-		 */
-		$id = $data['id'];
-		unset( $data['id'] );
-		return EmailQueue::update_queue( $id, $data );
-	}
-
 	public static function get_wc_reviews_settings() {
 		return array(
 			'reviews_enabled'        => wc_reviews_enabled(),

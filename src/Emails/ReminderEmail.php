@@ -1,9 +1,9 @@
 <?php
 namespace YayReviews\Emails;
 
+use YayReviews\Classes\EmailQueue;
 use YayReviews\Classes\Helpers;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
-use YayReviews\Models\SettingsModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -39,50 +39,87 @@ class ReminderEmail extends \WC_Email {
 			return;
 		}
 
-		$recipient_email = $order->get_billing_email();
-
-		$this->object    = $order;
-		$this->recipient = $recipient_email;
-
-		$placeholder_processor = new ReminderPlaceholderProcessor( array( 'order' => $order ) );
-
-		$this->placeholders = $placeholder_processor->get_placeholders();
-
 		if ( 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
 			return;
 		}
 
-		if ( $this->is_enabled() && ! empty( $recipient_email ) ) {
+		$placeholder_processor = new ReminderPlaceholderProcessor( array( 'order' => $order ) );
+		$recipient_email = $order->get_billing_email();
+
+		$this->object    = $order;
+		$this->recipient = $recipient_email;
+		$this->placeholders = $placeholder_processor->get_placeholders();
+
+		try {
+			if ( ! $this->is_enabled() ) {
+				throw new \Exception( __( 'Email is not enabled', 'yay-reviews' ) );
+			}
+
+			if ( empty( $recipient_email ) ) {
+				throw new \Exception( __( 'Recipient email is empty', 'yay-reviews' ) );
+			}
+
+			/**
+			 * Send email
+			 */
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
+
+			/**
+			 * Update email queue
+			 * If email is sent, update email queue status to 1
+			 */
 			if ( ! empty( $email_id ) ) {
-				Helpers::modify_email_queue(
-					false,
+				EmailQueue::update_queue(
+					$email_id,
 					array(
-						'id'             => $email_id,
 						'status'         => $result ? 1 : 0,
 						'body'           => $this->get_content(),
 						'subject'        => $this->get_subject(),
 						'customer_email' => $recipient_email,
 						'created_at'     => current_time( 'mysql' ),
-					)
+					) 
 				);
-			}
+			}	
+
 			if ( $result ) {
+				/**
+				 * Update order meta
+				 */
 				update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
 			}
-		}
 
-		$this->restore_locale();
+		} catch ( \Exception $e ) {
+			/**
+			 * TODO: Log error
+			 */
+		} finally {
+			$this->restore_locale();
+		}
 	}
 
+	/**
+	 * Get default subject
+	 * 
+	 * @return string
+	 */
 	public function get_default_subject() {
 		return Helpers::get_wc_email_settings_default()['reminder']['subject'];
 	}
 
+	/**
+	 * Get default heading
+	 * 
+	 * @return string
+	 */
 	public function get_default_heading() {
 		return Helpers::get_wc_email_settings_default()['reminder']['heading'];
 	}
 
+	/**
+	 * Get email content
+	 * 
+	 * @return string
+	 */
 	public function get_email_content() {
 		return Helpers::get_wc_email_settings_default()['reminder']['content'];
 	}
@@ -165,5 +202,3 @@ class ReminderEmail extends \WC_Email {
 		);
 	}
 }
-
-return new ReminderEmail();

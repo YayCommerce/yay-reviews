@@ -56,8 +56,7 @@ class Cron {
 		if ( ! in_array( $product_scope, array( 'featured', 'on_sale' ) ) || 0 === $max_products_per_email ) {
 			// save email log
 
-			$email_id = Helpers::modify_email_queue(
-				true,
+			$email_id = EmailQueue::insert_queue(
 				array(
 					'type'            => 'reminder',
 					'status'          => 0,
@@ -116,8 +115,7 @@ class Cron {
 		}
 
 		// save email log
-		$email_id = Helpers::modify_email_queue(
-			true,
+		$email_id = EmailQueue::insert_queue(
 			array(
 				'type'            => 'reminder',
 				'status'          => 0,
