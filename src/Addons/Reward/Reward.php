@@ -49,10 +49,25 @@ class Reward {
 				$coupon->set_discount_type( 'percent' );
 			}
 			$coupon->set_usage_limit( 1 );
+			$coupon->set_meta_data(
+				array(
+					array(
+						'id' 	=> 0,
+						'key'   => 'yayrev_one_time_coupon',
+						'value' => 'yes',
+					),
+				)
+			);
 			$coupon->save();
 		} elseif ( ! empty( $this->data['coupon_id'] ) ) {
 			$coupon_id    = $this->data['coupon_id'];
 			$coupon       = new \WC_Coupon( $coupon_id );
+			$is_yayrev_one_time_coupon = 'yes' === $coupon->get_meta( 'yayrev_one_time_coupon', true );
+
+			if ( $is_yayrev_one_time_coupon ) {
+				return null;
+			}
+
 			$expired      = CouponModel::is_coupon_expired( $coupon );
 			$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
 

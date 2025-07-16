@@ -14,6 +14,19 @@ class CouponModel {
 			'posts_per_page' => -1,
 			's'              => '',
 			'post_status'    => 'publish',
+			'meta_query'     => array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'yayrev_one_time_coupon',
+					'value'   => 'yes',
+					'compare' => '!=',
+				),
+				array(
+					'key'     => 'yayrev_one_time_coupon',
+					'value'   => '',
+					'compare' => 'NOT EXISTS',
+				),
+			),
 		);
 
 		$query = new \WP_Query( $args );
