@@ -2,16 +2,14 @@ import PageLayout from '@/layouts/page-layout';
 import EmailsProvider from '@/providers/emails-provider';
 import { __ } from '@wordpress/i18n';
 
-import { useFormContext } from '@/components/ui/form';
+import useAddonStatus from '@/hooks/use-addon-status';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PageTitle from '@/components/page-title';
 
 import TemplateCard from './template-card';
 
 export default function EmailsPage() {
-  const { watch } = useFormContext();
-  const reminderEnabled = watch('addons.reminder_enabled');
-  const rewardEnabled = watch('addons.reward_enabled');
+  const { isReminderEnabled, isRewardEnabled } = useAddonStatus();
 
   return (
     <EmailsProvider>
@@ -20,9 +18,9 @@ export default function EmailsPage() {
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* Email template */}
           <div className="flex flex-col gap-2.5">
-            <Tabs defaultValue={reminderEnabled ? 'reminder' : 'reward'} className="w-full">
+            <Tabs defaultValue={isReminderEnabled ? 'reminder' : 'reward'} className="w-full">
               <TabsList className="bg-muted h-9 w-full max-w-[400px] rounded-lg p-1">
-                {reminderEnabled && (
+                {isReminderEnabled && (
                   <TabsTrigger
                     value="reminder"
                     className="flex items-center justify-center text-sm font-medium"
@@ -30,7 +28,7 @@ export default function EmailsPage() {
                     {__('Reminder', 'yay-reviews')}
                   </TabsTrigger>
                 )}
-                {rewardEnabled && (
+                {isRewardEnabled && (
                   <TabsTrigger
                     value="reward"
                     className="flex items-center justify-center text-sm font-medium"

@@ -6,6 +6,7 @@ import { Loader2Icon, Menu } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
+import useAddonStatus from '@/hooks/use-addon-status';
 import useAppContext from '@/hooks/use-app-context';
 import useWindow from '@/hooks/use-window';
 import { Button } from '@/components/ui/button';
@@ -28,8 +29,7 @@ export default function Nav() {
     watch,
   } = useFormContext();
 
-  const reminderEnabled = watch('addons.reminder_enabled');
-  const rewardEnabled = watch('addons.reward_enabled');
+  const { isReminderEnabled, isRewardEnabled } = useAddonStatus();
 
   const menuItems = useMemo(() => {
     const result = [
@@ -45,7 +45,7 @@ export default function Nav() {
       },
     ];
 
-    if (reminderEnabled) {
+    if (isReminderEnabled) {
       result.push({
         label: __('Reminder', 'yay-reviews'),
         icon: <ReminderIcon strokeWidth={2} />,
@@ -53,7 +53,7 @@ export default function Nav() {
       });
     }
 
-    if (rewardEnabled) {
+    if (isRewardEnabled) {
       result.push({
         label: __('Rewards', 'yay-reviews'),
         icon: <GiftIcon strokeWidth={2} />,
@@ -61,7 +61,7 @@ export default function Nav() {
       });
     }
 
-    if (reminderEnabled || rewardEnabled) {
+    if (isReminderEnabled || isRewardEnabled) {
       result.push(
         {
           label: __('Emails', 'yay-reviews'),
@@ -77,7 +77,7 @@ export default function Nav() {
     }
 
     return result;
-  }, [reminderEnabled, rewardEnabled]);
+  }, [isReminderEnabled, isRewardEnabled]);
 
   const isSaveDisabled = useMemo(() => {
     return isSubmitting || !isDirty;

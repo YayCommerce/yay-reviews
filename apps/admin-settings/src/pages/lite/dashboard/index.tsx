@@ -46,6 +46,7 @@ const addonsInformation = [
     ),
     icon: <GiftIcon size={30} />,
     settingsPath: 'addons.reward',
+    version: 'pro',
     documentationUrl: 'https://yayreviews.com/docs/reward-addon',
   },
 ];

@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 
 import PageTitle from '@/components/page-title';
 
-export default function RewardPage() {
+export default function RewardFallback() {
   return (
     <PageLayout>
       <PageTitle title={__('Review rewards', 'yay-reviews')} />
