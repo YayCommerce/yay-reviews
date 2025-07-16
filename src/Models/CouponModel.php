@@ -14,7 +14,7 @@ class CouponModel {
 			'posts_per_page' => -1,
 			's'              => '',
 			'post_status'    => 'publish',
-			'meta_query'     => array(
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 				'relation' => 'OR',
 				array(
 					'key'     => 'yayrev_one_time_coupon',
