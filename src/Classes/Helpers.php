@@ -2,6 +2,7 @@
 namespace YayReviews\Classes;
 
 use Automattic\WooCommerce\Enums\ProductType;
+use YayReviews\Emails\ReminderEmail;
 
 class Helpers {
 
@@ -64,36 +65,14 @@ class Helpers {
 		return count( $orders );
 	}
 
-	public static function get_wc_email_settings_default() {
-		return array(
-			'reminder' => array(
-				'subject' => __( 'Reminder email', 'yay-reviews' ),
-				'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
-				'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
-			),
-			'reward'   => array(
-				'subject' => __( 'Review reward email', 'yay-reviews' ),
-				'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
-				'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
-			),
-		);
-	}
-
 	public static function get_wc_email_settings() {
 
-		$default_email_templates = self::get_wc_email_settings_default();
-
 		$reminder_email = get_option( 'woocommerce_yayrev_reminder_settings', null );
-		$reward_email   = get_option( 'woocommerce_yayrev_reward_settings', null );
 
 		return array(
 			'reminder' => array(
-				'default' => $default_email_templates['reminder'],
+				'default' => ReminderEmail::get_default_email_settings(),
 				'current' => $reminder_email,
-			),
-			'reward'   => array(
-				'default' => $default_email_templates['reward'],
-				'current' => $reward_email,
 			),
 		);
 	}

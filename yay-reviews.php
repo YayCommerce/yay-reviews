@@ -78,6 +78,7 @@ add_action(
 		Initialize::get_instance();
 		Admin::get_instance();
 		Frontend::get_instance();
+		Addons::get_instance();
 	}
 );
 

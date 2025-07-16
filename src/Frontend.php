@@ -2,7 +2,6 @@
 namespace YayReviews;
 
 use YayReviews\Classes\Helpers;
-use YayReviews\Classes\Reward;
 use YayReviews\Classes\View;
 use YayReviews\Models\SettingsModel;
 
@@ -13,7 +12,6 @@ class Frontend {
 	public function __construct() {
 		add_filter( 'woocommerce_product_review_comment_form_args', array( $this, 'add_reviews_form' ), 100, 1 );
 		add_action( 'comment_post', array( $this, 'save_custom_review_fields' ), 10 );
-		add_action( 'comment_post', array( $this, 'send_reward_email' ), 11 );
 		add_action( 'woocommerce_review_meta', array( $this, 'add_custom_review_meta' ), 10 );
 		add_action( 'woocommerce_review_after_comment_text', array( $this, 'review_after_comment_text' ), 10, 1 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'frontend_enqueue_scripts' ) );
@@ -119,102 +117,6 @@ class Frontend {
 				}
 			}
 			add_comment_meta( $comment_id, 'yayrev_attributes', $attributes_values );
-		}
-	}
-
-	public function send_reward_email( $comment_id ) {
-		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
-			return;
-		}
-		// Check and send reward email
-		$comment = get_comment( $comment_id );
-		if ( ! $comment || '1' !== $comment->comment_approved || 'review' !== $comment->comment_type ) {
-			return;
-		}
-		
-		/**
-		 * Check if reward is enabled
-		 */
-		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled', false );
-		if ( ! $reward_enabled ) {
-			return;
-		}
-		
-		/**
-		 * Check if rewards is empty
-		 */
-		$rewards        = SettingsModel::get_settings( 'rewards', array() );
-		if ( count( $rewards ) < 1 ) {
-			return;
-		}
-
-		
-		/**
-		 * Check if product is valid
-		 */
-		$product_id = $comment->comment_post_ID;
-		$product    = wc_get_product( $product_id );
-		if ( ! $product || ! ( $product instanceof \WC_Product ) ) {
-			return;
-		}
-
-		// sort rewards by rating_requirement
-		usort(
-			$rewards,
-			function ( $a, $b ) {
-				// priority of 5_stars is 1, less_than_5_stars is 2, any is 3
-				$rating_priority = array(
-					'5_stars'           => 1,
-					'less_than_5_stars' => 2,
-					'any'               => 3,
-				);
-
-				$media_priority = array(
-					'at_least_1_media' => 1,
-					'none'             => 2,
-				);
-				// if rating requirement is the same, then compare media requirement
-				if ( $rating_priority[ $a['rating_requirement'] ] === $rating_priority[ $b['rating_requirement'] ] ) {
-					return $media_priority[ $a['media_requirement'] ] <=> $media_priority[ $b['media_requirement'] ];
-				}
-				return $rating_priority[ $a['rating_requirement'] ] <=> $rating_priority[ $b['rating_requirement'] ];
-			}
-		);
-
-		
-		foreach ( $rewards as $reward ) {
-
-			$reward_obj = new Reward( $reward );
-
-			$coupon = $reward_obj->generate_coupon( $comment );
-
-			if ( empty( $coupon ) ) {
-				continue;
-			}
-
-			$email_address = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : get_user_meta( $comment->user_id, 'billing_email', true );
-
-			/**
-			 * If email address is empty, get it from user meta
-			 * Default is point to billing email
-			 * If not exists, then use user email
-			 */
-			if ( empty( $email_address ) ) {
-				$user = get_userdata( $comment->user_id );
-				if ( $user ) {
-					$email_address = $user->user_email;
-				}
-			}
-
-			if ( empty( $email_address ) ) {
-				continue;
-			}
-
-			if ( ! class_exists( 'WC_Email' ) ) {
-				\WC()->mailer();
-			}
-			do_action( 'yayrev_reward_email_notification', $reward, $comment, $coupon, $product, $email_address );
-			break;
 		}
 	}
 

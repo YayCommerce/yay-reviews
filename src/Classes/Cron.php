@@ -1,6 +1,8 @@
 <?php
 namespace YayReviews\Classes;
 
+use YayReviews\Constants\EmailConstants;
+use YayReviews\Emails\ReminderEmail;
 use YayReviews\Models\SettingsModel;
 use YayReviews\SingletonTrait;
 
@@ -23,7 +25,7 @@ class Cron {
 			return;
 		}
 
-		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled', false );
+		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled', true );
 
 		if ( ! $reminder_enabled ) {
 			return;
@@ -167,6 +169,6 @@ class Cron {
 		}
 
 		// Trigger reminder email notification
-		do_action( 'yayrev_reminder_email_notification', $order_id, $order, $email_id );
+		do_action( EmailConstants::REMINDER_EMAIL_ACTION, $order_id, $order, $email_id );
 	}
 }

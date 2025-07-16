@@ -1,9 +1,8 @@
 <?php
-namespace YayReviews\Emails;
+namespace YayReviews\Addons\Reward;
 
 use YayReviews\Classes\EmailQueue;
-use YayReviews\Classes\Helpers;
-use YayReviews\Emails\PlaceholderProcessors\RewardPlaceholderProcessor;
+use YayReviews\Constants\EmailConstants;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +24,7 @@ class RewardEmail extends \WC_Email {
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yayrev_reward_email_notification', array( $this, 'trigger' ), 10, 5 );
+		add_action( EmailConstants::REWARD_EMAIL_ACTION, array( $this, 'trigger' ), 10, 5 );
 	}
 
 	public function trigger( $reward, $comment, $coupon, $product, $recipient_email ) {
@@ -124,7 +123,7 @@ class RewardEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return Helpers::get_wc_email_settings_default()['reward']['subject'];
+		return self::get_default_email_settings()['subject'];
 	}
 
 	/**
@@ -133,7 +132,7 @@ class RewardEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return Helpers::get_wc_email_settings_default()['reward']['heading'];
+		return self::get_default_email_settings()['heading'];
 	}
 
 	/**
@@ -142,7 +141,7 @@ class RewardEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_email_content() {
-		return Helpers::get_wc_email_settings_default()['reward']['content'];
+		return self::get_default_email_settings()['content'];
 	}
 
 	public function get_content_html() {
@@ -220,6 +219,14 @@ class RewardEmail extends \WC_Email {
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),
 			),
+		);
+	}
+
+	public static function get_default_email_settings() {
+		return array(
+			'subject' => __( 'Review reward email', 'yay-reviews' ),
+			'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
+			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
 		);
 	}
 }

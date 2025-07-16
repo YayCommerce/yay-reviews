@@ -4,7 +4,6 @@ namespace YayReviews;
 
 use YayReviews\Classes\EmailQueue;
 use YayReviews\SingletonTrait;
-use YayReviews\Classes\Helpers;
 use YayReviews\Models\SettingsModel;
 
 class Ajax {
@@ -51,69 +50,39 @@ class Ajax {
 	public function send_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
 		}
 		try {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
-			if ( ! empty( $email_id ) ) {
-				$email_queue = EmailQueue::get_queue( $email_id );
-				if ( ! empty( $email_queue ) ) {
-					if ( 'reminder' === $email_queue->type && '0' === $email_queue->status ) {
-						$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
-						if ( ! empty( $scheduled_event ) && isset( $scheduled_event['timestamp'] ) && isset( $scheduled_event['order_id'] ) ) {
-							// Ensure timestamp is valid
-							$timestamp    = intval( $scheduled_event['timestamp'] );
-							$order_id     = intval( $scheduled_event['order_id'] );
-							$email_id_int = intval( $email_id );
-
-							do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
-
-							if ( $timestamp > 0 ) {
-								// Try to unschedule the event with proper error handling
-								$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
-								if ( is_wp_error( $unscheduled ) ) {
-									// Log the error but don't fail the entire operation
-									if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-										error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-									}
-								}
-							}
-						}
-					} else {
-						if ( ! class_exists( 'WC_Email' ) ) {
-							\WC()->mailer();
-						}
-						if ( 'reminder' === $email_queue->type ) {
-							$email = new \YayReviews\Emails\ReminderEmail();
-						} else {
-							$email = new \YayReviews\Emails\RewardEmail();
-						}
-						$result = $email->send( $email_queue->customer_email, $email_queue->subject, $email_queue->body, $email->get_headers(), $email->get_attachments() );
-						if ( $result ) {
-							wp_send_json_success(
-								array(
-									'mess' => __( 'Email sent successfully', 'yay-reviews' ),
-								)
-							);
-						} else {
-							wp_send_json_error(
-								array(
-									'mess' => __( 'Email sending failed', 'yay-reviews' ),
-								)
-							);
-						}
-					}
-					wp_send_json_success(
-						array(
-							'mess' => __( 'Email sent successfully', 'yay-reviews' ),
-						)
-					);
-				}
+			if ( empty( $email_id ) ) {
+				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
 			}
-			wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
+
+			$email_queue = EmailQueue::get_queue( $email_id );
+
+			if ( empty( $email_queue ) ) {
+				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-reviews' ) ) );
+			}
+
+			
+			if ( 'reminder' === $email_queue->type ) {
+				/**
+				 * Process pending reminder email
+				 */
+				if ( '0' === $email_queue->status ) {
+					$this->process_pending_reminder_email( $email_queue );
+				} else {
+					$this->resend_reminder_email( $email_queue );
+				}
+			} else {
+				do_action( 'yayrev_send_other_queue_email', $email_queue );
+			}
+
 		} catch ( \Exception $e ) {
-			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+			wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
+
+		wp_send_json_error( array( 'mess' => __( 'No email sent', 'yay-reviews' ) ) );
 	}
 
 	public function dismiss_email() {
@@ -261,11 +230,8 @@ class Ajax {
 		try {
 			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			if ( ! empty( $email ) ) {
-				if ( 'reminder' === $email ) {
-					$email_class = 'YayReviews\Emails\ReminderEmail';
-				} else {
-					$email_class = 'YayReviews\Emails\RewardEmail';
-				}
+
+				$email_class = apply_filters( 'yayrev_preview_email_class', 'YayReviews\Emails\ReminderEmail', $email );
 				$email_preview = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview::class );
 				$email_preview->set_email_type( $email_class );
 				$message = $email_preview->render();
@@ -284,6 +250,58 @@ class Ajax {
 			);
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+		}
+	}
+
+	private function process_pending_reminder_email( $email_queue ) {
+		$scheduled_event = maybe_unserialize( $email_queue->scheduled_event );
+		if ( ! empty( $scheduled_event ) && isset( $scheduled_event['timestamp'] ) && isset( $scheduled_event['order_id'] ) ) {
+			// Ensure timestamp is valid
+			$timestamp    = intval( $scheduled_event['timestamp'] );
+			$order_id     = intval( $scheduled_event['order_id'] );
+			$email_id_int = intval( $email_queue['id'] );
+
+			do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
+
+			if ( $timestamp > 0 ) {
+				// Try to unschedule the event with proper error handling
+				$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
+				if ( is_wp_error( $unscheduled ) ) {
+					// Log the error but don't fail the entire operation
+					if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
+						error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					}
+				}
+			}
+		}
+
+		wp_send_json_success(
+			array(
+				'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+			)
+		);
+	}
+
+	private function resend_reminder_email( $email_queue ) {
+		if ( ! class_exists( 'WC_Email' ) ) {
+			\WC()->mailer();
+		}
+
+		$email = new \YayReviews\Emails\ReminderEmail();
+		$result = $email->send( $email_queue->customer_email, $email_queue->subject, $email_queue->body, $email->get_headers(), $email->get_attachments() );
+
+		if ( $result ) {
+			wp_send_json_success(
+				array(
+					'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+				)
+			);
+		} else {
+			wp_send_json_error(
+				array(
+					'mess' => __( 'Email sending failed', 'yay-reviews' ),
+				)
+			);
 		}
 	}
 }

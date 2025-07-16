@@ -3,6 +3,7 @@ namespace YayReviews\Emails;
 
 use YayReviews\Classes\EmailQueue;
 use YayReviews\Classes\Helpers;
+use YayReviews\Constants\EmailConstants;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +26,7 @@ class ReminderEmail extends \WC_Email {
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( 'yayrev_reminder_email_notification', array( $this, 'trigger' ), 10, 3 );
+		add_action( EmailConstants::REMINDER_EMAIL_ACTION, array( $this, 'trigger' ), 10, 3 );
 	}
 
 	public function trigger( $order_id, $order = false, $email_id = 0 ) {
@@ -103,7 +104,7 @@ class ReminderEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_subject() {
-		return Helpers::get_wc_email_settings_default()['reminder']['subject'];
+		return self::get_default_email_settings()['subject'];
 	}
 
 	/**
@@ -112,7 +113,7 @@ class ReminderEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_default_heading() {
-		return Helpers::get_wc_email_settings_default()['reminder']['heading'];
+		return self::get_default_email_settings()['heading'];
 	}
 
 	/**
@@ -121,7 +122,7 @@ class ReminderEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_email_content() {
-		return Helpers::get_wc_email_settings_default()['reminder']['content'];
+		return self::get_default_email_settings()['content'];
 	}
 
 	public function get_content_html() {
@@ -199,6 +200,14 @@ class ReminderEmail extends \WC_Email {
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),
 			),
+		);
+	}
+
+	public static function get_default_email_settings() {
+		return array(
+			'subject' => __( 'Reminder email', 'yay-reviews' ),
+			'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
+			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
 		);
 	}
 }

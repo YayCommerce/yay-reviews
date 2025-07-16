@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Classes;
+namespace YayReviews\Addons\Reward;
 
 use YayReviews\Classes\Helpers;
 

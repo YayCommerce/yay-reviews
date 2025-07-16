@@ -70,22 +70,10 @@ class RestAPI {
 
 	public function save_settings( $request ) {
 		$data           = $request->get_params();
-		$email_settings = $data['email'];
-		unset( $data['email'] );
-		SettingsModel::update_settings( $data );
-		// Update woocommerce email settings
-		$reminder_email = get_option( 'woocommerce_yayrev_reminder_settings', array() );
-		$reward_email   = get_option( 'woocommerce_yayrev_reward_settings', array() );
-		if ( ! empty( $email_settings ) ) {
-			$reminder_email = wp_parse_args( $email_settings['reminder'], $reminder_email );
-			$reward_email   = wp_parse_args( $email_settings['reward'], $reward_email );
-			if ( ! empty( $reminder_email ) ) {
-				update_option( 'woocommerce_yayrev_reminder_settings', $reminder_email );
-			}
-			if ( ! empty( $reward_email ) ) {
-				update_option( 'woocommerce_yayrev_reward_settings', $reward_email );
-			}
-		}
+		$saved_data     = $data;
+		unset( $saved_data['email'] );
+		SettingsModel::update_settings( $saved_data );
+		do_action( 'yayrev_after_update_settings', $data );
 		return rest_ensure_response( true );
 	}
 
