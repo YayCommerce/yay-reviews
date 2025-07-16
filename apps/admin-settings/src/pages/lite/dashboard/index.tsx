@@ -2,15 +2,28 @@ import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
 
+import { __IS_PRO__ } from '@/config/version';
 import { SettingsFormData } from '@/lib/schema';
 import useAppContext from '@/hooks/use-app-context';
 import { useFormContext } from '@/components/ui/form';
+import NormalCard from '@/components/addon-card/normal-card';
+import UpgradeCard from '@/components/addon-card/upgrade-card';
 import GiftIcon from '@/components/icons/Gift';
 import ReminderIcon from '@/components/icons/Reminder';
 import PageTitle from '@/components/page-title';
 
-import AddonCard, { Addon } from './addon-card';
-import EnableReviewCard from './enable-review-card';
+import WooCommerceReviewStatus from './woocommerce-review-status';
+
+export type Addon = {
+  id: 'reminder' | 'reward';
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  settingsPath: string;
+  enabled: boolean;
+  version?: 'lite' | 'pro';
+  documentationUrl: string;
+};
 
 const addonsInformation = [
   {
@@ -22,6 +35,7 @@ const addonsInformation = [
     ),
     icon: <ReminderIcon size={30} />,
     settingsPath: 'addons.reminder',
+    documentationUrl: 'https://yayreviews.com/docs/reminder-addon',
   },
   {
     id: 'reward',
@@ -32,18 +46,17 @@ const addonsInformation = [
     ),
     icon: <GiftIcon size={30} />,
     settingsPath: 'addons.reward',
+    documentationUrl: 'https://yayreviews.com/docs/reward-addon',
   },
-  // {
-  //   id: 'optional_fields',
-  //   title: __('Optional Fields', 'yay-reviews'),
-  //   description: __(
-  //     'Adds custom fields to review forms, letting customers share tailored feedback for your needs.',
-  //     'yay-reviews',
-  //   ),
-  //   icon: <NoteIcon size={30} />,
-  //   settingsPath: 'addons.optional_fields',
-  // },
 ];
+
+const AddonCard = (props: Addon) => {
+  return !__IS_PRO__ && props.version === 'pro' ? (
+    <UpgradeCard {...props} />
+  ) : (
+    <NormalCard {...props} />
+  );
+};
 
 export default function DashboardPage() {
   const { changeTab } = useAppContext();
@@ -81,7 +94,7 @@ export default function DashboardPage() {
           </>
         }
       />
-      <EnableReviewCard />
+      <WooCommerceReviewStatus />
       <div className="container mx-auto px-7 py-0">
         <div className="text-foreground mb-6 text-xl font-semibold">
           {__('Addon-on settings', 'yay-reviews')}

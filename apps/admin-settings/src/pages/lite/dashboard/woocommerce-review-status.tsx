@@ -7,26 +7,26 @@ import useAppContext from '@/hooks/use-app-context';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 
-export default function EnableReviewCard() {
-  const { reviewsEnabled, setReviewsEnabled } = useAppContext();
+export default function WooCommerceReviewStatus() {
+  const { isWcReviewsEnabled, changeWcReviewsStatus } = useAppContext();
   const errorMessage = useRef<string>('');
-  const [isLoadingTurnOn, setIsLoadingTurnOn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const defaultReviewsEnabled = window.yayReviews.wc_reviews_settings.reviews_enabled ?? false;
 
   const handleTurnOnReviews = () => {
-    setIsLoadingTurnOn(true);
+    setIsLoading(true);
     changeWcReviewsSettings('reviews_enabled', true)
       .then((res) => {
         if (res.success) {
-          setReviewsEnabled(true);
+          changeWcReviewsStatus(true);
           errorMessage.current = '';
         } else {
           errorMessage.current = res.data.mess;
         }
       })
       .finally(() => {
-        setIsLoadingTurnOn(false);
+        setIsLoading(false);
       });
   };
 
@@ -36,14 +36,14 @@ export default function EnableReviewCard() {
         <Card className="py-3">
           <CardContent className="px-3">
             <div className="text-foreground flex items-center gap-3">
-              {!reviewsEnabled ? <InfoIcon size={18} /> : <CheckCircleIcon size={18} />}
+              {!isWcReviewsEnabled ? <InfoIcon size={18} /> : <CheckCircleIcon size={18} />}
               <span className="text-sm font-medium">
                 <span>
-                  {reviewsEnabled
+                  {isWcReviewsEnabled
                     ? __('You can change this any time in')
-                    : __('Product reviews are disabled in WooCommerce.', 'yay-reviews')}
+                    : __('Product reviews are disabled by WooCommerce.', 'yay-reviews')}
                 </span>
-                {reviewsEnabled && (
+                {isWcReviewsEnabled && (
                   <>
                     {' '}
                     <span
@@ -57,16 +57,16 @@ export default function EnableReviewCard() {
                   </>
                 )}
               </span>
-              {!reviewsEnabled && (
+              {!isWcReviewsEnabled && (
                 <Button
                   size="sm"
-                  disabled={isLoadingTurnOn}
+                  disabled={isLoading}
                   onClick={(e) => {
                     e.preventDefault();
                     handleTurnOnReviews();
                   }}
                 >
-                  {isLoadingTurnOn ? (
+                  {isLoading ? (
                     <div className="flex w-[46px] items-center justify-center">
                       <Loader2Icon className="animate-spin" />
                     </div>

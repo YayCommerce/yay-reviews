@@ -3,16 +3,16 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 type ContextType = {
   activeTab: string;
-  reviewsEnabled: boolean;
+  isWcReviewsEnabled: boolean;
   changeTab: (tab: string) => void;
-  setReviewsEnabled: (reviewsEnabled: boolean) => void;
+  changeWcReviewsStatus: (value: boolean) => void;
 };
 
 const AppContext = createContext<ContextType>({
   activeTab: 'dashboard',
-  reviewsEnabled: false,
+  isWcReviewsEnabled: false,
   changeTab: () => {},
-  setReviewsEnabled: () => {},
+  changeWcReviewsStatus: () => {},
 });
 
 export { AppContext };
@@ -21,13 +21,18 @@ const queryClient = new QueryClient();
 
 export default function AppProvider({ children }: { children: React.ReactNode }) {
   const [activeTab, changeTab] = useState('dashboard');
-  const [reviewsEnabled, setReviewsEnabled] = useState(
+  const [isWcReviewsEnabled, setIsWcReviewsEnabled] = useState(
     window.yayReviews.wc_reviews_settings.reviews_enabled ?? false,
   );
 
   const memorizedValue = useMemo(
-    () => ({ activeTab, changeTab: changeTab, reviewsEnabled, setReviewsEnabled }),
-    [activeTab, reviewsEnabled],
+    () => ({
+      activeTab,
+      changeTab: changeTab,
+      isWcReviewsEnabled,
+      changeWcReviewsStatus: setIsWcReviewsEnabled,
+    }),
+    [activeTab, isWcReviewsEnabled],
   );
 
   return (

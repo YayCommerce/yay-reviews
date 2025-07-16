@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Addon } from '@/pages/lite/dashboard';
 import { __ } from '@wordpress/i18n';
 import { toast } from 'sonner';
 
@@ -8,21 +9,12 @@ import { cn } from '@/lib/utils';
 import useAppContext from '@/hooks/use-app-context';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { useFormContext } from '@/components/ui/form';
 import { Switch } from '@/components/ui/switch';
 import SettingIcon from '@/components/icons/Setting';
 
-export type Addon = {
-  id: 'reminder' | 'reward';
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  settingsPath: string;
-  enabled: boolean;
-};
-
-export default function AddonCard({ id, title, description, icon, enabled, settingsPath }: Addon) {
+export default function NormalCard({ id, title, description, icon, enabled, settingsPath }: Addon) {
   const { changeTab } = useAppContext();
 
   const [isLoading, setIsLoading] = useState(false);
@@ -66,12 +58,12 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
             {enabled ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
           </Badge>
         </div>
-        <CardHeader className="px-0 pt-4">
+        <div className="pt-4">
           <div className="text-base font-semibold">{title}</div>
           <div className="text-muted-foreground text-sm">{description}</div>
-        </CardHeader>
+        </div>
       </CardContent>
-      <CardContent className="flex items-center justify-between border-t p-4">
+      <CardFooter className="flex items-center justify-between border-t p-4 pt-4!">
         <Button
           variant="outline"
           size="sm"
@@ -86,7 +78,7 @@ export default function AddonCard({ id, title, description, icon, enabled, setti
           {__('Settings', 'yay-reviews')}
         </Button>
         <Switch checked={enabled} onCheckedChange={handleChangeStatus} loading={isLoading} />
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }

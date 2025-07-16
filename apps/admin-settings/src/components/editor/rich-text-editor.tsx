@@ -45,11 +45,7 @@ const RichTextEditor = ({
             updateEmailPreview(
               editor.getContent(),
               'content',
-              ID === 'yay-reviews-email-content-reminder'
-                ? 'reminder'
-                : ID === 'yay-reviews-email-content-reward'
-                  ? 'reward'
-                  : '',
+              ID.replace('yay-reviews-email-content-', ''),
             );
           });
           editor.addButton('customforecolor', {
@@ -75,11 +71,7 @@ const RichTextEditor = ({
               updateEmailPreview(
                 editor.getContent(),
                 'content',
-                ID === 'yay-reviews-email-content-reminder'
-                  ? 'reminder'
-                  : ID === 'yay-reviews-email-content-reward'
-                    ? 'reward'
-                    : '',
+                ID.replace('yay-reviews-email-content-', ''),
               );
             },
           });
@@ -101,15 +93,7 @@ const RichTextEditor = ({
                   editorId={ID}
                   onChange={(e) => {
                     handleOnChange(e);
-                    updateEmailPreview(
-                      e,
-                      'content',
-                      ID === 'yay-reviews-email-content-reminder'
-                        ? 'reminder'
-                        : ID === 'yay-reviews-email-content-reward'
-                          ? 'reward'
-                          : '',
-                    );
+                    updateEmailPreview(e, 'content', ID.replace('yay-reviews-email-content-', ''));
                   }}
                 />,
               );

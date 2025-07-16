@@ -10,12 +10,14 @@ import useAppContext from './hooks/use-app-context';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
 import { getSettings } from './lib/utils';
-import DashboardPage from './pages/dashboard';
-import EmailsPage from './pages/emails';
-import EmailsQueuePage from './pages/emails-queue';
-import ReminderPage from './pages/reminder';
-import ReviewPage from './pages/review';
-import RewardPage from './pages/reward';
+import DashboardPage from './pages/lite/dashboard';
+import EmailsPage from './pages/lite/emails';
+import EmailsQueuePage from './pages/lite/emails-queue';
+import ReminderPage from './pages/lite/reminder';
+import ReviewPage from './pages/lite/review';
+import RewardPage from './pages/pro/reward';
+import RewardFallback from './pages/pro/reward/fallback';
+import { withProFeature } from './utils/withProFeature';
 
 export default function App() {
   const form = useForm<SettingsFormData>({
@@ -53,6 +55,11 @@ export default function App() {
   );
 }
 
+const Reward = withProFeature(
+  () => <RewardPage />,
+  () => <RewardFallback />,
+);
+
 function PageContent() {
   const { activeTab } = useAppContext();
   const Comp = useMemo(() => {
@@ -64,7 +71,7 @@ function PageContent() {
       case 'reminder':
         return <ReminderPage />;
       case 'reward':
-        return <RewardPage />;
+        return <Reward />;
       case 'emails':
         return <EmailsPage />;
       case 'emails-queue':

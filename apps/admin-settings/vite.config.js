@@ -42,7 +42,9 @@ const externalOptions = {
 // https://vitejs.dev/config/
 export default defineConfig({
   root: './src',
-
+  define: {
+    __IS_PRO__: true,
+  },
   plugins: [
     react({ jsxRuntime: 'classic' }),
     tailwindcss(),
