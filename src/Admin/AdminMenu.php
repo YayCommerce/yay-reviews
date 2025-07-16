@@ -5,6 +5,8 @@ namespace YayReviews\Admin;
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\View;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayReviews\Emails\ReminderEmail;
+use YayReviews\Models\CouponModel;
 use YayReviews\Models\SettingsModel;
 use YayReviews\Register\ScriptName;
 use YayReviews\SingletonTrait;
@@ -62,7 +64,7 @@ class AdminMenu {
 		wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 		wp_enqueue_editor();
 
-		$core_localize_data = [
+		$uneditabled_localized_data = [
 			'nonce'                     => wp_create_nonce( 'yayrev_nonce' ),
 			'rest_nonce'                => wp_create_nonce( 'wp_rest' ),
 			'rest_url'                  => esc_url_raw( rest_url() ),
@@ -75,21 +77,34 @@ class AdminMenu {
 			'site_title'                => get_bloginfo( 'name' ),
 			'upload_max_filesize'       => Helpers::upload_max_filesize(),
 			'admin_email'               => get_option( 'admin_email' ),
-			'coupons'                   => Helpers::get_coupons(),
+			'coupons'                   => CouponModel::get_coupons(),
 		];
 		
 		$filtered_localize_data = apply_filters( 'yayrev_admin_localize_data', [
 			'data_settings'             => SettingsModel::get_all_settings(),
-			'wc_email_settings'         => Helpers::get_wc_email_settings(),
+			'wc_email_settings'         => array(
+				'reminder' => array(
+					'default' => ReminderEmail::get_default_email_settings(),
+					'current' => get_option( 'woocommerce_yayrev_reminder_settings', null ),
+				),
+			),
 			'sample_email_placeholders' => array(
 				'reminder' => ( new ReminderPlaceholderProcessor() )->get_placeholders(),
 			),
 		] );
 
+		$localize_data = $uneditabled_localized_data;
+
+		foreach ( $filtered_localize_data as $key => $value ) {
+			if ( ! isset( $uneditabled_localized_data[ $key ] ) ) {
+				$localize_data[ $key ] = $value;
+			}
+		}
+
 		wp_localize_script(
 			ScriptName::PAGE_SETTINGS,
 			'yayReviews',
-			array_merge( $core_localize_data, $filtered_localize_data )
+			$localize_data
 		);
 
 		wp_enqueue_style( ScriptName::STYLE_SETTINGS );

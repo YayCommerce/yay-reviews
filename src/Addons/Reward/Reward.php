@@ -3,6 +3,7 @@
 namespace YayReviews\Addons\Reward;
 
 use YayReviews\Classes\Helpers;
+use YayReviews\Models\CouponModel;
 
 class Reward {
 
@@ -29,7 +30,7 @@ class Reward {
 
 		$coupon = null;
 		if ( 'one_time_coupon' === ( $this->data['coupon_type'] ?? 'manual_coupon' ) ) {
-			$coupon_code = Helpers::generate_unique_coupon_code( 8 );
+			$coupon_code = CouponModel::generate_unique_coupon_code( 8 );
 			if ( ! $coupon_code ) {
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 					error_log( 'YayReviews: Unable to generate unique coupon code for comment ID: ' . $comment->comment_ID ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -52,7 +53,7 @@ class Reward {
 		} elseif ( ! empty( $this->data['coupon_id'] ) ) {
 			$coupon_id    = $this->data['coupon_id'];
 			$coupon       = new \WC_Coupon( $coupon_id );
-			$expired      = Helpers::is_coupon_expired( $coupon );
+			$expired      = CouponModel::is_coupon_expired( $coupon );
 			$out_of_usage = $coupon->get_usage_limit() !== 0 && $coupon->get_usage_count() >= $coupon->get_usage_limit() ? true : false;
 
 			if ( $expired || $out_of_usage ) {

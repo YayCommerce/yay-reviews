@@ -4,6 +4,7 @@ namespace YayReviews;
 use YayReviews\Classes\EmailQueue;
 use YayReviews\SingletonTrait;
 use YayReviews\Classes\Helpers;
+use YayReviews\Models\CouponModel;
 use YayReviews\Models\SettingsModel;
 
 defined( 'ABSPATH' ) || exit;
@@ -109,7 +110,7 @@ class RestAPI {
 		if ( $coupon->get_id() ) {
 			return rest_ensure_response(
 				array(
-					'coupon'    => Helpers::get_coupon_data( $coupon ),
+					'coupon'    => CouponModel::get_coupon_data( $coupon ),
 					'is_exists' => false,
 					'message'   => 'Coupon created successfully',
 				)
