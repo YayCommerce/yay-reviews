@@ -102,6 +102,7 @@ function WizardPage() {
     await initAppSettings(data);
     window.yayReviews.data_settings.addons.reminder_enabled = true;
     window.yayReviews.data_settings.reminder.delay_amount = Number(data.request_review_timing);
+    window.yayReviews.data_settings.reminder.delay_unit = 'days';
     window.yayReviews.data_settings.reviews.enable_media_upload = data.review_type === 'media';
     goNext();
   };

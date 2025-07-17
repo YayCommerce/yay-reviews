@@ -21,7 +21,7 @@ class Emails {
 	}
 
 	public function register_email_classes( $email_classes ) {
-		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled', true );
+		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		if ( $reminder_enabled ) {
 			$email_classes['YayReviews\Emails\ReminderEmail'] = new \YayReviews\Emails\ReminderEmail();
 		}

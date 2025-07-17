@@ -318,14 +318,17 @@ class Ajax {
 		SettingsModel::update_settings(
 			[
 				'addons' => [
-					'reminder_enabled' => true,
+					'reminder_enabled' => SettingsModel::get_default_settings('addons.reminder_enabled'),
 				],
 				'reminder' => [
-					'delay_amount' => empty( $request_review_timing ) ? 5 : intval( $request_review_timing ),
+					'delay_amount' => ! empty( $request_review_timing ) ? intval( $request_review_timing ) :  SettingsModel::get_default_settings('reminder.delay_amount'),
+					'delay_unit' => SettingsModel::get_default_settings('reminder.delay_unit'),
+					'max_products_per_email' => SettingsModel::get_default_settings('reminder.max_products_per_email'),
+					'product_scope' => SettingsModel::get_default_settings('reminder.product_scope'),
 				],
 				'reviews' => [
 					'enable_media_upload' => 'media' === $review_type ? true : false,
-					'allowed_media_types' => 'video_photo'
+					'allowed_media_types' => SettingsModel::get_default_settings('reviews.allowed_media_types'),
 				],
 			]
 		);

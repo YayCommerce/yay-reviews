@@ -38,6 +38,7 @@ class SettingsModel {
 				'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
 				'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 			),
+			//TODO: VERSIONING
 			'reminder'        => array(
 				'delay_amount'           => 5,
 				'delay_unit'             => 'days',
@@ -64,7 +65,8 @@ class SettingsModel {
 	 * $path is a string like 'reviews.enable_media_upload'.
 	 * $default is the default value if the setting is not found.
 	 */
-	public static function get_settings( $path, $default = '' ) {
+	public static function get_settings( $path ) {
+		$default    = self::get_specific_default_settings( $path, '' );
 		$value_path = explode( '.', $path );
 		$settings   = self::get_all_settings();
 		$val        = $settings;
@@ -86,5 +88,24 @@ class SettingsModel {
 	 */
 	public static function update_settings( $settings ) {
 		return update_option( self::OPTION_NAME, Helpers::wp_parse_args_recursive( $settings, self::get_all_settings() ), false );
+	}
+
+	/**
+	 * Get a specific default setting.
+	 * $path is a string like 'reviews.enable_media_upload'.
+	 * $default is the default value if the setting is not found.
+	 */
+	public static function get_specific_default_settings( $path, $default = '' ) {
+		$value_path = explode( '.', $path );
+		$settings   = self::get_default_settings();
+		$val        = $settings;
+		foreach ( $value_path as $key ) {
+			if ( isset( $val[ $key ] ) ) {
+				$val = $val[ $key ];
+			} else {
+				$val = $default;
+			}
+		}
+		return $val;
 	}
 }

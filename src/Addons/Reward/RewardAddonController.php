@@ -26,7 +26,7 @@ class RewardAddonController {
 	}
 
 	public static function is_addon_enabled() {
-		$reward_enabled   = SettingsModel::get_settings( 'addons.reward_enabled', false );
+		$reward_enabled   = SettingsModel::get_settings( 'addons.reward_enabled' );
 		return $reward_enabled;
 	}
 
@@ -95,7 +95,7 @@ class RewardAddonController {
 		/*
 		* Check if reward is enabled
 		*/
-		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled', false );
+		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled' );
 		if ( ! $reward_enabled ) {
 			return;
 		}
@@ -103,7 +103,7 @@ class RewardAddonController {
 		/*
 		* Check if rewards is empty
 		*/
-		$rewards        = SettingsModel::get_settings( 'rewards', array() );
+		$rewards        = SettingsModel::get_settings( 'rewards' );
 		if ( count( $rewards ) < 1 ) {
 			return;
 		}

@@ -24,23 +24,23 @@ class Frontend {
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.review-title', array(), false );
 		$comment_form['comment_field'] .= View::load( 'frontend.review-form.product-attributes', array(), false );
 
-		$reviews_settings    = SettingsModel::get_settings( 'reviews', array() );
-		$enable_media_upload = $reviews_settings['enable_media_upload'] ?? false;
-		$enable_gdpr_consent = $reviews_settings['enable_gdpr_consent'] ?? false;
+		$reviews_settings    = SettingsModel::get_settings( 'reviews' );
+		$enable_media_upload = $reviews_settings['enable_media_upload'];
+		$enable_gdpr_consent = $reviews_settings['enable_gdpr_consent'];
 		if ( $enable_media_upload ) {
 			$upload_media_data              = array(
-				'require_media_upload' => $reviews_settings['require_media_upload'] ?? false,
-				'label'                => $reviews_settings['media_upload_label'] ?? '',
-				'description'          => $reviews_settings['media_upload_description'] ?? '',
-				'allowed_media_types'  => $reviews_settings['allowed_media_types'] ?? array( 'video_photo' ),
+				'require_media_upload' => $reviews_settings['require_media_upload'],
+				'label'                => $reviews_settings['media_upload_label'],
+				'description'          => $reviews_settings['media_upload_description'],
+				'allowed_media_types'  => $reviews_settings['allowed_media_types'],
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.media', $upload_media_data, false );
 		}
 
 		if ( $enable_gdpr_consent ) {
 			$gdpr_data                      = array(
-				'pre_message'  => $reviews_settings['pre_gdpr_message'] ?? '',
-				'gdpr_message' => $reviews_settings['gdpr_consent_message'] ?? '',
+				'pre_message'  => $reviews_settings['pre_gdpr_message'],
+				'gdpr_message' => $reviews_settings['gdpr_consent_message'],
 			);
 			$comment_form['comment_field'] .= View::load( 'frontend.review-form.gdpr', $gdpr_data, false );
 		}
@@ -52,16 +52,16 @@ class Frontend {
 		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
 		}
-		$enable_media_upload = SettingsModel::get_settings( 'reviews.enable_media_upload', false );
+		$enable_media_upload = SettingsModel::get_settings( 'reviews.enable_media_upload' );
 		if ( $enable_media_upload ) {
 			if ( isset( $_FILES['yayrev_media'] ) && ! empty( $_FILES['yayrev_media'] ) ) {
 				$files               = $_FILES['yayrev_media']; //phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				$total_files         = count( $files['name'] );
-				$max_upload_file_qty = SettingsModel::get_settings( 'reviews.max_upload_file_qty', '' );
+				$max_upload_file_qty = SettingsModel::get_settings( 'reviews.max_upload_file_qty' );
 				if ( ! empty( $max_upload_file_qty ) && $total_files > $max_upload_file_qty ) {
 					return;
 				}
-				$max_upload_filesize = SettingsModel::get_settings( 'reviews.max_upload_filesize', 2000 ) * 1000;//converts to byte
+				$max_upload_filesize = SettingsModel::get_settings( 'reviews.max_upload_filesize' ) * 1000;//converts to byte
 
 				include_once ABSPATH . 'wp-admin/includes/image.php';
 				include_once ABSPATH . 'wp-admin/includes/file.php';
@@ -155,10 +155,10 @@ class Frontend {
 			return;
 		}
 
-		$reviews_settings     = SettingsModel::get_settings( 'reviews', array() );
-		$allowed_media_types  = $reviews_settings['allowed_media_types'] ?? array( 'video_photo' );
-		$max_upload_files     = $reviews_settings['max_upload_files'] ?? 20;
-		$max_upload_filesize  = intval( $reviews_settings['max_upload_filesize'] ?? Helpers::upload_max_filesize() );
+		$reviews_settings     = SettingsModel::get_settings( 'reviews' );
+		$allowed_media_types  = $reviews_settings['allowed_media_types'];
+		$max_upload_files     = $reviews_settings['max_upload_files'];
+		$max_upload_filesize  = intval( $reviews_settings['max_upload_filesize'] );
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
 			__( 'Please upload at least 1 %s.', 'yay-reviews' ),

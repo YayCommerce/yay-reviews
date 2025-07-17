@@ -25,17 +25,18 @@ class Cron {
 			return;
 		}
 
-		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled', true );
+		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled' );
 
 		if ( ! $reminder_enabled ) {
 			return;
 		}
 
-		$reminder_settings      = SettingsModel::get_settings( 'reminder', array() );
-		$delay_amount           = $reminder_settings['delay_amount'] ?? 7;
-		$delay_unit             = $reminder_settings['delay_unit'] ?? 'days';
-		$max_products_per_email = $reminder_settings['max_products_per_email'] ?? 3;
-		$product_scope          = isset( $reminder_settings['product_scope'] ) ? $reminder_settings['product_scope'] : 'all';
+		//TODO: VERSIONING
+		$reminder_settings      = SettingsModel::get_settings( 'reminder' );
+		$delay_amount           = $reminder_settings['delay_amount'];
+		$delay_unit             = $reminder_settings['delay_unit'];
+		$max_products_per_email = $reminder_settings['max_products_per_email'];
+		$product_scope          = $reminder_settings['product_scope'];
 		$time                   = time();
 
 		if ( $delay_amount > 0 ) {
@@ -117,6 +118,7 @@ class Cron {
 		}
 
 		// save email log
+		//TODO: VERSIONING
 		$email_id = EmailQueue::insert_queue(
 			array(
 				'type'            => 'reminder',

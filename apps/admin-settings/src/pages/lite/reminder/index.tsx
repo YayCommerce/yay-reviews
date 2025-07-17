@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import PageLayout from '@/layouts/page-layout';
 import { __ } from '@wordpress/i18n';
 
+import { __IS_PRO__, __PLUGIN_URL__, __PRO_VERSION_URL__ } from '@/config/version';
 import useAppContext from '@/hooks/use-app-context';
 import { Card } from '@/components/ui/card';
 import { FormField, useFormContext } from '@/components/ui/form';
@@ -113,10 +114,11 @@ function ReminderInformation() {
                   <Input
                     id="reminder.delay_amount"
                     type="number"
-                    value={value}
+                    value={__IS_PRO__ ? value : '5'}
                     onChange={(e) => onChange(Math.max(1, Number(e.target.value)))}
                     className="max-w-[60px]"
                     min={1}
+                    disabled={!__IS_PRO__}
                   />
                 )}
               />
@@ -125,7 +127,12 @@ function ReminderInformation() {
               control={control}
               name="reminder.delay_unit"
               render={({ field: { value, onChange } }) => (
-                <Select id="reminder.delay_unit" value={value} onValueChange={onChange}>
+                <Select
+                  id="reminder.delay_unit"
+                  value={__IS_PRO__ ? value : 'days'}
+                  onValueChange={onChange}
+                  disabled={!__IS_PRO__}
+                >
                   <SelectTrigger className="w-full max-w-[130px]">
                     <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                   </SelectTrigger>
@@ -154,6 +161,17 @@ function ReminderInformation() {
             />
             <span className="text-sm">{__('after order completed', 'yay-reviews')}</span>
           </div>
+          {!__IS_PRO__ && (
+            <div
+              className="text-muted-foreground text-sm"
+              dangerouslySetInnerHTML={{
+                __html: __('You can adjust the reminder timing in the %s.', 'yay-reviews').replace(
+                  '%s',
+                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-reviews')}</a>`,
+                ),
+              }}
+            ></div>
+          )}
         </Card>
       </div>
       <div className="space-y-4">
@@ -173,7 +191,7 @@ function ReminderInformation() {
                 render={({ field: { value, onChange } }) => (
                   <Input
                     id="reminder.max_products_per_email"
-                    disabled={productScope === 'all'}
+                    disabled={productScope === 'all' || !__IS_PRO__}
                     type="number"
                     value={value}
                     placeholder={__('All', 'yay-reviews')}
@@ -194,7 +212,12 @@ function ReminderInformation() {
               control={control}
               name="reminder.product_scope"
               render={({ field: { value, onChange } }) => (
-                <Select id="reminder.product_scope" value={value} onValueChange={onChange}>
+                <Select
+                  id="reminder.product_scope"
+                  value={__IS_PRO__ ? value : 'all'}
+                  onValueChange={onChange}
+                  disabled={!__IS_PRO__}
+                >
                   <SelectTrigger className="w-full max-w-[210px]">
                     <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
                   </SelectTrigger>
@@ -209,6 +232,17 @@ function ReminderInformation() {
               )}
             />
           </div>
+          {!__IS_PRO__ && (
+            <div
+              className="text-muted-foreground text-sm"
+              dangerouslySetInnerHTML={{
+                __html: __('You can select reminder products in the %s.', 'yay-reviews').replace(
+                  '%s',
+                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-reviews')}</a>`,
+                ),
+              }}
+            ></div>
+          )}
         </Card>
       </div>
     </>
