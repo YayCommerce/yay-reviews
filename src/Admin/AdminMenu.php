@@ -78,6 +78,7 @@ class AdminMenu {
 			'upload_max_filesize'       => Helpers::upload_max_filesize(),
 			'admin_email'               => get_option( 'admin_email' ),
 			'coupons'                   => CouponModel::get_coupons(),
+			'wizard_completed'          => get_option( 'yayrev_wizard_completed', false ),
 		];
 		
 		$filtered_localize_data = apply_filters( 'yayrev_admin_localize_data', [

@@ -101,3 +101,24 @@ export async function previewEmail(email: string) {
     throw error;
   }
 }
+
+export async function initAppSettings(data: {
+  request_review_timing: string;
+  review_type: string;
+}) {
+  try {
+    return await window.jQuery.ajax({
+      type: 'POST',
+      url: window.yayReviews.ajax_url,
+      data: {
+        action: 'yayrev_finish_wizard',
+        nonce: window.yayReviews.nonce,
+        request_review_timing: parseInt(data.request_review_timing ?? '5'),
+        review_type: data.review_type ?? 'media',
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

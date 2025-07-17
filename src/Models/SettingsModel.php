@@ -39,7 +39,7 @@ class SettingsModel {
 				'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 			),
 			'reminder'        => array(
-				'delay_amount'           => 7,
+				'delay_amount'           => 5,
 				'delay_unit'             => 'days',
 				'max_products_per_email' => '',
 				'product_scope'          => 'all',

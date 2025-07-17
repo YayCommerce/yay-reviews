@@ -20,6 +20,7 @@ class Ajax {
 		add_action( 'wp_ajax_yayrev_get_current_queue', array( $this, 'get_current_queue' ) );
 		add_action( 'wp_ajax_yayrev_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
 		add_action( 'wp_ajax_yayrev_preview_email', array( $this, 'preview_email' ) );
+		add_action( 'wp_ajax_yayrev_finish_wizard', array( $this, 'finish_wizard' ) );
 	}
 
 	public function change_addon_status() {
@@ -303,5 +304,33 @@ class Ajax {
 				)
 			);
 		}
+	}
+
+	public function finish_wizard() {
+		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+		}
+
+		$request_review_timing = isset( $_POST['request_review_timing'] ) ? sanitize_text_field( wp_unslash( $_POST['request_review_timing'] ) ) : '';
+		$review_type = isset( $_POST['review_type'] ) ? sanitize_text_field( wp_unslash( $_POST['review_type'] ) ) : 'media';
+
+		SettingsModel::update_settings(
+			[
+				'addons' => [
+					'reminder_enabled' => true,
+				],
+				'reminder' => [
+					'delay_amount' => empty( $request_review_timing ) ? 5 : intval( $request_review_timing ),
+				],
+				'reviews' => [
+					'enable_media_upload' => 'media' === $review_type ? true : false,
+					'allowed_media_types' => 'video_photo'
+				],
+			]
+		);
+
+		update_option( 'yayrev_wizard_completed', 'yes' );
+		wp_send_json_success( array( 'mess' => __( 'Wizard finished successfully', 'yay-reviews' ) ) );
 	}
 }

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { __ } from '@wordpress/i18n';
 
@@ -10,6 +10,7 @@ import useAppContext from './hooks/use-app-context';
 import { postSettings } from './lib/queries';
 import { SettingsFormData, settingsSchema } from './lib/schema';
 import { getSettings } from './lib/utils';
+import WizardPage from './pages/common/wizard';
 import DashboardPage from './pages/lite/dashboard';
 import EmailsPage from './pages/lite/emails';
 import EmailsQueuePage from './pages/lite/emails-queue';
@@ -18,6 +19,15 @@ import ReviewPage from './pages/lite/review';
 import RewardPage from './pages/pro/reward';
 
 export default function App() {
+  const { wizardCompleted } = useAppContext();
+  return wizardCompleted ? <MainDirection /> : <WizardDirection />;
+}
+
+function WizardDirection() {
+  return <WizardPage />;
+}
+
+function MainDirection() {
   const form = useForm<SettingsFormData>({
     resolver: zodResolver(settingsSchema),
     defaultValues: getSettings(),
@@ -55,6 +65,7 @@ export default function App() {
 
 function PageContent() {
   const { activeTab } = useAppContext();
+
   const Comp = useMemo(() => {
     switch (activeTab) {
       case 'dashboard':

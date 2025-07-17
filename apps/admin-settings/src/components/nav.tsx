@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { Loader2Icon, Menu } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
-import { cn } from '@/lib/utils';
+import { cn, getImageUrl } from '@/lib/utils';
 import useAddonStatus from '@/hooks/use-addon-status';
 import useAppContext from '@/hooks/use-app-context';
 import useWindow from '@/hooks/use-window';
@@ -111,10 +111,7 @@ export default function Nav() {
         <div className="flex h-full items-center gap-7">
           {/* Logo */}
           <div className="justify-left flex h-full items-center border-r border-gray-100 p-[10px]">
-            <img
-              src={window.yayReviews.image_url + '/yay-reviews-logo.png'}
-              alt={__('Yay Reviews', 'yay-reviews')}
-            />
+            <img src={getImageUrl('yay-reviews-logo.png')} alt={__('Yay Reviews', 'yay-reviews')} />
           </div>
 
           {/* Desktop Menu */}

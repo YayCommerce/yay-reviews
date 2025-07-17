@@ -28,6 +28,7 @@ declare global {
       wc_email_settings: Record<string, any>;
       default_email_templates: Record<string, Record<string, string>>;
       coupons: Coupon[];
+      [key: string]: any;
     };
     wp: AnyObject;
     tinymce: any;

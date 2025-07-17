@@ -59,3 +59,7 @@ export const updateEmailPreview = (
     previewEmail.contents().find('#body_content_inner .email-introduction').html(content);
   }
 };
+
+export const getImageUrl = (file: string) => {
+  return window.yayReviews.image_url + '/' + file;
+};

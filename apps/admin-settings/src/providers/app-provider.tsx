@@ -6,6 +6,8 @@ type ContextType = {
   isWcReviewsEnabled: boolean;
   changeTab: (tab: string) => void;
   changeWcReviewsStatus: (value: boolean) => void;
+  wizardCompleted: boolean;
+  finishWizard: () => void;
 };
 
 const AppContext = createContext<ContextType>({
@@ -13,6 +15,8 @@ const AppContext = createContext<ContextType>({
   isWcReviewsEnabled: false,
   changeTab: () => {},
   changeWcReviewsStatus: () => {},
+  wizardCompleted: false,
+  finishWizard: () => {},
 });
 
 export { AppContext };
@@ -24,6 +28,9 @@ export default function AppProvider({ children }: { children: React.ReactNode })
   const [isWcReviewsEnabled, setIsWcReviewsEnabled] = useState(
     window.yayReviews.wc_reviews_settings.reviews_enabled ?? false,
   );
+  const [wizardCompleted, setWizardCompleted] = useState(
+    window.yayReviews.wizard_completed === 'yes',
+  );
 
   const memorizedValue = useMemo(
     () => ({
@@ -31,8 +38,12 @@ export default function AppProvider({ children }: { children: React.ReactNode })
       changeTab: changeTab,
       isWcReviewsEnabled,
       changeWcReviewsStatus: setIsWcReviewsEnabled,
+      wizardCompleted,
+      finishWizard: () => {
+        setWizardCompleted(true);
+      },
     }),
-    [activeTab, isWcReviewsEnabled],
+    [activeTab, isWcReviewsEnabled, wizardCompleted],
   );
 
   return (
