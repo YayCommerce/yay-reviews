@@ -108,9 +108,9 @@ class RewardEmail extends \WC_Email {
 			}
 
 		} catch ( \Exception $e ) {
-			/**
-			 * TODO: Log error
-			 */
+			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
+				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+			}
 		} finally {
 
 			$this->restore_locale();
@@ -141,7 +141,7 @@ class RewardEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_email_content() {
-		return self::get_default_email_settings()['content'];
+		return self::get_email_settings(true)['content'];
 	}
 
 	public function get_content_html() {
@@ -208,7 +208,7 @@ class RewardEmail extends \WC_Email {
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_name}, {coupon_code}</code>' ),
-				'placeholder' => $this->get_email_content(),
+				'placeholder' => self::get_default_email_settings()['content'],
 				'default'     => '',
 			),
 			'email_type' => array(
@@ -228,5 +228,13 @@ class RewardEmail extends \WC_Email {
 			'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
 			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
 		);
+	}
+
+	public static function get_email_settings( $with_default = false ) {
+		$settings = get_option( 'woocommerce_yayrev_reward_settings', null );
+		if ( $with_default ) {
+			return wp_parse_args( $settings, self::get_default_email_settings() );
+		}
+		return $settings;
 	}
 }

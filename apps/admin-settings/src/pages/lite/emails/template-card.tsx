@@ -65,7 +65,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
   const handleResetTemplate = () => {
     const resetKeys = ['subject', 'heading', 'content'];
     resetKeys.forEach((key) => {
-      const defaultValue = window.yayReviews?.wc_email_settings?.[templateId]?.[key]?.default;
+      const defaultValue = window.yayReviews?.wc_email_settings?.[templateId]?.default?.[key];
       if (!defaultValue) {
         return;
       }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: YayReviews - Product Reviews for WooCommerce
  * Description: YayReviews helps you to do more things with WooCommerce reviews.
- * Version: 1.0.0
+ * Version: 1.0.0-alpha
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com
  * Text Domain: yay-reviews
@@ -25,7 +25,7 @@ define( 'YAYREV_VIEW_PATH', YAYREV_PLUGIN_PATH . 'views/' );
 
 define( 'YAYREV_REST_URL', 'yay-reviews/v1' );
 
-define( 'YAYREV_VERSION', '1.0.0' );
+define( 'YAYREV_VERSION', '1.0.0-alpha' );
 define( 'YAYREV_IS_DEVELOPMENT', true );
 
 add_action(

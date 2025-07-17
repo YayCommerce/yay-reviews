@@ -86,7 +86,7 @@ class AdminMenu {
 			'wc_email_settings'         => array(
 				'reminder' => array(
 					'default' => ReminderEmail::get_default_email_settings(),
-					'current' => get_option( 'woocommerce_yayrev_reminder_settings', null ),
+					'current' => ReminderEmail::get_email_settings(),
 				),
 			),
 			'sample_email_placeholders' => array(

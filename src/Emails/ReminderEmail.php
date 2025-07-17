@@ -2,7 +2,6 @@
 namespace YayReviews\Emails;
 
 use YayReviews\Classes\EmailQueue;
-use YayReviews\Classes\Helpers;
 use YayReviews\Constants\EmailConstants;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
 
@@ -82,17 +81,19 @@ class ReminderEmail extends \WC_Email {
 				);
 			}	
 
-			if ( $result ) {
-				/**
-				 * Update order meta
-				 */
-				update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
+			if ( ! $result ) {
+				throw new \Exception( __( 'Email sending failed', 'yay-reviews' ) );
 			}
-
-		} catch ( \Exception $e ) {
+			
 			/**
-			 * TODO: Log error
+			 * Update order meta
 			 */
+			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
+			
+		} catch ( \Exception $e ) {
+			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
+				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
+			}
 		} finally {
 			$this->restore_locale();
 		}
@@ -122,7 +123,7 @@ class ReminderEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_email_content() {
-		return self::get_default_email_settings()['content'];
+		return self::get_email_settings(true)['content'];
 	}
 
 	public function get_content_html() {
@@ -189,7 +190,7 @@ class ReminderEmail extends \WC_Email {
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
 				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {review_products}</code>' ),
-				'placeholder' => $this->get_email_content(),
+				'placeholder' => self::get_default_email_settings()['content'],
 				'default'     => '',
 			),
 			'email_type' => array(
@@ -209,5 +210,13 @@ class ReminderEmail extends \WC_Email {
 			'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
 			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
 		);
+	}
+
+	public static function get_email_settings( $with_default = false ) {
+		$settings = get_option( 'woocommerce_yayrev_reminder_settings', null );
+		if ( $with_default ) {
+			return wp_parse_args( $settings, self::get_default_email_settings() );
+		}
+		return $settings;
 	}
 }

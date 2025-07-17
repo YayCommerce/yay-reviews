@@ -167,7 +167,7 @@ class RewardAddonController {
 		$localize_data['sample_email_placeholders']['reward'] = ( new RewardPlaceholderProcessor() )->get_placeholders();
 		$localize_data['wc_email_settings']['reward'] = [
 			'default' => RewardEmail::get_default_email_settings(),
-			'current' => get_option( 'woocommerce_yayrev_reward_settings', null ),
+			'current' => RewardEmail::get_email_settings(),
 		];
 		return $localize_data;
 	}

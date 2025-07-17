@@ -260,7 +260,7 @@ class Ajax {
 			// Ensure timestamp is valid
 			$timestamp    = intval( $scheduled_event['timestamp'] );
 			$order_id     = intval( $scheduled_event['order_id'] );
-			$email_id_int = intval( $email_queue['id'] );
+			$email_id_int = intval( $email_queue->id );
 
 			do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
 

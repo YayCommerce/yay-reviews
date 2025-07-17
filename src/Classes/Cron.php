@@ -3,8 +3,6 @@ namespace YayReviews\Classes;
 
 use YayReviews\Addons\Reminder\ReminderAddonController;
 use YayReviews\Constants\EmailConstants;
-use YayReviews\Emails\ReminderEmail;
-use YayReviews\Models\SettingsModel;
 use YayReviews\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {

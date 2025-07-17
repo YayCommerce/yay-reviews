@@ -54,7 +54,7 @@ $accept = implode( ',', $accept_mime_types );
 			<span><?php echo esc_html__( 'Upload', 'yay-reviews' ); ?></span>
 		</div>
 	</div>
-	<input type="file" name="yayrev_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="hidden" id="yay-reviews-file-input" <?php echo $require_media_upload ? 'required' : ''; ?>>
+	<input type="file" name="yayrev_media[]" accept="<?php echo esc_attr( $accept ); ?>" multiple class="sr-only" id="yay-reviews-file-input" <?php echo $require_media_upload ? 'required' : ''; ?>>
 	<?php if ( ! empty( $description ) ) : ?>
 		<p class="yay-reviews-upload-media__description"><?php echo esc_html( $description ); ?></p>
 	<?php endif; ?>
