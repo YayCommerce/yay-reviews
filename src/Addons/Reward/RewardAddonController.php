@@ -174,7 +174,7 @@ class RewardAddonController {
 
 	public function send_other_queue_email( $email_queue ) {
 
-		if ( $email_queue->type !== 'reward' ) {
+		if ( $email_queue->get_type() !== 'reward' ) {
 			return;
 		}
 
@@ -187,7 +187,7 @@ class RewardAddonController {
 		}
 
 		$email = new RewardEmail();
-		$result = $email->send( $email_queue->customer_email, $email_queue->subject, $email_queue->body, $email->get_headers(), $email->get_attachments() );
+		$result = $email->send( $email_queue->get_customer_email(), $email_queue->get_subject(), $email_queue->get_body(), $email->get_headers(), $email->get_attachments() );
 		if ( $result ) {
 			wp_send_json_success(
 				array(

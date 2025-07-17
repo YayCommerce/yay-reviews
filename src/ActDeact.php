@@ -2,7 +2,7 @@
 
 namespace YayReviews;
 
-use YayReviews\Classes\EmailQueue;
+use YayReviews\Queue\EmailQueue;
 use YayReviews\SingletonTrait;
 /**
  * Activate and deactive method of the plugin and relates.

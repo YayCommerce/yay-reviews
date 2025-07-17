@@ -3,6 +3,7 @@ namespace YayReviews\Classes;
 
 use YayReviews\Addons\Reminder\ReminderAddonController;
 use YayReviews\Constants\EmailConstants;
+use YayReviews\Models\QueueModel;
 use YayReviews\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,7 +37,7 @@ class Cron {
 
 		$time = ReminderAddonController::get_reminder_email_delay_time();
 
-		$email_id = EmailQueue::insert_queue(
+		$email_id = QueueModel::create(
 			array(
 				'type'            => 'reminder',
 				'status'          => 0,

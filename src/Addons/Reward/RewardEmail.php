@@ -1,8 +1,8 @@
 <?php
 namespace YayReviews\Addons\Reward;
 
-use YayReviews\Classes\EmailQueue;
 use YayReviews\Constants\EmailConstants;
+use YayReviews\Models\QueueModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -64,7 +64,7 @@ class RewardEmail extends \WC_Email {
 			 * Add to email queue
 			 * If email is sent, update email queue status to 1
 			 */
-			EmailQueue::insert_queue(
+			QueueModel::create(
 				array(
 					'type'           => 'reward',
 					'subject'        => $this->get_subject(),

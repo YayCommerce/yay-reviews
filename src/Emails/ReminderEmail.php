@@ -1,9 +1,9 @@
 <?php
 namespace YayReviews\Emails;
 
-use YayReviews\Classes\EmailQueue;
 use YayReviews\Constants\EmailConstants;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayReviews\Models\QueueModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -69,7 +69,7 @@ class ReminderEmail extends \WC_Email {
 			 * If email is sent, update email queue status to 1
 			 */
 			if ( ! empty( $email_id ) ) {
-				EmailQueue::update_queue(
+				QueueModel::update(
 					$email_id,
 					array(
 						'status'         => $result ? 1 : 0,

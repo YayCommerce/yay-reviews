@@ -1,10 +1,9 @@
 <?php
 namespace YayReviews;
 
-use YayReviews\Classes\EmailQueue;
 use YayReviews\SingletonTrait;
-use YayReviews\Classes\Helpers;
 use YayReviews\Models\CouponModel;
+use YayReviews\Models\QueueModel;
 use YayReviews\Models\SettingsModel;
 
 defined( 'ABSPATH' ) || exit;
@@ -154,27 +153,14 @@ class RestAPI {
 		$per_page = absint( $request->get_param( 'per_page' ) ?? 10 );
 
 		// Get total count
-		$total_count = EmailQueue::get_queue_count();
+		$total_count = QueueModel::count();
 
 		// Get paginated results
-		$emails = EmailQueue::get_queue_list( $page, $per_page );
+		$queues = QueueModel::find_all( $page, $per_page );
 
-		foreach ( $emails as $key => $email ) {
-			// if status is 0, set delivery_time to current time
-			$emails[ $key ]['email_data'] = maybe_unserialize( $email['email_data'] );
-			if ( '0' === $email['status'] ) {
-				$scheduled_event = maybe_unserialize( $email['scheduled_event'] );
-				// display delivery time in human readable format
-				$emails[ $key ]['delivery_time']   = __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $scheduled_event['timestamp'], current_time( 'timestamp' ) );
-				$emails[ $key ]['scheduled_event'] = $scheduled_event;
-			} elseif ( '1' === $email['status'] ) {
-				$emails[ $key ]['delivery_time'] = $email['created_at'];
-				unset( $emails[ $key ]['scheduled_event'] );
-			} else {
-				$emails[ $key ]['delivery_time'] = '';
-				unset( $emails[ $key ]['scheduled_event'] );
-			}
-		}
+		$emails = array_map( function( $queue ) {
+			return $queue->get_object_data();
+		}, $queues );
 
 		// Calculate pagination info
 		$total_pages = ceil( $total_count / $per_page );

@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Classes;
+namespace YayReviews\Queue;
 
 class EmailQueue {
 
@@ -39,7 +39,7 @@ class EmailQueue {
 
 	}
 
-	public static function get_queue( $id ) {
+	public static function query_queue( $id ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
 		/* @codingStandardsIgnoreStart */
@@ -47,7 +47,7 @@ class EmailQueue {
 		/* @codingStandardsIgnoreEnd */
 	}
 
-	public static function get_queue_count() {
+	public static function query_queue_count() {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
 		/* @codingStandardsIgnoreStart */
@@ -55,12 +55,12 @@ class EmailQueue {
 		/* @codingStandardsIgnoreEnd */
 	}
 
-	public static function get_queue_list( $page = 1, $per_page = 10 ) {
+	public static function query_queue_list( $page = 1, $per_page = 10 ) {
 		global $wpdb;
 		$offset     = ( $page - 1 ) * $per_page;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
 		/* @codingStandardsIgnoreStart */
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT %d OFFSET %d", $per_page, $offset ), ARRAY_A ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} ORDER BY created_at DESC LIMIT %d OFFSET %d", $per_page, $offset ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		/* @codingStandardsIgnoreEnd */
 	}
 
