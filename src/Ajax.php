@@ -318,22 +318,22 @@ class Ajax {
 		SettingsModel::update_settings(
 			[
 				'addons' => [
-					'reminder_enabled' => SettingsModel::get_default_settings('addons.reminder_enabled'),
+					'reminder_enabled' => SettingsModel::get_specific_default_settings('addons.reminder_enabled'),
 				],
 				'reminder' => [
-					'delay_amount' => ! empty( $request_review_timing ) ? intval( $request_review_timing ) :  SettingsModel::get_default_settings('reminder.delay_amount'),
-					'delay_unit' => SettingsModel::get_default_settings('reminder.delay_unit'),
-					'max_products_per_email' => SettingsModel::get_default_settings('reminder.max_products_per_email'),
-					'product_scope' => SettingsModel::get_default_settings('reminder.product_scope'),
+					'delay_amount' => ! empty( $request_review_timing ) ? intval( $request_review_timing ) :  SettingsModel::get_specific_default_settings('reminder.delay_amount'),
+					'delay_unit' => SettingsModel::get_specific_default_settings('reminder.delay_unit'),
+					'max_products_per_email' => SettingsModel::get_specific_default_settings('reminder.max_products_per_email'),
+					'product_scope' => SettingsModel::get_specific_default_settings('reminder.product_scope'),
 				],
 				'reviews' => [
 					'enable_media_upload' => 'media' === $review_type ? true : false,
-					'allowed_media_types' => SettingsModel::get_default_settings('reviews.allowed_media_types'),
+					'allowed_media_types' => SettingsModel::get_specific_default_settings('reviews.allowed_media_types'),
 				],
 			]
 		);
 
 		update_option( 'yayrev_wizard_completed', 'yes' );
-		wp_send_json_success( array( 'mess' => __( 'Wizard finished successfully', 'yay-reviews' ) ) );
+		wp_send_json_success( SettingsModel::get_all_settings() );
 	}
 }

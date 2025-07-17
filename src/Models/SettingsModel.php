@@ -2,6 +2,7 @@
 
 namespace YayReviews\Models;
 
+use YayReviews\Addons\Reminder\ReminderAddonController;
 use YayReviews\Classes\Helpers;
 
 /**
@@ -38,13 +39,7 @@ class SettingsModel {
 				'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
 				'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
 			),
-			//TODO: VERSIONING
-			'reminder'        => array(
-				'delay_amount'           => 5,
-				'delay_unit'             => 'days',
-				'max_products_per_email' => '',
-				'product_scope'          => 'all',
-			),
+			'reminder'        => ReminderAddonController::get_reminder_default_settings(),
 			'rewards'         => array(),
 			'optional_fields' => array(),
 		);

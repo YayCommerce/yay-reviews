@@ -2,6 +2,7 @@
 
 namespace YayReviews\Emails\PlaceholderProcessors;
 
+use YayReviews\Addons\Reminder\ReminderAddonController;
 use YayReviews\Classes\Helpers;
 use YayReviews\Classes\Products;
 use YayReviews\Models\SettingsModel;
@@ -198,8 +199,7 @@ class ReminderPlaceholderProcessor extends BaseProcessors {
 	 * @return array The filtered products.
 	 */
 	public function filter_products( $product_in_order ) {
-		//TODO: VERSIONING
-		$reminder_settings      = SettingsModel::get_settings( 'reminder' );
+		$reminder_settings      = ReminderAddonController::get_reminder_settings();
 		$max_products_per_email = $reminder_settings['max_products_per_email'];
 		$product_scope          = $reminder_settings['product_scope'];
 

@@ -133,6 +133,10 @@
   }
 }
 
+#wpbody-content > .notice {
+  display: none !important;
+}
+
 #wpcontent {
   padding-left: 0px !important;
 }
