@@ -18,7 +18,6 @@ class Ajax {
 		add_action( 'wp_ajax_yayrev_change_addon_status', array( $this, 'change_addon_status' ) );
 		add_action( 'wp_ajax_yayrev_send_email', array( $this, 'send_email' ) );
 		add_action( 'wp_ajax_yayrev_dismiss_email', array( $this, 'dismiss_email' ) );
-		add_action( 'wp_ajax_yayrev_get_current_queue', array( $this, 'get_current_queue' ) );
 		add_action( 'wp_ajax_yayrev_update_wc_reviews_settings', array( $this, 'update_wc_reviews_settings' ) );
 		add_action( 'wp_ajax_yayrev_preview_email', array( $this, 'preview_email' ) );
 		add_action( 'wp_ajax_yayrev_finish_wizard', array( $this, 'finish_wizard' ) );
@@ -162,92 +161,6 @@ class Ajax {
 		}
 	}
 
-	public function get_current_queue() {
-		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
-		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
-		}
-		try {
-			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
-
-			if ( empty( $email_id ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
-			}
-
-			$email_queue = QueueModel::find_by_id( $email_id );
-
-			if ( empty( $email_queue ) ) {
-				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-reviews' ) ) );
-			}
-
-			/**
-			 * If email has been sent or dismissed, return the status and delivery time
-			 */
-			if ( '0' !== $email_queue->get_status() ) {
-				wp_send_json_success(
-					array(
-						'status'        => $email_queue->get_status(),
-						'delivery_time' => $email_queue->get_created_at(),
-					)
-				);
-			}
-
-			$scheduled_event = $email_queue->get_scheduled_event();
-
-			/**
-			 * Check if sending time exists
-			 */
-			if ( empty( $scheduled_event ) || ! isset( $scheduled_event['timestamp'] ) || ! isset( $scheduled_event['order_id'] ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Sending time not exists', 'yay-reviews' ) ) );
-			}
-
-			$timestamp    = intval( $scheduled_event['timestamp'] );
-			$order_id     = intval( $scheduled_event['order_id'] );
-			$email_id_int = intval( $email_id );
-
-			/**
-			 * Check if order is eligible for reminder email
-			 */
-			if ( ! ReminderAddonController::can_send_reminder_email( $order_id ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Order is not eligible for reminder email', 'yay-reviews' ) ) );
-			}
-
-			/**
-			 * Check if sending time is valid
-			 */
-			if ( $timestamp <= 0 ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid sending time', 'yay-reviews' ) ) );
-			}
-
-			/**
-			 * Try to unschedule the event with proper error handling
-			 */
-			$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
-			if ( is_wp_error( $unscheduled ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-reviews' ) ) );
-				// Log the error but don't fail the entire operation
-				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
-					error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-				}
-			}
-
-			/**
-			 * Send reminder email
-			 */
-			do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
-
-			wp_send_json_success(
-				array(
-					'status'        => $email_queue->get_status(),
-					'delivery_time' => $email_queue->get_created_at(),
-				)
-			);
-
-		} catch ( \Exception $e ) {
-			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
-		}
-	}
-
 	public function update_wc_reviews_settings() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
@@ -356,9 +269,13 @@ class Ajax {
 		 */
 		do_action( 'yayrev_reminder_email', $order_id, $email_id_int );
 
+		$email_queue->set_status( '1' );
+		$email_queue->set_created_at( current_time( 'mysql' ) );
+
 		wp_send_json_success(
 			array(
 				'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+				'delivery_time' => $email_queue->get_delivery_time(),
 			)
 		);
 	}

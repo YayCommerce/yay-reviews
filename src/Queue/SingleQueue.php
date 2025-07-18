@@ -82,6 +82,14 @@ abstract class SingleQueue {
 		return '';
 	}
 
+	public function set_created_at( $created_at ) {
+		$this->created_at = $created_at;
+	}
+
+	public function set_status( $status ) {
+		$this->status = $status;
+	}
+
 	public function get_object_data() {
 		return [
 			'id' => $this->get_id(),

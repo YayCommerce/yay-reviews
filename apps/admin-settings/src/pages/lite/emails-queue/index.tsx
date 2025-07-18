@@ -33,7 +33,7 @@ export default function EmailsQueuePage() {
       <div className="container mx-auto space-y-8 px-7 py-0">
         <EmailsQueueTable
           isFetching={isFetching}
-          emailData={data?.emails || []}
+          emails={data?.emails || []}
           pagination={pagination}
           currentPage={currentPage}
           onPageChange={handlePageChange}

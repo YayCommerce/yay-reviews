@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { __ } from '@wordpress/i18n';
 import { CircleCheckBig, Clock, Loader2Icon, MailX } from 'lucide-react';
 import { toast } from 'sonner';
 import { EmailQueue } from 'types/email-queue';
 
-import { dismissEmail, getCurrentQueue, sendEmail } from '@/lib/ajax';
+import { dismissEmail, sendEmail } from '@/lib/ajax';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
@@ -51,7 +52,7 @@ import XIcon from '@/components/icons/XIcon';
 import EmailInformation from './email-information';
 
 interface EmailsQueueTableProps {
-  emailData: EmailQueue[];
+  emails: EmailQueue[];
   pagination?: {
     current_page: number;
     per_page: number;
@@ -67,7 +68,7 @@ interface EmailsQueueTableProps {
 }
 
 export default function EmailsQueueTable({
-  emailData,
+  emails,
   pagination,
   currentPage,
   onPageChange,
@@ -77,168 +78,10 @@ export default function EmailsQueueTable({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentEmail, setCurrentEmail] = useState<EmailQueue | null>(null);
   const [sendingEmailId, setSendingEmailId] = useState<string | null>(null);
-  const [emails, setEmails] = useState<EmailQueue[]>([]);
   const [isDismissing, setIsDismissing] = useState(false);
   const [isDismissDialogOpen, setIsDismissDialogOpen] = useState(false);
 
-  // Helper function to calculate delivery time display
-  const getDeliveryTimeDisplay = useCallback((email: EmailQueue) => {
-    if (email.status === '0' && email.scheduled_event?.timestamp) {
-      const currentTime = Math.floor(Date.now() / 1000);
-      const deliveryTime = email.scheduled_event.timestamp;
-
-      if (currentTime > deliveryTime) {
-        // Time has passed, should be marked as sent
-        return '';
-      } else {
-        // Calculate time difference
-        const timeDiff = deliveryTime - currentTime;
-        const days = Math.floor(timeDiff / (24 * 60 * 60));
-        const hours = Math.floor((timeDiff % (24 * 60 * 60)) / (60 * 60));
-        const minutes = Math.floor((timeDiff % (60 * 60)) / 60);
-
-        if (days > 0) {
-          return `Send in ${days} day${days > 1 ? 's' : ''}`;
-        } else if (hours > 0) {
-          return `Send in ${hours} hour${hours > 1 ? 's' : ''}`;
-        } else if (minutes > 0) {
-          return `Send in ${minutes} minute${minutes > 1 ? 's' : ''}`;
-        } else {
-          return 'Send in few seconds';
-        }
-      }
-    } else if (email.status === '1') {
-      return email.created_at;
-    }
-    return '';
-  }, []);
-
-  useEffect(() => {
-    if (emailData) {
-      // Process emails to check if any pending emails should be marked as sent
-      const processEmails = async () => {
-        const processedEmails = await Promise.all(
-          emailData.map(async (email) => {
-            if (email.status === '0' && email.scheduled_event?.timestamp) {
-              const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-              const deliveryTime = email.scheduled_event.timestamp;
-
-              // If current time > delivery time, mark as sent
-              if (currentTime > deliveryTime) {
-                try {
-                  const res = await getCurrentQueue(email.id);
-                  if (res.success) {
-                    return {
-                      ...email,
-                      status: res.data.status || '1',
-                      delivery_time: res.data.delivery_time || '',
-                    };
-                  } else {
-                    return {
-                      ...email,
-                      status: '2',
-                      delivery_time: '',
-                    };
-                  }
-                } catch (error) {
-                  console.error('Error fetching delivery time:', error);
-                  return {
-                    ...email,
-                    status: '2',
-                    delivery_time: '',
-                  };
-                }
-              } else {
-                // Update delivery time display
-                return {
-                  ...email,
-                  delivery_time: getDeliveryTimeDisplay(email),
-                };
-              }
-            }
-            return email;
-          }),
-        );
-
-        setEmails(processedEmails as EmailQueue[]);
-      };
-
-      processEmails();
-    }
-  }, [emailData, getDeliveryTimeDisplay]);
-
-  // Real-time status update timer
-  useEffect(() => {
-    // Only run timer if there are pending emails
-    const hasPendingEmails = emails.some(
-      (email) => email.status === '0' && email.scheduled_event?.timestamp,
-    );
-
-    if (!hasPendingEmails) {
-      return;
-    }
-
-    const interval = setInterval(async () => {
-      const emailsToUpdate = emails.filter(
-        (email) => email.status === '0' && email.scheduled_event?.timestamp,
-      );
-
-      for (const email of emailsToUpdate) {
-        const currentTime = Math.floor(Date.now() / 1000);
-        const deliveryTime = email.scheduled_event?.timestamp;
-
-        if (deliveryTime && currentTime > deliveryTime) {
-          try {
-            const res = await getCurrentQueue(email.id);
-            setEmails((currentEmails) => {
-              const updatedEmails = currentEmails.map((e) => {
-                if (e.id === email.id) {
-                  return {
-                    ...e,
-                    status: res.success ? res.data.status || '1' : '1',
-                    delivery_time: res.success ? res.data.delivery_time || '' : '',
-                  };
-                }
-                return e;
-              });
-              return updatedEmails as EmailQueue[];
-            });
-          } catch (error) {
-            console.error('Error updating email status:', error);
-            setEmails((currentEmails) => {
-              const updatedEmails = currentEmails.map((e) => {
-                if (e.id === email.id) {
-                  return {
-                    ...e,
-                    status: '2',
-                    delivery_time: '',
-                  };
-                }
-                return e;
-              });
-              return updatedEmails as EmailQueue[];
-            });
-          }
-        } else {
-          // Update delivery time display for emails that are still pending
-          setEmails((currentEmails) => {
-            const updatedEmails = currentEmails.map((e) => {
-              if (e.id === email.id) {
-                return {
-                  ...e,
-                  delivery_time: getDeliveryTimeDisplay(e),
-                };
-              }
-              return e;
-            });
-            return updatedEmails as EmailQueue[];
-          });
-        }
-      }
-    }, 60000); // Check every minute
-
-    return () => clearInterval(interval);
-  }, [getDeliveryTimeDisplay, emails]);
+  const queryClient = useQueryClient();
 
   // Calculate pagination info
   const totalItems = pagination?.total_items || emails.length;
@@ -290,11 +133,20 @@ export default function EmailsQueueTable({
       .then((res) => {
         if (res.success) {
           if (email.status === '0') {
-            const index = emails.findIndex((e) => e.id === email.id);
-            const updatedEmails = [...emails];
-            updatedEmails[index].status = '1';
-            updatedEmails[index].delivery_time = '';
-            setEmails(updatedEmails);
+            queryClient.setQueryData(['emails-queue', currentPage, itemsPerPage], (old: any) => {
+              return {
+                ...old,
+                emails: old.emails.map((e: EmailQueue) =>
+                  e.id === email.id
+                    ? {
+                        ...e,
+                        status: '1',
+                        delivery_time: res.data?.delivery_time ?? e.delivery_time,
+                      }
+                    : e,
+                ),
+              };
+            });
           }
           toast.success(res.data.mess);
         } else {
@@ -312,11 +164,14 @@ export default function EmailsQueueTable({
     dismissEmail(email.id)
       .then((res) => {
         if (res.success) {
-          const index = emails.findIndex((e) => e.id === email.id);
-          const updatedEmails = [...emails];
-          updatedEmails[index].status = '2';
-          updatedEmails[index].delivery_time = '';
-          setEmails(updatedEmails);
+          queryClient.setQueryData(['emails-queue', currentPage, itemsPerPage], (old: any) => {
+            return {
+              ...old,
+              emails: old.emails.map((e: EmailQueue) =>
+                e.id === email.id ? { ...e, status: '2', delivery_time: '' } : e,
+              ),
+            };
+          });
           toast.success(res.data.mess);
         } else {
           toast.error(res.data.mess);
@@ -380,7 +235,7 @@ export default function EmailsQueueTable({
                             <TableCell>
                               <TooltipProvider delayDuration={100}>
                                 <Tooltip>
-                                  <TooltipTrigger asChild className='ml-3'>
+                                  <TooltipTrigger asChild className="ml-3">
                                     {email.status === '0' ? (
                                       <Clock className="h-4 w-4 text-[#1668dc]" />
                                     ) : email.status === '1' ? (

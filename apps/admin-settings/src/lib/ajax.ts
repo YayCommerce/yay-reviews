@@ -50,23 +50,6 @@ export async function dismissEmail(emailId: string) {
   }
 }
 
-export async function getCurrentQueue(emailId: string) {
-  try {
-    return await window.jQuery.ajax({
-      type: 'POST',
-      url: window.yayReviews.ajax_url,
-      data: {
-        action: 'yayrev_get_current_queue',
-        nonce: window.yayReviews.nonce,
-        email_id: emailId,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
 export async function changeWcReviewsSettings(updateField: string, value: boolean) {
   try {
     return await window.jQuery.ajax({
