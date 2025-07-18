@@ -5,6 +5,7 @@ import { CircleCheckBig, Clock, Loader2Icon, MailX } from 'lucide-react';
 import { toast } from 'sonner';
 import { EmailQueue } from 'types/email-queue';
 
+import { __IS_PRO__ } from '@/config/version';
 import { dismissEmail, sendEmail } from '@/lib/ajax';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -253,7 +254,7 @@ export default function EmailsQueueTable({
                             <TableCell>
                               <div className="flex gap-2">
                                 <DrawerTrigger asChild>
-                                  <TooltipProvider>
+                                  <TooltipProvider delayDuration={100}>
                                     <Tooltip>
                                       <TooltipTrigger>
                                         <Button
@@ -272,15 +273,18 @@ export default function EmailsQueueTable({
                                     </Tooltip>
                                   </TooltipProvider>
                                 </DrawerTrigger>
-                                <TooltipProvider>
+                                <TooltipProvider delayDuration={100}>
                                   <Tooltip>
                                     <TooltipTrigger>
                                       <Button
                                         variant="outline"
                                         size="icon"
+                                        disabled={!__IS_PRO__}
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          handleSendEmail(email);
+                                          if (__IS_PRO__) {
+                                            handleSendEmail(email);
+                                          }
                                         }}
                                       >
                                         {sendingEmailId === email.id ? (
@@ -294,22 +298,26 @@ export default function EmailsQueueTable({
                                       {email.status === '0'
                                         ? __('Send', 'yay-reviews')
                                         : __('Re-send', 'yay-reviews')}
+                                      {__IS_PRO__ ? '' : ` (${__('Pro', 'yay-reviews')})`}
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
 
                                 {email.status === '0' && (
                                   <DialogTrigger asChild>
-                                    <TooltipProvider>
+                                    <TooltipProvider delayDuration={100}>
                                       <Tooltip>
                                         <TooltipTrigger>
                                           <Button
                                             variant="outline"
                                             size="icon"
+                                            disabled={!__IS_PRO__}
                                             onClick={(e) => {
                                               e.preventDefault();
-                                              setCurrentEmail(email);
-                                              setIsDismissDialogOpen(true);
+                                              if (__IS_PRO__) {
+                                                setCurrentEmail(email);
+                                                setIsDismissDialogOpen(true);
+                                              }
                                             }}
                                           >
                                             <XIcon />
@@ -383,19 +391,22 @@ export default function EmailsQueueTable({
                       <Button
                         variant="outline"
                         className="w-1/2"
-                        disabled={currentEmail?.status !== '0'}
+                        disabled={currentEmail?.status !== '0' || !__IS_PRO__}
                         onClick={(e) => {
                           e.preventDefault();
-                          setIsDismissDialogOpen(true);
+                          if (__IS_PRO__) {
+                            setIsDismissDialogOpen(true);
+                          }
                         }}
                       >
                         {__('Dismiss', 'yay-reviews')}
                       </Button>
                       <Button
                         className="w-1/2"
+                        disabled={!__IS_PRO__}
                         onClick={(e) => {
                           e.preventDefault();
-                          if (currentEmail) {
+                          if (currentEmail && __IS_PRO__) {
                             handleSendEmail(currentEmail);
                           }
                         }}

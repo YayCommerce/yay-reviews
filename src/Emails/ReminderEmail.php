@@ -91,7 +91,7 @@ class ReminderEmail extends \WC_Email {
 			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
 			
 		} catch ( \Exception $e ) {
-			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
+			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'yayrev_nonce' ) ) {
 				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 			}
 		} finally {
