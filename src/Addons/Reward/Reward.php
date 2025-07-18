@@ -104,22 +104,25 @@ class Reward {
 			return false;
 		}
 
+		/**
+		 * Do not proceed if the comment is not from a purchased customer
+		 */
 		if ( 'purchased_customers' === $send_to ) {
-			if ( empty( $comment_user_id ) ) {
-				$valid = false;
-			} else {
-				$total_orders = Helpers::get_user_orders_total( $comment_user_id );
-				if ( 0 === $total_orders ) {
-					$valid = false;
-				}
+
+			$comment_email = $comment->comment_author_email;
+			$comment_product_id = $comment->comment_post_ID;
+
+			if ( ! \wc_customer_bought_product( $comment_email, $comment_user_id, $comment_product_id ) ) {
+				return false;
 			}
+
 		}
 
-		// TODO: change logic
-		if ( 'guest_users' === $send_to ) {
-			if ( ! empty( $comment_user_id ) ) {
-				$valid = false;
-			}
+		/**
+		 * Do not proceed if the comment is not from a guest user
+		 */
+		if ( 'guest_users' === $send_to && ! empty( $comment_user_id ) ) {
+			return false;
 		}
 
 		if ( 'less_than_5_stars' === $rating_requirement ) {
@@ -147,13 +150,13 @@ class Reward {
 				'status'  => 'approve',
 			);
 
+			$meta_query = array();
 			if ( ! empty( $last_received_reward_time ) ) {
 				$args['date_query'] = array(
 					'after' => gmdate( 'Y-m-d H:i:s', $last_received_reward_time ),
 				);
 			}
 
-			$meta_query = array();
 			if ( 'any' !== $rating_requirement ) {
 				$meta_query[] = array(
 					'key'     => 'rating',

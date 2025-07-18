@@ -18,7 +18,6 @@ export default function EmailsQueuePage() {
     queryFn: () => {
       return getEmailsQueue(currentPage, itemsPerPage);
     },
-    staleTime: 5 * 60 * 1000,
   });
 
   const pagination = data?.pagination;
