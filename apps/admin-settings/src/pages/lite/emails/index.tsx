@@ -14,7 +14,7 @@ export default function EmailsPage() {
   return (
     <EmailsProvider>
       <PageLayout className="w-[90%]">
-        <PageTitle title={__('Email templates', 'yay-reviews')} />
+        <PageTitle title={__('Email templates', 'yay-customer-reviews-woocommerce')} />
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* Email template */}
           <div className="flex flex-col gap-2.5">
@@ -25,7 +25,7 @@ export default function EmailsPage() {
                     value="reminder"
                     className="flex items-center justify-center text-sm font-medium"
                   >
-                    {__('Reminder', 'yay-reviews')}
+                    {__('Reminder', 'yay-customer-reviews-woocommerce')}
                   </TabsTrigger>
                 )}
                 {isRewardEnabled && (
@@ -33,7 +33,7 @@ export default function EmailsPage() {
                     value="reward"
                     className="flex items-center justify-center text-sm font-medium"
                   >
-                    {__('Reward', 'yay-reviews')}
+                    {__('Reward', 'yay-customer-reviews-woocommerce')}
                   </TabsTrigger>
                 )}
               </TabsList>

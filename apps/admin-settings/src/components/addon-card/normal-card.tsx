@@ -33,14 +33,14 @@ export default function NormalCard({ id, title, description, icon, enabled, sett
       } else {
         setValue(`addons.${id}_enabled`, newStatus === 'active' ? true : false);
         toast.success(
-          __('Addon ', 'yay-reviews') +
+          __('Addon ', 'yay-customer-reviews-woocommerce') +
             title +
             ': ' +
-            (newStatus === 'active' ? __('ON', 'yay-reviews') : __('OFF', 'yay-reviews')),
+            (newStatus === 'active' ? __('ON', 'yay-customer-reviews-woocommerce') : __('OFF', 'yay-customer-reviews-woocommerce')),
         );
       }
     } catch (error) {
-      toast.error(__('Something went wrong', 'yay-reviews'));
+      toast.error(__('Something went wrong', 'yay-customer-reviews-woocommerce'));
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +55,7 @@ export default function NormalCard({ id, title, description, icon, enabled, sett
             variant={enabled ? 'default' : 'outline'}
             className={cn('transition-none', enabled && 'bg-green-600')}
           >
-            {enabled ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
+            {enabled ? __('Active', 'yay-customer-reviews-woocommerce') : __('Inactive', 'yay-customer-reviews-woocommerce')}
           </Badge>
         </div>
         <div className="pt-4">
@@ -75,7 +75,7 @@ export default function NormalCard({ id, title, description, icon, enabled, sett
           style={settingsPath ? {} : { opacity: 0, visibility: 'hidden' }}
         >
           <SettingIcon />
-          {__('Settings', 'yay-reviews')}
+          {__('Settings', 'yay-customer-reviews-woocommerce')}
         </Button>
         <Switch checked={enabled} onCheckedChange={handleChangeStatus} loading={isLoading} />
       </CardFooter>

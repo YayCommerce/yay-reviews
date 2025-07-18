@@ -1,8 +1,8 @@
 <?php
-namespace YayReviews\Register;
+namespace YayRev\Register;
 
-use YayReviews\SingletonTrait;
-use YayReviews\Register\ScriptName;
+use YayRev\SingletonTrait;
+use YayRev\Register\ScriptName;
 
 /**
  * Register Facade.
@@ -18,10 +18,10 @@ class RegisterFacade {
 		add_action( 'init', array( $this, 'register_all_assets' ) );
 		add_filter( 'pre_load_script_translations', array( $this, 'use_mo_file_for_script_translations' ), 10, 4 );
 		$is_prod = ! defined( 'YAYREV_IS_DEVELOPMENT' ) || YAYREV_IS_DEVELOPMENT !== true;
-		if ( $is_prod && class_exists( '\YayReviews\Register\RegisterProd' ) ) {
-			\YayReviews\Register\RegisterProd::get_instance();
-		} elseif ( ! $is_prod && class_exists( '\YayReviews\Register\RegisterDev' ) ) {
-			\YayReviews\Register\RegisterDev::get_instance();
+		if ( $is_prod && class_exists( '\YayRev\Register\RegisterProd' ) ) {
+			\YayRev\Register\RegisterProd::get_instance();
+		} elseif ( ! $is_prod && class_exists( '\YayRev\Register\RegisterDev' ) ) {
+			\YayRev\Register\RegisterDev::get_instance();
 		}
 	}
 
@@ -52,11 +52,11 @@ class RegisterFacade {
 			ScriptName::PAGE_SETTINGS,
 		);
 
-		if ( 'yay-reviews' !== $domain || ! in_array( $handle, $all_handles, true ) ) {
+		if ( 'yay-customer-reviews-woocommerce' !== $domain || ! in_array( $handle, $all_handles, true ) ) {
 			return $json_translations;
 		}
 
-		$translations = get_translations_for_domain( 'yay-reviews' );
+		$translations = get_translations_for_domain( 'yay-customer-reviews-woocommerce' );
 		$messages     = array(
 			'' => array(
 				'domain' => 'messages',

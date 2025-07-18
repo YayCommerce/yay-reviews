@@ -2,10 +2,10 @@
 /**
  * Add YayCommerce menu or submenu in admin
  *
- * @package YayReviews
+ * @package YayRev
  */
 
-namespace YayReviews\YayCommerceMenu;
+namespace YayRev\YayCommerceMenu;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -77,7 +77,7 @@ class RegisterMenu {
 
 		$submenus['yaycommerce-help'] = array(
 			'parent'             => 'yaycommerce',
-			'name'               => __( 'Help', 'yay-reviews' ),
+			'name'               => __( 'Help', 'yay-customer-reviews-woocommerce' ),
 			'capability'         => 'manage_options',
 			'render_callback'    => false,
 			'load_data_callback' => false,
@@ -114,19 +114,19 @@ class RegisterMenu {
 		if ( ! empty( $licensing_plugins_yay_mail ) || ! empty( $licensing_plugins_yay_pricing ) || ! empty( $licensing_plugins_yay_currency ) || ! empty( $licensing_plugins_yay_swatches ) || ! empty( $licensing_plugins_yay_extra ) || ! empty( $licensing_plugins_yay_smtp ) || ! empty( $yay_licensing_plugins ) ) {
 			$submenus['yaycommerce-licenses'] = array(
 				'parent'             => 'yaycommerce',
-				'name'               => __( 'Licenses', 'yay-reviews' ),
+				'name'               => __( 'Licenses', 'yay-customer-reviews-woocommerce' ),
 				'capability'         => 'manage_options',
-				'render_callback'    => array( '\YayReviews\YayCommerceMenu\LicensesMenu', 'render' ),
-				'load_data_callback' => array( '\YayReviews\YayCommerceMenu\LicensesMenu', 'load_data' ),
+				'render_callback'    => array( '\YayRev\YayCommerceMenu\LicensesMenu', 'render' ),
+				'load_data_callback' => array( '\YayRev\YayCommerceMenu\LicensesMenu', 'load_data' ),
 			);
 		}
 
 		$submenus['yaycommerce-other-plugins'] = array(
 			'parent'             => 'yaycommerce',
-			'name'               => __( 'Other plugins', 'yay-reviews' ),
+			'name'               => __( 'Other plugins', 'yay-customer-reviews-woocommerce' ),
 			'capability'         => 'manage_options',
-			'render_callback'    => array( '\YayReviews\YayCommerceMenu\OtherPluginsMenu', 'render' ),
-			'load_data_callback' => array( '\YayReviews\YayCommerceMenu\OtherPluginsMenu', 'load_data' ),
+			'render_callback'    => array( '\YayRev\YayCommerceMenu\OtherPluginsMenu', 'render' ),
+			'load_data_callback' => array( '\YayRev\YayCommerceMenu\OtherPluginsMenu', 'load_data' ),
 		);
 
 		return $submenus;
@@ -167,12 +167,12 @@ class RegisterMenu {
 
 		$has_plugin_menu = false;
 		foreach ( $submenu['yaycommerce'] as $item ) {
-			if ( 'yay-reviews' === $item[2] ) {
+			if ( 'yayrev' === $item[2] ) {
 				$has_plugin_menu = true;
 			}
 		}
 		if ( ! $has_plugin_menu ) {
-			add_submenu_page( 'yaycommerce', __( 'YayReviews', 'yay-reviews' ), __( 'YayReviews', 'yay-reviews' ), 'manage_woocommerce', 'yay_reviews', array( $this, 'render_placeholder_menu' ), 0 );
+			add_submenu_page( 'yaycommerce', __( 'YayReviews', 'yay-customer-reviews-woocommerce' ), __( 'YayReviews', 'yay-customer-reviews-woocommerce' ), 'manage_woocommerce', 'yayrev', array( $this, 'render_placeholder_menu' ), 0 );
 		}
 	}
 

@@ -13,23 +13,23 @@
 .hidden {
   display: none;
 }
-.yay-reviews-review-title input {
+.yayrev-review-title input {
   display: block;
   width: 100%;
 }
-.yay-reviews-review-title__description {
+.yayrev-review-title__description {
   margin-top: 0.25rem;
 }
 
 /** GDPR */
-.yay-reviews-gdpr {
+.yayrev-gdpr {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   margin-block-start: 0.5rem;
 }
 
-.yay-reviews-gdpr__message label {
+.yayrev-gdpr__message label {
   display: inline-flex !important;
   align-items: center;
   gap: 0.5rem;
@@ -37,12 +37,12 @@
   font-weight: normal !important;
 }
 
-.yay-reviews-gdpr-checkbox {
+.yayrev-gdpr-checkbox {
   user-select: none;
 }
 
 /** Product Attributes */
-.yay-reviews-product-attributes__select {
+.yayrev-product-attributes__select {
   display: block;
   max-width: 200px;
   width: 100%;
@@ -61,26 +61,26 @@
 }
 
 /* Upload Media Form */
-.yay-reviews-upload-media > * {
+.yayrev-upload-media > * {
   margin-block-end: 0.5rem !important;
 }
 
-.yay-reviews-upload-media__label {
+.yayrev-upload-media__label {
   cursor: pointer;
   display: inline-block;
 }
 
-.yay-reviews-upload-media__description {
+.yayrev-upload-media__description {
   margin-top: 0.25rem;
 }
 
-.yay-reviews-upload-media__upload-list {
+.yayrev-upload-media__upload-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.yay-reviews-upload-button {
+.yayrev-upload-button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,25 +93,25 @@
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-upload-button:hover {
+.yayrev-upload-button:hover {
   border-color: #000 !important;
 }
 
-.yay-reviews-upload-button:hover span {
+.yayrev-upload-button:hover span {
   color: #000 !important;
 }
 
-.yay-reviews-upload-button > :first-child {
+.yayrev-upload-button > :first-child {
   color: #9ca3af;
 }
 
-.yay-reviews-upload-button > :last-child {
+.yayrev-upload-button > :last-child {
   font-size: 0.75rem;
   color: #6b7280;
   margin-top: 0.25rem;
 }
 
-.yay-reviews-upload-media__upload-item {
+.yayrev-upload-media__upload-item {
   position: relative;
   width: 6rem;
   height: 6rem;
@@ -121,12 +121,12 @@
   cursor: pointer;
 }
 
-.yay-reviews-upload-media__upload-item img {
+.yayrev-upload-media__upload-item img {
   width: 100%;
   height: 100%;
   border-radius: 0.5rem;
 }
-.yay-reviews-upload-media__upload-item-remove {
+.yayrev-upload-media__upload-item-remove {
   position: absolute;
   top: 0;
   right: 0;
@@ -150,17 +150,17 @@
   z-index: 10;
 }
 
-.yay-reviews-upload-media__upload-item:hover {
+.yayrev-upload-media__upload-item:hover {
   border-color: #000;
 }
 
-.yay-reviews-upload-media__upload-item:hover
-  .yay-reviews-upload-media__upload-item-remove {
+.yayrev-upload-media__upload-item:hover
+  .yayrev-upload-media__upload-item-remove {
   visibility: visible;
   opacity: 1;
 }
 
-#yay-reviews-modal {
+#yayrev-modal {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.9);
@@ -173,12 +173,12 @@
   transition: all 0.2s ease-in-out;
 }
 
-#yay-reviews-modal.hidden {
+#yayrev-modal.hidden {
   visibility: hidden;
   opacity: 0;
 }
 
-#yay-reviews-modal-close {
+#yayrev-modal-close {
   background: transparent;
   color: white;
   cursor: pointer;
@@ -186,7 +186,7 @@
   margin-bottom: 8px;
 }
 
-.yay-reviews-modal-wrapper {
+.yayrev-modal-wrapper {
   padding: 1rem;
   border-radius: 1rem;
   max-width: 50rem;
@@ -194,13 +194,13 @@
   position: relative;
 }
 
-#yay-reviews-modal-content img,
-#yay-reviews-modal-content video {
+#yayrev-modal-content img,
+#yayrev-modal-content video {
   width: 100%;
   max-height: 70vh;
 }
 
-#yay-reviews-modal-content img {
+#yayrev-modal-content img {
   object-fit: contain;
 }
 
@@ -210,17 +210,17 @@
 
 /** ---------------------------- End Reviews Form ---------------------------- */
 
-.yay-reviews-loading-icon {
+.yayrev-loading-icon {
   width: 24px;
   height: 24px;
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-top: 2px solid #000;
   border-radius: 50%;
-  animation: yay-reviews-spin 1s linear infinite;
+  animation: yayrev-spin 1s linear infinite;
   margin-bottom: 4px;
 }
 
-@keyframes yay-reviews-spin {
+@keyframes yayrev-spin {
   0% {
     transform: rotate(0deg);
   }
@@ -247,7 +247,7 @@
   color: inherit;
 }
 
-.yay-reviews-attribute-list {
+.yayrev-attribute-list {
   display: flex;
   gap: 10px;
   /* Adjust space as needed */
@@ -256,7 +256,7 @@
 
 /** Review Overview */
 
-.yay-reviews-reviews-overview {
+.yayrev-reviews-overview {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -270,43 +270,43 @@
   margin-bottom: 1rem;
 }
 
-.yay-reviews-reviews-overview__summary {
+.yayrev-reviews-overview__summary {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
 }
 
-.yay-reviews-reviews-overview__summary .brandy-ratings__stars {
+.yayrev-reviews-overview__summary .brandy-ratings__stars {
   gap: 0;
 }
 
-.yay-reviews-reviews-overview__summary .brandy-ratings__stars svg {
+.yayrev-reviews-overview__summary .brandy-ratings__stars svg {
   width: 16px;
   height: 16px;
 }
 
-.yay-reviews-reviews-overview__summary-avg-rating {
+.yayrev-reviews-overview__summary-avg-rating {
   font-size: 40px;
   font-weight: 600;
   line-height: 36px;
 }
 
-.yay-reviews-reviews-overview__summary-total-reviews {
+.yayrev-reviews-overview__summary-total-reviews {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   white-space: pre;
 }
 
-.yay-reviews-reviews-overview__filters {
+.yayrev-reviews-overview__filters {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   flex: 1;
 }
 
-.yay-reviews-reviews-overview__filters-item {
+.yayrev-reviews-overview__filters-item {
   font-size: 16px;
   display: flex;
   align-items: center;
@@ -314,85 +314,85 @@
   color: #555;
 }
 
-.yay-reviews-reviews-overview__filters-item.filterable {
+.yayrev-reviews-overview__filters-item.filterable {
   cursor: pointer;
   text-underline-offset: 3px;
   text-decoration: none !important;
 }
 
-.yay-reviews-reviews-overview__filters-item.active {
+.yayrev-reviews-overview__filters-item.active {
   text-decoration: underline !important;
 }
 
-.yay-reviews-reviews-overview__filters-item.filterable:hover {
+.yayrev-reviews-overview__filters-item.filterable:hover {
   text-decoration: underline !important;
 }
 
-.yay-reviews-reviews-overview__filters-item__label {
+.yayrev-reviews-overview__filters-item__label {
   flex-basis: 40px;
   text-align: right;
   flex-shrink: 0;
 }
 
-.yay-reviews-reviews-overview__filters-item__progress-bar {
+.yayrev-reviews-overview__filters-item__progress-bar {
   flex-grow: 1;
   background-color: #f0f0f0;
   border-radius: 5px;
   height: 8px;
 }
 
-.yay-reviews-reviews-overview__filters-item__progress {
+.yayrev-reviews-overview__filters-item__progress {
   height: 100%;
   background-color: #a0a0a0;
   border-radius: 5px;
 }
 
-.wp-theme-brandy .yay-reviews-reviews-overview__filters-item__progress {
+.wp-theme-brandy .yayrev-reviews-overview__filters-item__progress {
   background-color: var(--brandy-product-rating-star-color-active, #ffac70);
 }
 
-.yay-reviews-reviews-overview__filters-item__count {
+.yayrev-reviews-overview__filters-item__count {
   text-align: left;
   flex-shrink: 0;
 }
 
-.yay-reviews-filter-message {
+.yayrev-filter-message {
   padding: 0.5rem 0;
   font-size: 16px;
 }
 
 /** All Media Slider */
 
-.yay-reviews-all-media {
+.yayrev-all-media {
   position: relative;
   width: 100%;
   padding: 1rem;
   margin-bottom: 1rem;
 }
 
-.yay-reviews-all-media-wrapper {
+.yayrev-all-media-wrapper {
   position: relative;
 }
 
-.yay-reviews-all-media__title {
+.yayrev-all-media__title {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 1rem 0;
 }
-.yay-reviews-all-media__title h3 {
+.yayrev-all-media__title h3 {
   margin: 0;
 }
 
-.yay-reviews-see-all-media {
+.yayrev-see-all-media {
   cursor: pointer;
   text-underline-offset: 3px;
 }
-.yay-reviews-see-all-media:hover {
+.yayrev-see-all-media:hover {
   text-decoration: underline;
 }
 
-.yay-reviews-all-media-track {
+.yayrev-all-media-track {
   display: flex;
   overflow-x: auto;
   -ms-overflow-style: none;
@@ -404,27 +404,27 @@
   gap: 10px;
 }
 
-.yay-reviews-all-media-track::-webkit-scrollbar {
+.yayrev-all-media-track::-webkit-scrollbar {
   display: none;
   /* Chrome, Safari and Opera */
 }
 
-.yay-reviews-all-media-buttons {
+.yayrev-all-media-buttons {
   display: none;
   gap: 0.25rem;
   align-items: center;
 }
 
-.yay-reviews-all-media-wrapper.scrollable .yay-reviews-all-media-buttons {
+.yayrev-all-media-wrapper.scrollable .yayrev-all-media-buttons {
   display: flex;
 }
 
-.yay-reviews-all-media-track .yay-reviews-review__media-item {
+.yayrev-all-media-track .yayrev-review__media-item {
   flex-shrink: 0;
   cursor: pointer;
 }
 
-.yay-reviews-all-media-track img {
+.yayrev-all-media-track img {
   display: block;
   width: 140px;
   height: 140px;
@@ -432,7 +432,7 @@
   flex-shrink: 0;
 }
 
-.yay-reviews-all-media-arrow {
+.yayrev-all-media-arrow {
   cursor: pointer;
   border: none;
   outline: none;
@@ -453,45 +453,45 @@
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-all-media-arrow:hover {
+.yayrev-all-media-arrow:hover {
   background: #edf3f9;
   box-shadow: 0px 10px 25px 0px #12294026;
   border: none;
 }
 
-.yay-reviews-all-media-arrow svg {
+.yayrev-all-media-arrow svg {
   width: 14px;
   height: 14px;
 }
 
-.yay-reviews-all-media-arrow svg path {
+.yayrev-all-media-arrow svg path {
   stroke: #808890;
   fill: transparent;
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-all-media-arrow:hover svg path {
+.yayrev-all-media-arrow:hover svg path {
   stroke: #122940;
   fill: transparent;
 }
 
-.yay-reviews-all-media-arrow.left-arrow {
+.yayrev-all-media-arrow.left-arrow {
   left: -20px;
   top: 50%;
 }
 
-.yay-reviews-all-media-arrow.right-arrow {
+.yayrev-all-media-arrow.right-arrow {
   right: -20px;
   top: 50%;
 }
 
 /** Verify badge */
-.yay-reviews-verified-badge {
+.yayrev-verified-badge {
   display: inline-block;
   vertical-align: top;
 }
 
 /** Review title */
-.yay-reviews-title {
+.yayrev-title {
   font-weight: 500;
 }

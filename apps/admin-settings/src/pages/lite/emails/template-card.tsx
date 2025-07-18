@@ -60,7 +60,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
       }
       const currentValues = getValues(`email.${templateId}.${key}`);
       if (key === 'content') {
-        const editor = window.tinymce?.get(`yay-reviews-email-content-${templateId}`);
+        const editor = window.tinymce?.get(`yayrev-email-content-${templateId}`);
         if (editor) {
           editor.setContent(defaultValue);
         }
@@ -83,7 +83,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
             {/* Email subject */}
             <div>
               <Label htmlFor={`email.${templateId}.subject`} className="mb-2 w-max font-normal">
-                {__('Email subject', 'yay-reviews')}
+                {__('Email subject', 'yay-customer-reviews-woocommerce')}
               </Label>
               <FormField
                 control={control}
@@ -101,7 +101,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
             {/* Email heading */}
             <div>
               <Label htmlFor={`email.${templateId}.heading`} className="mb-2 w-max font-normal">
-                {__('Email heading', 'yay-reviews')}
+                {__('Email heading', 'yay-customer-reviews-woocommerce')}
               </Label>
               <FormField
                 control={control}
@@ -128,7 +128,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
             {/* Email content */}
             <div>
               <Label htmlFor={`email.${templateId}.content`} className="mb-2 w-max font-normal">
-                {__('Email content', 'yay-reviews')}
+                {__('Email content', 'yay-customer-reviews-woocommerce')}
               </Label>
               <div>
                 <FormField
@@ -136,7 +136,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                   name={`email.${templateId}.content`}
                   render={({ field: { onChange } }) => (
                     <RichTextEditor
-                      ID={`yay-reviews-email-content-${templateId}`}
+                      ID={`yayrev-email-content-${templateId}`}
                       value={emailContent || defaultEmailSettings.content}
                       handleOnChange={onChange}
                     />
@@ -144,16 +144,16 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 />
               </div>
               <div className="text-muted-foreground mt-2 flex flex-col text-sm">
-                <span>{__("{customer_name} - Customer's name", 'yay-reviews')}</span>
-                <span>{__('{site_title} - Your site title', 'yay-reviews')}</span>
+                <span>{__("{customer_name} - Customer's name", 'yay-customer-reviews-woocommerce')}</span>
+                <span>{__('{site_title} - Your site title', 'yay-customer-reviews-woocommerce')}</span>
                 {templateId === 'reminder' && (
-                  <span>{__('{review_products} - List products need review', 'yay-reviews')}</span>
+                  <span>{__('{review_products} - List products need review', 'yay-customer-reviews-woocommerce')}</span>
                 )}
                 {templateId === 'reward' && (
-                  <span>{__('{coupon_code} - Coupon code', 'yay-reviews')}</span>
+                  <span>{__('{coupon_code} - Coupon code', 'yay-customer-reviews-woocommerce')}</span>
                 )}
                 {templateId === 'reward' && (
-                  <span>{__('{product_name} - Product name', 'yay-reviews')}</span>
+                  <span>{__('{product_name} - Product name', 'yay-customer-reviews-woocommerce')}</span>
                 )}
               </div>
             </div>
@@ -163,14 +163,14 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 <DialogTrigger asChild>
                   <Button variant="outline" className="w-fit">
                     <RefreshCcw className="size-4" />
-                    {__('Reset template', 'yay-reviews')}
+                    {__('Reset template', 'yay-customer-reviews-woocommerce')}
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-md">
                   <DialogHeader>
-                    <DialogTitle>{__('Reset template', 'yay-reviews')}</DialogTitle>
+                    <DialogTitle>{__('Reset template', 'yay-customer-reviews-woocommerce')}</DialogTitle>
                   </DialogHeader>
-                  <div>{__('Reset the template to the default values.', 'yay-reviews')}</div>
+                  <div>{__('Reset the template to the default values.', 'yay-customer-reviews-woocommerce')}</div>
                   <DialogFooter>
                     <Button
                       variant="outline"
@@ -180,7 +180,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                         setResetTemplateDialogOpen(false);
                       }}
                     >
-                      {__('Cancel', 'yay-reviews')}
+                      {__('Cancel', 'yay-customer-reviews-woocommerce')}
                     </Button>
                     <Button
                       variant="default"
@@ -192,7 +192,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                         setResetTemplateDialogOpen(false);
                       }}
                     >
-                      {__('Reset template', 'yay-reviews')}
+                      {__('Reset template', 'yay-customer-reviews-woocommerce')}
                     </Button>
                   </DialogFooter>
                 </DialogContent>
@@ -200,7 +200,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
             </div>
           </div>
           <div className="col-span-12 lg:col-span-7">
-            <h3 className="yay-reviews-email-preview-title">{__('Preview', 'yay-reviews')}</h3>
+            <h3 className="yayrev-email-preview-title">{__('Preview', 'yay-customer-reviews-woocommerce')}</h3>
             <div className="flex flex-col gap-4 rounded-sm border border-solid border-[#e0e0e0] bg-[#f0f0f0] p-4">
               <div className="flex items-center justify-end gap-2">
                 <div className="flex gap-2">
@@ -210,7 +210,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                         <TooltipTrigger>
                           <Button
                             variant={currentDevice === 'desktop' ? 'default' : 'ghost'}
-                            className="yay-reviews-email-preview-device-button h-[28px] w-[26px] py-0 has-[>svg]:px-4"
+                            className="yayrev-email-preview-device-button h-[28px] w-[26px] py-0 has-[>svg]:px-4"
                             onClick={(e) => {
                               e.preventDefault();
                               setCurrentDevice('desktop');
@@ -219,7 +219,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                             <DesktopIcon className="size-4" />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>{__('Desktop preview', 'yay-reviews')}</TooltipContent>
+                        <TooltipContent>{__('Desktop preview', 'yay-customer-reviews-woocommerce')}</TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                     <TooltipProvider>
@@ -227,7 +227,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                         <TooltipTrigger>
                           <Button
                             variant={currentDevice === 'mobile' ? 'default' : 'ghost'}
-                            className="yay-reviews-email-preview-device-button h-[26px] w-[26px] has-[>svg]:px-4 has-[>svg]:py-0"
+                            className="yayrev-email-preview-device-button h-[26px] w-[26px] has-[>svg]:px-4 has-[>svg]:py-0"
                             onClick={(e) => {
                               e.preventDefault();
                               setCurrentDevice('mobile');
@@ -236,32 +236,32 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                             <MobileIcon className="size-4" />
                           </Button>
                         </TooltipTrigger>
-                        <TooltipContent>{__('Mobile preview', 'yay-reviews')}</TooltipContent>
+                        <TooltipContent>{__('Mobile preview', 'yay-customer-reviews-woocommerce')}</TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                   <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                     <DialogTrigger asChild>
                       <Button variant="outline" className="w-fit">
-                        {__('Send test mail', 'yay-reviews')}
+                        {__('Send test mail', 'yay-customer-reviews-woocommerce')}
                       </Button>
                     </DialogTrigger>
                     <DialogContent className="max-w-md">
                       <DialogHeader>
-                        <DialogTitle>{__('Send a test email', 'yay-reviews')}</DialogTitle>
+                        <DialogTitle>{__('Send a test email', 'yay-customer-reviews-woocommerce')}</DialogTitle>
                       </DialogHeader>
 
                       <div className="flex flex-col gap-4">
                         <span>
                           {__(
                             'Send yourself a test email to check how your email looks in different email apps.',
-                            'yay-reviews',
+                            'yay-customer-reviews-woocommerce',
                           )}
                         </span>
                         <div className="flex flex-col gap-2">
                           <Input
                             value={testEmail}
-                            placeholder={__('Enter your email address', 'yay-reviews')}
+                            placeholder={__('Enter your email address', 'yay-customer-reviews-woocommerce')}
                             onChange={(e) => {
                               e.preventDefault();
                               setTestEmail(e.target.value);
@@ -278,7 +278,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                             setIsDialogOpen(false);
                           }}
                         >
-                          {__('Cancel', 'yay-reviews')}
+                          {__('Cancel', 'yay-customer-reviews-woocommerce')}
                         </Button>
                         <Button
                           variant="default"
@@ -288,7 +288,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                             e.preventDefault();
                             setIsSending(true);
                             const jQuery = window.jQuery;
-                            const previewEmail = jQuery('#yay-reviews-email-preview-iframe');
+                            const previewEmail = jQuery('#yayrev-email-preview-iframe');
                             if (!previewEmail) return;
                             // get all html of iframe
                             const iframeHtml = previewEmail.contents().find('html').html();
@@ -306,21 +306,21 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                             sendTestMail(testEmail, subject, previewContent)
                               .then((res: any) => {
                                 if (res.message === 'Email sent successfully') {
-                                  toast.success(__('Email sent successfully', 'yay-reviews'));
+                                  toast.success(__('Email sent successfully', 'yay-customer-reviews-woocommerce'));
                                 } else {
-                                  toast.error(__('Email sending failed', 'yay-reviews'));
+                                  toast.error(__('Email sending failed', 'yay-customer-reviews-woocommerce'));
                                 }
                               })
                               .catch((err: any) => {
                                 console.log(err);
-                                toast.error(__('Email sending failed', 'yay-reviews'));
+                                toast.error(__('Email sending failed', 'yay-customer-reviews-woocommerce'));
                               })
                               .finally(() => {
                                 setIsSending(false);
                               });
                           }}
                         >
-                          {__('Send test mail', 'yay-reviews')}
+                          {__('Send test mail', 'yay-customer-reviews-woocommerce')}
                           {isSending && <Loader2Icon className="animate-spin" />}
                         </Button>
                       </DialogFooter>
@@ -330,13 +330,13 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
               </div>
               <Card
                 className={cn(
-                  currentDevice === 'mobile' && 'yay-reviews-email-preview-mobile',
+                  currentDevice === 'mobile' && 'yayrev-email-preview-mobile',
                   'm-auto w-full gap-0 rounded-sm border border-solid border-[#e0e0e0] p-0 shadow-none',
                 )}
               >
                 <CardHeader className="border-border block border-b p-4 [.border-b]:pb-4">
                   <CardTitle>
-                    <h2 className="yay-reviews-email-preview-subject mt-0 text-base">{subject}</h2>
+                    <h2 className="yayrev-email-preview-subject mt-0 text-base">{subject}</h2>
                     <div className="flex items-center gap-2 text-sm font-normal">
                       <div className="flex h-8 w-8 items-center justify-center rounded-2xl bg-[#cbbeff4d]">
                         <UserIcon />

@@ -1,5 +1,5 @@
 <?php
-namespace YayReviews;
+namespace YayRev;
 
 trait SingletonTrait {
 	private static $instance;

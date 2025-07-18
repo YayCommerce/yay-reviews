@@ -1,10 +1,10 @@
 <?php
 
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\Admin\AdminMenu;
-use YayReviews\Admin\ReviewsPage;
-use YayReviews\Admin\SingleReviewPage;
+use YayRev\Admin\AdminMenu;
+use YayRev\Admin\ReviewsPage;
+use YayRev\Admin\SingleReviewPage;
 
 class Admin {
 

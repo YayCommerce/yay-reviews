@@ -1,11 +1,9 @@
 <?php
 
-namespace YayReviews\Emails\PlaceholderProcessors;
+namespace YayRev\Emails\PlaceholderProcessors;
 
-use YayReviews\Addons\Reminder\ReminderAddonController;
-use YayReviews\Classes\Helpers;
-use YayReviews\Classes\Products;
-use YayReviews\Models\SettingsModel;
+use YayRev\Addons\Reminder\ReminderAddonController;
+use YayRev\Classes\Products;
 
 /**
  * ReminderPlaceholderProcessor is a class that processes placeholders for the reminder email.

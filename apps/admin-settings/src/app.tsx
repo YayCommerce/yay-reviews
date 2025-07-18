@@ -39,10 +39,10 @@ function MainDirection() {
       // delete all toast
       toast.dismiss();
       await postSettings(data);
-      toast.success(__('Settings saved successfully', 'yay-reviews'));
+      toast.success(__('Settings saved successfully', 'yay-customer-reviews-woocommerce'));
       form.reset(data); // Reset form with new values after successful save
     } catch (error) {
-      toast.error(__('Failed to save settings', 'yay-reviews'));
+      toast.error(__('Failed to save settings', 'yay-customer-reviews-woocommerce'));
     }
   }
 

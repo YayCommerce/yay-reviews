@@ -8,17 +8,17 @@ export default function WelcomeStep() {
   return (
     <WizardContent>
       <img
-        src={getImageUrl('yay-reviews-welcome-img.webp')}
-        alt={__('Yay Reviews', 'yay-reviews')}
+        src={getImageUrl('yayrev-welcome-img.webp')}
+        alt={__('Yay Reviews', 'yay-customer-reviews-woocommerce')}
         className="rounded-md"
       />
       <div className="text-foreground font-medium">
         {__(
           'YayReviews helps you collect richer product feedback, nudge shoppers to share it, and reward their effort—all in one flow.',
-          'yay-reviews',
+          'yay-customer-reviews-woocommerce',
         )}
       </div>
-      <div>{__('Get reviews live in 1 minutes.', 'yay-reviews')}</div>
+      <div>{__('Get reviews live in 1 minutes.', 'yay-customer-reviews-woocommerce')}</div>
     </WizardContent>
   );
 }

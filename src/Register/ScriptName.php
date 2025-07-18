@@ -1,14 +1,14 @@
 <?php
-namespace YayReviews\Register;
+namespace YayRev\Register;
 
 /**
  * Script Name Constants
  */
 class ScriptName {
 
-	public const STYLE_SETTINGS = 'yay-reviews/style/settings';
+	public const STYLE_SETTINGS = 'yayrev/style/settings';
 
-	public const MODULE_PREFIX = 'yay-reviews/module/';
+	public const MODULE_PREFIX = 'yayrev/module/';
 
-	public const PAGE_SETTINGS = 'yay-reviews/module/page-settings';
+	public const PAGE_SETTINGS = 'yayrev/module/page-settings';
 }

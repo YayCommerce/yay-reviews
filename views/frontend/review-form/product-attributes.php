@@ -51,19 +51,19 @@ if ( empty( $attribute_options ) ) {
 
 ?>
 
-<div class="yay-reviews-product-attributes">
-	<h4 class="yay-reviews-product-attributes__title"><?php echo esc_html__( 'Product Attributes (Optional)', 'yay-reviews' ); ?></h4>
+<div class="yayrev-product-attributes">
+	<h4 class="yayrev-product-attributes__title"><?php echo esc_html__( 'Product Attributes (Optional)', 'yay-customer-reviews-woocommerce' ); ?></h4>
 	<?php foreach ( $attribute_options as $attribute_name => $attribute_data ) : ?>
-		<div class="yay-reviews-product-attributes__field">
-			<label for="yay-reviews-attribute-<?php echo esc_attr( $attribute_name ); ?>" class="yay-reviews-product-attributes__label">
+		<div class="yayrev-product-attributes__field">
+			<label for="yayrev-attribute-<?php echo esc_attr( $attribute_name ); ?>" class="yayrev-product-attributes__label">
 				<?php echo esc_html( $attribute_data['label'] ); ?>
 			</label>
 			<select 
 				name="yayrev_attributes[<?php echo esc_attr( $attribute_name ); ?>]" 
-				id="yay-reviews-attribute-<?php echo esc_attr( $attribute_name ); ?>"
-				class="yay-reviews-product-attributes__select"
+				id="yayrev-attribute-<?php echo esc_attr( $attribute_name ); ?>"
+				class="yayrev-product-attributes__select"
 			>
-				<option value=""><?php echo esc_html__( 'Select', 'yay-reviews' ) . ' ' . esc_html( $attribute_data['label'] ); ?></option>
+				<option value=""><?php echo esc_html__( 'Select', 'yay-customer-reviews-woocommerce' ) . ' ' . esc_html( $attribute_data['label'] ); ?></option>
 				<?php foreach ( $attribute_data['values'] as $attribute_value => $attribute_label ) : ?>
 					<option value="<?php echo esc_attr( $attribute_value ); ?>"><?php echo esc_html( $attribute_label ); ?></option>
 				<?php endforeach; ?>

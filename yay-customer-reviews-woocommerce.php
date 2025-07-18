@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: YayReviews - Product Reviews for WooCommerce
+ * Plugin Name: YayReviews - Advanced Reviews for WooCommerce
  * Description: YayReviews helps you to do more things with WooCommerce reviews.
- * Version: 1.0.0-alpha
+ * Version: 1.0.0
  * Author: YayCommerce
  * Author URI: https://yaycommerce.com
- * Text Domain: yay-reviews
+ * Text Domain: yay-customer-reviews-woocommerce
  * Domain Path: /languages
  * WC requires at least: 3.0.0
  * WC tested up to: 10.0.0
@@ -13,7 +13,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
 
-namespace YayReviews;
+namespace YayRev;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -23,17 +23,10 @@ define( 'YAYREV_PLUGIN_BASENAME', plugin_basename( YAYREV_FILE ) );
 define( 'YAYREV_PLUGIN_PATH', plugin_dir_path( YAYREV_FILE ) );
 define( 'YAYREV_VIEW_PATH', YAYREV_PLUGIN_PATH . 'views/' );
 
-define( 'YAYREV_REST_URL', 'yay-reviews/v1' );
+define( 'YAYREV_REST_URL', 'yayrev/v1' );
 
-define( 'YAYREV_VERSION', '1.0.0-alpha' );
+define( 'YAYREV_VERSION', '1.0.0' );
 define( 'YAYREV_IS_DEVELOPMENT', true );
-
-add_action(
-	'init',
-	function () {
-		load_plugin_textdomain( 'yay-reviews', false, dirname( YAYREV_PLUGIN_BASENAME ) . '/languages' );
-	}
-);
 
 require_once YAYREV_PLUGIN_PATH . 'vendor/autoload.php';
 
@@ -42,13 +35,13 @@ if ( ! class_exists( 'woocommerce' ) ) {
 		?>
 		<div class="notice notice-warning is-dismissible"> 
 			<p>
-				<strong><?php esc_html_e( 'Please activate WooCommerce to activate Yay Reviews', 'yay-reviews' ); ?></strong>
+				<strong><?php esc_html_e( 'Please activate WooCommerce to activate Yay Reviews', 'yay-customer-reviews-woocommerce' ); ?></strong>
 				<br />
 			</p>
 		</div>
 		<?php
 	}
-	add_action( 'admin_notices', 'YayReviews\\yayrev_admin_notice' );
+	add_action( 'admin_notices', 'YayRev\\yayrev_admin_notice' );
 	return;
 }
 
@@ -60,7 +53,7 @@ if ( ! function_exists( 'WC' ) ) {
 add_action(
 	'plugins_loaded',
 	function () {
-		\YayReviews\YayCommerceMenu\RegisterMenu::get_instance();
+		\YayRev\YayCommerceMenu\RegisterMenu::get_instance();
 		// Ensure WooCommerce is loaded
 		if ( ! function_exists( 'WC' ) ) {
 			return;
@@ -82,5 +75,5 @@ add_action(
 	}
 );
 
-register_activation_hook( __FILE__, array( 'YayReviews\ActDeact', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'YayReviews\ActDeact', 'deactivate' ) );
+register_activation_hook( __FILE__, array( 'YayRev\ActDeact', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'YayRev\ActDeact', 'deactivate' ) );

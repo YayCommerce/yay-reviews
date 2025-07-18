@@ -34,12 +34,12 @@ export default function Nav() {
   const menuItems = useMemo(() => {
     const result = [
       {
-        label: __('Dashboard', 'yay-reviews'),
+        label: __('Dashboard', 'yay-customer-reviews-woocommerce'),
         icon: <HomeIcon strokeWidth={2} />,
         key: 'dashboard',
       },
       {
-        label: __('Review', 'yay-reviews'),
+        label: __('Review', 'yay-customer-reviews-woocommerce'),
         icon: <ReviewIcon strokeWidth={2} />,
         key: 'review',
       },
@@ -47,7 +47,7 @@ export default function Nav() {
 
     if (isReminderEnabled) {
       result.push({
-        label: __('Reminder', 'yay-reviews'),
+        label: __('Reminder', 'yay-customer-reviews-woocommerce'),
         icon: <ReminderIcon strokeWidth={2} />,
         key: 'reminder',
       });
@@ -55,7 +55,7 @@ export default function Nav() {
 
     if (isRewardEnabled) {
       result.push({
-        label: __('Rewards', 'yay-reviews'),
+        label: __('Rewards', 'yay-customer-reviews-woocommerce'),
         icon: <GiftIcon strokeWidth={2} />,
         key: 'reward',
       });
@@ -64,12 +64,12 @@ export default function Nav() {
     if (isReminderEnabled || isRewardEnabled) {
       result.push(
         {
-          label: __('Emails', 'yay-reviews'),
+          label: __('Emails', 'yay-customer-reviews-woocommerce'),
           icon: <EmailIcon strokeWidth={2} />,
           key: 'emails',
         },
         {
-          label: __('Emails Queue', 'yay-reviews'),
+          label: __('Emails Queue', 'yay-customer-reviews-woocommerce'),
           icon: <EmailQueueIcon strokeWidth={2} />,
           key: 'emails-queue',
         },
@@ -90,7 +90,7 @@ export default function Nav() {
       className={cn(
         'bg-background sticky z-50 w-full transition-shadow duration-200',
         isScrolling && 'shadow-[0px_12px_24px_-20px_rgba(0,0,0,0.5)]',
-        'yay-reviews-nav',
+        'yayrev-nav',
       )}
       style={{
         top: 'var(--wpadminbar-height)',
@@ -100,7 +100,7 @@ export default function Nav() {
         dangerouslySetInnerHTML={{
           __html: `
         @media screen and (max-width: 600px) {
-          .yay-reviews-nav {
+          .yayrev-nav {
             top: 0 !important;
           }
         }
@@ -111,7 +111,7 @@ export default function Nav() {
         <div className="flex h-full items-center gap-7">
           {/* Logo */}
           <div className="justify-left flex h-full items-center border-r border-gray-100 p-[10px]">
-            <img src={getImageUrl('yay-reviews-logo.png')} alt={__('Yay Reviews', 'yay-reviews')} />
+            <img src={getImageUrl('yayrev-logo.png')} alt={__('Yay Reviews', 'yay-customer-reviews-woocommerce')} />
           </div>
 
           {/* Desktop Menu */}
@@ -188,7 +188,7 @@ export default function Nav() {
         {/* Save Button */}
         <Button type="submit" disabled={isSaveDisabled}>
           {isSubmitting && <Loader2Icon className="animate-spin" />}
-          {__('Save', 'yay-reviews')}
+          {__('Save', 'yay-customer-reviews-woocommerce')}
         </Button>
       </div>
     </nav>

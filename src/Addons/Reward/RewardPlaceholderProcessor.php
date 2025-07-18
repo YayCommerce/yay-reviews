@@ -1,8 +1,8 @@
 <?php
 
-namespace YayReviews\Addons\Reward;
+namespace YayRev\Addons\Reward;
 
-use YayReviews\Emails\PlaceholderProcessors\BaseProcessors;
+use YayRev\Emails\PlaceholderProcessors\BaseProcessors;
 
 /**
  * RewardPlaceholderProcessor is a class that processes placeholders for the reward email.

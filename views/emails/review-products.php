@@ -31,7 +31,7 @@ $width_table   = $count_product < 3 ? 180 * $count_product : 540;
 			<?php
 			/* @codingStandardsIgnoreStart */
 			 ?>
-			<img src="<?php echo esc_url( $product_image_url ); ?>" alt="<?php echo esc_html__( 'Product Image', 'yay-reviews' ); ?>" style="width: 100%; height: 100%; object-fit: contain; border-radius: 5px; margin: 0;">
+			<img src="<?php echo esc_url( $product_image_url ); ?>" alt="<?php echo esc_html__( 'Product Image', 'yay-customer-reviews-woocommerce' ); ?>" style="width: 100%; height: 100%; object-fit: contain; border-radius: 5px; margin: 0;">
 			<?php /* @codingStandardsIgnoreEnd */ ?>
 			</div>
 			<div style="font-size: 16px; line-height: 24px; margin: 12px 0; color: #232323; text-align: center;">
@@ -51,7 +51,7 @@ $width_table   = $count_product < 3 ? 180 * $count_product : 540;
 			<div style="font-size: 14px; text-align: center; border-radius: 6px; margin: 0 auto;">
 			<a href="<?php echo esc_url( $product_link ); ?>" target="_blank"
 				style="font-weight: 500; line-height: 20px; color: #fff; text-decoration: none; padding: 8px 12px; display: inline-block; border-radius: 6px; background-color: #027C42;">
-				<?php echo esc_html__( 'Leave a review', 'yay-reviews' ); ?>
+				<?php echo esc_html__( 'Leave a review', 'yay-customer-reviews-woocommerce' ); ?>
 			</a>
 			</div>
 		</div>

@@ -26,7 +26,7 @@ export default function RewardPage() {
   return (
     <RewardsProvider>
       <PageLayout>
-        <PageTitle title={__('Review rewards', 'yay-reviews')} />
+        <PageTitle title={__('Review rewards', 'yay-customer-reviews-woocommerce')} />
         <div className="container mx-auto space-y-8 px-7 py-0">
           {/* No reward added */}
           {isEmpty && (
@@ -35,17 +35,17 @@ export default function RewardPage() {
                 <div className="flex flex-col items-center gap-2 pb-4">
                   <InboxIcon strokeWidth={1} size={100} />
                   <div className="px-6 text-lg font-semibold">
-                    {__('No reward added', 'yay-reviews')}
+                    {__('No reward added', 'yay-customer-reviews-woocommerce')}
                   </div>
                   <div className="text-muted-foreground px-6 pb-4 text-sm leading-5 font-normal">
                     {__(
                       'Sends discount coupons for quality reviews meeting set criteria,',
-                      'yay-reviews',
+                      'yay-customer-reviews-woocommerce',
                     )}
                     <br />
-                    {__('encouraging great feedback and repeat purchases.', 'yay-reviews')}
+                    {__('encouraging great feedback and repeat purchases.', 'yay-customer-reviews-woocommerce')}
                   </div>
-                  <AddRewardButton text={__('Create new', 'yay-reviews')} isEmpty={isEmpty} />
+                  <AddRewardButton text={__('Create new', 'yay-customer-reviews-woocommerce')} isEmpty={isEmpty} />
                 </div>
               </CardContent>
             </Card>
@@ -56,23 +56,23 @@ export default function RewardPage() {
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="text-foreground flex items-center gap-2 text-lg font-semibold">
-                    {__('You have', 'yay-reviews')} {Object.values(rewards).length}{' '}
+                    {__('You have', 'yay-customer-reviews-woocommerce')} {Object.values(rewards).length}{' '}
                     {Object.keys(rewards).length > 1
-                      ? __('reward sets', 'yay-reviews')
-                      : __('reward set', 'yay-reviews')}
+                      ? __('reward sets', 'yay-customer-reviews-woocommerce')
+                      : __('reward set', 'yay-customer-reviews-woocommerce')}
                     <TooltipProvider delayDuration={0}>
                       <Tooltip>
                         <TooltipTrigger>
                           <InfoIcon size={18} />
                         </TooltipTrigger>
                         <TooltipContent>
-                          {__('Each review can trigger only one reward set', 'yay-reviews')}
+                          {__('Each review can trigger only one reward set', 'yay-customer-reviews-woocommerce')}
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
                   </div>
                 </div>
-                <AddRewardButton text={__('Add reward set', 'yay-reviews')} />
+                <AddRewardButton text={__('Add reward set', 'yay-customer-reviews-woocommerce')} />
               </div>
               {Object.values(rewards).map((reward: Reward) => (
                 <RewardCard key={reward.id + reward.coupon_id} reward={reward} />

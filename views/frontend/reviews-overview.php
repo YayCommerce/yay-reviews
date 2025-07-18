@@ -2,7 +2,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-use YayReviews\Classes\Helpers;
+use YayRev\Classes\Helpers;
 
 $overview_data = Helpers::get_overview_data();
 
@@ -36,17 +36,17 @@ if ( $rating && \wc_review_ratings_enabled() ) {
 	}
 }
 ?>
-<div class="yay-reviews-reviews-overview">
-	<div class="yay-reviews-reviews-overview__summary">
-		<span class="yay-reviews-reviews-overview__summary-avg-rating"><?php echo esc_html( $average_rating ); ?></span>
+<div class="yayrev-reviews-overview">
+	<div class="yayrev-reviews-overview__summary">
+		<span class="yayrev-reviews-overview__summary-avg-rating"><?php echo esc_html( $average_rating ); ?></span>
 		<?php if ( empty( $total_reviews ) ) : ?>
-			<span style="font-size:1rem;">(<?php esc_html_e( 'No ratings', 'yay-reviews' ); ?>)</span>
+			<span style="font-size:1rem;">(<?php esc_html_e( 'No ratings', 'yay-customer-reviews-woocommerce' ); ?>)</span>
 		<?php else : ?>
 			<?php echo wp_kses_post( $rating_stars ); ?>
 		<?php endif; ?>
-		<span class="yay-reviews-reviews-overview__summary-total-reviews"><?php echo esc_html( $total_reviews ); ?> <?php echo esc_html( $reviews_text ); ?></span>
+		<span class="yayrev-reviews-overview__summary-total-reviews"><?php echo esc_html( $total_reviews ); ?> <?php echo esc_html( $reviews_text ); ?></span>
 	</div>
-	<div class="yay-reviews-reviews-overview__filters">
+	<div class="yayrev-reviews-overview__filters">
 		<?php
 		for ( $i = 5; $i >= 1; $i-- ) :
 			$count         = isset( $stars_count[ $i ] ) ? $stars_count[ $i ] : 0;
@@ -54,7 +54,7 @@ if ( $rating && \wc_review_ratings_enabled() ) {
 			$is_filterable = $count > 0;
 			$html_info     = array(
 				'tag'         => 'div',
-				'class'       => 'yay-reviews-reviews-overview__filters-item',
+				'class'       => 'yayrev-reviews-overview__filters-item',
 				'data-rating' => $i,
 			);
 			if ( $is_filterable ) {
@@ -76,11 +76,11 @@ if ( $rating && \wc_review_ratings_enabled() ) {
 			$close_tag      = '</' . $html_info['tag'] . '>';
 			echo wp_kses_post( $html_tag );
 			?>
-				<span class="yay-reviews-reviews-overview__filters-item__label"><?php echo esc_html( $i ); ?> ★</span>
-				<div class="yay-reviews-reviews-overview__filters-item__progress-bar">
-					<div class="yay-reviews-reviews-overview__filters-item__progress" style="width: <?php echo esc_attr( $percentage ); ?>%"></div>
+				<span class="yayrev-reviews-overview__filters-item__label"><?php echo esc_html( $i ); ?> ★</span>
+				<div class="yayrev-reviews-overview__filters-item__progress-bar">
+					<div class="yayrev-reviews-overview__filters-item__progress" style="width: <?php echo esc_attr( $percentage ); ?>%"></div>
 				</div>
-				<span class="yay-reviews-reviews-overview__filters-item__count"><?php echo esc_html( $count ); ?></span>
+				<span class="yayrev-reviews-overview__filters-item__count"><?php echo esc_html( $count ); ?></span>
 			<?php echo wp_kses_post( $close_tag ); ?>
 		<?php endfor; ?>
 	</div>
@@ -88,11 +88,11 @@ if ( $rating && \wc_review_ratings_enabled() ) {
 <?php
 if ( $current_rating_filter ) :
 	?>
-	<div class="yay-reviews-filter-message">
+	<div class="yayrev-filter-message">
 		<?php
 		printf(
 			// translators: %1$s: rating, %2$s: see all reviews link
-			wp_kses_post( __( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-reviews' ) ),
+			wp_kses_post( __( 'You are currently viewing the reviews that provided a rating of <strong>%1$s stars</strong>. <a href="%2$s">See all reviews</a>', 'yay-customer-reviews-woocommerce' ) ),
 			esc_html( $current_rating_filter ),
 			esc_url( remove_query_arg( 'rating_filter' ) . '#tab-reviews' )
 		);

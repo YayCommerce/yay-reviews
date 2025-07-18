@@ -1,4 +1,4 @@
-.yay-reviews-review__media-list {
+.yayrev-review__media-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -6,18 +6,18 @@
 }
 
 /** Media Card */
-.yay-reviews-media-card {
+.yayrev-media-card {
   cursor: pointer;
   outline: 0.5px solid transparent;
   aspect-ratio: 1/1;
 }
 
-.yay-reviews-media-card.active .yay-reviews-media-card-wrapper {
+.yayrev-media-card.active .yayrev-media-card-wrapper {
   border-color: #000;
   outline-color: #000;
 }
 
-.yay-reviews-media-card-wrapper {
+.yayrev-media-card-wrapper {
   position: relative;
   border-radius: 8px;
   border: 1px solid #d4dbe2;
@@ -27,11 +27,11 @@
   outline: 0.5px solid transparent;
 }
 
-.yay-reviews-media-card:hover .yay-reviews-media-card-wrapper {
+.yayrev-media-card:hover .yayrev-media-card-wrapper {
   border-color: #757575;
 }
 
-.yay-reviews-media-card-inner {
+.yayrev-media-card-inner {
   border-radius: 5px;
   background-color: #f5f5f5;
   display: flex;
@@ -40,14 +40,14 @@
   position: relative;
 }
 
-.yay-reviews-media-card-inner img {
+.yayrev-media-card-inner img {
   object-fit: contain;
   width: 100%;
   height: 100%;
   border-radius: 5px;
 }
 
-.yay-reviews-media-card__video-details {
+.yayrev-media-card__video-details {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -60,28 +60,28 @@
   border-bottom-right-radius: 5px;
 }
 
-.yay-reviews-media-card__video-details:empty {
+.yayrev-media-card__video-details:empty {
   display: none;
 }
-.yay-reviews-media-card__video-details > * {
+.yayrev-media-card__video-details > * {
   padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.yay-reviews-media-card__video-details > :last-child {
+.yayrev-media-card__video-details > :last-child {
   color: #fff;
   font-size: 12px;
   font-weight: 600;
 }
 
-.yay-reviews-review__media-item {
+.yayrev-review__media-item {
   width: 150px;
   height: 150px;
 }
 
 /** Review Details */
-.yay-reviews-review-details-modal {
+.yayrev-review-details-modal {
   display: none;
   position: fixed;
   top: 30px;
@@ -94,7 +94,7 @@
   z-index: 160000;
 }
 
-.yay-reviews-modal-header {
+.yayrev-modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -102,7 +102,7 @@
   border-bottom: 1px solid #e4e4e7;
 }
 
-.yay-reviews-modal-header h1 {
+.yayrev-modal-header h1 {
   padding: 0;
   font-size: 22px;
   line-height: 2.27272727;
@@ -110,25 +110,25 @@
   font-weight: 600;
 }
 
-.yay-reviews-review-details__medias-title {
+.yayrev-review-details__medias-title {
   color: #18181b;
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
 }
 
-.yay-reviews-modal-see-all-media:hover {
+.yayrev-modal-see-all-media:hover {
   cursor: pointer;
   text-decoration: underline;
 }
 
-.yay-reviews-review-details__media-list {
+.yayrev-review-details__media-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(max(80px), 1fr));
   gap: 10px;
 }
 
-.yay-reviews-all-media-dialog {
+.yayrev-all-media-dialog {
   display: none;
   position: fixed;
   top: 30px;
@@ -141,8 +141,8 @@
   z-index: 160000;
 }
 
-.yay-reviews-modal-backdrop,
-.yay-reviews-all-media-dialog-backdrop {
+.yayrev-modal-backdrop,
+.yayrev-all-media-dialog-backdrop {
   display: none;
   position: fixed;
   top: 0;
@@ -155,8 +155,8 @@
   z-index: 159900;
 }
 
-.yay-reviews-modal-content,
-.yay-reviews-all-media-dialog-content {
+.yayrev-modal-content,
+.yayrev-all-media-dialog-content {
   position: absolute;
   top: 0;
   left: 0;
@@ -170,15 +170,15 @@
   z-index: 160001;
 }
 
-.yay-reviews-all-media-dialog-content-wrapper {
+.yayrev-all-media-dialog-content-wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
   padding: 20px;
 }
 
-.yay-reviews-all-media-dialog-content-wrapper
-  .yay-reviews-modal-comment-medias-preview-item {
+.yayrev-all-media-dialog-content-wrapper
+  .yayrev-modal-comment-medias-preview-item {
   aspect-ratio: 1 / 1;
   cursor: pointer;
   display: flex;
@@ -186,13 +186,13 @@
   justify-content: center;
 }
 
-.yay-reviews-modal-comment-details {
+.yayrev-modal-comment-details {
   display: block;
   height: 100%;
   width: 100%;
 }
 
-.yay-reviews-modal-media-frame-content {
+.yayrev-modal-media-frame-content {
   border-bottom: none;
   position: absolute;
   bottom: 0;
@@ -207,7 +207,7 @@
   border-top: 1px solid #dcdcde;
   z-index: 1000000;
 }
-.yay-reviews-modal-media-frame-content .thumbnail-image {
+.yayrev-modal-media-frame-content .thumbnail-image {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,12 +216,12 @@
   position: relative;
 }
 
-.yay-reviews-modal-media-frame-content .thumbnail-image video {
+.yayrev-modal-media-frame-content .thumbnail-image video {
   max-width: 100%;
   height: auto;
 }
 
-.yay-reviews-modal-media-frame-content-left {
+.yayrev-modal-media-frame-content-left {
   position: relative;
   float: left;
   width: 65%;
@@ -230,13 +230,13 @@
   user-select: none;
 }
 
-.yay-reviews-modal-media-frame-content-left .thumbnail {
+.yayrev-modal-media-frame-content-left .thumbnail {
   box-sizing: border-box;
   padding: 16px;
   height: 100%;
 }
 
-.yay-reviews-modal-media-frame-content-left .thumbnail img {
+.yayrev-modal-media-frame-content-left .thumbnail img {
   display: block;
   margin: 0 auto 16px;
   max-width: 100%;
@@ -244,7 +244,7 @@
   max-height: calc(100% - 42px);
 }
 
-.yay-reviews-modal-media-frame-content-right {
+.yayrev-modal-media-frame-content-right {
   overflow: auto;
   box-sizing: border-box;
   margin-bottom: 0;
@@ -253,13 +253,13 @@
   height: 100%;
 }
 
-.yay-reviews-modal-media-frame-content-right .comment-details-wrapper {
+.yayrev-modal-media-frame-content-right .comment-details-wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-info {
   display: flex;
@@ -267,7 +267,7 @@
   gap: 8px;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-author-avatar {
   display: flex;
@@ -275,7 +275,7 @@
   align-items: center;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-author-avatar
   .comment-avatar {
@@ -285,7 +285,7 @@
   border-radius: 100%;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-author-avatar
   .comment-avatar
@@ -295,7 +295,7 @@
   object-fit: contain;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-author-avatar
   .comment-author {
@@ -304,19 +304,19 @@
   font-weight: 400;
 }
 
-.yay-reviews-modal-comment-rating .star-rating {
+.yayrev-modal-comment-rating .star-rating {
   float: left !important;
   font-size: 16px !important;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-date {
   color: #64748b;
   font-size: 14px;
 }
 
-.yay-reviews-modal-media-frame-content-right
+.yayrev-modal-media-frame-content-right
   .comment-details-wrapper
   .comment-content {
   color: #0f172a;
@@ -324,7 +324,7 @@
 }
 
 /* Navigation Arrows */
-.yay-reviews-nav-arrow {
+.yayrev-nav-arrow {
   cursor: pointer;
   border: none;
   outline: none;
@@ -345,63 +345,63 @@
   padding: 0.25rem;
 }
 
-.yay-reviews-nav-arrow:hover {
+.yayrev-nav-arrow:hover {
   background: #eff2f4;
   box-shadow: 0px 10px 25px 0px #12294026;
   border: none;
   color: #000;
 }
 
-.yay-reviews-nav-prev {
+.yayrev-nav-prev {
   left: 1rem;
 }
 
-.yay-reviews-nav-next {
+.yayrev-nav-next {
   right: 1rem;
 }
 
-.yay-reviews-nav-arrow svg path {
+.yayrev-nav-arrow svg path {
   stroke: #808890;
   fill: transparent;
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-nav-arrow:hover svg path {
+.yayrev-nav-arrow:hover svg path {
   stroke: #122940;
   fill: transparent;
 }
 
-.yay-reviews-nav-arrow:disabled {
+.yayrev-nav-arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
   pointer-events: none;
 }
 
 /* Show arrows when there are multiple media items */
-.yay-reviews-modal-media-frame-content-left:has(.yay-reviews-nav-arrow)
-  .yay-reviews-nav-arrow {
+.yayrev-modal-media-frame-content-left:has(.yayrev-nav-arrow)
+  .yayrev-nav-arrow {
   opacity: 0;
   transition: all 0.2s ease-in-out;
 }
 
-.yay-reviews-modal-media-frame-content-left:hover .yay-reviews-nav-arrow {
+.yayrev-modal-media-frame-content-left:hover .yayrev-nav-arrow {
   opacity: 1;
 }
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
-  .yay-reviews-nav-arrow {
+  .yayrev-nav-arrow {
     width: 24px;
     height: 24px;
     left: 8px;
     right: 8px;
   }
 
-  .yay-reviews-nav-prev {
+  .yayrev-nav-prev {
     left: 8px;
   }
 
-  .yay-reviews-nav-next {
+  .yayrev-nav-next {
     right: 8px;
   }
 }

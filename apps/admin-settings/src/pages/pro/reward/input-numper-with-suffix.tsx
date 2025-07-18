@@ -62,7 +62,7 @@ export const InputNumberWithSuffix = ({
           onChange={(e) => onChange(Number(e.target.value))}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          className="yay-reviews-input-number-with-suffix flex-1 border-0! bg-transparent px-3 py-2 pr-[4px]! text-sm font-normal text-gray-400 focus-visible:ring-0! focus-visible:outline-none!"
+          className="yayrev-input-number-with-suffix flex-1 border-0! bg-transparent px-3 py-2 pr-[4px]! text-sm font-normal text-gray-400 focus-visible:ring-0! focus-visible:outline-none!"
           min={0}
           max={suffix === 'percentage' ? 100 : undefined}
         />

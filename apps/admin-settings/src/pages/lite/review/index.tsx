@@ -27,7 +27,7 @@ export default function ReviewPage() {
   return (
     <ReviewProvider>
       <PageLayout>
-        <PageTitle title={__('Review settings', 'yay-reviews')} />
+        <PageTitle title={__('Review settings', 'yay-customer-reviews-woocommerce')} />
         <div className="container mx-auto px-7 py-0">
           <div className="flex flex-col gap-4">
             <UploadMediaCard />
@@ -48,7 +48,7 @@ function UploadMediaCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
-            <span>{__('Upload media', 'yay-reviews')}</span>
+            <span>{__('Upload media', 'yay-customer-reviews-woocommerce')}</span>
             <ActiveBadge enabled={enableMediaUpload} />
           </div>
           <FormField
@@ -76,34 +76,34 @@ function UploadMediaCard() {
             )}
           />
           <Label htmlFor="reviews.require_media_upload">
-            {__('Is media required when submitting a review?', 'yay-reviews')}
+            {__('Is media required when submitting a review?', 'yay-customer-reviews-woocommerce')}
           </Label>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
           <div className="space-y-2">
-            <Label htmlFor="reviews.allowed_media_types">{__('Media types', 'yay-reviews')}</Label>
+            <Label htmlFor="reviews.allowed_media_types">{__('Media types', 'yay-customer-reviews-woocommerce')}</Label>
             <FormField
               control={control}
               name="reviews.allowed_media_types"
               render={({ field: { value, onChange } }) => (
                 <Select value={value} onValueChange={onChange}>
                   <SelectTrigger id="reviews.allowed_media_types" className="w-full">
-                    <SelectValue placeholder={__('Select types', 'yay-reviews')} />
+                    <SelectValue placeholder={__('Select types', 'yay-customer-reviews-woocommerce')} />
                   </SelectTrigger>
                   <SelectContent>
                     {[
                       {
                         value: 'video_photo',
-                        label: __('Video and photo', 'yay-reviews'),
+                        label: __('Video and photo', 'yay-customer-reviews-woocommerce'),
                       },
                       {
                         value: 'only_video',
-                        label: __('Only video', 'yay-reviews'),
+                        label: __('Only video', 'yay-customer-reviews-woocommerce'),
                       },
                       {
                         value: 'only_photo',
-                        label: __('Only photo', 'yay-reviews'),
+                        label: __('Only photo', 'yay-customer-reviews-woocommerce'),
                       },
                     ].map((item) => (
                       <SelectItem key={item.value} value={item.value}>
@@ -118,7 +118,7 @@ function UploadMediaCard() {
 
           <div className="space-y-2">
             <Label htmlFor="reviews.max_upload_files">
-              {__('Maximum files per review', 'yay-reviews')}
+              {__('Maximum files per review', 'yay-customer-reviews-woocommerce')}
             </Label>
             <FormField
               control={control}
@@ -131,7 +131,7 @@ function UploadMediaCard() {
                   onChange={(e) =>
                     onChange(e.target.value == '' ? '' : Math.max(1, Number(e.target.value)))
                   }
-                  placeholder={__('Unlimited', 'yay-reviews')}
+                  placeholder={__('Unlimited', 'yay-customer-reviews-woocommerce')}
                   className="w-full"
                   min={1}
                   max={20}
@@ -142,7 +142,7 @@ function UploadMediaCard() {
 
           <div className="space-y-2">
             <Label htmlFor="reviews.max_upload_filesize">
-              {__('Maximum file size (Kb)', 'yay-reviews')}
+              {__('Maximum file size (Kb)', 'yay-customer-reviews-woocommerce')}
             </Label>
             <FormField
               control={control}
@@ -161,14 +161,14 @@ function UploadMediaCard() {
               )}
             />
             <div className="text-muted-foreground mt-2 text-sm">
-              {__('Maximum 102400Kbs', 'yay-reviews')}
+              {__('Maximum 102400Kbs', 'yay-customer-reviews-woocommerce')}
             </div>
           </div>
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="reviews.media_upload_label">
-            {__('Field label (optional)', 'yay-reviews')}
+            {__('Field label (optional)', 'yay-customer-reviews-woocommerce')}
           </Label>
           <FormField
             control={control}
@@ -180,7 +180,7 @@ function UploadMediaCard() {
                 value={value}
                 onChange={onChange}
                 className="w-full"
-                placeholder={__('Upload media', 'yay-reviews')}
+                placeholder={__('Upload media', 'yay-customer-reviews-woocommerce')}
               />
             )}
           />
@@ -188,7 +188,7 @@ function UploadMediaCard() {
 
         <div className="space-y-2">
           <Label htmlFor="reviews.media_upload_description">
-            {__('Field description (optional)', 'yay-reviews')}
+            {__('Field description (optional)', 'yay-customer-reviews-woocommerce')}
           </Label>
           <FormField
             control={control}
@@ -199,7 +199,7 @@ function UploadMediaCard() {
                 rows={4}
                 value={value}
                 onChange={onChange}
-                placeholder={__('Type your description here', 'yay-reviews')}
+                placeholder={__('Type your description here', 'yay-customer-reviews-woocommerce')}
                 className="w-full"
               />
             )}
@@ -218,7 +218,7 @@ function DataProcessingConsentCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
-            <span>{__('Data processing consent', 'yay-reviews')}</span>
+            <span>{__('Data processing consent', 'yay-customer-reviews-woocommerce')}</span>
             <ActiveBadge enabled={enableGdprConsent} />
           </div>
           <FormField
@@ -234,7 +234,7 @@ function DataProcessingConsentCard() {
 
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="reviews.pre_gdpr_message">{__('Before message', 'yay-reviews')}</Label>
+          <Label htmlFor="reviews.pre_gdpr_message">{__('Before message', 'yay-customer-reviews-woocommerce')}</Label>
           <FormField
             control={control}
             name="reviews.pre_gdpr_message"
@@ -246,7 +246,7 @@ function DataProcessingConsentCard() {
                 onChange={onChange}
                 placeholder={__(
                   'We respect your privacy and need your consent to continue.',
-                  'yay-reviews',
+                  'yay-customer-reviews-woocommerce',
                 )}
               />
             )}
@@ -255,7 +255,7 @@ function DataProcessingConsentCard() {
 
         <div className="space-y-2">
           <Label htmlFor="reviews.gdpr_consent_message">
-            {__('Inline GDPR message', 'yay-reviews')}
+            {__('Inline GDPR message', 'yay-customer-reviews-woocommerce')}
           </Label>
           <FormField
             control={control}
@@ -266,7 +266,7 @@ function DataProcessingConsentCard() {
                 rows={4}
                 value={value}
                 onChange={onChange}
-                placeholder={__('I agree to the Privacy Policy.', 'yay-reviews')}
+                placeholder={__('I agree to the Privacy Policy.', 'yay-customer-reviews-woocommerce')}
               />
             )}
           />
@@ -291,14 +291,14 @@ function WooCommerceSettingsCard() {
         });
         toast.success(
           (name === 'verification_label'
-            ? __('Verified owner label', 'yay-reviews')
+            ? __('Verified owner label', 'yay-customer-reviews-woocommerce')
             : name === 'verification_required'
-              ? __('Verification required', 'yay-reviews')
+              ? __('Verification required', 'yay-customer-reviews-woocommerce')
               : name === 'enable_review_rating'
-                ? __('Star ratings enabled', 'yay-reviews')
-                : __('Star ratings required', 'yay-reviews')) +
+                ? __('Star ratings enabled', 'yay-customer-reviews-woocommerce')
+                : __('Star ratings required', 'yay-customer-reviews-woocommerce')) +
             ': ' +
-            (value ? __('ON', 'yay-reviews') : __('OFF', 'yay-reviews')),
+            (value ? __('ON', 'yay-customer-reviews-woocommerce') : __('OFF', 'yay-customer-reviews-woocommerce')),
         );
       } else {
         toast.error(res.data.mess);
@@ -312,7 +312,7 @@ function WooCommerceSettingsCard() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div className="text-foreground flex flex-wrap items-center gap-3 text-xl font-semibold">
-            <span>{__('WooCommerce Settings', 'yay-reviews')}</span>
+            <span>{__('WooCommerce Settings', 'yay-customer-reviews-woocommerce')}</span>
           </div>
         </div>
         <div className="border-t border-t-[#f0f0f0]" />
@@ -320,7 +320,7 @@ function WooCommerceSettingsCard() {
 
       <div className="space-y-6">
         <div className="text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
-          {__('Reviews', 'yay-reviews')}
+          {__('Reviews', 'yay-customer-reviews-woocommerce')}
         </div>
         <div className="flex items-center gap-2">
           <Switch
@@ -332,7 +332,7 @@ function WooCommerceSettingsCard() {
             }
           />
           <Label htmlFor="woocommerce_review_rating_verification_label">
-            {__('Show "verified owner" label on customer reviews', 'yay-reviews')}
+            {__('Show "verified owner" label on customer reviews', 'yay-customer-reviews-woocommerce')}
           </Label>
         </div>
         <div className="flex items-center gap-2">
@@ -345,14 +345,14 @@ function WooCommerceSettingsCard() {
             }
           />
           <Label htmlFor="woocommerce_review_rating_verification_required">
-            {__('Reviews can only be left by "verified owners"', 'yay-reviews')}
+            {__('Reviews can only be left by "verified owners"', 'yay-customer-reviews-woocommerce')}
           </Label>
         </div>
       </div>
-      <hr className="yay-reviews-hr border-t border-[#f0f0f0]" />
+      <hr className="yayrev-hr border-t border-[#f0f0f0]" />
       <div className="space-y-6">
         <div className="text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
-          {__('Product ratings', 'yay-reviews')}
+          {__('Product ratings', 'yay-customer-reviews-woocommerce')}
         </div>
         <div className="flex items-center gap-2">
           <Switch
@@ -364,7 +364,7 @@ function WooCommerceSettingsCard() {
             }
           />
           <Label htmlFor="woocommerce_enable_review_rating">
-            {__('Enable star rating on reviews', 'yay-reviews')}
+            {__('Enable star rating on reviews', 'yay-customer-reviews-woocommerce')}
           </Label>
         </div>
         {wcReviewsSettings.enable_review_rating && (
@@ -378,7 +378,7 @@ function WooCommerceSettingsCard() {
               }
             />
             <Label htmlFor="woocommerce_review_rating_required">
-              {__('Star ratings should be required, not optional', 'yay-reviews')}
+              {__('Star ratings should be required, not optional', 'yay-customer-reviews-woocommerce')}
             </Label>
           </div>
         )}
@@ -391,7 +391,7 @@ function WooCommerceSettingsCard() {
             window.open(window.yayReviews.wc_settings_url, '_blank');
           }}
         >
-          {__('WooCommerce settings', 'yay-reviews')}
+          {__('WooCommerce settings', 'yay-customer-reviews-woocommerce')}
         </span>
       </div>
     </Card>
@@ -404,7 +404,7 @@ function ActiveBadge({ enabled }: { enabled: boolean }) {
       variant={enabled ? 'default' : 'outline'}
       className={cn('text-xs transition-none', enabled && 'bg-green-600')}
     >
-      {enabled ? __('Active', 'yay-reviews') : __('Inactive', 'yay-reviews')}
+      {enabled ? __('Active', 'yay-customer-reviews-woocommerce') : __('Inactive', 'yay-customer-reviews-woocommerce')}
     </Badge>
   );
 }

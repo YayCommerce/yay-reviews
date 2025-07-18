@@ -1,9 +1,8 @@
 <?php
 
-namespace YayReviews\Addons\Reward;
+namespace YayRev\Addons\Reward;
 
-use YayReviews\Classes\Helpers;
-use YayReviews\Models\CouponModel;
+use YayRev\Models\CouponModel;
 
 class Reward {
 

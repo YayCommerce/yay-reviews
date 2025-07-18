@@ -43,7 +43,7 @@ export const updateEmailPreview = (
   templateId: string,
 ) => {
   if (templateId === '') return;
-  const previewEmail = jQuery('#yay-reviews-email-preview-iframe');
+  const previewEmail = jQuery('#yayrev-email-preview-iframe');
   if (!previewEmail) return;
   if (type === 'heading') {
     previewEmail.contents().find('#header_wrapper h1').html(content);

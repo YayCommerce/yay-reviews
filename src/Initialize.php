@@ -1,7 +1,7 @@
 <?php
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\SingletonTrait;
+use YayRev\SingletonTrait;
 
 
 /**
@@ -15,11 +15,11 @@ class Initialize {
 	 * The Constructor that load the engine classes
 	 */
 	protected function __construct() {
-		\YayReviews\Classes\Emails::get_instance();
-		\YayReviews\Classes\Cron::get_instance();
-		\YayReviews\Register\RegisterFacade::get_instance();
-		\YayReviews\RestAPI::get_instance();
-		\YayReviews\Ajax::get_instance();
+		\YayRev\Classes\Emails::get_instance();
+		\YayRev\Classes\Cron::get_instance();
+		\YayRev\Register\RegisterFacade::get_instance();
+		\YayRev\RestAPI::get_instance();
+		\YayRev\Ajax::get_instance();
 		// check queue table exists and create if not exists
 		ActDeact::activate();
 	}

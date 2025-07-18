@@ -2,10 +2,10 @@
 /**
  * YayCommerce other plugins menu
  *
- * @package YayReviews
+ * @package YayRev
  */
 
-namespace YayReviews\YayCommerceMenu;
+namespace YayRev\YayCommerceMenu;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -119,7 +119,7 @@ class OtherPluginsMenu {
 			<div class="yay-recommended-plugins-layout">
 				<div class="yay-recommended-plugins-layout-header">
 					<div class="wp-filter yay-recommended-plugins-header">
-						<h2 class="yay-recommended-plugins-header-title"><?php esc_attr_e( 'Other Plugins', 'yay-reviews' ); ?></h2>
+						<h2 class="yay-recommended-plugins-header-title"><?php esc_attr_e( 'Other Plugins', 'yay-customer-reviews-woocommerce' ); ?></h2>
 						<ul class="filter-links">
 							<?php
 							echo wp_kses_post( $featured_tab );
@@ -289,7 +289,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['tab'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-customer-reviews-woocommerce' ) ) );
 				}
 				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 				$tab                 = sanitize_text_field( wp_unslash( $_POST['tab'] ) );
@@ -307,7 +307,7 @@ class OtherPluginsMenu {
 				ob_end_clean();
 				wp_send_json_success(
 					array(
-						'mess' => __( 'Get data success', 'yay-reviews' ),
+						'mess' => __( 'Get data success', 'yay-customer-reviews-woocommerce' ),
 						'html' => $html,
 					)
 				);
@@ -315,7 +315,7 @@ class OtherPluginsMenu {
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yay-reviews' ),
+					'mess' => __( 'Error exception.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),
@@ -324,7 +324,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yay-reviews' ),
+					'mess' => __( 'Error.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),
@@ -338,7 +338,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['file'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-customer-reviews-woocommerce' ) ) );
 				}
 				$file   = sanitize_file_name( wp_unslash( $_POST['file'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotUnslashed
 				$result = activate_plugin( $file );
@@ -352,14 +352,14 @@ class OtherPluginsMenu {
 				}
 				wp_send_json_success(
 					array(
-						'mess' => __( 'Activate success', 'yay-reviews' ),
+						'mess' => __( 'Activate success', 'yay-customer-reviews-woocommerce' ),
 					)
 				);
 			}
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yay-reviews' ),
+					'mess' => __( 'Error exception.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),
@@ -368,7 +368,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yay-reviews' ),
+					'mess' => __( 'Error.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),
@@ -386,7 +386,7 @@ class OtherPluginsMenu {
 			if ( isset( $_POST['plugin'] ) ) {
 				$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 				if ( ! wp_verify_nonce( $nonce, 'yay_recommended_nonce' ) ) {
-					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-reviews' ) ) );
+					wp_send_json_error( array( 'mess' => __( 'Nonce is invalid', 'yay-customer-reviews-woocommerce' ) ) );
 				}
 				$plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
 				$type     = isset( $_POST['type'] ) ? sanitize_text_field( wp_unslash( $_POST['type'] ) ) : 'install';
@@ -435,7 +435,7 @@ class OtherPluginsMenu {
 						} else {
 							wp_send_json_success(
 								array(
-									'mess' => __( 'Install success', 'yay-reviews' ),
+									'mess' => __( 'Install success', 'yay-customer-reviews-woocommerce' ),
 								)
 							);
 						}
@@ -459,7 +459,7 @@ class OtherPluginsMenu {
 						activate_plugin( $plugin );
 						wp_send_json_success(
 							array(
-								'mess'   => __( 'Update success', 'yay-reviews' ),
+								'mess'   => __( 'Update success', 'yay-customer-reviews-woocommerce' ),
 								'active' => $is_active,
 							)
 						);
@@ -469,7 +469,7 @@ class OtherPluginsMenu {
 		} catch ( \Exception $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error exception.', 'yay-reviews' ),
+					'mess' => __( 'Error exception.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),
@@ -478,7 +478,7 @@ class OtherPluginsMenu {
 		} catch ( \Error $ex ) {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Error.', 'yay-reviews' ),
+					'mess' => __( 'Error.', 'yay-customer-reviews-woocommerce' ),
 					array(
 						'error' => $ex,
 					),

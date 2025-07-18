@@ -1,4 +1,4 @@
-PLUGIN_SLUG="yay-reviews"
+PLUGIN_SLUG="yay-customer-reviews-woocommerce"
 PROJECT_PATH=$(pwd)
 RELEASE_PATH="${PROJECT_PATH}/release"
 DEST_PATH="$RELEASE_PATH/$PLUGIN_SLUG"
@@ -23,7 +23,7 @@ composer run cbf ../release
 cd ..
 
 # STEP3 Remove Development files
-sed -i "" "/'YAYREV_IS_DEVELOPMENT', true/d" "$DEST_PATH/yay-reviews.php"
+sed -i "" "/'YAYREV_IS_DEVELOPMENT', true/d" "$DEST_PATH/yay-customer-reviews-woocommerce.php"
 rm -rf "$DEST_PATH/includes/Engine/Register/RegisterDev.php"
 
 echo "Generating zip file..."

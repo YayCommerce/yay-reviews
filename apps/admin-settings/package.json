@@ -1,5 +1,5 @@
 {
-  "name": "admin-yay-reviews",
+  "name": "admin-yay-customer-reviews-woocommerce",
   "description": "Admin React application",
   "private": true,
   "version": "1.0.0",
@@ -10,7 +10,7 @@
   "author": "Yay Commerce",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "tsc --noEmit && vite build --base=/wp-content/plugins/yay-reviews/assets/admin/dist/",
+    "build": "tsc --noEmit && vite build --base=/wp-content/plugins/yay-customer-reviews-woocommerce/assets/admin/dist/",
     "dev": "vite"
   },
   "dependencies": {

@@ -28,10 +28,10 @@ export type Addon = {
 const addonsInformation = [
   {
     id: 'reminder',
-    title: __('Review reminder', 'yay-reviews'),
+    title: __('Review reminder', 'yay-customer-reviews-woocommerce'),
     description: __(
       'Sends reminders to customers after buying, encouraging reviews and increasing engagement.',
-      'yay-reviews',
+      'yay-customer-reviews-woocommerce',
     ),
     icon: <ReminderIcon size={30} />,
     settingsPath: 'addons.reminder',
@@ -39,10 +39,10 @@ const addonsInformation = [
   },
   {
     id: 'reward',
-    title: __('Review rewards', 'yay-reviews'),
+    title: __('Review rewards', 'yay-customer-reviews-woocommerce'),
     description: __(
       'Sends discount coupons for quality reviews meeting set criteria, encouraging great feedback and repeat purchases.',
-      'yay-reviews',
+      'yay-customer-reviews-woocommerce',
     ),
     icon: <GiftIcon size={30} />,
     settingsPath: 'addons.reward',
@@ -75,22 +75,22 @@ export default function DashboardPage() {
   return (
     <PageLayout className="items-start">
       <PageTitle
-        title={__('Welcome to Yay Reviews', 'yay-reviews')}
+        title={__('Welcome to Yay Reviews', 'yay-customer-reviews-woocommerce')}
         description={
           <>
             <span>
               {__(
                 'Your central hub for managing review forms, reminders, and coupons, providing an intuitive interface to monitor and optimize customer feedback.',
-                'yay-reviews',
+                'yay-customer-reviews-woocommerce',
               )}
             </span>
             <br />
-            <span>{__('Go to', 'yay-reviews')} </span>
+            <span>{__('Go to', 'yay-customer-reviews-woocommerce')} </span>
             <span
               className="cursor-pointer lowercase underline decoration-solid"
               onClick={() => changeTab('review')}
             >
-              {__('Review settings', 'yay-reviews')}
+              {__('Review settings', 'yay-customer-reviews-woocommerce')}
             </span>
           </>
         }
@@ -98,7 +98,7 @@ export default function DashboardPage() {
       <WooCommerceReviewStatus />
       <div className="container mx-auto px-7 py-0">
         <div className="text-foreground mb-6 text-xl font-semibold">
-          {__('Addon-on settings', 'yay-reviews')}
+          {__('Addon-on settings', 'yay-customer-reviews-woocommerce')}
         </div>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {addons.map((addon) => (

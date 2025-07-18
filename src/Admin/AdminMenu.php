@@ -1,15 +1,15 @@
 <?php
 
-namespace YayReviews\Admin;
+namespace YayRev\Admin;
 
-use YayReviews\Classes\Helpers;
-use YayReviews\Classes\View;
-use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
-use YayReviews\Emails\ReminderEmail;
-use YayReviews\Models\CouponModel;
-use YayReviews\Models\SettingsModel;
-use YayReviews\Register\ScriptName;
-use YayReviews\SingletonTrait;
+use YayRev\Classes\Helpers;
+use YayRev\Classes\View;
+use YayRev\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayRev\Emails\ReminderEmail;
+use YayRev\Models\CouponModel;
+use YayRev\Models\SettingsModel;
+use YayRev\Register\ScriptName;
+use YayRev\SingletonTrait;
 
 class AdminMenu {
 
@@ -19,7 +19,7 @@ class AdminMenu {
 
 	public static $position = 0;
 
-	public static $menu_slug = 'yay-reviews';
+	public static $menu_slug = 'yayrev';
 
 	public function __construct() {
 		add_action( 'admin_menu', array( $this, 'add_yayrev_menu' ), YAYREV_MENU_PRIORITY );
@@ -32,8 +32,8 @@ class AdminMenu {
 	public function add_yayrev_menu() {
 		$menu_args = array(
 			'parent_slug' => 'yaycommerce',
-			'page_title'  => __( 'Yay Reviews Settings', 'yay-reviews' ),
-			'menu_title'  => __( 'YayReviews', 'yay-reviews' ),
+			'page_title'  => __( 'Yay Reviews Settings', 'yay-customer-reviews-woocommerce' ),
+			'menu_title'  => __( 'YayReviews', 'yay-customer-reviews-woocommerce' ),
 			'capability'  => self::$capability,
 			'menu_slug'   => self::$menu_slug,
 			'function'    => array( $this, 'render_yayrev_page' ),

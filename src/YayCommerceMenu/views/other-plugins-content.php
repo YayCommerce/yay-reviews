@@ -75,22 +75,22 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 								esc_attr( $download_link ),
 								esc_attr( $download_link ),
 								/* translators: %s: Plugin name and version. */
-								esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'yay-reviews' ), $name ) ),
-								__( 'Install Now', 'yay-reviews' )
+								esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'yay-customer-reviews-woocommerce' ), $name ) ),
+								__( 'Install Now', 'yay-customer-reviews-woocommerce' )
 							);
 						} else {
 							$action_links[] = sprintf(
 								'<button class="install-now button button-primary" data-install-url="%s" aria-label="%s">%s</button>',
 								esc_attr( $download_link ),
 								/* translators: %s: Plugin name and version. */
-								esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'yay-reviews' ), $name ) ),
-								__( 'Install Now', 'yay-reviews' )
+								esc_attr( sprintf( _x( 'Install %s now', 'plugin', 'yay-customer-reviews-woocommerce' ), $name ) ),
+								__( 'Install Now', 'yay-customer-reviews-woocommerce' )
 							);
 						}
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Install', 'plugin', 'yay-reviews' )
+							_x( 'Cannot Install', 'plugin', 'yay-customer-reviews-woocommerce' )
 						);
 					}
 				}
@@ -107,9 +107,9 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 								esc_attr( $recommended_plugin['slug'] ),
 								esc_url( $install_status['url'] ),
 								/* translators: %s: Plugin name and version. */
-								esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'yay-reviews' ), $name ) ),
+								esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'yay-customer-reviews-woocommerce' ), $name ) ),
 								esc_attr( $name ),
-								__( 'Update Now', 'yay-reviews' )
+								__( 'Update Now', 'yay-customer-reviews-woocommerce' )
 							);
 						} else {
 							$action_links[] = sprintf(
@@ -118,15 +118,15 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 								esc_attr( $recommended_plugin['slug'] ),
 								esc_url( $install_status['url'] ),
 								/* translators: %s: Plugin name and version. */
-								esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'yay-reviews' ), $name ) ),
+								esc_attr( sprintf( _x( 'Update %s now', 'plugin', 'yay-customer-reviews-woocommerce' ), $name ) ),
 								esc_attr( $name ),
-								__( 'Update Now', 'yay-reviews' )
+								__( 'Update Now', 'yay-customer-reviews-woocommerce' )
 							);
 						}
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Update', 'plugin', 'yay-reviews' )
+							_x( 'Cannot Update', 'plugin', 'yay-customer-reviews-woocommerce' )
 						);
 					}
 				}
@@ -143,14 +143,14 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 					$plugin_status  = '<span class="plugin-status-active">Active</span>';
 					$action_links[] = sprintf(
 						'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-						_x( 'Activated', 'plugin', 'yay-reviews' )
+						_x( 'Activated', 'plugin', 'yay-customer-reviews-woocommerce' )
 					);
 				} elseif ( current_user_can( 'activate_plugin', $install_status['file'] ) ) {
 					$plugin_status = '<span class="plugin-status-inactive" data-plugin-file="' . esc_attr( $install_status['file'] ) . '">Inactive</span>';
 					if ( $compatible_php && $compatible_wp ) {
-						$button_text = __( 'Activate', 'yay-reviews' );
+						$button_text = __( 'Activate', 'yay-customer-reviews-woocommerce' );
 						/* translators: %s: Plugin name. */
-						$button_label = _x( 'Activate %s', 'plugin', 'yay-reviews' );
+						$button_label = _x( 'Activate %s', 'plugin', 'yay-customer-reviews-woocommerce' );
 						$activate_url = add_query_arg(
 							array(
 								'_wpnonce' => wp_create_nonce( 'activate-plugin_' . $install_status['file'] ),
@@ -161,9 +161,9 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 						);
 
 						if ( is_network_admin() ) {
-							$button_text = __( 'Network Activate', 'yay-reviews' );
+							$button_text = __( 'Network Activate', 'yay-customer-reviews-woocommerce' );
 							/* translators: %s: Plugin name. */
-							$button_label = _x( 'Network Activate %s', 'plugin', 'yay-reviews' );
+							$button_label = _x( 'Network Activate %s', 'plugin', 'yay-customer-reviews-woocommerce' );
 							$activate_url = add_query_arg( array( 'networkwide' => 1 ), $activate_url );
 						}
 
@@ -176,13 +176,13 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 					} else {
 						$action_links[] = sprintf(
 							'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-							_x( 'Cannot Activate', 'plugin', 'yay-reviews' )
+							_x( 'Cannot Activate', 'plugin', 'yay-customer-reviews-woocommerce' )
 						);
 					}
 				} else {
 					$action_links[] = sprintf(
 						'<button type="button" class="button button-disabled" disabled="disabled">%s</button>',
-						_x( 'Installed', 'plugin', 'yay-reviews' )
+						_x( 'Installed', 'plugin', 'yay-customer-reviews-woocommerce' )
 					);
 				}
 				break;
@@ -212,11 +212,11 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 		if ( ! $compatible_php || ! $compatible_wp ) {
 			echo '<div class="notice inline notice-error notice-alt"><p>';
 			if ( ! $compatible_php && ! $compatible_wp ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your versions of WordPress and PHP.', 'yay-reviews' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your versions of WordPress and PHP.', 'yay-customer-reviews-woocommerce' );
 				if ( current_user_can( 'update_core' ) && current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: 1: URL to WordPress Updates screen, 2: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', 'yay-reviews' ),
+						' ' . esc_html__( '<a href="%1$s">Please update WordPress</a>, and then <a href="%2$s">learn more about updating PHP</a>.', 'yay-customer-reviews-woocommerce' ),
 						esc_url( self_admin_url( 'update-core.php' ) ),
 						esc_url( wp_get_update_php_url() )
 					);
@@ -224,32 +224,32 @@ foreach ( (array) $recommended_plugins as $recommended_plugin ) {
 				} elseif ( current_user_can( 'update_core' ) ) {
 					printf(
 						/* translators: %s: URL to WordPress Updates screen. */
-						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'yay-reviews' ),
+						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'yay-customer-reviews-woocommerce' ),
 						esc_url( self_admin_url( 'update-core.php' ) )
 					);
 				} elseif ( current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: %s: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'yay-reviews' ),
+						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'yay-customer-reviews-woocommerce' ),
 						esc_url( wp_get_update_php_url() )
 					);
 					wp_update_php_annotation( '</p><p><em>', '</em>' );
 				}
 			} elseif ( ! $compatible_wp ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your version of WordPress.', 'yay-reviews' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your version of WordPress.', 'yay-customer-reviews-woocommerce' );
 				if ( current_user_can( 'update_core' ) ) {
 					printf(
 						/* translators: %s: URL to WordPress Updates screen. */
-						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'yay-reviews' ),
+						' ' . esc_html__( '<a href="%s">Please update WordPress</a>.', 'yay-customer-reviews-woocommerce' ),
 						esc_url( self_admin_url( 'update-core.php' ) )
 					);
 				}
 			} elseif ( ! $compatible_php ) {
-				echo esc_html__( 'This plugin doesn&#8217;t work with your version of PHP.', 'yay-reviews' );
+				echo esc_html__( 'This plugin doesn&#8217;t work with your version of PHP.', 'yay-customer-reviews-woocommerce' );
 				if ( current_user_can( 'update_php' ) ) {
 					printf(
 						/* translators: %s: URL to Update PHP page. */
-						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'yay-reviews' ),
+						' ' . esc_html__( '<a href="%s">Learn more about updating PHP</a>.', 'yay-customer-reviews-woocommerce' ),
 						esc_url( wp_get_update_php_url() )
 					);
 					wp_update_php_annotation( '</p><p><em>', '</em>' );

@@ -39,9 +39,9 @@ export const NewCouponDrawer = ({
   return (
     <Drawer open={open} onOpenChange={setOpen} direction="right">
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="yay-reviews-coupon-form mt-[32px]">
+      <DrawerContent className="yayrev-coupon-form mt-[32px]">
         <DrawerHeader className="border-b text-left">
-          <DrawerTitle className="m-0">{__('Create new coupon', 'yay-reviews')}</DrawerTitle>
+          <DrawerTitle className="m-0">{__('Create new coupon', 'yay-customer-reviews-woocommerce')}</DrawerTitle>
           <DrawerDescription className="hidden"></DrawerDescription>
         </DrawerHeader>
         <CouponForm

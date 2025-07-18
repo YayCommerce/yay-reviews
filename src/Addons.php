@@ -1,9 +1,9 @@
 <?php
 
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\Addons\Reward\RewardAddonController;
-use YayReviews\SingletonTrait;
+use YayRev\Addons\Reward\RewardAddonController;
+use YayRev\SingletonTrait;
 
 class Addons {
 

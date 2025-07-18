@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Queue;
+namespace YayRev\Queue;
 
 class RewardQueue extends SingleQueue {
 }

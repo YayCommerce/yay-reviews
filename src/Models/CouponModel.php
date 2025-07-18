@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Models;
+namespace YayRev\Models;
 
 class CouponModel {
 	/**

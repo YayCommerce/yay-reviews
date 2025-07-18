@@ -41,7 +41,7 @@ export default function WooCommerceReviewStatus() {
                 <span>
                   {isWcReviewsEnabled
                     ? __('You can change this any time in')
-                    : __('Product reviews are disabled by WooCommerce.', 'yay-reviews')}
+                    : __('Product reviews are disabled by WooCommerce.', 'yay-customer-reviews-woocommerce')}
                 </span>
                 {isWcReviewsEnabled && (
                   <>
@@ -52,7 +52,7 @@ export default function WooCommerceReviewStatus() {
                         window.open(window.yayReviews.wc_settings_url, '_blank');
                       }}
                     >
-                      {__('WooCommerce settings', 'yay-reviews')}
+                      {__('WooCommerce settings', 'yay-customer-reviews-woocommerce')}
                     </span>
                   </>
                 )}
@@ -71,7 +71,7 @@ export default function WooCommerceReviewStatus() {
                       <Loader2Icon className="animate-spin" />
                     </div>
                   ) : (
-                    __('Turn on', 'yay-reviews')
+                    __('Turn on', 'yay-customer-reviews-woocommerce')
                   )}
                 </Button>
               )}

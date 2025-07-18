@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-  const reviewTitleInput = $(".yay-reviews-review-title");
+  const reviewTitleInput = $(".yayrev-review-title");
   const commentInput = $(".comment-form-comment");
   // swap review title and comment input
   if (reviewTitleInput.length && commentInput.length) {
@@ -19,8 +19,8 @@ jQuery(document).ready(function ($) {
     });
   }
 
-  const fileInput = document.getElementById("yay-reviews-file-input");
-  const grid = document.querySelector(".yay-reviews-upload-media__upload-list");
+  const fileInput = document.getElementById("yayrev-file-input");
+  const grid = document.querySelector(".yayrev-upload-media__upload-list");
   let yayReviewsFilesArr = [];
   let renderedFilesCount = 0;
 
@@ -68,7 +68,7 @@ jQuery(document).ready(function ($) {
       let overlay = "";
       if (file.type.startsWith("video/")) {
         overlay = `
-          <div class="yay-reviews-media-card__video-details">
+          <div class="yayrev-media-card__video-details">
             <span>
               <!-- Play icon SVG -->
               <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,29 +94,29 @@ jQuery(document).ready(function ($) {
 
       const card = document.createElement("div");
       card.className =
-        "yay-reviews-upload-media__upload-item yay-reviews-media-card";
+        "yayrev-upload-media__upload-item yayrev-media-card";
       card.innerHTML = `
-        <div class="yay-reviews-media-card-wrapper">
-          <div class="yay-reviews-media-card-inner">
+        <div class="yayrev-media-card-wrapper">
+          <div class="yayrev-media-card-inner">
             <img src="${thumbnailUrl}" alt="preview" data-file-type="${file.type}">
             ${overlay}
           </div>
         </div>
-        <button type="button" class="yay-reviews-upload-media__upload-item-remove"  data-index="${i}">&times;</button>
+        <button type="button" class="yayrev-upload-media__upload-item-remove"  data-index="${i}">&times;</button>
       `;
       grid.insertBefore(card, grid.lastElementChild);
     }
     renderedFilesCount = yayReviewsFilesArr.length;
 
     // Hide upload card if max files reached
-    const uploadCard = grid.querySelector(".yay-reviews-upload-button");
+    const uploadCard = grid.querySelector(".yayrev-upload-button");
     if (
       uploadCard &&
-      yay_reviews.max_upload_files &&
-      yay_reviews.max_upload_files !== ""
+      yayrev.max_upload_files &&
+      yayrev.max_upload_files !== ""
     ) {
       uploadCard.style.display =
-        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
+        yayReviewsFilesArr.length >= parseInt(yayrev.max_upload_files)
           ? "none"
           : "flex";
     }
@@ -125,7 +125,7 @@ jQuery(document).ready(function ($) {
   // Handle delete button clicks
   $(document).on(
     "click",
-    ".yay-reviews-upload-media__upload-item-remove",
+    ".yayrev-upload-media__upload-item-remove",
     function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -137,7 +137,7 @@ jQuery(document).ready(function ($) {
   function removeFile(idx) {
     // Remove the thumbnail element
     const thumbCards = grid.querySelectorAll(
-      ".yay-reviews-upload-media__upload-item"
+      ".yayrev-upload-media__upload-item"
     );
     if (thumbCards[idx]) {
       thumbCards[idx].remove();
@@ -165,14 +165,14 @@ jQuery(document).ready(function ($) {
     fileInput.files = dataTransfer.files;
 
     // Show upload card if below max
-    const uploadCard = grid.querySelector(".yay-reviews-upload-button");
+    const uploadCard = grid.querySelector(".yayrev-upload-button");
     if (
       uploadCard &&
-      yay_reviews.max_upload_files &&
-      yay_reviews.max_upload_files !== ""
+      yayrev.max_upload_files &&
+      yayrev.max_upload_files !== ""
     ) {
       uploadCard.style.display =
-        yayReviewsFilesArr.length >= parseInt(yay_reviews.max_upload_files)
+        yayReviewsFilesArr.length >= parseInt(yayrev.max_upload_files)
           ? "none"
           : "flex";
     }
@@ -212,40 +212,40 @@ jQuery(document).ready(function ($) {
     }
   };
 
-  if (jQuery("#yay-reviews-file-input").closest("form").length) {
-    jQuery("#yay-reviews-file-input").closest("form")[0].encoding =
+  if (jQuery("#yayrev-file-input").closest("form").length) {
+    jQuery("#yayrev-file-input").closest("form")[0].encoding =
       "multipart/form-data";
   }
 
   // Add form validation
   $("form.comment-form").on("submit", function (e) {
     // File upload validation
-    var fileInput = $("#yay-reviews-file-input");
+    var fileInput = $("#yayrev-file-input");
     if (
       fileInput.length &&
       fileInput.prop("required") &&
       fileInput[0].files.length === 0
     ) {
       e.preventDefault();
-      alert(yay_reviews.texts.file_required_notice);
+      alert(yayrev.texts.file_required_notice);
       return false;
     }
 
     // Review title validation max length 60
-    var reviewTitle = $("#yay-reviews-title").val();
+    var reviewTitle = $("#yayrev-title").val();
     if (reviewTitle && reviewTitle.length > 60) {
       e.preventDefault();
-      alert(yay_reviews.texts.review_title_max_length_notice);
+      alert(yayrev.texts.review_title_max_length_notice);
       return false;
     }
 
     // GDPR validation
     if (
-      $("#yay-reviews-gdpr-checkbox").length &&
-      !$("#yay-reviews-gdpr-checkbox").is(":checked")
+      $("#yayrev-gdpr-checkbox").length &&
+      !$("#yayrev-gdpr-checkbox").is(":checked")
     ) {
       e.preventDefault();
-      alert(yay_reviews.texts.gdpr_notice);
+      alert(yayrev.texts.gdpr_notice);
       return false;
     }
 
@@ -258,25 +258,25 @@ jQuery(document).ready(function ($) {
     }
   });
 
-  $("#yay-reviews-file-input").on("change", async function (event) {
-    const dropzone = document.querySelector(".yay-reviews-upload-button");
+  $("#yayrev-file-input").on("change", async function (event) {
+    const dropzone = document.querySelector(".yayrev-upload-button");
     const accept = dropzone.dataset.accept;
 
     var max_upload_files =
-      yay_reviews.max_upload_files && yay_reviews.max_upload_files !== ""
-        ? parseInt(yay_reviews.max_upload_files)
+      yayrev.max_upload_files && yayrev.max_upload_files !== ""
+        ? parseInt(yayrev.max_upload_files)
         : null;
-    var max_upload_filesize = parseInt(yay_reviews.max_upload_filesize);
+    var max_upload_filesize = parseInt(yayrev.max_upload_filesize);
 
     var files = Array.from(event.target.files);
 
     // Show loading state
-    const uploadCard = document.querySelector(".yay-reviews-upload-button");
+    const uploadCard = document.querySelector(".yayrev-upload-button");
     const originalContent = uploadCard.innerHTML;
     uploadCard.innerHTML = `
-      <div class="yay-reviews-loading-icon"></div>
+      <div class="yayrev-loading-icon"></div>
       <span class="text-xs text-gray-500 mt-1">${
-        yay_reviews.uploading_text || "Uploading..."
+        yayrev.uploading_text || "Uploading..."
       }</span>
     `;
     uploadCard.style.pointerEvents = "none";
@@ -303,7 +303,7 @@ jQuery(document).ready(function ($) {
           // Check if file size is too large before adding to array
           if (file.size > max_upload_filesize * 1024) {
             alert(
-              yay_reviews.texts.file_size_notice
+              yayrev.texts.file_size_notice
                 .replace("%1$s", file.name)
                 .replace("%2$s", max_upload_filesize)
             );
@@ -316,7 +316,7 @@ jQuery(document).ready(function ($) {
       // Limit total files
       if (max_upload_files && yayReviewsFilesArr.length > max_upload_files) {
         alert(
-          yay_reviews.texts.file_quantity_notice.replace(
+          yayrev.texts.file_quantity_notice.replace(
             "%1$s",
             max_upload_files
           )
@@ -341,12 +341,12 @@ jQuery(document).ready(function ($) {
 
   // Create modal HTML if it doesn't exist
   function ensureModalExists() {
-    if (!document.getElementById("yay-reviews-modal")) {
+    if (!document.getElementById("yayrev-modal")) {
       const modalHTML = `
-        <div id="yay-reviews-modal">
-          <div class="yay-reviews-modal-wrapper">
-            <span id="yay-reviews-modal-close">&times;</span>
-            <div id="yay-reviews-modal-content">
+        <div id="yayrev-modal">
+          <div class="yayrev-modal-wrapper">
+            <span id="yayrev-modal-close">&times;</span>
+            <div id="yayrev-modal-content">
               <!-- Content will be inserted here -->
             </div>
           </div>
@@ -356,16 +356,16 @@ jQuery(document).ready(function ($) {
 
       // Add modal close handler
       document
-        .getElementById("yay-reviews-modal-close")
+        .getElementById("yayrev-modal-close")
         .addEventListener("click", () => {
-          document.getElementById("yay-reviews-modal").classList.add("hidden");
+          document.getElementById("yayrev-modal").classList.add("hidden");
         });
 
       // Close modal when clicking outside
       document
-        .getElementById("yay-reviews-modal")
+        .getElementById("yayrev-modal")
         .addEventListener("click", (e) => {
-          if (e.target.id === "yay-reviews-modal") {
+          if (e.target.id === "yayrev-modal") {
             e.target.classList.add("hidden");
           }
         });
@@ -375,8 +375,8 @@ jQuery(document).ready(function ($) {
   // Show media in modal
   function showMediaInModal(file, thumbnailUrl) {
     ensureModalExists();
-    const modal = document.getElementById("yay-reviews-modal");
-    const modalContent = document.getElementById("yay-reviews-modal-content");
+    const modal = document.getElementById("yayrev-modal");
+    const modalContent = document.getElementById("yayrev-modal-content");
 
     if (file.type.startsWith("video/")) {
       modalContent.innerHTML = `
@@ -397,7 +397,7 @@ jQuery(document).ready(function ($) {
   // Add click handler for thumbnails
   $(document).on(
     "click",
-    ".yay-reviews-upload-media__upload-item",
+    ".yayrev-upload-media__upload-item",
     function (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -421,12 +421,12 @@ jQuery(document).ready(function ($) {
     </defs>
   </svg>`;
   verifiedOwnerBadge.each(function () {
-    const text = yay_reviews.texts.verified_owner;
+    const text = yayrev.texts.verified_owner;
     const parent = $(this).parent();
     const author = parent.find(".woocommerce-review__author");
     $(this).remove();
     const newBadge = $(
-      `<span class="yay-reviews-verified-badge" data-tippy-content="${text}">${verifiedOwnerBadgeHtml}</span>`
+      `<span class="yayrev-verified-badge" data-tippy-content="${text}">${verifiedOwnerBadgeHtml}</span>`
     );
     author.after(newBadge);
 
@@ -437,10 +437,10 @@ jQuery(document).ready(function ($) {
   });
 
   function updateArrowStates() {
-    const track = $(".yay-reviews-all-media-track")[0];
+    const track = $(".yayrev-all-media-track")[0];
     if (!track) return;
 
-    const wrapper = $(".yay-reviews-all-media-wrapper");
+    const wrapper = $(".yayrev-all-media-wrapper");
     const leftArrow = wrapper.find(".left-arrow");
     const rightArrow = wrapper.find(".right-arrow");
 
@@ -462,28 +462,28 @@ jQuery(document).ready(function ($) {
   // Function to navigate to specific media
   function navigateToMedia(modal, commentId, mediaIndex) {
     const mediaItem = modal.find(
-      `.yay-reviews-modal-comment-medias-preview-item[data-index="${mediaIndex}"]`
+      `.yayrev-modal-comment-medias-preview-item[data-index="${mediaIndex}"]`
     );
     const mediaType = mediaItem.data("type");
     const mediaSrc = mediaItem.find("img").data("src");
 
     const thumbnail = modal.find(
-      ".yay-reviews-modal-media-frame-content .thumbnail"
+      ".yayrev-modal-media-frame-content .thumbnail"
     );
 
     if (mediaType === "video") {
       thumbnail.html(
-        `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+        `<video class='yayrev-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
       );
     } else {
       thumbnail.html(
-        `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+        `<img class='yayrev-modal-media-item' src="${mediaSrc}" alt="Media preview">`
       );
     }
 
     // Update active state
     modal
-      .find(".yay-reviews-modal-comment-medias-preview-item")
+      .find(".yayrev-modal-comment-medias-preview-item")
       .removeClass("active");
     mediaItem.addClass("active");
 
@@ -498,11 +498,11 @@ jQuery(document).ready(function ($) {
   function updateNavigationArrows(modal, commentId) {
     const currentIndex = parseInt(modal.data("current-index")) || 0;
     const totalMedia = modal.find(
-      ".yay-reviews-modal-comment-medias-preview-item"
+      ".yayrev-modal-comment-medias-preview-item"
     ).length;
 
-    const prevArrow = modal.find(".yay-reviews-nav-prev");
-    const nextArrow = modal.find(".yay-reviews-nav-next");
+    const prevArrow = modal.find(".yayrev-nav-prev");
+    const nextArrow = modal.find(".yayrev-nav-next");
 
     // Show/hide arrows based on media count
     if (totalMedia <= 1) {
@@ -514,23 +514,23 @@ jQuery(document).ready(function ($) {
     }
   }
 
-  const slider = $(".yay-reviews-all-media");
-  const allMediaDialog = $(".yay-reviews-all-media-dialog");
-  const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
+  const slider = $(".yayrev-all-media");
+  const allMediaDialog = $(".yayrev-all-media-dialog");
+  const allMediaDialogBackdrop = $(".yayrev-all-media-dialog-backdrop");
   if (slider !== undefined) {
-    const track = slider.find(".yay-reviews-all-media-track");
+    const track = slider.find(".yayrev-all-media-track");
     // get all media reviews
     const mediaReviews = $(
-      ".yay-reviews-review__media-list .yay-reviews-review__media-item img"
+      ".yayrev-review__media-list .yayrev-review__media-item img"
     );
 
     const mediaReviewsThumbnails = $(
-      ".yay-reviews-modal-comment-medias-preview-item"
+      ".yayrev-modal-comment-medias-preview-item"
     );
 
     mediaReviewsThumbnails.each(function () {
       const commentId = $(this)
-        .closest(".yay-reviews-review-details-modal")
+        .closest(".yayrev-review-details-modal")
         .data("comment-id");
       const imageIndex = $(this).data("index");
       const mediaType = $(this).data("type");
@@ -538,29 +538,29 @@ jQuery(document).ready(function ($) {
       const clone = $(this).clone();
       $(clone).click(function () {
         const modal = $(
-          `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
+          `.yayrev-review-details-modal[data-comment-id="${commentId}"]`
         );
 
         const backdrop = $(
-          `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
+          `.yayrev-modal-backdrop[data-comment-id="${commentId}"]`
         );
 
         const thumbnail = modal.find(
-          ".yay-reviews-modal-media-frame-content .thumbnail"
+          ".yayrev-modal-media-frame-content .thumbnail"
         );
 
         if (mediaType === "video") {
           thumbnail.html(
-            `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+            `<video class='yayrev-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
           );
         } else {
           thumbnail.html(
-            `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+            `<img class='yayrev-modal-media-item' src="${mediaSrc}" alt="Media preview">`
           );
         }
 
         const commentMediasPreview = modal.find(
-          `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
+          `.yayrev-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
         );
         commentMediasPreview.addClass("active");
         allMediaDialog.fadeOut(300);
@@ -570,7 +570,7 @@ jQuery(document).ready(function ($) {
         navigateToMedia(modal, commentId, imageIndex);
       });
       allMediaDialog
-        .find(".yay-reviews-all-media-dialog-content-wrapper")
+        .find(".yayrev-all-media-dialog-content-wrapper")
         .append(clone);
     });
 
@@ -581,7 +581,7 @@ jQuery(document).ready(function ($) {
 
     mediaReviews.each(function () {
       const img = $(this);
-      const imageWrap = img.closest(".yay-reviews-review__media-item");
+      const imageWrap = img.closest(".yayrev-review__media-item");
       const imageClone = imageWrap.clone();
       imageClone.click(function () {
         const commentId = imageWrap.data("comment-id");
@@ -591,29 +591,29 @@ jQuery(document).ready(function ($) {
 
         // get modal with comment id
         const modal = $(
-          `.yay-reviews-review-details-modal[data-comment-id="${commentId}"]`
+          `.yayrev-review-details-modal[data-comment-id="${commentId}"]`
         );
 
         const backdrop = $(
-          `.yay-reviews-modal-backdrop[data-comment-id="${commentId}"]`
+          `.yayrev-modal-backdrop[data-comment-id="${commentId}"]`
         );
 
         const thumbnail = modal.find(
-          ".yay-reviews-modal-media-frame-content .thumbnail"
+          ".yayrev-modal-media-frame-content .thumbnail"
         );
 
         if (mediaType === "video") {
           thumbnail.html(
-            `<video class='yay-reviews-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
+            `<video class='yayrev-modal-media-item' controls><source src="${mediaSrc}" type="video/mp4">Your browser does not support the video tag.</video>`
           );
         } else {
           thumbnail.html(
-            `<img class='yay-reviews-modal-media-item' src="${mediaSrc}" alt="Media preview">`
+            `<img class='yayrev-modal-media-item' src="${mediaSrc}" alt="Media preview">`
           );
         }
 
         const commentMediasPreview = modal.find(
-          `.yay-reviews-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
+          `.yayrev-modal-comment-medias-preview-item[data-index = '${imageIndex}']`
         );
         commentMediasPreview.addClass("active");
 
@@ -631,12 +631,12 @@ jQuery(document).ready(function ($) {
     $(window).on("resize", updateArrowStates);
   }
 
-  $(document).on("click", ".yay-reviews-see-all-media", function (e) {
+  $(document).on("click", ".yayrev-see-all-media", function (e) {
     e.preventDefault();
     e.stopPropagation();
-    const allMediaDialog = $(".yay-reviews-all-media-dialog");
-    const allMediaDialogBackdrop = $(".yay-reviews-all-media-dialog-backdrop");
-    $(".yay-reviews-modal-comment-medias-preview-item").removeClass("active");
+    const allMediaDialog = $(".yayrev-all-media-dialog");
+    const allMediaDialogBackdrop = $(".yayrev-all-media-dialog-backdrop");
+    $(".yayrev-modal-comment-medias-preview-item").removeClass("active");
     allMediaDialog.removeClass("hidden");
     allMediaDialogBackdrop.removeClass("hidden");
     allMediaDialog.fadeIn(300);
@@ -646,13 +646,13 @@ jQuery(document).ready(function ($) {
 
   $(document).on(
     "click",
-    ".yay-reviews-all-media-dialog-backdrop",
+    ".yayrev-all-media-dialog-backdrop",
     function (e) {
       e.preventDefault();
       e.stopPropagation();
-      const allMediaDialog = $(".yay-reviews-all-media-dialog");
+      const allMediaDialog = $(".yayrev-all-media-dialog");
       const allMediaDialogBackdrop = $(
-        ".yay-reviews-all-media-dialog-backdrop"
+        ".yayrev-all-media-dialog-backdrop"
       );
       allMediaDialog.fadeOut(300);
       allMediaDialogBackdrop.fadeOut(300);
@@ -660,7 +660,7 @@ jQuery(document).ready(function ($) {
   );
 
   function updateScrollable() {
-    const track = $(".yay-reviews-all-media-track")[0];
+    const track = $(".yayrev-all-media-track")[0];
 
     if (!track || !track.children.length) return;
 
@@ -668,14 +668,14 @@ jQuery(document).ready(function ($) {
     const gap = parseFloat(style.gap) || 0;
     const cardWidth = track.children[0].offsetWidth;
 
-    const totalCards = $(track).find(".yay-reviews-media-card").length;
+    const totalCards = $(track).find(".yayrev-media-card").length;
     const maxCardsPerView = Math.floor(track.clientWidth / (cardWidth + gap));
 
     if (totalCards > maxCardsPerView) {
-      $(track).closest(".yay-reviews-all-media-wrapper").addClass("scrollable");
+      $(track).closest(".yayrev-all-media-wrapper").addClass("scrollable");
     } else {
       $(track)
-        .closest(".yay-reviews-all-media-wrapper")
+        .closest(".yayrev-all-media-wrapper")
         .removeClass("scrollable");
     }
   }
@@ -686,8 +686,8 @@ jQuery(document).ready(function ($) {
     updateScrollable();
   });
 
-  $(document).on("click", ".yay-reviews-all-media-arrow", function () {
-    const track = $(".yay-reviews-all-media-track")[0];
+  $(document).on("click", ".yayrev-all-media-arrow", function () {
+    const track = $(".yayrev-all-media-track")[0];
     if (!track || !track.children.length) return;
 
     const style = window.getComputedStyle(track);

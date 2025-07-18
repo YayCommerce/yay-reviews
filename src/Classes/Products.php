@@ -1,5 +1,5 @@
 <?php
-namespace YayReviews\Classes;
+namespace YayRev\Classes;
 
 class Products {
 	public static function get_featured_products( $limit = -1 ) {

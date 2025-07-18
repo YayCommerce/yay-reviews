@@ -1,9 +1,9 @@
 <?php
-namespace YayReviews\Emails;
+namespace YayRev\Emails;
 
-use YayReviews\Constants\EmailConstants;
-use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
-use YayReviews\Models\QueueModel;
+use YayRev\Constants\EmailConstants;
+use YayRev\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayRev\Models\QueueModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -14,8 +14,8 @@ class ReminderEmail extends \WC_Email {
 	public function __construct() {
 		$this->id             = 'yayrev_reminder';
 		$this->customer_email = true;
-		$this->title          = __( 'Review Reminder', 'yay-reviews' );
-		$this->description    = __( 'This email is sent to customers to remind them to review their purchased products.', 'yay-reviews' );
+		$this->title          = __( 'Review Reminder', 'yay-customer-reviews-woocommerce' );
+		$this->description    = __( 'This email is sent to customers to remind them to review their purchased products.', 'yay-customer-reviews-woocommerce' );
 		$this->template_html  = 'emails/reminder-email.php';
 		$this->template_plain = 'emails/plain/reminder-email.php';
 		$this->template_base  = YAYREV_PLUGIN_PATH . 'views/';
@@ -52,11 +52,11 @@ class ReminderEmail extends \WC_Email {
 
 		try {
 			if ( ! $this->is_enabled() ) {
-				throw new \Exception( __( 'Email is not enabled', 'yay-reviews' ) );
+				throw new \Exception( __( 'Email is not enabled', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			if ( empty( $recipient_email ) ) {
-				throw new \Exception( __( 'Recipient email is empty', 'yay-reviews' ) );
+				throw new \Exception( __( 'Recipient email is empty', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			/**
@@ -82,7 +82,7 @@ class ReminderEmail extends \WC_Email {
 			}
 
 			if ( ! $result ) {
-				throw new \Exception( __( 'Email sending failed', 'yay-reviews' ) );
+				throw new \Exception( __( 'Email sending failed', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			/**
@@ -162,42 +162,42 @@ class ReminderEmail extends \WC_Email {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'    => array(
-				'title'   => __( 'Enable/Disable', 'yay-reviews' ),
+				'title'   => __( 'Enable/Disable', 'yay-customer-reviews-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable this email notification', 'yay-reviews' ),
+				'label'   => __( 'Enable this email notification', 'yay-customer-reviews-woocommerce' ),
 				'default' => 'yes',
 			),
 			'subject'    => array(
-				'title'       => __( 'Subject', 'yay-reviews' ),
+				'title'       => __( 'Subject', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_subject(),
 				'default'     => '',
 			),
 			'heading'    => array(
-				'title'       => __( 'Email Heading', 'yay-reviews' ),
+				'title'       => __( 'Email Heading', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_heading(),
 				'default'     => '',
 			),
 			'content'    => array(
-				'title'       => __( 'Email Content', 'yay-reviews' ),
+				'title'       => __( 'Email Content', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {review_products}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{customer_name}, {site_title}, {review_products}</code>' ),
 				'placeholder' => self::get_default_email_settings()['content'],
 				'default'     => '',
 			),
 			'email_type' => array(
-				'title'       => __( 'Email type', 'yay-reviews' ),
+				'title'       => __( 'Email type', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Choose which format of email to send.', 'yay-reviews' ),
+				'description' => __( 'Choose which format of email to send.', 'yay-customer-reviews-woocommerce' ),
 				'default'     => 'html',
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),
@@ -207,9 +207,9 @@ class ReminderEmail extends \WC_Email {
 
 	public static function get_default_email_settings() {
 		return array(
-			'subject' => __( 'Reminder email', 'yay-reviews' ),
-			'heading' => __( 'Thank you for your purchase!', 'yay-reviews' ),
-			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-reviews' ) . '</p>',
+			'subject' => __( 'Reminder email', 'yay-customer-reviews-woocommerce' ),
+			'heading' => __( 'Thank you for your purchase!', 'yay-customer-reviews-woocommerce' ),
+			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for your recent purchase! Please take a moment to share your thoughts by reviewing these products. Your feedback helps us improve and earns you reward! {review_products}', 'yay-customer-reviews-woocommerce' ) . '</p>',
 		);
 	}
 

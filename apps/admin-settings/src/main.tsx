@@ -6,7 +6,7 @@ import { createRoot } from 'react-dom/client';
 import App from './app';
 import AppProvider from './providers/app-provider';
 
-createRoot(document.getElementById('yay-reviews-settings') as HTMLElement).render(
+createRoot(document.getElementById('yayrev-settings') as HTMLElement).render(
   <React.StrictMode>
     <AppProvider>
       <App />

@@ -141,50 +141,50 @@
   padding-left: 0px !important;
 }
 
-.yaycommerce_page_yay-reviews #screen-meta-links {
+.yaycommerce_page_yayrev #screen-meta-links {
   display: none;
 }
 
-.yaycommerce_page_yay-reviews .wrap {
+.yaycommerce_page_yayrev .wrap {
   margin: 0;
 }
 
-.yaycommerce_page_yay-reviews button {
+.yaycommerce_page_yayrev button {
   cursor: pointer;
 }
 
-.yaycommerce_page_yay-reviews div[data-slot='card'] {
+.yaycommerce_page_yayrev div[data-slot='card'] {
   border-radius: 0.5rem;
 }
 
-.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='closed'] {
+.yayrev-collapsible .yayrev-collapsible-trigger[data-state='closed'] {
   border-radius: 0.5rem;
 }
 
-.yay-reviews-collapsible .yay-reviews-collapsible-trigger[data-state='open'] {
+.yayrev-collapsible .yayrev-collapsible-trigger[data-state='open'] {
   border-bottom: 1px solid #f0f0f0;
   box-shadow: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.yay-reviews-coupon-select-item span[id^='radix-'] {
+.yayrev-coupon-select-item span[id^='radix-'] {
   width: 100%;
 }
 
-.yay-reviews-email-content .ql-editor {
+.yayrev-email-content .ql-editor {
   min-height: 150px;
 }
 
-.yay-reviews-email-preview-title {
+.yayrev-email-preview-title {
   margin-top: 0;
 }
 
-.yay-reviews-email-preview-device-button {
+.yayrev-email-preview-device-button {
   border-radius: 4px;
 }
 
-.yay-reviews-email-preview-subject {
+.yayrev-email-preview-subject {
   margin-top: 0px;
   margin-bottom: 10px;
   font-size: 21px;
@@ -192,41 +192,41 @@
   line-height: 24px;
 }
 
-.yay-reviews-email-preview-mobile {
+.yayrev-email-preview-mobile {
   margin: auto;
   max-width: 450px;
   transform-origin: top;
   transform: scale(0.8) scale(1.25);
 }
 
-.yay-reviews-collapsible-content a {
+.yayrev-collapsible-content a {
   color: var(--foreground);
 }
 
-.yay-reviews-collapsible-content hr,
-.yay-reviews-hr {
+.yayrev-collapsible-content hr,
+.yayrev-hr {
   border-top: 1px solid #f0f0f0;
   border-bottom: none;
 }
 
-.yay-reviews-coupon-form h2[data-slot='drawer-title'],
-.yay-reviews-view-email-drawer h2[data-slot='drawer-title'] {
+.yayrev-coupon-form h2[data-slot='drawer-title'],
+.yayrev-view-email-drawer h2[data-slot='drawer-title'] {
   margin: 0;
 }
 
-.yay-reviews-view-email-drawer {
+.yayrev-view-email-drawer {
   max-width: 30%;
 }
 
-.yay-reviews-editor iframe {
+.yayrev-editor iframe {
   min-height: 150px !important;
 }
 
-.yay-reviews-pagination-table a {
+.yayrev-pagination-table a {
   color: var(--foreground);
 }
 
-.yay-reviews-pagination-table a:focus {
+.yayrev-pagination-table a:focus {
   box-shadow: none;
 }
 
@@ -247,11 +247,11 @@
     min-height: unset;
   }
 
-  .yay-reviews-email-preview-mobile {
+  .yayrev-email-preview-mobile {
     transform: scale(0.8);
   }
 
-  .yay-reviews-view-email-drawer {
+  .yayrev-view-email-drawer {
     max-width: 70%;
   }
 }

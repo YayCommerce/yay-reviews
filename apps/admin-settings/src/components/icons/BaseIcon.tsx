@@ -21,7 +21,7 @@ const BaseIcon = forwardRef<SVGSVGElement, BaseIconProps>(function BaseIcon(
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`yay-reviews-icon ${className}`}
+      className={`yayrev-icon ${className}`}
       {...props}
     >
       {children}

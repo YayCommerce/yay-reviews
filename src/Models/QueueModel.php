@@ -1,11 +1,10 @@
 <?php
 
-namespace YayReviews\Models;
+namespace YayRev\Models;
 
-use YayReviews\Queue\EmailQueue;
-use YayReviews\Queue\ReminderQueue;
-use YayReviews\Queue\RewardQueue;
-use YayReviews\Queue\SingleQueue;
+use YayRev\Queue\EmailQueue;
+use YayRev\Queue\ReminderQueue;
+use YayRev\Queue\RewardQueue;
 
 class QueueModel {
 

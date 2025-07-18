@@ -28,7 +28,7 @@ export default function EmailsQueuePage() {
 
   return (
     <PageLayout className="w-[90%]">
-      <PageTitle title={__('Emails Queue', 'yay-reviews')} />
+      <PageTitle title={__('Emails Queue', 'yay-customer-reviews-woocommerce')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
         <EmailsQueueTable
           isFetching={isFetching}

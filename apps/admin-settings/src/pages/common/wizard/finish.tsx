@@ -10,14 +10,14 @@ export default function FinishStep() {
   return (
     <WizardContent className="text-center w-full py-4">
       <WizardHeader
-        title={__('You’re ready to collect reviews! 🎉', 'yay-reviews')}
+        title={__('You’re ready to collect reviews! 🎉', 'yay-customer-reviews-woocommerce')}
         className="text-center"
       />
       <div className="text-center">
-        {__('We’ll handle the tech. You focus on selling.', 'yay-reviews')}
+        {__('We’ll handle the tech. You focus on selling.', 'yay-customer-reviews-woocommerce')}
       </div>
       <Button className="mt-2" onClick={() => finishWizard()}>
-        {__('View dashboard', 'yay-reviews')}
+        {__('View dashboard', 'yay-customer-reviews-woocommerce')}
       </Button>
     </WizardContent>
   );

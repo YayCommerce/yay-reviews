@@ -1,5 +1,5 @@
 {
-  "name": "yay-reviews/yay-reviews",
+  "name": "yayrev/yayrev",
   "minimum-stability": "dev",
   "prefer-dist": true,
   "optimize-autoloader": true,
@@ -9,7 +9,7 @@
   "config": {},
   "autoload": {
     "psr-4": {
-      "YayReviews\\": "src/"
+      "YayRev\\": "src/"
     }
   },
   "require-dev": {

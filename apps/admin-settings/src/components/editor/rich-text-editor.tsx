@@ -45,25 +45,25 @@ const RichTextEditor = ({
             updateEmailPreview(
               editor.getContent(),
               'content',
-              ID.replace('yay-reviews-email-content-', ''),
+              ID.replace('yayrev-email-content-', ''),
             );
           });
           editor.addButton('customforecolor', {
-            id: `yay-reviews-editor-custom-fore-color_${ID}`,
-            tooltip: __('Text color', 'yay-reviews'),
+            id: `yayrev-editor-custom-fore-color_${ID}`,
+            tooltip: __('Text color', 'yay-customer-reviews-woocommerce'),
           });
           editor.addButton('fontweight', {
-            id: `yay-reviews-editor-font-weight_${ID}`,
-            tooltip: __('Font Weight', 'yay-reviews'),
+            id: `yayrev-editor-font-weight_${ID}`,
+            tooltip: __('Font Weight', 'yay-customer-reviews-woocommerce'),
             type: 'listbox',
-            text: __('Font Weight', 'yay-reviews'),
+            text: __('Font Weight', 'yay-customer-reviews-woocommerce'),
             values: [
-              { text: __('Light (300)', 'yay-reviews'), value: '300' },
-              { text: __('Normal (400)', 'yay-reviews'), value: '400' },
-              { text: __('Medium (500)', 'yay-reviews'), value: '500' },
-              { text: __('Semi Bold (600)', 'yay-reviews'), value: '600' },
-              { text: __('Bold (700)', 'yay-reviews'), value: '700' },
-              { text: __('Extra Bold (800)', 'yay-reviews'), value: '800' },
+              { text: __('Light (300)', 'yay-customer-reviews-woocommerce'), value: '300' },
+              { text: __('Normal (400)', 'yay-customer-reviews-woocommerce'), value: '400' },
+              { text: __('Medium (500)', 'yay-customer-reviews-woocommerce'), value: '500' },
+              { text: __('Semi Bold (600)', 'yay-customer-reviews-woocommerce'), value: '600' },
+              { text: __('Bold (700)', 'yay-customer-reviews-woocommerce'), value: '700' },
+              { text: __('Extra Bold (800)', 'yay-customer-reviews-woocommerce'), value: '800' },
             ],
             onselect: (e: any) => {
               editor.formatter.apply('fontweight', { value: e.control.value() });
@@ -71,7 +71,7 @@ const RichTextEditor = ({
               updateEmailPreview(
                 editor.getContent(),
                 'content',
-                ID.replace('yay-reviews-email-content-', ''),
+                ID.replace('yayrev-email-content-', ''),
               );
             },
           });
@@ -86,14 +86,14 @@ const RichTextEditor = ({
             };
             if (ID) {
               renderCustomColorPicker(
-                `yay-reviews-editor-custom-fore-color_${ID}`,
+                `yayrev-editor-custom-fore-color_${ID}`,
                 <CustomRichTextColor
                   colorType="ForeColor"
                   initialValue="#0F172A"
                   editorId={ID}
                   onChange={(e) => {
                     handleOnChange(e);
-                    updateEmailPreview(e, 'content', ID.replace('yay-reviews-email-content-', ''));
+                    updateEmailPreview(e, 'content', ID.replace('yayrev-email-content-', ''));
                   }}
                 />,
               );
@@ -109,7 +109,7 @@ const RichTextEditor = ({
   }, [handleOnChange, ID]);
 
   return (
-    <div className="yay-reviews-editor" key={ID}>
+    <div className="yayrev-editor" key={ID}>
       <textarea id={ID} defaultValue={value} style={{ fontSize: '14px' }} />
     </div>
   );

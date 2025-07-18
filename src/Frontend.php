@@ -1,9 +1,9 @@
 <?php
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\Classes\Helpers;
-use YayReviews\Classes\View;
-use YayReviews\Models\SettingsModel;
+use YayRev\Classes\Helpers;
+use YayRev\Classes\View;
+use YayRev\Models\SettingsModel;
 
 class Frontend {
 
@@ -49,7 +49,7 @@ class Frontend {
 	}
 
 	public function save_custom_review_fields( $comment_id ) {
-		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yayrev-nonce' ) ) {
 			return;
 		}
 		$enable_media_upload = SettingsModel::get_settings( 'reviews.enable_media_upload' );
@@ -101,8 +101,8 @@ class Frontend {
 			}
 		}
 		// save review title
-		if ( isset( $_POST['yay-reviews-title'] ) ) {
-			add_comment_meta( $comment_id, 'yayrev_title', sanitize_text_field( wp_unslash( $_POST['yay-reviews-title'] ) ) );
+		if ( isset( $_POST['yayrev_title'] ) ) {
+			add_comment_meta( $comment_id, 'yayrev_title', sanitize_text_field( wp_unslash( $_POST['yayrev_title'] ) ) );
 		}
 		// save attribute values
 		if ( isset( $_POST['yayrev_attributes'] ) ) {
@@ -136,14 +136,14 @@ class Frontend {
 		}
 
 		// print attributes
-		echo '<p class="meta yay-reviews-attribute-list">';
+		echo '<p class="meta yayrev-attribute-list">';
 		$index = 0;
 		foreach ( $attributes as $attribute_name => $attribute_value ) {
 			if ( ! empty( $attribute_value ) ) {
 				if ( 0 !== $index ) {
-					echo '<span class="yay-reviews-attribute-value-divider">|</span>';
+					echo '<span class="yayrev-attribute-value-divider">|</span>';
 				}
-				echo '<span class="yay-reviews-attribute-value">' . esc_html( wc_attribute_label( $attribute_name ) ) . ': ' . esc_html( $attribute_value ) . '</span>';
+				echo '<span class="yayrev-attribute-value">' . esc_html( wc_attribute_label( $attribute_name ) ) . ': ' . esc_html( $attribute_value ) . '</span>';
 				++$index;
 			}
 		}
@@ -161,40 +161,40 @@ class Frontend {
 		$max_upload_filesize  = intval( $reviews_settings['max_upload_filesize'] );
 		$file_required_notice = sprintf(
 			// translators: %s: media type (image or video, video, image)
-			__( 'Please upload at least 1 %s.', 'yay-reviews' ),
+			__( 'Please upload at least 1 %s.', 'yay-customer-reviews-woocommerce' ),
 			'video_photo' === $allowed_media_types ?
-					__( 'video or photo', 'yay-reviews' ) :
+					__( 'video or photo', 'yay-customer-reviews-woocommerce' ) :
 				( 'only_video' === $allowed_media_types ?
-					__( 'video', 'yay-reviews' ) :
-					__( 'photo', 'yay-reviews' )
+					__( 'video', 'yay-customer-reviews-woocommerce' ) :
+					__( 'photo', 'yay-customer-reviews-woocommerce' )
 				)
 		);
-		wp_enqueue_script( 'yay-reviews-script', YAYREV_PLUGIN_URL . 'assets/frontend/js/yay-reviews.js', array( 'jquery' ), YAYREV_VERSION, true );
-		wp_enqueue_script( 'yay-reviews-media-modal', YAYREV_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAYREV_VERSION, true );
-		wp_enqueue_script( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAYREV_VERSION, true );
+		wp_enqueue_script( 'yayrev-script', YAYREV_PLUGIN_URL . 'assets/frontend/js/yayrev.js', array( 'jquery' ), YAYREV_VERSION, true );
+		wp_enqueue_script( 'yayrev-media-modal', YAYREV_PLUGIN_URL . 'assets/common/js/media-modal.js', array( 'jquery' ), YAYREV_VERSION, true );
+		wp_enqueue_script( 'yayrev-tooltip', YAYREV_PLUGIN_URL . 'assets/common/js/tooltip.js', array( 'jquery' ), YAYREV_VERSION, true );
 		wp_localize_script(
-			'yay-reviews-script',
-			'yay_reviews',
+			'yayrev-script',
+			'yayrev',
 			array(
 				'ajax_url'            => admin_url( 'admin-ajax.php' ),
-				'nonce'               => wp_create_nonce( 'yay-reviews-nonce' ),
+				'nonce'               => wp_create_nonce( 'yayrev-nonce' ),
 				'max_upload_files'    => $max_upload_files,
 				'max_upload_filesize' => intval( $max_upload_filesize ),
 				'texts'               => array(
-					'verified_owner'                 => __( 'Verified owner', 'yay-reviews' ),
-					'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-reviews' ),
+					'verified_owner'                 => __( 'Verified owner', 'yay-customer-reviews-woocommerce' ),
+					'gdpr_notice'                    => __( 'Please check GDPR checkbox.', 'yay-customer-reviews-woocommerce' ),
 					'file_required_notice'           => $file_required_notice,
 					// translators: %1$s: file name, %2$s: max allowed size
-					'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-reviews' ),
+					'file_size_notice'               => __( 'The size of the file %1$s is too large; the maximum allowed size is %2$sKB.', 'yay-customer-reviews-woocommerce' ),
 					// translators: %1$s: max allowed files
-					'file_quantity_notice'           => __( 'You can only upload a maximum of %1$s files.', 'yay-reviews' ),
-					'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-reviews' ),
+					'file_quantity_notice'           => __( 'You can only upload a maximum of %1$s files.', 'yay-customer-reviews-woocommerce' ),
+					'review_title_max_length_notice' => __( 'The review title must be less than 60 characters.', 'yay-customer-reviews-woocommerce' ),
 				),
 			)
 		);
-		wp_enqueue_style( 'yay-reviews-style', YAYREV_PLUGIN_URL . 'assets/frontend/css/yay-reviews.css', array(), YAYREV_VERSION );
-		wp_enqueue_style( 'yay-reviews-tooltip', YAYREV_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAYREV_VERSION );
-		wp_enqueue_style( 'yay-reviews-common-styles', YAYREV_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAYREV_VERSION );
+		wp_enqueue_style( 'yayrev-style', YAYREV_PLUGIN_URL . 'assets/frontend/css/yayrev.css', array(), YAYREV_VERSION );
+		wp_enqueue_style( 'yayrev-tooltip', YAYREV_PLUGIN_URL . 'assets/common/css/tooltip.css', array(), YAYREV_VERSION );
+		wp_enqueue_style( 'yayrev-common-styles', YAYREV_PLUGIN_URL . 'assets/common/css/common-styles.css', array(), YAYREV_VERSION );
 	}
 
 	public function filter_reviews_by_rating( $clauses, $comment_query ) {

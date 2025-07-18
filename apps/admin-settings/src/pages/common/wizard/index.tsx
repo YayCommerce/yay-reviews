@@ -24,24 +24,24 @@ import { initAppSettings } from '@/lib/ajax';
 
 const steps = [
   {
-    title: __('Welcome to Yay Reviews', 'yay-reviews'),
+    title: __('Welcome to Yay Reviews', 'yay-customer-reviews-woocommerce'),
     contentRender: () => <WelcomeStep />,
     action: {
-      label: __('Start wizard', 'yay-reviews'),
+      label: __('Start wizard', 'yay-customer-reviews-woocommerce'),
     },
   },
   {
-    title: __('Review type', 'yay-reviews'),
+    title: __('Review type', 'yay-customer-reviews-woocommerce'),
     contentRender: () => <ReviewPickerStep />,
     action: {
-      label: __('Next step', 'yay-reviews'),
+      label: __('Next step', 'yay-customer-reviews-woocommerce'),
     },
   },
   {
-    title: __('Request for a review', 'yay-reviews'),
+    title: __('Request for a review', 'yay-customer-reviews-woocommerce'),
     contentRender: () => <RequestReviewStep />,
     action: {
-      label: __('Finish setup', 'yay-reviews'),
+      label: __('Finish setup', 'yay-customer-reviews-woocommerce'),
       isSubmit: true,
     },
   },
@@ -58,9 +58,9 @@ const schema = z.object({
 
 function prefetchImages(prefetchSize = 400) {
   const imagesToPreload = [
-    getImageUrl('yay-reviews-welcome-img.webp'),
-    getImageUrl('yay-reviews-review-picker-img.webp'),
-    getImageUrl('yay-reviews-request-img.webp'),
+    getImageUrl('yayrev-welcome-img.webp'),
+    getImageUrl('yayrev-review-picker-img.webp'),
+    getImageUrl('yayrev-request-img.webp'),
   ];
 
   imagesToPreload.forEach((src) => {

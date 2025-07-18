@@ -14,7 +14,7 @@ phpstan.neon
 pnpm-lock.yaml
 pnpm-workspace.yaml
 turbo.json
-yay-reviews.zip
+yay-customer-reviews-woocommerce.zip
 /release.sh
 /run.sh
 

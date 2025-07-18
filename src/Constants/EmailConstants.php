@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Constants;
+namespace YayRev\Constants;
 
 class EmailConstants {
 

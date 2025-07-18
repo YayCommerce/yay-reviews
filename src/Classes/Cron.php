@@ -1,10 +1,10 @@
 <?php
-namespace YayReviews\Classes;
+namespace YayRev\Classes;
 
-use YayReviews\Addons\Reminder\ReminderAddonController;
-use YayReviews\Constants\EmailConstants;
-use YayReviews\Models\QueueModel;
-use YayReviews\SingletonTrait;
+use YayRev\Addons\Reminder\ReminderAddonController;
+use YayRev\Constants\EmailConstants;
+use YayRev\Models\QueueModel;
+use YayRev\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

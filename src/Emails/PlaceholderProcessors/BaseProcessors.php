@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Emails\PlaceholderProcessors;
+namespace YayRev\Emails\PlaceholderProcessors;
 
 /**
  * BaseProcessors is an abstract class that provides methods to process placeholders.

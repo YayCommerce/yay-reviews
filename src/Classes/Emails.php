@@ -1,11 +1,11 @@
 <?php
-namespace YayReviews\Classes;
+namespace YayRev\Classes;
 
-use YayReviews\Constants\EmailConstants;
-use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
-use YayReviews\Emails\ReminderEmail;
-use YayReviews\Models\SettingsModel;
-use YayReviews\SingletonTrait;
+use YayRev\Constants\EmailConstants;
+use YayRev\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayRev\Emails\ReminderEmail;
+use YayRev\Models\SettingsModel;
+use YayRev\SingletonTrait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ class Emails {
 	public function register_email_classes( $email_classes ) {
 		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		if ( $reminder_enabled ) {
-			$email_classes['YayRev_Reminder_Email'] = new \YayReviews\Emails\ReminderEmail();
+			$email_classes['YayRev_Reminder_Email'] = new \YayRev\Emails\ReminderEmail();
 		}
 
 		return $email_classes;
@@ -37,7 +37,7 @@ class Emails {
 	}
 
 	public function add_placeholders( $placeholders, $email_type ) {
-		if ( 'YayReviews\Emails\ReminderEmail' === $email_type ) {
+		if ( 'YayRev\Emails\ReminderEmail' === $email_type ) {
 			return ( new ReminderPlaceholderProcessor() )->get_placeholders();
 		}
 		return $placeholders;

@@ -1,9 +1,9 @@
 <?php
 
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\Queue\EmailQueue;
-use YayReviews\SingletonTrait;
+use YayRev\Queue\EmailQueue;
+use YayRev\SingletonTrait;
 /**
  * Activate and deactive method of the plugin and relates.
  */

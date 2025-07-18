@@ -1,6 +1,6 @@
 <?php
 
-namespace YayReviews\Queue;
+namespace YayRev\Queue;
 
 abstract class SingleQueue {
 
@@ -74,7 +74,7 @@ abstract class SingleQueue {
 
 	public function get_delivery_time() {
 		if ( '0' === $this->get_status() ) {
-			return __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $this->get_scheduled_event()['timestamp'], current_time( 'timestamp' ) );
+			return __( 'Send in', 'yay-customer-reviews-woocommerce' ) . ' ' . human_time_diff( $this->get_scheduled_event()['timestamp'], current_time( 'timestamp' ) );
 		}
 		if ( '1' === $this->get_status() ) {
 			return $this->get_created_at();

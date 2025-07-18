@@ -1,8 +1,8 @@
 <?php
-namespace YayReviews\Register;
+namespace YayRev\Register;
 
-use YayReviews\SingletonTrait;
-use YayReviews\Register\ScriptName;
+use YayRev\SingletonTrait;
+use YayRev\Register\ScriptName;
 
 /**
  * Register in Development Mode
@@ -32,6 +32,6 @@ class RegisterDev {
 		$deps = array( 'react', 'react-dom', 'wp-hooks', 'wp-i18n' );
 
 		wp_register_script( ScriptName::PAGE_SETTINGS, 'http://localhost:3001/main.tsx', $deps, null, true ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
-		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-reviews', YAYREV_PLUGIN_PATH . 'languages' );
+		wp_set_script_translations( ScriptName::PAGE_SETTINGS, 'yay-customer-reviews-woocommerce', YAYREV_PLUGIN_PATH . 'languages' );
 	}
 }

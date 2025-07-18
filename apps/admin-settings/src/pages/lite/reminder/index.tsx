@@ -22,11 +22,11 @@ export default function ReminderPage() {
 
   return (
     <PageLayout>
-      <PageTitle title={__('Review reminder', 'yay-reviews')} />
+      <PageTitle title={__('Review reminder', 'yay-customer-reviews-woocommerce')} />
       <div className="container mx-auto space-y-8 px-7 py-0">
         <ReminderInformation />
         <div className="text-xs">
-          <span className="text-slate-500">{__('Change', 'yay-reviews')}</span>
+          <span className="text-slate-500">{__('Change', 'yay-customer-reviews-woocommerce')}</span>
           {` `}
           <span
             className="text-foreground cursor-pointer lowercase underline decoration-solid"
@@ -35,7 +35,7 @@ export default function ReminderPage() {
               changeTab('emails');
             }}
           >
-            {__('email template', 'yay-reviews')}
+            {__('email template', 'yay-customer-reviews-woocommerce')}
           </span>
         </div>
       </div>
@@ -46,35 +46,35 @@ export default function ReminderPage() {
 const productFilterOptions = [
   {
     value: 'all',
-    label: __('All products', 'yay-reviews'),
+    label: __('All products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'normal',
-    label: __('Normal products', 'yay-reviews'),
+    label: __('Normal products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'featured',
-    label: __('Featured products', 'yay-reviews'),
+    label: __('Featured products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'on_sale',
-    label: __('On-sale products', 'yay-reviews'),
+    label: __('On-sale products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'newest',
-    label: __('Newest products', 'yay-reviews'),
+    label: __('Newest products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'high_rated',
-    label: __('High-rated products', 'yay-reviews'),
+    label: __('High-rated products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'low_rated',
-    label: __('Low-rated products', 'yay-reviews'),
+    label: __('Low-rated products', 'yay-customer-reviews-woocommerce'),
   },
   {
     value: 'best_selling',
-    label: __('Best selling products', 'yay-reviews'),
+    label: __('Best selling products', 'yay-customer-reviews-woocommerce'),
   },
 ];
 
@@ -84,26 +84,26 @@ function ReminderInformation() {
   const maxProductsPerEmail = watch('reminder.max_products_per_email');
 
   const summaryText = useMemo(() => {
-    const leadingText = __('Remind customers to review', 'yay-reviews');
+    const leadingText = __('Remind customers to review', 'yay-customer-reviews-woocommerce');
     const productFilterLabel = productFilterOptions.find(
       (item) => item.value === productScope,
     )?.label;
-    let productsText = productFilterLabel || __('All products', 'yay-reviews');
+    let productsText = productFilterLabel || __('All products', 'yay-customer-reviews-woocommerce');
     if (productScope !== 'all') {
       productsText = `${maxProductsPerEmail ? maxProductsPerEmail : 'All'} "${productsText}"`;
     }
-    return `${leadingText}: ${productsText} ${__('from an order', 'yay-reviews')}`;
+    return `${leadingText}: ${productsText} ${__('from an order', 'yay-customer-reviews-woocommerce')}`;
   }, [productScope, maxProductsPerEmail]);
 
   return (
     <>
       <div className="space-y-4">
         <div className="text-foreground text-xl font-semibold">
-          {__('When should the reminder be sent?', 'yay-reviews')}
+          {__('When should the reminder be sent?', 'yay-customer-reviews-woocommerce')}
         </div>
         <Card className="gap-0 space-y-6 p-6">
           <Label htmlFor="reminder.send_after_value" className="mb-2 w-fit">
-            {__('Send a reminder email to customers', 'yay-reviews')}
+            {__('Send a reminder email to customers', 'yay-customer-reviews-woocommerce')}
           </Label>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <div>
@@ -134,21 +134,21 @@ function ReminderInformation() {
                   disabled={!__IS_PRO__}
                 >
                   <SelectTrigger className="w-full max-w-[130px]">
-                    <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
+                    <SelectValue placeholder={__('Select filter', 'yay-customer-reviews-woocommerce')} />
                   </SelectTrigger>
                   <SelectContent>
                     {[
                       {
                         value: 'minutes',
-                        label: __('Minute(s)', 'yay-reviews'),
+                        label: __('Minute(s)', 'yay-customer-reviews-woocommerce'),
                       },
                       {
                         value: 'hours',
-                        label: __('Hour(s)', 'yay-reviews'),
+                        label: __('Hour(s)', 'yay-customer-reviews-woocommerce'),
                       },
                       {
                         value: 'days',
-                        label: __('Day(s)', 'yay-reviews'),
+                        label: __('Day(s)', 'yay-customer-reviews-woocommerce'),
                       },
                     ].map((item) => (
                       <SelectItem key={item.value} value={item.value}>
@@ -159,15 +159,15 @@ function ReminderInformation() {
                 </Select>
               )}
             />
-            <span className="text-sm">{__('after order completed', 'yay-reviews')}</span>
+            <span className="text-sm">{__('after order completed', 'yay-customer-reviews-woocommerce')}</span>
           </div>
           {!__IS_PRO__ && (
             <div
               className="text-muted-foreground text-sm"
               dangerouslySetInnerHTML={{
-                __html: __('You can adjust the reminder timing in the %s.', 'yay-reviews').replace(
+                __html: __('You can adjust the reminder timing in the %s.', 'yay-customer-reviews-woocommerce').replace(
                   '%s',
-                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-reviews')}</a>`,
+                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-customer-reviews-woocommerce')}</a>`,
                 ),
               }}
             ></div>
@@ -176,12 +176,12 @@ function ReminderInformation() {
       </div>
       <div className="space-y-4">
         <div className="text-foreground text-xl font-semibold">
-          {__('What products should be reminded?', 'yay-reviews')}
+          {__('What products should be reminded?', 'yay-customer-reviews-woocommerce')}
         </div>
         <Card className="gap-0 space-y-6 p-6">
           <div className="text-sm">{summaryText}</div>
           <Label htmlFor="reminder.max_products_per_email" className="mb-2 w-fit">
-            {__('Product filter', 'yay-reviews')}
+            {__('Product filter', 'yay-customer-reviews-woocommerce')}
           </Label>
           <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <div>
@@ -194,7 +194,7 @@ function ReminderInformation() {
                     disabled={productScope === 'all' || !__IS_PRO__}
                     type="number"
                     value={value}
-                    placeholder={__('All', 'yay-reviews')}
+                    placeholder={__('All', 'yay-customer-reviews-woocommerce')}
                     onChange={(e) => {
                       if (e.target.value === '') {
                         onChange('');
@@ -219,7 +219,7 @@ function ReminderInformation() {
                   disabled={!__IS_PRO__}
                 >
                   <SelectTrigger className="w-full max-w-[210px]">
-                    <SelectValue placeholder={__('Select filter', 'yay-reviews')} />
+                    <SelectValue placeholder={__('Select filter', 'yay-customer-reviews-woocommerce')} />
                   </SelectTrigger>
                   <SelectContent>
                     {productFilterOptions.map((item) => (
@@ -236,9 +236,9 @@ function ReminderInformation() {
             <div
               className="text-muted-foreground text-sm"
               dangerouslySetInnerHTML={{
-                __html: __('You can select reminder products in the %s.', 'yay-reviews').replace(
+                __html: __('You can select reminder products in the %s.', 'yay-customer-reviews-woocommerce').replace(
                   '%s',
-                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-reviews')}</a>`,
+                  `<a href="${__PRO_VERSION_URL__}" target="_blank">${__('Pro version', 'yay-customer-reviews-woocommerce')}</a>`,
                 ),
               }}
             ></div>

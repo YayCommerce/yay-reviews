@@ -1,5 +1,5 @@
 <?php
-namespace YayReviews\Classes;
+namespace YayRev\Classes;
 
 class View {
 	public static function load( $file, $data = array(), $echo = true ) {

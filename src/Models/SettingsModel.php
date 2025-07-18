@@ -1,9 +1,9 @@
 <?php
 
-namespace YayReviews\Models;
+namespace YayRev\Models;
 
-use YayReviews\Addons\Reminder\ReminderAddonController;
-use YayReviews\Classes\Helpers;
+use YayRev\Addons\Reminder\ReminderAddonController;
+use YayRev\Classes\Helpers;
 
 /**
  * SettingsModel is a singleton class that provides methods to get and update settings.
@@ -33,11 +33,11 @@ class SettingsModel {
 				'allowed_media_types'      => 'video_photo',
 				'max_upload_filesize'      => 2000, //kb
 				'max_upload_files'         => '',
-				'media_upload_label'       => __( 'Upload media', 'yay-reviews' ),
-				'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-reviews' ),
+				'media_upload_label'       => __( 'Upload media', 'yay-customer-reviews-woocommerce' ),
+				'media_upload_description' => __( 'You can upload jpg/png & video (maximum 2000Kbs)', 'yay-customer-reviews-woocommerce' ),
 				'enable_gdpr_consent'      => false,
-				'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-reviews' ),
-				'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-reviews' ),
+				'gdpr_consent_message'     => __( 'I agree to the Privacy Policy.', 'yay-customer-reviews-woocommerce' ),
+				'pre_gdpr_message'         => __( 'We respect your privacy and need your consent to continue.', 'yay-customer-reviews-woocommerce' ),
 			),
 			'reminder'        => ReminderAddonController::get_reminder_default_settings(),
 			'rewards'         => array(),

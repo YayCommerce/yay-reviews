@@ -34,8 +34,8 @@ export interface ComboboxProps {
 }
 
 function Combobox({
-  placeholder = __('Select values', 'yay-reviews'),
-  searchPlaceholder = __('Search value', 'yay-reviews'),
+  placeholder = __('Select values', 'yay-customer-reviews-woocommerce'),
+  searchPlaceholder = __('Search value', 'yay-customer-reviews-woocommerce'),
   options,
   value,
   onChange,
@@ -88,7 +88,7 @@ function Combobox({
       <PopoverContent className="w-[300px] p-0" align="start">
         <Command>
           <CommandInput
-            placeholder={searchPlaceholder || __('Search value', 'yay-reviews')}
+            placeholder={searchPlaceholder || __('Search value', 'yay-customer-reviews-woocommerce')}
             onValueChange={debouncedSearch}
           />
           <CommandList>
@@ -98,12 +98,12 @@ function Combobox({
               </div>
             ) : (
               <>
-                <CommandEmpty>{__('No value found', 'yay-reviews')}</CommandEmpty>
+                <CommandEmpty>{__('No value found', 'yay-customer-reviews-woocommerce')}</CommandEmpty>
                 <CommandGroup>
                   {hasAll && (
                     <CommandItem
                       key="select-all"
-                      value={__('All', 'yay-reviews')}
+                      value={__('All', 'yay-customer-reviews-woocommerce')}
                       onSelect={() => {
                         onChange(options);
                       }}
@@ -114,7 +114,7 @@ function Combobox({
                       >
                         <CheckIcon className="size-3.5 text-current" />
                       </div>
-                      {__('All', 'yay-reviews')}
+                      {__('All', 'yay-customer-reviews-woocommerce')}
                     </CommandItem>
                   )}
                   {options.map((option) => (

@@ -1,10 +1,10 @@
 <?php
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\SingletonTrait;
-use YayReviews\Models\CouponModel;
-use YayReviews\Models\QueueModel;
-use YayReviews\Models\SettingsModel;
+use YayRev\SingletonTrait;
+use YayRev\Models\CouponModel;
+use YayRev\Models\QueueModel;
+use YayRev\Models\SettingsModel;
 
 defined( 'ABSPATH' ) || exit;
 

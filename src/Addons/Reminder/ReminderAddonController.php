@@ -1,10 +1,10 @@
 <?php
 
-namespace YayReviews\Addons\Reminder;
+namespace YayRev\Addons\Reminder;
 
-use YayReviews\Classes\Products;
-use YayReviews\Models\SettingsModel;
-use YayReviews\SingletonTrait;
+use YayRev\Classes\Products;
+use YayRev\Models\SettingsModel;
+use YayRev\SingletonTrait;
 
 class ReminderAddonController {
 	use SingletonTrait;

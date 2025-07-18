@@ -1,10 +1,10 @@
 <?php
 
-namespace YayReviews\Addons\Reward;
+namespace YayRev\Addons\Reward;
 
-use YayReviews\Constants\EmailConstants;
-use YayReviews\Models\SettingsModel;
-use YayReviews\SingletonTrait;
+use YayRev\Constants\EmailConstants;
+use YayRev\Models\SettingsModel;
+use YayRev\SingletonTrait;
 
 class RewardAddonController {
 
@@ -75,7 +75,7 @@ class RewardAddonController {
 	 * @return void
 	 */
 	public function send_reward_after_review_posted( $comment_id ) {
-		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
+		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yayrev-nonce' ) ) {
 			return;
 		}
 		// Check and send reward email
@@ -202,7 +202,7 @@ class RewardAddonController {
 	/**
 	 * Send other queue email
 	 *
-	 * @param \YayReviews\Models\EmailQueueModel $email_queue
+	 * @param \YayRev\Models\EmailQueueModel $email_queue
 	 * @return void
 	 */
 	public function send_other_queue_email( $email_queue ) {
@@ -224,13 +224,13 @@ class RewardAddonController {
 		if ( $result ) {
 			wp_send_json_success(
 				array(
-					'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+					'mess' => __( 'Email sent successfully', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 		} else {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Email sending failed', 'yay-reviews' ),
+					'mess' => __( 'Email sending failed', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 		}
@@ -253,7 +253,7 @@ class RewardAddonController {
 			return $email_class;
 		}
 
-		return 'YayReviews\Addons\Reward\RewardEmail';
+		return 'YayRev\Addons\Reward\RewardEmail';
 	}
 
 	/**
@@ -295,7 +295,7 @@ class RewardAddonController {
 	 */
 	public function add_placeholders( $placeholders, $email_type ) {
 
-		if ( 'YayReviews\Addons\Reward\RewardEmail' !== $email_type ) {
+		if ( 'YayRev\Addons\Reward\RewardEmail' !== $email_type ) {
 			return $placeholders;
 		}
 

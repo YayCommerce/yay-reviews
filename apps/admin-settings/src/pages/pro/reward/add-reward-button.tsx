@@ -8,7 +8,7 @@ import { useFormContext } from '@/components/ui/form';
 
 export const DEFAULT_REWARD = {
   id: uuidv4(),
-  name: __('Reward for reviewing the product', 'yay-reviews'),
+  name: __('Reward for reviewing the product', 'yay-customer-reviews-woocommerce'),
   enabled: true,
   coupon_type: 'one_time_coupon',
   coupon_value: 100,

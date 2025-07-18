@@ -2,10 +2,10 @@
 /**
  * YayCommerce licenses menu
  *
- * @package YayReviews
+ * @package YayRev
  */
 
-namespace YayReviews\YayCommerceMenu;
+namespace YayRev\YayCommerceMenu;
 
 defined( 'ABSPATH' ) || exit;
 

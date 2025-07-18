@@ -191,14 +191,14 @@ export default function EmailsQueueTable({
           <div className="w-full overflow-x-auto">
             <Table>
               {!isFetching && emails.length === 0 && (
-                <TableCaption>{__('No email queue found.', 'yay-reviews')}</TableCaption>
+                <TableCaption>{__('No email queue found.', 'yay-customer-reviews-woocommerce')}</TableCaption>
               )}
               <TableHeader>
                 <TableRow>
-                  <TableHead>{__('Email type', 'yay-reviews')}</TableHead>
-                  <TableHead>{__('Status', 'yay-reviews')}</TableHead>
-                  <TableHead>{__('Customer email', 'yay-reviews')}</TableHead>
-                  <TableHead>{__('Delivery time', 'yay-reviews')}</TableHead>
+                  <TableHead>{__('Email type', 'yay-customer-reviews-woocommerce')}</TableHead>
+                  <TableHead>{__('Status', 'yay-customer-reviews-woocommerce')}</TableHead>
+                  <TableHead>{__('Customer email', 'yay-customer-reviews-woocommerce')}</TableHead>
+                  <TableHead>{__('Delivery time', 'yay-customer-reviews-woocommerce')}</TableHead>
                   <TableHead></TableHead>
                 </TableRow>
               </TableHeader>
@@ -224,11 +224,11 @@ export default function EmailsQueueTable({
                       </TableRow>
                     ) : (
                       emails.map((email) => {
-                        let status = __('Cancelled', 'yay-reviews');
+                        let status = __('Cancelled', 'yay-customer-reviews-woocommerce');
                         if (email.status === '0') {
-                          status = __('Pending', 'yay-reviews');
+                          status = __('Pending', 'yay-customer-reviews-woocommerce');
                         } else if (email.status === '1') {
-                          status = __('Sent', 'yay-reviews');
+                          status = __('Sent', 'yay-customer-reviews-woocommerce');
                         }
                         return (
                           <TableRow key={email.id}>
@@ -269,7 +269,7 @@ export default function EmailsQueueTable({
                                           <EyeIcon />
                                         </Button>
                                       </TooltipTrigger>
-                                      <TooltipContent>{__('View', 'yay-reviews')}</TooltipContent>
+                                      <TooltipContent>{__('View', 'yay-customer-reviews-woocommerce')}</TooltipContent>
                                     </Tooltip>
                                   </TooltipProvider>
                                 </DrawerTrigger>
@@ -296,9 +296,9 @@ export default function EmailsQueueTable({
                                     </TooltipTrigger>
                                     <TooltipContent>
                                       {email.status === '0'
-                                        ? __('Send', 'yay-reviews')
-                                        : __('Re-send', 'yay-reviews')}
-                                      {__IS_PRO__ ? '' : ` (${__('Pro', 'yay-reviews')})`}
+                                        ? __('Send', 'yay-customer-reviews-woocommerce')
+                                        : __('Re-send', 'yay-customer-reviews-woocommerce')}
+                                      {__IS_PRO__ ? '' : ` (${__('Pro', 'yay-customer-reviews-woocommerce')})`}
                                     </TooltipContent>
                                   </Tooltip>
                                 </TooltipProvider>
@@ -324,7 +324,7 @@ export default function EmailsQueueTable({
                                           </Button>
                                         </TooltipTrigger>
                                         <TooltipContent>
-                                          {__('Dismiss', 'yay-reviews')}
+                                          {__('Dismiss', 'yay-customer-reviews-woocommerce')}
                                         </TooltipContent>
                                       </Tooltip>
                                     </TooltipProvider>
@@ -343,9 +343,9 @@ export default function EmailsQueueTable({
                       }}
                     >
                       <DialogHeader>
-                        <DialogTitle>{__('Dismiss email', 'yay-reviews')}</DialogTitle>
+                        <DialogTitle>{__('Dismiss email', 'yay-customer-reviews-woocommerce')}</DialogTitle>
                       </DialogHeader>
-                      <div>{__('Are you sure you want to dismiss this email?', 'yay-reviews')}</div>
+                      <div>{__('Are you sure you want to dismiss this email?', 'yay-customer-reviews-woocommerce')}</div>
                       <DialogFooter>
                         <Button
                           variant="outline"
@@ -355,7 +355,7 @@ export default function EmailsQueueTable({
                             setIsDismissDialogOpen(false);
                           }}
                         >
-                          {__('Cancel', 'yay-reviews')}
+                          {__('Cancel', 'yay-customer-reviews-woocommerce')}
                         </Button>
                         <Button
                           variant="default"
@@ -370,15 +370,15 @@ export default function EmailsQueueTable({
                           {isDismissing ? (
                             <Loader2Icon className="h-4 w-4 animate-spin" />
                           ) : (
-                            __('Dismiss', 'yay-reviews')
+                            __('Dismiss', 'yay-customer-reviews-woocommerce')
                           )}
                         </Button>
                       </DialogFooter>
                     </DialogContent>
                   </Dialog>
-                  <DrawerContent className="yay-reviews-view-email-drawer mt-[32px]">
+                  <DrawerContent className="yayrev-view-email-drawer mt-[32px]">
                     <DrawerHeader className="border-b text-left">
-                      <DrawerTitle className="m-0">{__('Information', 'yay-reviews')}</DrawerTitle>
+                      <DrawerTitle className="m-0">{__('Information', 'yay-customer-reviews-woocommerce')}</DrawerTitle>
                       <DrawerDescription className="hidden"></DrawerDescription>
                     </DrawerHeader>
                     <EmailInformation email={currentEmail} />
@@ -399,7 +399,7 @@ export default function EmailsQueueTable({
                           }
                         }}
                       >
-                        {__('Dismiss', 'yay-reviews')}
+                        {__('Dismiss', 'yay-customer-reviews-woocommerce')}
                       </Button>
                       <Button
                         className="w-1/2"
@@ -414,9 +414,9 @@ export default function EmailsQueueTable({
                         {sendingEmailId === currentEmail?.id ? (
                           <Loader2Icon className="h-4 w-4 animate-spin" />
                         ) : currentEmail?.status === '1' ? (
-                          __('Re-send', 'yay-reviews')
+                          __('Re-send', 'yay-customer-reviews-woocommerce')
                         ) : (
-                          __('Send', 'yay-reviews')
+                          __('Send', 'yay-customer-reviews-woocommerce')
                         )}
                       </Button>
                     </DrawerFooter>
@@ -430,10 +430,10 @@ export default function EmailsQueueTable({
           {!isFetching && emails.length > 0 && totalPages > 1 && (
             <div className="flex items-center justify-between">
               <div className="text-muted-foreground w-1/4 text-sm">
-                {__('Showing', 'yay-reviews')} {startIndex + 1}-{endIndex} {__('of', 'yay-reviews')}{' '}
-                {totalItems} {__('emails', 'yay-reviews')}
+                {__('Showing', 'yay-customer-reviews-woocommerce')} {startIndex + 1}-{endIndex} {__('of', 'yay-customer-reviews-woocommerce')}{' '}
+                {totalItems} {__('emails', 'yay-customer-reviews-woocommerce')}
               </div>
-              <Pagination className="yay-reviews-pagination-table w-3/4">
+              <Pagination className="yayrev-pagination-table w-3/4">
                 <PaginationContent>
                   <PaginationItem>
                     <PaginationPrevious

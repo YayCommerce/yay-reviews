@@ -1,9 +1,8 @@
 <?php
 
-namespace YayReviews\Admin;
+namespace YayRev\Admin;
 
-use YayReviews\Classes\Helpers;
-use YayReviews\SingletonTrait;
+use YayRev\SingletonTrait;
 
 class ReviewsPage {
 
@@ -16,7 +15,7 @@ class ReviewsPage {
 	public function comment_text( $comment_text, $comment ) {
 		$title = get_comment_meta( $comment->comment_ID, 'yayrev_title', true );
 		if ( $title ) {
-			$comment_text = '<p class="meta yay-reviews-title"><strong>' . esc_html( $title ) . '</strong></p>' . $comment_text;
+			$comment_text = '<p class="meta yayrev-title"><strong>' . esc_html( $title ) . '</strong></p>' . $comment_text;
 		}
 		return $comment_text;
 	}

@@ -12,8 +12,8 @@ export default function ReviewPickerStep() {
   return (
     <WizardContent>
       <img
-        src={getImageUrl('yay-reviews-review-picker-img.webp')}
-        alt={__('Yay Reviews', 'yay-reviews')}
+        src={getImageUrl('yayrev-review-picker-img.webp')}
+        alt={__('Yay Reviews', 'yay-customer-reviews-woocommerce')}
         className="rounded-md"
       />
       <FormField
@@ -23,11 +23,11 @@ export default function ReviewPickerStep() {
           <RadioGroup value={value} onValueChange={onChange}>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="default" id="default" />
-              <Label htmlFor="default">{__('Rating only', 'yay-reviews')}</Label>
+              <Label htmlFor="default">{__('Rating only', 'yay-customer-reviews-woocommerce')}</Label>
             </div>
             <div className="flex items-center space-x-2">
               <RadioGroupItem value="media" id="media" />
-              <Label htmlFor="media">{__('Review with media (recommended)', 'yay-reviews')}</Label>
+              <Label htmlFor="media">{__('Review with media (recommended)', 'yay-customer-reviews-woocommerce')}</Label>
             </div>
           </RadioGroup>
         )}

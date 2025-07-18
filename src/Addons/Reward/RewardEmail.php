@@ -1,8 +1,8 @@
 <?php
-namespace YayReviews\Addons\Reward;
+namespace YayRev\Addons\Reward;
 
-use YayReviews\Constants\EmailConstants;
-use YayReviews\Models\QueueModel;
+use YayRev\Constants\EmailConstants;
+use YayRev\Models\QueueModel;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,8 +13,8 @@ class RewardEmail extends \WC_Email {
 	public function __construct() {
 		$this->id             = 'yayrev_reward';
 		$this->customer_email = true;
-		$this->title          = __( 'Review Reward', 'yay-reviews' );
-		$this->description    = __( 'This email is sent to customers to reward them for their reviews.', 'yay-reviews' );
+		$this->title          = __( 'Review Reward', 'yay-customer-reviews-woocommerce' );
+		$this->description    = __( 'This email is sent to customers to reward them for their reviews.', 'yay-customer-reviews-woocommerce' );
 		$this->template_html  = 'emails/reward-email.php';
 		$this->template_plain = 'emails/plain-reward-email.php';
 		$this->template_base  = YAYREV_PLUGIN_PATH . 'src/Addons/Reward/views/';
@@ -46,15 +46,15 @@ class RewardEmail extends \WC_Email {
 		try {
 
 			if ( ! $this->is_enabled() ) {
-				throw new \Exception( __( 'Email is not enabled', 'yay-reviews' ) );
+				throw new \Exception( __( 'Email is not enabled', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			if ( empty( $recipient_email ) ) {
-				throw new \Exception( __( 'Recipient email is empty', 'yay-reviews' ) );
+				throw new \Exception( __( 'Recipient email is empty', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			if ( get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
-				throw new \Exception( __( 'Email has already been sent', 'yay-reviews' ) );
+				throw new \Exception( __( 'Email has already been sent', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
@@ -85,7 +85,7 @@ class RewardEmail extends \WC_Email {
 			);
 
 			if ( ! $result ) {
-				throw new \Exception( __( 'Email sent failed', 'yay-reviews' ) );
+				throw new \Exception( __( 'Email sent failed', 'yay-customer-reviews-woocommerce' ) );
 			}
 
 			update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true );
@@ -178,42 +178,42 @@ class RewardEmail extends \WC_Email {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'    => array(
-				'title'   => __( 'Enable/Disable', 'yay-reviews' ),
+				'title'   => __( 'Enable/Disable', 'yay-customer-reviews-woocommerce' ),
 				'type'    => 'checkbox',
-				'label'   => __( 'Enable this email notification', 'yay-reviews' ),
+				'label'   => __( 'Enable this email notification', 'yay-customer-reviews-woocommerce' ),
 				'default' => 'yes',
 			),
 			'subject'    => array(
-				'title'       => __( 'Subject', 'yay-reviews' ),
+				'title'       => __( 'Subject', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_subject(),
 				'default'     => '',
 			),
 			'heading'    => array(
-				'title'       => __( 'Email Heading', 'yay-reviews' ),
+				'title'       => __( 'Email Heading', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'text',
 				'desc_tip'    => true,
 				/* translators: %s: site title placeholder */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{site_title}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{site_title}</code>' ),
 				'placeholder' => $this->get_default_heading(),
 				'default'     => '',
 			),
 			'content'    => array(
-				'title'       => __( 'Email Content', 'yay-reviews' ),
+				'title'       => __( 'Email Content', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'textarea',
 				'desc_tip'    => true,
 				/* translators: %s: list of available placeholders */
-				'description' => sprintf( __( 'Available placeholders: %s', 'yay-reviews' ), '<code>{customer_name}, {site_title}, {product_name}, {coupon_code}</code>' ),
+				'description' => sprintf( __( 'Available placeholders: %s', 'yay-customer-reviews-woocommerce' ), '<code>{customer_name}, {site_title}, {product_name}, {coupon_code}</code>' ),
 				'placeholder' => self::get_default_email_settings()['content'],
 				'default'     => '',
 			),
 			'email_type' => array(
-				'title'       => __( 'Email type', 'yay-reviews' ),
+				'title'       => __( 'Email type', 'yay-customer-reviews-woocommerce' ),
 				'type'        => 'select',
-				'description' => __( 'Choose which format of email to send.', 'yay-reviews' ),
+				'description' => __( 'Choose which format of email to send.', 'yay-customer-reviews-woocommerce' ),
 				'default'     => 'html',
 				'class'       => 'email_type wc-enhanced-select',
 				'options'     => $this->get_email_type_options(),
@@ -223,9 +223,9 @@ class RewardEmail extends \WC_Email {
 
 	public static function get_default_email_settings() {
 		return array(
-			'subject' => __( 'Review reward email', 'yay-reviews' ),
-			'heading' => __( 'Thank you for your review!', 'yay-reviews' ),
-			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-reviews' ) . '</p>',
+			'subject' => __( 'Review reward email', 'yay-customer-reviews-woocommerce' ),
+			'heading' => __( 'Thank you for your review!', 'yay-customer-reviews-woocommerce' ),
+			'content' => '<p style="text-align: left;font-size: 16px;color: #0F172A;">' . __( 'Thank you for reviewing {product_name}! As a token of our appreciation, we\'ve sent you coupon: {coupon_code} to use on your next purchase.', 'yay-customer-reviews-woocommerce' ) . '</p>',
 		);
 	}
 

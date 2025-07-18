@@ -72,7 +72,7 @@ export const CouponForm = ({
         toast.error(response.message);
       }
     } catch (error) {
-      toast.error(__('Failed to create coupon', 'yay-reviews'));
+      toast.error(__('Failed to create coupon', 'yay-customer-reviews-woocommerce'));
       console.error(error);
     }
   }
@@ -93,7 +93,7 @@ export const CouponForm = ({
           <div className="relative flex items-end gap-2.5">
             <div className="relative flex flex-1 grow flex-col items-start gap-2">
               <Label className="font-text-sm-leading-none-medium text-foreground relative mt-[-1.00px] self-stretch text-sm leading-none font-medium tracking-normal">
-                {__('Coupon code', 'yay-reviews')}
+                {__('Coupon code', 'yay-customer-reviews-woocommerce')}
               </Label>
 
               <div className="relative flex w-full flex-[0_0_auto] flex-col items-start gap-2 self-stretch">
@@ -102,7 +102,7 @@ export const CouponForm = ({
                   name={`code`}
                   render={({ field: { value, onChange } }) => (
                     <Input
-                      placeholder={__('Placeholder', 'yay-reviews')}
+                      placeholder={__('Placeholder', 'yay-customer-reviews-woocommerce')}
                       value={value}
                       onChange={onChange}
                     />
@@ -120,7 +120,7 @@ export const CouponForm = ({
                 }
               }}
             >
-              {__('Generate', 'yay-reviews')}
+              {__('Generate', 'yay-customer-reviews-woocommerce')}
             </Button>
           </div>
         </div>
@@ -128,7 +128,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="amount" className="font-normal">
-              <span>{__('Coupon amount', 'yay-reviews')}</span>
+              <span>{__('Coupon amount', 'yay-customer-reviews-woocommerce')}</span>
               <span className="text-[#D50719]">*</span>
             </Label>
           </span>
@@ -149,7 +149,7 @@ export const CouponForm = ({
         <div className="grid gap-2">
           <span className="w-max">
             <Label htmlFor="expiry_date" className="font-normal">
-              {__('Expiry date', 'yay-reviews')}
+              {__('Expiry date', 'yay-customer-reviews-woocommerce')}
             </Label>
           </span>
           <FormField
@@ -160,7 +160,7 @@ export const CouponForm = ({
                 id="expiry_date"
                 date={value}
                 setDate={onChange}
-                placeholder={__('No expiry', 'yay-reviews')}
+                placeholder={__('No expiry', 'yay-customer-reviews-woocommerce')}
               />
             )}
           />
@@ -182,7 +182,7 @@ export const CouponForm = ({
               })();
             }}
           >
-            {__('Add coupon', 'yay-reviews')}
+            {__('Add coupon', 'yay-customer-reviews-woocommerce')}
             {form.formState.isSubmitting && <Loader2 className="ml-2 h-4 w-4 animate-spin" />}
           </Button>
         </div>

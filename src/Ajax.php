@@ -1,11 +1,11 @@
 <?php
 
-namespace YayReviews;
+namespace YayRev;
 
-use YayReviews\Addons\Reminder\ReminderAddonController;
-use YayReviews\Models\QueueModel;
-use YayReviews\SingletonTrait;
-use YayReviews\Models\SettingsModel;
+use YayRev\Addons\Reminder\ReminderAddonController;
+use YayRev\Models\QueueModel;
+use YayRev\SingletonTrait;
+use YayRev\Models\SettingsModel;
 
 class Ajax {
 	use SingletonTrait;
@@ -26,7 +26,7 @@ class Ajax {
 	public function change_addon_status() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 		try {
 			$addon_id = isset( $_POST['addon_id'] ) ? sanitize_text_field( wp_unslash( $_POST['addon_id'] ) ) : '';
@@ -42,7 +42,7 @@ class Ajax {
 				);
 				wp_send_json_success( array( 'status' => $status ) );
 			}
-			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Invalid addon id or status', 'yay-customer-reviews-woocommerce' ) ) );
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
@@ -51,18 +51,18 @@ class Ajax {
 	public function send_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 		try {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 			if ( empty( $email_id ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			$email_queue = QueueModel::find_by_id( $email_id );
 
 			if ( empty( $email_queue ) ) {
-				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			if ( 'reminder' === $email_queue->get_type() ) {
@@ -81,43 +81,43 @@ class Ajax {
 			wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
 
-		wp_send_json_error( array( 'mess' => __( 'No email sent', 'yay-reviews' ) ) );
+		wp_send_json_error( array( 'mess' => __( 'No email sent', 'yay-customer-reviews-woocommerce' ) ) );
 	}
 
 	public function dismiss_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 		try {
 			$email_id = isset( $_POST['email_id'] ) ? sanitize_text_field( wp_unslash( $_POST['email_id'] ) ) : '';
 
 			if ( empty( $email_id ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Invalid email id', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			$email_queue = QueueModel::find_by_id( $email_id );
 
 			if ( empty( $email_queue ) ) {
-				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			if ( 'reminder' !== $email_queue->get_type() ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid email type', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Invalid email type', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			if ( '2' === $email_queue->get_status() ) {
-				wp_send_json_error( array( 'mess' => __( 'Email has been dismissed', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Email has been dismissed', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			if ( '0' != $email_queue->get_status() ) {
-				wp_send_json_error( array( 'mess' => __( 'Cannot dismiss email that has been sent', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Cannot dismiss email that has been sent', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			$scheduled_event = $email_queue->get_scheduled_event();
 
 			if ( empty( $scheduled_event ) || ! isset( $scheduled_event['timestamp'] ) || ! isset( $scheduled_event['order_id'] ) ) {
-				wp_send_json_error( array( 'mess' => __( 'Sending time not exists', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Sending time not exists', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			// Ensure timestamp is valid
@@ -126,7 +126,7 @@ class Ajax {
 			$email_id_int = intval( $email_id );
 
 			if ( $timestamp <= 0 ) {
-				wp_send_json_error( array( 'mess' => __( 'Invalid sending time', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Invalid sending time', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			// Try to unschedule the event with proper error handling
@@ -137,7 +137,7 @@ class Ajax {
 					error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 				}
 
-				wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-reviews' ) ) );
+				wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-customer-reviews-woocommerce' ) ) );
 			}
 
 			// Update queue status to dismissed
@@ -150,7 +150,7 @@ class Ajax {
 
 			wp_send_json_success(
 				array(
-					'mess' => __( 'Email dismissed successfully', 'yay-reviews' ),
+					'mess' => __( 'Email dismissed successfully', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 
@@ -162,7 +162,7 @@ class Ajax {
 	public function update_wc_reviews_settings() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 
 		try {
@@ -183,9 +183,9 @@ class Ajax {
 					update_option( 'woocommerce_review_rating_required', 'true' === $value ? 'yes' : 'no' );
 				}
 
-				wp_send_json_success( array( 'mess' => __( 'WC reviews settings updated successfully', 'yay-reviews' ) ) );
+				wp_send_json_success( array( 'mess' => __( 'WC reviews settings updated successfully', 'yay-customer-reviews-woocommerce' ) ) );
 			}
-			wp_send_json_error( array( 'mess' => __( 'Invalid update field or value', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Invalid update field or value', 'yay-customer-reviews-woocommerce' ) ) );
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
@@ -194,13 +194,13 @@ class Ajax {
 	public function preview_email() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 		try {
 			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			if ( ! empty( $email ) ) {
 
-				$email_class   = apply_filters( 'yayrev_preview_email_class', 'YayReviews\Emails\ReminderEmail', $email );
+				$email_class   = apply_filters( 'yayrev_preview_email_class', 'YayRev\Emails\ReminderEmail', $email );
 				$email_preview = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview::class );
 				$email_preview->set_email_type( $email_class );
 				$message = $email_preview->render();
@@ -209,12 +209,12 @@ class Ajax {
 				// wrap content in iframe
 				$nonce = esc_url( wp_nonce_url( admin_url( '?preview_woocommerce_mail=true' ), 'preview-mail' ) );
 				// add type to url
-				$content = '<iframe id="yay-reviews-email-preview-iframe" style="border-radius: 0 0 3px 3px;display: block;height: 100%;width: 100%;" src="' . $nonce . '&type=' . $email_class . '"></iframe>';
+				$content = '<iframe id="yayrev-email-preview-iframe" style="border-radius: 0 0 3px 3px;display: block;height: 100%;width: 100%;" src="' . $nonce . '&type=' . $email_class . '"></iframe>';
 			}
 			wp_send_json_success(
 				array(
 					'content' => $content,
-					'message' => __( 'Email previewed successfully', 'yay-reviews' ),
+					'message' => __( 'Email previewed successfully', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 		} catch ( \Exception $e ) {
@@ -229,7 +229,7 @@ class Ajax {
 		 * Check if sending time exists
 		 */
 		if ( empty( $scheduled_event ) || ! isset( $scheduled_event['timestamp'] ) || ! isset( $scheduled_event['order_id'] ) ) {
-			wp_send_json_error( array( 'mess' => __( 'Sending time not exists', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Sending time not exists', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 
 		$timestamp    = intval( $scheduled_event['timestamp'] );
@@ -240,14 +240,14 @@ class Ajax {
 		 * Check if order is eligible for reminder email
 		 */
 		if ( ! ReminderAddonController::can_send_reminder_email( $order_id ) ) {
-			wp_send_json_error( array( 'mess' => __( 'Order is not eligible for reminder email', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Order is not eligible for reminder email', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 
 		/**
 		 * Check if sending time is valid
 		 */
 		if ( $timestamp <= 0 ) {
-			wp_send_json_error( array( 'mess' => __( 'Invalid sending time', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Invalid sending time', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 
 		/**
@@ -255,7 +255,7 @@ class Ajax {
 		 */
 		$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
 		if ( is_wp_error( $unscheduled ) ) {
-			wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-reviews' ) ) );
+			wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-customer-reviews-woocommerce' ) ) );
 			// Log the error but don't fail the entire operation
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
 				error_log( 'YayReviews: Failed to unschedule event - ' . $unscheduled->get_error_message() ); //phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
@@ -272,7 +272,7 @@ class Ajax {
 
 		wp_send_json_success(
 			array(
-				'mess'          => __( 'Email sent successfully', 'yay-reviews' ),
+				'mess'          => __( 'Email sent successfully', 'yay-customer-reviews-woocommerce' ),
 				'delivery_time' => $email_queue->get_delivery_time(),
 			)
 		);
@@ -283,19 +283,19 @@ class Ajax {
 			\WC()->mailer();
 		}
 
-		$email  = new \YayReviews\Emails\ReminderEmail();
+		$email  = new \YayRev\Emails\ReminderEmail();
 		$result = $email->send( $email_queue->get_customer_email(), $email_queue->get_subject(), $email_queue->get_body(), $email->get_headers(), $email->get_attachments() );
 
 		if ( $result ) {
 			wp_send_json_success(
 				array(
-					'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+					'mess' => __( 'Email sent successfully', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 		} else {
 			wp_send_json_error(
 				array(
-					'mess' => __( 'Email sending failed', 'yay-reviews' ),
+					'mess' => __( 'Email sending failed', 'yay-customer-reviews-woocommerce' ),
 				)
 			);
 		}
@@ -304,7 +304,7 @@ class Ajax {
 	public function finish_wizard() {
 		$nonce = isset( $_POST['nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 		if ( ! wp_verify_nonce( $nonce, 'yayrev_nonce' ) ) {
-			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-reviews' ) ) );
+			return wp_send_json_error( array( 'mess' => __( 'Verify nonce failed', 'yay-customer-reviews-woocommerce' ) ) );
 		}
 
 		$request_review_timing = isset( $_POST['request_review_timing'] ) ? sanitize_text_field( wp_unslash( $_POST['request_review_timing'] ) ) : '';

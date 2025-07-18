@@ -4,7 +4,7 @@
  *
  * This template displays the settings page for the Yay Reviews plugin.
  *
- * @package Yay_Reviews
+ * @package YayRev
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 	<?php
 	wp_editor(
 		'',
-		'yay-reviews-wp-editor-placeholder',
+		'yayrev-wp-editor-placeholder',
 		array(
 			'quicktags'     => false,
 			'media_buttons' => true,
@@ -23,4 +23,4 @@ defined( 'ABSPATH' ) || exit;
 	);
 	?>
 </div>
-<div id="yay-reviews-settings"></div>
+<div id="yayrev-settings"></div>
