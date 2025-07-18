@@ -16,8 +16,8 @@ class RewardEmail extends \WC_Email {
 		$this->title          = __( 'Review Reward', 'yay-reviews' );
 		$this->description    = __( 'This email is sent to customers to reward them for their reviews.', 'yay-reviews' );
 		$this->template_html  = 'emails/reward-email.php';
-		$this->template_plain = 'emails/plain/reward-email.php';
-		$this->template_base  = YAYREV_PLUGIN_PATH . 'views/';
+		$this->template_plain = 'emails/plain-reward-email.php';
+		$this->template_base  = YAYREV_PLUGIN_PATH . 'src/Addons/Reward/views/';
 		$this->placeholders   = RewardPlaceholderProcessor::DEFAULT_PLACEHOLDERS;
 
 		// Call parent constructor
