@@ -3,6 +3,7 @@ namespace YayReviews\Classes;
 
 use YayReviews\Constants\EmailConstants;
 use YayReviews\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
+use YayReviews\Emails\ReminderEmail;
 use YayReviews\Models\SettingsModel;
 use YayReviews\SingletonTrait;
 
@@ -23,7 +24,7 @@ class Emails {
 	public function register_email_classes( $email_classes ) {
 		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		if ( $reminder_enabled ) {
-			$email_classes['YayReviews\Emails\ReminderEmail'] = new \YayReviews\Emails\ReminderEmail();
+			$email_classes['YayRev_Reminder_Email'] = new \YayReviews\Emails\ReminderEmail();
 		}
 
 		return $email_classes;
@@ -44,13 +45,9 @@ class Emails {
 
 	public function update_woocommerce_email_settings( $saved_data ) {
 		$email_settings = $saved_data['email'];
-		if ( empty( $email_settings ) ) {
+		if ( empty( $email_settings['reminder'] ) ) {
 			return;
 		}
-		$reminder_email = get_option( 'woocommerce_yayrev_reminder_settings', array() );
-		$reminder_email = wp_parse_args( $email_settings['reminder'], $reminder_email );
-		if ( ! empty( $reminder_email ) ) {
-			update_option( 'woocommerce_yayrev_reminder_settings', $reminder_email );
-		}
+		ReminderEmail::update_email_settings( $email_settings['reminder'] );
 	}
 }

@@ -123,7 +123,8 @@ class ReminderEmail extends \WC_Email {
 	 * @return string
 	 */
 	public function get_email_content() {
-		return self::get_email_settings(true)['content'];
+		$content = self::get_email_settings()['content'];
+		return $content ? $content : self::get_default_email_settings()['content'];
 	}
 
 	public function get_content_html() {
@@ -212,11 +213,31 @@ class ReminderEmail extends \WC_Email {
 		);
 	}
 
-	public static function get_email_settings( $with_default = false ) {
-		$settings = get_option( 'woocommerce_yayrev_reminder_settings', null );
-		if ( $with_default ) {
-			return wp_parse_args( $settings, self::get_default_email_settings() );
-		}
+	public static function get_email_settings() {
+		$settings = get_option( 'woocommerce_yayrev_reminder_settings', [
+			'enabled' => 'yes',
+			'subject' => '',
+			'heading' => '',
+			'content' => '',
+			'email_type' => 'html',
+		] );
 		return $settings;
+	}
+
+	/**
+	 * Update woocommerce email settings
+	 *
+	 * @param array $data Reminder email settings
+	 * @return void
+	 */
+	public static function update_email_settings( $data ) {
+		if ( empty( $data ) ) {
+			return;
+		}
+		$settings   = self::get_email_settings();
+		$settings   = wp_parse_args( $data, $settings );
+		if ( ! empty( $settings ) ) {
+			update_option( 'woocommerce_yayrev_reminder_settings', $settings );
+		}
 	}
 }

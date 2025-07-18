@@ -25,11 +25,21 @@ class RewardAddonController {
 		
 	}
 
+	/**
+	 * Check if the reward addon is enabled
+	 *
+	 * @return bool
+	 */
 	public static function is_addon_enabled() {
 		$reward_enabled   = SettingsModel::get_settings( 'addons.reward_enabled' );
 		return $reward_enabled;
 	}
 
+	/**
+	 * Send reward after review is approved
+	 *
+	 * @return void
+	 */
 	public function send_reward_after_review_approved( $_, $comment ) {
 
 		/*
@@ -58,6 +68,12 @@ class RewardAddonController {
 
 	}
 
+	/**
+	 * Send reward after review is posted
+	 *
+	 * @param int $comment_id
+	 * @return void
+	 */
 	public function send_reward_after_review_posted( $comment_id ) {
 		if ( ! isset( $_POST['yayrev_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['yayrev_nonce'] ) ), 'yay-reviews-nonce' ) ) {
 			return;
@@ -79,6 +95,12 @@ class RewardAddonController {
 
 	}
 
+	/**
+	 * Get the reward for the comment
+	 *
+	 * @param \WP_Comment $comment
+	 * @return void
+	 */
 	private function get_comment_reward( $comment ) {
 
 		if ( ! $comment || ! ( $comment instanceof \WP_Comment ) ) {
@@ -163,6 +185,12 @@ class RewardAddonController {
 		}
 	}
 
+	/**
+	 * Add reward localize data
+	 *
+	 * @param array $localize_data
+	 * @return array
+	 */
 	public function add_reward_localize_data( $localize_data ) {
 		$localize_data['sample_email_placeholders']['reward'] = ( new RewardPlaceholderProcessor() )->get_placeholders();
 		$localize_data['wc_email_settings']['reward'] = [
@@ -172,6 +200,12 @@ class RewardAddonController {
 		return $localize_data;
 	}
 
+	/**
+	 * Send other queue email
+	 *
+	 * @param \YayReviews\Models\EmailQueueModel $email_queue
+	 * @return void
+	 */
 	public function send_other_queue_email( $email_queue ) {
 
 		if ( $email_queue->get_type() !== 'reward' ) {
@@ -203,6 +237,13 @@ class RewardAddonController {
 		}
 	}
 
+	/**
+	 * Set the preview email class
+	 *
+	 * @param string $email_class
+	 * @param string $email
+	 * @return string
+	 */
 	public function set_preview_email_class( $email_class, $email ) {
 
 		if ( 'reward' !== $email ) {
@@ -216,16 +257,28 @@ class RewardAddonController {
 		return 'YayReviews\Addons\Reward\RewardEmail';
 	}
 
+	/**
+	 * Register email classes
+	 *
+	 * @param array $email_classes
+	 * @return array
+	 */
 	public function register_email_classes( $email_classes ) {
 
 		if ( ! $this->is_addon_enabled() ) {
 			return $email_classes;
 		}
 
-		$email_classes['YayReviews\Addons\Reward\RewardEmail'] = new RewardEmail();
+		$email_classes['YayRev_Reward_Email'] = new RewardEmail();
 		return $email_classes;
 	}
 
+	/**
+	 * Register email actions
+	 *
+	 * @param array $actions
+	 * @return array
+	 */
 	public function register_email_actions( $actions ) {
 		if ( ! $this->is_addon_enabled() ) {
 			return $actions;
@@ -234,6 +287,13 @@ class RewardAddonController {
 		return $actions;
 	}
 
+	/**
+	 * Add placeholders
+	 *
+	 * @param array $placeholders
+	 * @param string $email_type
+	 * @return array
+	 */
 	public function add_placeholders( $placeholders, $email_type ) {
 
 		if ( 'YayReviews\Addons\Reward\RewardEmail' !== $email_type  ) {
@@ -249,16 +309,18 @@ class RewardAddonController {
 		return $placeholders;
 	}
 
+	/**
+	 * Update woocommerce email settings
+	 *
+	 * @param array $saved_data
+	 * @return void
+	 */
 	public function update_woocommerce_email_settings( $saved_data ) {
 		$email_settings = $saved_data['email'];
-		if ( empty( $email_settings ) ) {
+		if ( empty( $email_settings['reward'] ) ) {
 			return;
 		}
-		$reward_email   = get_option( 'woocommerce_yayrev_reward_settings', array() );
-		$reward_email   = wp_parse_args( $email_settings['reward'], $reward_email );
-		if ( ! empty( $reward_email ) ) {
-			update_option( 'woocommerce_yayrev_reward_settings', $reward_email );
-		}
+		RewardEmail::update_email_settings( $email_settings['reward'] );
 	}
 
 }

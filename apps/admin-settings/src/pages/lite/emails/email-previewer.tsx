@@ -4,15 +4,7 @@ import { previewEmail } from '@/lib/ajax';
 import { Skeleton } from '@/components/ui/skeleton';
 import { toast } from '@/components/ui/sonner';
 
-const EmailPreviewer = ({
-  templateId,
-  heading,
-  content,
-}: {
-  templateId: string;
-  heading: string;
-  content: string;
-}) => {
+const EmailPreviewer = ({ templateId }: { templateId: string }) => {
   const [html, setHtml] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {

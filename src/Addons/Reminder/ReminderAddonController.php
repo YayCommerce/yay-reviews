@@ -9,11 +9,22 @@ use YayReviews\SingletonTrait;
 class ReminderAddonController {
 	use SingletonTrait;
 
+	/**
+	 * Check if the reminder addon is enabled
+	 *
+	 * @return bool
+	 */
 	public static function is_addon_enabled() {
 		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		return $reminder_enabled;
 	}
 
+	/**
+	 * Check if the reminder email can be sent
+	 *
+	 * @param int $order_id
+	 * @return bool
+	 */
 	public static function can_send_reminder_email( $order_id ) {
 		if ( ! self::is_addon_enabled() ) {
 			return false;
@@ -99,6 +110,12 @@ class ReminderAddonController {
 		return $time;
 	}
 
+	/**
+	 * Get the reminder settings
+	 * TODO: VERSIONING
+	 *
+	 * @return array
+	 */
 	public static function get_reminder_settings() {
 		$reminder_settings      = SettingsModel::get_settings( 'reminder' );
 		$delay_amount           = $reminder_settings['delay_amount'];
@@ -114,6 +131,11 @@ class ReminderAddonController {
 		);
 	}
 
+	/**
+	 * Get the default reminder settings
+	 *
+	 * @return array
+	 */
 	public static function get_reminder_default_settings() {
 		return array(
 			'delay_amount'           => 5,

@@ -44,18 +44,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
 
   const defaultEmailSettings = window.yayReviews.wc_email_settings[templateId].default;
 
-  const content = (emailContent || defaultEmailSettings.content)
-    .replace(/\{customer_name\}/g, samplePlaceholders['{customer_name}'] ?? '')
-    .replace(/\{site_title\}/g, samplePlaceholders['{site_title}'] ?? '')
-    .replace(/\{review_products\}/g, samplePlaceholders['{review_products}'] ?? '')
-    .replace(/\{coupon_code\}/g, samplePlaceholders['{coupon_code}'] ?? '')
-    .replace(/\{product_name\}/g, samplePlaceholders['{product_name}'] ?? '');
-    
   const subject = (emailSubject || defaultEmailSettings.subject).replace(
-    /\{site_title\}/g,
-    samplePlaceholders['{site_title}'] ?? '',
-  );
-  const heading = (emailHeading || defaultEmailSettings.heading).replace(
     /\{site_title\}/g,
     samplePlaceholders['{site_title}'] ?? '',
   );
@@ -102,8 +91,9 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 render={({ field: { onChange } }) => (
                   <Input
                     id={`email.${templateId}.subject`}
-                    value={emailSubject || defaultEmailSettings.subject}
+                    value={emailSubject}
                     onChange={onChange}
+                    placeholder={defaultEmailSettings.subject}
                   />
                 )}
               />
@@ -119,10 +109,15 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                 render={({ field: { onChange } }) => (
                   <Input
                     id={`email.${templateId}.heading`}
-                    value={emailHeading || defaultEmailSettings.heading}
+                    value={emailHeading}
+                    placeholder={defaultEmailSettings.heading}
                     onChange={(e) => {
                       e.preventDefault();
-                      updateEmailPreview(e.target.value, 'heading', templateId);
+                      updateEmailPreview(
+                        e.target.value || defaultEmailSettings.heading,
+                        'heading',
+                        templateId,
+                      );
                       onChange(e);
                     }}
                   />
@@ -354,7 +349,7 @@ export default function TemplateCard({ templateId }: { templateId: string }) {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <EmailPreviewer heading={heading} content={content} templateId={templateId} />
+                  <EmailPreviewer templateId={templateId} />
                 </CardContent>
               </Card>
             </div>

@@ -1,9 +1,6 @@
 <?php
 namespace YayReviews\Classes;
 
-use Automattic\WooCommerce\Enums\ProductType;
-use YayReviews\Emails\ReminderEmail;
-
 class Helpers {
 
 	public static function print_media_list( $files, $comment ) {
