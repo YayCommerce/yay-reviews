@@ -22,7 +22,7 @@ class RewardAddonController {
 		add_filter( 'woocommerce_email_preview_placeholders', array( $this, 'add_placeholders' ), 10, 2 );
 
 		add_action( 'yayrev_after_update_settings', array( $this, 'update_woocommerce_email_settings' ), 10, 1 );
-		
+
 	}
 
 	/**
@@ -31,7 +31,7 @@ class RewardAddonController {
 	 * @return bool
 	 */
 	public static function is_addon_enabled() {
-		$reward_enabled   = SettingsModel::get_settings( 'addons.reward_enabled' );
+		$reward_enabled = SettingsModel::get_settings( 'addons.reward_enabled' );
 		return $reward_enabled;
 	}
 
@@ -121,11 +121,11 @@ class RewardAddonController {
 		if ( ! $reward_enabled ) {
 			return;
 		}
-		
+
 		/*
 		* Check if rewards is empty
 		*/
-		$rewards        = SettingsModel::get_settings( 'rewards' );
+		$rewards = SettingsModel::get_settings( 'rewards' );
 		if ( count( $rewards ) < 1 ) {
 			return;
 		}
@@ -162,7 +162,6 @@ class RewardAddonController {
 			}
 		);
 
-		
 		foreach ( $rewards as $reward ) {
 			$reward_obj = new Reward( $reward );
 
@@ -193,10 +192,10 @@ class RewardAddonController {
 	 */
 	public function add_reward_localize_data( $localize_data ) {
 		$localize_data['sample_email_placeholders']['reward'] = ( new RewardPlaceholderProcessor() )->get_placeholders();
-		$localize_data['wc_email_settings']['reward'] = [
+		$localize_data['wc_email_settings']['reward']         = array(
 			'default' => RewardEmail::get_default_email_settings(),
 			'current' => RewardEmail::get_email_settings(),
-		];
+		);
 		return $localize_data;
 	}
 
@@ -220,7 +219,7 @@ class RewardAddonController {
 			\WC()->mailer();
 		}
 
-		$email = new RewardEmail();
+		$email  = new RewardEmail();
 		$result = $email->send( $email_queue->get_customer_email(), $email_queue->get_subject(), $email_queue->get_body(), $email->get_headers(), $email->get_attachments() );
 		if ( $result ) {
 			wp_send_json_success(
@@ -296,7 +295,7 @@ class RewardAddonController {
 	 */
 	public function add_placeholders( $placeholders, $email_type ) {
 
-		if ( 'YayReviews\Addons\Reward\RewardEmail' !== $email_type  ) {
+		if ( 'YayReviews\Addons\Reward\RewardEmail' !== $email_type ) {
 			return $placeholders;
 		}
 

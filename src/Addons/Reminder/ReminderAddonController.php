@@ -15,7 +15,7 @@ class ReminderAddonController {
 	 * @return bool
 	 */
 	public static function is_addon_enabled() {
-		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled' );
+		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		return $reminder_enabled;
 	}
 
@@ -76,22 +76,21 @@ class ReminderAddonController {
 			if ( empty( $product_ids ) ) {
 				throw new \Exception( 'No featured/on-sale products found in order' );
 			}
-
 		} catch ( \Exception $e ) {
 			return false;
 		}
 
 		return true;
-		
+
 	}
 
 	public static function get_reminder_email_delay_time() {
 
-		$reminder_settings      = self::get_reminder_settings();
-		$delay_amount           = $reminder_settings['delay_amount'];
-		$delay_unit             = $reminder_settings['delay_unit'];
-		$time                   = time();
-		
+		$reminder_settings = self::get_reminder_settings();
+		$delay_amount      = $reminder_settings['delay_amount'];
+		$delay_unit        = $reminder_settings['delay_unit'];
+		$time              = time();
+
 		if ( $delay_amount > 0 ) {
 			switch ( $delay_unit ) {
 				case 'minutes':

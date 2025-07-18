@@ -65,7 +65,6 @@ class Ajax {
 				wp_send_json_error( array( 'mess' => __( 'No email found', 'yay-reviews' ) ) );
 			}
 
-			
 			if ( 'reminder' === $email_queue->get_type() ) {
 				/**
 				 * Process pending reminder email
@@ -78,7 +77,6 @@ class Ajax {
 			} else {
 				do_action( 'yayrev_send_other_queue_email', $email_queue );
 			}
-
 		} catch ( \Exception $e ) {
 			wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
@@ -143,11 +141,11 @@ class Ajax {
 			}
 
 			// Update queue status to dismissed
-			QueueModel::update( 
-				$email_id, 
-				[
+			QueueModel::update(
+				$email_id,
+				array(
 					'status' => 2,
-				]
+				)
 			);
 
 			wp_send_json_success(
@@ -155,7 +153,7 @@ class Ajax {
 					'mess' => __( 'Email dismissed successfully', 'yay-reviews' ),
 				)
 			);
-			
+
 		} catch ( \Exception $e ) {
 			return wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 		}
@@ -202,7 +200,7 @@ class Ajax {
 			$email = isset( $_POST['email'] ) ? sanitize_text_field( wp_unslash( $_POST['email'] ) ) : '';
 			if ( ! empty( $email ) ) {
 
-				$email_class = apply_filters( 'yayrev_preview_email_class', 'YayReviews\Emails\ReminderEmail', $email );
+				$email_class   = apply_filters( 'yayrev_preview_email_class', 'YayReviews\Emails\ReminderEmail', $email );
 				$email_preview = wc_get_container()->get( \Automattic\WooCommerce\Internal\Admin\EmailPreview\EmailPreview::class );
 				$email_preview->set_email_type( $email_class );
 				$message = $email_preview->render();
@@ -274,7 +272,7 @@ class Ajax {
 
 		wp_send_json_success(
 			array(
-				'mess' => __( 'Email sent successfully', 'yay-reviews' ),
+				'mess'          => __( 'Email sent successfully', 'yay-reviews' ),
 				'delivery_time' => $email_queue->get_delivery_time(),
 			)
 		);
@@ -285,7 +283,7 @@ class Ajax {
 			\WC()->mailer();
 		}
 
-		$email = new \YayReviews\Emails\ReminderEmail();
+		$email  = new \YayReviews\Emails\ReminderEmail();
 		$result = $email->send( $email_queue->get_customer_email(), $email_queue->get_subject(), $email_queue->get_body(), $email->get_headers(), $email->get_attachments() );
 
 		if ( $result ) {
@@ -310,24 +308,24 @@ class Ajax {
 		}
 
 		$request_review_timing = isset( $_POST['request_review_timing'] ) ? sanitize_text_field( wp_unslash( $_POST['request_review_timing'] ) ) : '';
-		$review_type = isset( $_POST['review_type'] ) ? sanitize_text_field( wp_unslash( $_POST['review_type'] ) ) : 'media';
+		$review_type           = isset( $_POST['review_type'] ) ? sanitize_text_field( wp_unslash( $_POST['review_type'] ) ) : 'media';
 
 		SettingsModel::update_settings(
-			[
-				'addons' => [
-					'reminder_enabled' => SettingsModel::get_specific_default_settings('addons.reminder_enabled'),
-				],
-				'reminder' => [
-					'delay_amount' => ! empty( $request_review_timing ) ? intval( $request_review_timing ) :  SettingsModel::get_specific_default_settings('reminder.delay_amount'),
-					'delay_unit' => SettingsModel::get_specific_default_settings('reminder.delay_unit'),
-					'max_products_per_email' => SettingsModel::get_specific_default_settings('reminder.max_products_per_email'),
-					'product_scope' => SettingsModel::get_specific_default_settings('reminder.product_scope'),
-				],
-				'reviews' => [
+			array(
+				'addons'   => array(
+					'reminder_enabled' => SettingsModel::get_specific_default_settings( 'addons.reminder_enabled' ),
+				),
+				'reminder' => array(
+					'delay_amount'           => ! empty( $request_review_timing ) ? intval( $request_review_timing ) : SettingsModel::get_specific_default_settings( 'reminder.delay_amount' ),
+					'delay_unit'             => SettingsModel::get_specific_default_settings( 'reminder.delay_unit' ),
+					'max_products_per_email' => SettingsModel::get_specific_default_settings( 'reminder.max_products_per_email' ),
+					'product_scope'          => SettingsModel::get_specific_default_settings( 'reminder.product_scope' ),
+				),
+				'reviews'  => array(
 					'enable_media_upload' => 'media' === $review_type ? true : false,
-					'allowed_media_types' => SettingsModel::get_specific_default_settings('reviews.allowed_media_types'),
-				],
-			]
+					'allowed_media_types' => SettingsModel::get_specific_default_settings( 'reviews.allowed_media_types' ),
+				),
+			)
 		);
 
 		update_option( 'yayrev_wizard_completed', 'yes' );

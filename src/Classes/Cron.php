@@ -50,7 +50,7 @@ class Cron {
 						'order_id'  => $order_id,
 					)
 				),
-				'email_data'      => maybe_serialize(ReminderAddonController::get_reminder_settings()),
+				'email_data'      => maybe_serialize( ReminderAddonController::get_reminder_settings() ),
 			)
 		);
 
@@ -58,7 +58,7 @@ class Cron {
 			wp_schedule_single_event( $time, 'yayrev_reminder_email', array( $order_id, $email_id ) );
 			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'pending' );
 		}
-		
+
 	}
 
 	public function send_reminder_email( $order_id, $email_id ) {

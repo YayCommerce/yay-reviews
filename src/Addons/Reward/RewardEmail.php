@@ -30,7 +30,7 @@ class RewardEmail extends \WC_Email {
 	public function trigger( $reward, $comment, $coupon, $product, $recipient_email ) {
 		$this->setup_locale();
 
-		$recipient_email = $recipient_email;
+		$recipient_email       = $recipient_email;
 		$placeholder_processor = new RewardPlaceholderProcessor(
 			array(
 				'comment' => $comment,
@@ -39,9 +39,9 @@ class RewardEmail extends \WC_Email {
 			)
 		);
 
-		$this->object          = $coupon;
-		$this->recipient       = $recipient_email;
-		$this->placeholders    = $placeholder_processor->get_placeholders();
+		$this->object       = $coupon;
+		$this->recipient    = $recipient_email;
+		$this->placeholders = $placeholder_processor->get_placeholders();
 
 		try {
 
@@ -56,7 +56,6 @@ class RewardEmail extends \WC_Email {
 			if ( get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
 				throw new \Exception( __( 'Email has already been sent', 'yay-reviews' ) );
 			}
-
 
 			$result = $this->send( $recipient_email, $this->get_subject(), $this->get_content(), $this->get_headers(), $this->get_attachments() );
 
@@ -106,7 +105,6 @@ class RewardEmail extends \WC_Email {
 				update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
 				update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
 			}
-
 		} catch ( \Exception $e ) {
 			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
 				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
@@ -119,7 +117,7 @@ class RewardEmail extends \WC_Email {
 
 	/*
 	 * Get default subject
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_default_subject() {
@@ -128,7 +126,7 @@ class RewardEmail extends \WC_Email {
 
 	/**
 	 * Get default heading
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_default_heading() {
@@ -137,7 +135,7 @@ class RewardEmail extends \WC_Email {
 
 	/**
 	 * Get email content
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_email_content() {
@@ -232,13 +230,16 @@ class RewardEmail extends \WC_Email {
 	}
 
 	public static function get_email_settings() {
-		$settings = get_option( 'woocommerce_yayrev_reward_settings', [
-			'enabled' => 'yes',
-			'subject' => '',
-			'heading' => '',
-			'content' => '',
-			'email_type' => 'html',
-		] );
+		$settings = get_option(
+			'woocommerce_yayrev_reward_settings',
+			array(
+				'enabled'    => 'yes',
+				'subject'    => '',
+				'heading'    => '',
+				'content'    => '',
+				'email_type' => 'html',
+			)
+		);
 		return $settings;
 	}
 
@@ -252,8 +253,8 @@ class RewardEmail extends \WC_Email {
 		if ( empty( $data ) ) {
 			return;
 		}
-		$settings   = self::get_email_settings();
-		$settings   = wp_parse_args( $data, $settings );
+		$settings = self::get_email_settings();
+		$settings = wp_parse_args( $data, $settings );
 		if ( ! empty( $settings ) ) {
 			update_option( 'woocommerce_yayrev_reward_settings', $settings );
 		}

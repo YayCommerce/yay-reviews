@@ -22,7 +22,7 @@ class Emails {
 	}
 
 	public function register_email_classes( $email_classes ) {
-		$reminder_enabled   = SettingsModel::get_settings( 'addons.reminder_enabled' );
+		$reminder_enabled = SettingsModel::get_settings( 'addons.reminder_enabled' );
 		if ( $reminder_enabled ) {
 			$email_classes['YayRev_Reminder_Email'] = new \YayReviews\Emails\ReminderEmail();
 		}

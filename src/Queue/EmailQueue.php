@@ -66,7 +66,7 @@ class EmailQueue {
 
 	/**
 	 * Insert email queue
-	 * 
+	 *
 	 * @param array $data An associative array of data to insert.
 	 *   - 'type' (string): The type of the email queue.
 	 *   - 'subject' (string): The subject of the email queue.
@@ -76,7 +76,7 @@ class EmailQueue {
 	 *   - 'created_at' (string): The created at of the email queue.
 	 *   - 'scheduled_event' (string): The scheduled event of the email queue.
 	 *   - 'email_data' (string): The email data of the email queue.
-	 * 
+	 *
 	 * @return string The last error message from the database insert.
 	 */
 	public static function insert_queue( $data ) {
@@ -89,7 +89,7 @@ class EmailQueue {
 
 	/**
 	 * Update email queue
-	 * 
+	 *
 	 * @param int $id The ID of the email queue to update.
 	 * @param array $data An associative array of data to update.
 	 *   - 'type' (string): The type of the email queue.
@@ -100,7 +100,7 @@ class EmailQueue {
 	 *   - 'created_at' (string): The created at of the email queue.
 	 *   - 'scheduled_event' (string): The scheduled event of the email queue.
 	 *   - 'email_data' (string): The email data of the email queue.
-	 * 
+	 *
 	 * @return string The last error message from the database update.
 	 */
 	public static function update_queue( $id, $data ) {

@@ -52,7 +52,7 @@ class Reward {
 			$coupon->set_meta_data(
 				array(
 					array(
-						'id' 	=> 0,
+						'id'    => 0,
 						'key'   => 'yayrev_one_time_coupon',
 						'value' => 'yes',
 					),
@@ -60,8 +60,8 @@ class Reward {
 			);
 			$coupon->save();
 		} elseif ( ! empty( $this->data['coupon_id'] ) ) {
-			$coupon_id    = $this->data['coupon_id'];
-			$coupon       = new \WC_Coupon( $coupon_id );
+			$coupon_id                 = $this->data['coupon_id'];
+			$coupon                    = new \WC_Coupon( $coupon_id );
 			$is_yayrev_one_time_coupon = 'yes' === $coupon->get_meta( 'yayrev_one_time_coupon', true );
 
 			if ( $is_yayrev_one_time_coupon ) {
@@ -109,13 +109,12 @@ class Reward {
 		 */
 		if ( 'purchased_customers' === $send_to ) {
 
-			$comment_email = $comment->comment_author_email;
+			$comment_email      = $comment->comment_author_email;
 			$comment_product_id = $comment->comment_post_ID;
 
 			if ( ! \wc_customer_bought_product( $comment_email, $comment_user_id, $comment_product_id ) ) {
 				return false;
 			}
-
 		}
 
 		/**

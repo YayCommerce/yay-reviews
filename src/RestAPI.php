@@ -69,8 +69,8 @@ class RestAPI {
 	}
 
 	public function save_settings( $request ) {
-		$data           = $request->get_params();
-		$saved_data     = $data;
+		$data       = $request->get_params();
+		$saved_data = $data;
 		unset( $saved_data['email'] );
 		SettingsModel::update_settings( $saved_data );
 		do_action( 'yayrev_after_update_settings', $data );
@@ -158,9 +158,12 @@ class RestAPI {
 		// Get paginated results
 		$queues = QueueModel::find_all( $page, $per_page );
 
-		$emails = array_map( function( $queue ) {
-			return $queue->get_object_data();
-		}, $queues );
+		$emails = array_map(
+			function( $queue ) {
+				return $queue->get_object_data();
+			},
+			$queues
+		);
 
 		// Calculate pagination info
 		$total_pages = ceil( $total_count / $per_page );

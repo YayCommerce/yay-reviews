@@ -20,15 +20,15 @@ abstract class SingleQueue {
 			return;
 		}
 
-		$this->id = $data->id ?? '';
-		$this->type = $data->type ?? 'reminder';
-		$this->subject = $data->subject ?? '';
-		$this->body = $data->body ?? '';
-		$this->status = $data->status ?? 0;
-		$this->customer_email = $data->customer_email ?? '';
-		$this->created_at = $data->created_at ?? '';
+		$this->id              = $data->id ?? '';
+		$this->type            = $data->type ?? 'reminder';
+		$this->subject         = $data->subject ?? '';
+		$this->body            = $data->body ?? '';
+		$this->status          = $data->status ?? 0;
+		$this->customer_email  = $data->customer_email ?? '';
+		$this->created_at      = $data->created_at ?? '';
 		$this->scheduled_event = $data->scheduled_event ?? '';
-		$this->email_data = maybe_unserialize( $data->email_data ?? '' );
+		$this->email_data      = maybe_unserialize( $data->email_data ?? '' );
 	}
 
 	public function get_id() {
@@ -49,7 +49,7 @@ abstract class SingleQueue {
 
 	/**
 	 * Get the status of the email queue
-	 * 
+	 *
 	 * @return int The status of the email queue. 0: pending, 1: sent, 2: dismissed
 	 */
 	public function get_status() {
@@ -75,7 +75,7 @@ abstract class SingleQueue {
 	public function get_delivery_time() {
 		if ( '0' === $this->get_status() ) {
 			return __( 'Send in', 'yay-reviews' ) . ' ' . human_time_diff( $this->get_scheduled_event()['timestamp'], current_time( 'timestamp' ) );
-		} 
+		}
 		if ( '1' === $this->get_status() ) {
 			return $this->get_created_at();
 		}
@@ -91,17 +91,17 @@ abstract class SingleQueue {
 	}
 
 	public function get_object_data() {
-		return [
-			'id' => $this->get_id(),
-			'type' => $this->get_type(),
-			'subject' => $this->get_subject(),
-			'body' => $this->get_body(),
-			'status' => $this->get_status(),
-			'customer_email' => $this->get_customer_email(),
-			'created_at' => $this->get_created_at(),
+		return array(
+			'id'              => $this->get_id(),
+			'type'            => $this->get_type(),
+			'subject'         => $this->get_subject(),
+			'body'            => $this->get_body(),
+			'status'          => $this->get_status(),
+			'customer_email'  => $this->get_customer_email(),
+			'created_at'      => $this->get_created_at(),
 			'scheduled_event' => $this->get_scheduled_event(),
-			'email_data' => $this->get_email_data(),
-			'delivery_time' => $this->get_delivery_time(),
-		];
+			'email_data'      => $this->get_email_data(),
+			'delivery_time'   => $this->get_delivery_time(),
+		);
 	}
 }

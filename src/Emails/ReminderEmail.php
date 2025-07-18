@@ -44,10 +44,10 @@ class ReminderEmail extends \WC_Email {
 		}
 
 		$placeholder_processor = new ReminderPlaceholderProcessor( array( 'order' => $order ) );
-		$recipient_email = $order->get_billing_email();
+		$recipient_email       = $order->get_billing_email();
 
-		$this->object    = $order;
-		$this->recipient = $recipient_email;
+		$this->object       = $order;
+		$this->recipient    = $recipient_email;
 		$this->placeholders = $placeholder_processor->get_placeholders();
 
 		try {
@@ -77,19 +77,19 @@ class ReminderEmail extends \WC_Email {
 						'subject'        => $this->get_subject(),
 						'customer_email' => $recipient_email,
 						'created_at'     => current_time( 'mysql' ),
-					) 
+					)
 				);
-			}	
+			}
 
 			if ( ! $result ) {
 				throw new \Exception( __( 'Email sending failed', 'yay-reviews' ) );
 			}
-			
+
 			/**
 			 * Update order meta
 			 */
 			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
-			
+
 		} catch ( \Exception $e ) {
 			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'yayrev_nonce' ) ) {
 				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
@@ -101,7 +101,7 @@ class ReminderEmail extends \WC_Email {
 
 	/**
 	 * Get default subject
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_default_subject() {
@@ -110,7 +110,7 @@ class ReminderEmail extends \WC_Email {
 
 	/**
 	 * Get default heading
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_default_heading() {
@@ -119,7 +119,7 @@ class ReminderEmail extends \WC_Email {
 
 	/**
 	 * Get email content
-	 * 
+	 *
 	 * @return string
 	 */
 	public function get_email_content() {
@@ -214,13 +214,16 @@ class ReminderEmail extends \WC_Email {
 	}
 
 	public static function get_email_settings() {
-		$settings = get_option( 'woocommerce_yayrev_reminder_settings', [
-			'enabled' => 'yes',
-			'subject' => '',
-			'heading' => '',
-			'content' => '',
-			'email_type' => 'html',
-		] );
+		$settings = get_option(
+			'woocommerce_yayrev_reminder_settings',
+			array(
+				'enabled'    => 'yes',
+				'subject'    => '',
+				'heading'    => '',
+				'content'    => '',
+				'email_type' => 'html',
+			)
+		);
 		return $settings;
 	}
 
@@ -234,8 +237,8 @@ class ReminderEmail extends \WC_Email {
 		if ( empty( $data ) ) {
 			return;
 		}
-		$settings   = self::get_email_settings();
-		$settings   = wp_parse_args( $data, $settings );
+		$settings = self::get_email_settings();
+		$settings = wp_parse_args( $data, $settings );
 		if ( ! empty( $settings ) ) {
 			update_option( 'woocommerce_yayrev_reminder_settings', $settings );
 		}
