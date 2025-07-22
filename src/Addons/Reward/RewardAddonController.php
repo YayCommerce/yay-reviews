@@ -174,7 +174,7 @@ class RewardAddonController {
 			if ( ! class_exists( 'WC_Email' ) ) {
 				\WC()->mailer();
 			}
-			do_action( EmailConstants::REWARD_EMAIL_ACTION, $reward, $comment, $coupon, $product, get_user_meta( $comment->user_id, 'billing_email', true ) );
+			do_action( EmailConstants::REWARD_EMAIL_ACTION, $reward_obj, $comment, $coupon, $product );
 
 			/*
 			 * TODO: handle if email is not sent
@@ -196,6 +196,7 @@ class RewardAddonController {
 			'default' => RewardEmail::get_default_email_settings(),
 			'current' => RewardEmail::get_email_settings(),
 		);
+		$localize_data['reward_default_data']                 = Reward::DEFAULT_DATA;
 		return $localize_data;
 	}
 

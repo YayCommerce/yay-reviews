@@ -10,6 +10,21 @@ class Reward {
 
 	protected $coupon;
 
+	public const DEFAULT_DATA = array(
+		'id'                  => '',
+		'name'                => '',
+		'rating_requirement'  => '',
+		'enabled'             => true,
+		'coupon_type'         => 'one_time_coupon',
+		'coupon_value'        => 100,
+		'coupon_value_suffix' => 'currency',
+		'coupon_id'           => '',
+		'send_to'             => 'all_reviewers',
+		'frequency'           => 'every_review',
+		'rating_requirement'  => 'any',
+		'media_requirement'   => 'none',
+	);
+
 	public function __construct( $data = null ) {
 		$this->data = $data;
 	}
@@ -28,7 +43,7 @@ class Reward {
 		}
 
 		$coupon = null;
-		if ( 'one_time_coupon' === ( $this->data['coupon_type'] ?? 'manual_coupon' ) ) {
+		if ( 'one_time_coupon' === ( $this->data['coupon_type'] ?? self::DEFAULT_DATA['coupon_type'] ) ) {
 			$coupon_code = CouponModel::generate_unique_coupon_code( 8 );
 			if ( ! $coupon_code ) {
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
@@ -94,10 +109,10 @@ class Reward {
 		$media           = get_comment_meta( $comment->comment_ID, 'yayrev_files', true );
 		$comment_user_id = $comment->user_id;
 
-		$send_to            = $this->data['send_to'] ?? '';
-		$rating_requirement = $this->data['rating_requirement'] ?? '';
-		$frequency          = $this->data['frequency'] ?? '';
-		$media_requirement  = $this->data['media_requirement'] ?? '';
+		$send_to            = $this->data['send_to'] ?? self::DEFAULT_DATA['send_to'];
+		$rating_requirement = $this->data['rating_requirement'] ?? self::DEFAULT_DATA['rating_requirement'];
+		$frequency          = $this->data['frequency'] ?? self::DEFAULT_DATA['frequency'];
+		$media_requirement  = $this->data['media_requirement'] ?? self::DEFAULT_DATA['media_requirement'];
 
 		if ( empty( $send_to ) ) {
 			return false;
@@ -193,6 +208,30 @@ class Reward {
 
 		return $valid;
 
+	}
+
+	public function get_recipient_email( $comment ) {
+		return $comment->comment_author_email;
+	}
+
+	public function get( $key = '' ) {
+		return $this->data[ $key ] ?? '';
+	}
+
+	public function get_id() {
+		return $this->data['id'] ?? '';
+	}
+
+	public function get_rating_requirement() {
+		return $this->data['rating_requirement'] ?? self::DEFAULT_DATA['rating_requirement'];
+	}
+
+	public function get_media_requirement() {
+		return $this->data['media_requirement'] ?? self::DEFAULT_DATA['media_requirement'];
+	}
+
+	public function get_frequency() {
+		return $this->data['frequency'] ?? self::DEFAULT_DATA['frequency'];
 	}
 
 }

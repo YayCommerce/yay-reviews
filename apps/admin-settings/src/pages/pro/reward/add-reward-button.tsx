@@ -7,17 +7,9 @@ import { Button } from '@/components/ui/button';
 import { useFormContext } from '@/components/ui/form';
 
 export const DEFAULT_REWARD = {
+  ...window.yayReviews.reward_default_data,
   id: uuidv4(),
   name: __('Reward for reviewing the product', 'yay-customer-reviews-woocommerce'),
-  enabled: true,
-  coupon_type: 'one_time_coupon',
-  coupon_value: 100,
-  coupon_value_suffix: 'currency',
-  coupon_id: '',
-  send_to: 'all_reviewers',
-  rating_requirement: 'any',
-  media_requirement: 'none',
-  frequency: 'every_review',
   is_open: true,
 };
 

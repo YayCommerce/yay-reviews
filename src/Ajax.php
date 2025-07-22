@@ -130,7 +130,7 @@ class Ajax {
 			}
 
 			// Try to unschedule the event with proper error handling
-			$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ), true );
+			$unscheduled = $email_queue->dequeue( $order_id );
 			if ( is_wp_error( $unscheduled ) ) {
 				// Log the error but don't fail the entire operation
 				if ( defined( 'WP_DEBUG' ) && WP_DEBUG && defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG ) {
@@ -253,7 +253,7 @@ class Ajax {
 		/**
 		 * Try to unschedule the event with proper error handling
 		 */
-		$unscheduled = wp_unschedule_event( $timestamp, 'yayrev_reminder_email', array( $order_id, $email_id_int ) );
+		$unscheduled = $email_queue->dequeue( $order_id );
 		if ( is_wp_error( $unscheduled ) ) {
 			wp_send_json_error( array( 'mess' => __( 'Failed to unschedule queue', 'yay-customer-reviews-woocommerce' ) ) );
 			// Log the error but don't fail the entire operation

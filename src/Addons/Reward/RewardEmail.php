@@ -24,13 +24,13 @@ class RewardEmail extends \WC_Email {
 		parent::__construct();
 
 		// Triggers for this email.
-		add_action( EmailConstants::REWARD_EMAIL_ACTION, array( $this, 'trigger' ), 10, 5 );
+		add_action( EmailConstants::REWARD_EMAIL_ACTION, array( $this, 'trigger' ), 10, 4 );
 	}
 
-	public function trigger( $reward, $comment, $coupon, $product, $recipient_email ) {
+	public function trigger( $reward, $comment, $coupon, $product ) {
 		$this->setup_locale();
 
-		$recipient_email       = $recipient_email;
+		$recipient_email       = $reward->get_recipient_email( $comment );
 		$placeholder_processor = new RewardPlaceholderProcessor(
 			array(
 				'comment' => $comment,
@@ -53,7 +53,7 @@ class RewardEmail extends \WC_Email {
 				throw new \Exception( __( 'Recipient email is empty', 'yay-customer-reviews-woocommerce' ) );
 			}
 
-			if ( get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true ) ) {
+			if ( get_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward->get_id(), true ) ) {
 				throw new \Exception( __( 'Email has already been sent', 'yay-customer-reviews-woocommerce' ) );
 			}
 
@@ -73,12 +73,12 @@ class RewardEmail extends \WC_Email {
 					'created_at'     => current_time( 'mysql' ),
 					'email_data'     => maybe_serialize(
 						array(
-							'reward_id'          => $reward['id'],
+							'reward_id'          => $reward->get_id(),
 							'coupon_code'        => $coupon->get_code(),
 							'product_name'       => $product->get_name(),
-							'rating_requirement' => $reward['rating_requirement'],
-							'media_requirement'  => $reward['media_requirement'],
-							'frequency'          => $reward['frequency'],
+							'rating_requirement' => $reward->get_rating_requirement(),
+							'media_requirement'  => $reward->get_media_requirement(),
+							'frequency'          => $reward->get_frequency(),
 						)
 					),
 				)
@@ -88,25 +88,25 @@ class RewardEmail extends \WC_Email {
 				throw new \Exception( __( 'Email sent failed', 'yay-customer-reviews-woocommerce' ) );
 			}
 
-			update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward['id'], true );
+			update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward->get_id(), true );
 			if ( ! empty( $comment->user_id ) ) {
 				// save customer meta for email sent
 				$reward_data = array(
-					'id'                 => $reward['id'],
-					'name'               => $reward['name'],
+					'id'                 => $reward->get_id(),
+					'name'               => $reward->get_name(),
 					'coupon_id'          => $coupon->get_id(),
 					'coupon_code'        => $coupon->get_code(),
 					'coupon_amount'      => $coupon->get_amount(),
 					'coupon_type'        => $coupon->get_discount_type(),
-					'rating_requirement' => $reward['rating_requirement'],
-					'media_requirement'  => $reward['media_requirement'],
-					'frequency'          => $reward['frequency'],
+					'rating_requirement' => $reward->get_rating_requirement(),
+					'media_requirement'  => $reward->get_media_requirement(),
+					'frequency'          => $reward->get_frequency(),
 				);
-				update_user_meta( $comment->user_id, 'last_received_reward_' . $reward['id'] . '_time', time() );
-				update_user_meta( $comment->user_id, 'received_reward_' . $reward['id'], $reward_data );
+				update_user_meta( $comment->user_id, 'last_received_reward_' . $reward->get_id() . '_time', time() );
+				update_user_meta( $comment->user_id, 'received_reward_' . $reward->get_id(), $reward_data );
 			}
 		} catch ( \Exception $e ) {
-			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
 				wp_send_json_error( array( 'mess' => $e->getMessage() ) );
 			}
 		} finally {
