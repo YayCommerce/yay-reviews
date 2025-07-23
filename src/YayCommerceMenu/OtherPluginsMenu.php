@@ -27,6 +27,15 @@ class OtherPluginsMenu {
 		add_action( 'wp_ajax_yay_recommended_get_plugin_data', array( $this, 'yay_recommended_get_plugin_data' ) );
 		add_action( 'wp_ajax_yay_recommended_activate_plugin', array( $this, 'yay_recommended_activate_plugin' ) );
 		add_action( 'wp_ajax_yay_recommended_upgrade_plugin', array( $this, 'yay_recommended_upgrade_plugin' ) );
+		add_action( 'admin_enqueue_scripts', function() {
+			$screen    = get_current_screen();
+			$screen_id = $screen ? $screen->id : '';
+			if ( ! ( $screen_id === 'yaycommerce_page_yaycommerce-other-plugins' ) ) {
+				return;
+			}
+			wp_enqueue_script( 'yaycommerce-other-plugins-script', YAYREV_PLUGIN_URL . 'src/YayCommerceMenu/assets/js/other-plugins-main.js', [], '1.0', true );
+			wp_enqueue_style( 'yaycommerce-other-plugins-script', YAYREV_PLUGIN_URL . 'src/YayCommerceMenu/assets/css/other-plugins-main.css', [], '1.0' );
+		} );
 	}
 
 	public static function render() {
@@ -38,83 +47,6 @@ class OtherPluginsMenu {
 			$woo_tab      = '<li class="plugin-install-tab plugin-install-woocommerce" data-tab="woocommerce"><a href="#" >WooCommerce</a> </li>';
 		}
 		?>
-		<script>
-			document.querySelector("#wpbody-content").innerHTML = "";
-		</script>
-		<style>
-			.yay-recommended-plugins-layout {
-				margin-top: 20px;
-			}
-			#wpcontent .notice, #wpcontent .error {
-				display: none !important;
-			}
-			.yay-recommended-plugins-layout-header {
-				background: #fff;
-				box-sizing: border-box;
-				padding: 0;
-				z-index: 1001;
-			}
-		   
-			.yay-recommended-plugins-header{
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-				align-items: center;
-				position: relative;
-				box-sizing: border-box;
-				margin: 12px 0 25px;
-				padding: 0 10px;
-				width: 100%;
-				box-shadow: 0 1px 1px rgb(0 0 0 / 4%);
-				border: 1px solid #c3c4c7;
-				background: #fff;
-				color: #50575e;
-				font-size: 13px;
-			}
-			.yay-recommended-plugins-header-title {
-				font-size: 1.2em;
-				margin-left: 8px;
-			}
-			.yay-recommended-plugins-layout .plugin-card .desc, .plugin-card .name {
-				margin-right: 0;
-			}
-			.yay-recommended-plugins-layout .plugin-card-bottom {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-			}
-			.yay-recommended-plugins-layout .plugin-action-buttons,
-			.yay-recommended-plugins-layout .plugin-action-buttons li,
-			.plugin-card .column-rating, .plugin-card .column-updated {
-				margin-bottom: 0;
-			}
-			.yay-recommended-plugins-layout .loading-process {
-				pointer-events: none;
-			}
-			.yay-recommended-plugins-layout .column-rating {
-				min-height: 30px;
-				line-height: 30px;
-			}
-			.yay-recommended-plugins-layout .plugin-status-inactive {
-				color: #ff4d4f;
-			}
-			.yay-recommended-plugins-layout .plugin-status-active {
-				color: #52c41a;
-			}
-			.yay-recommended-plugins-layout .plugin-status-not-install {
-				color: #1d2327;
-			}
-			@media screen and (max-width: 1100px) and (min-width: 782px), (max-width: 480px) {
-				.yay-recommended-plugins-layout .plugin-card .column-compatibility, 
-				.yay-recommended-plugins-layout .plugin-card .column-updated {
-					width: calc(100% - 220px);
-				}
-				.yay-recommended-plugins-layout .plugin-action-buttons li .button,
-				.yay-recommended-plugins-layout .plugin-action-buttons {
-					margin: 0;
-				}
-			}
-		</style>
 		<div class="wrap">
 			<div class="yay-recommended-plugins-layout">
 				<div class="yay-recommended-plugins-layout-header">
