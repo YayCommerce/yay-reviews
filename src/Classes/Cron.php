@@ -14,11 +14,11 @@ class Cron {
 	use SingletonTrait;
 
 	public function __construct() {
-		add_action( 'yayrev_reminder_email', array( $this, 'send_reminder_email' ), 10, 2 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_reminder_email' ), 10, 1 );
+		add_action( 'yayrev_reminder_email', array( $this, 'run_reminder_email_schedule' ), 10, 2 );
+		add_action( 'woocommerce_order_status_completed', array( $this, 'schedule_a_reminder_email' ), 10, 1 );
 	}
 
-	public function schedule_reminder_email( $order_id ) {
+	public function schedule_a_reminder_email( $order_id ) {
 		$order = \wc_get_order( $order_id );
 
 		// Check if order is valid
@@ -27,7 +27,7 @@ class Cron {
 		}
 
 		// Check if reminder email is already scheduled
-		if ( get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
+		if ( Helpers::is_reminder_sent( $order_id ) ) {
 			return;
 		}
 
@@ -56,18 +56,18 @@ class Cron {
 
 		if ( $email_id ) {
 			wp_schedule_single_event( $time, 'yayrev_reminder_email', array( $order_id, $email_id ) );
-			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'pending' );
+			Helpers::update_order_reminder_status( $order_id, 'pending' );
 		}
 
 	}
 
-	public function send_reminder_email( $order_id, $email_id ) {
+	public function run_reminder_email_schedule( $order_id, $email_id ) {
 
 		if ( ! $order_id || ! $email_id ) {
 			return;
 		}
 
-		if ( 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
+		if ( Helpers::is_reminder_sent( $order_id ) ) {
 			return;
 		}
 

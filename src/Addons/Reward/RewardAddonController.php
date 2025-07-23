@@ -323,4 +323,8 @@ class RewardAddonController {
 		RewardEmail::update_email_settings( $email_settings['reward'] );
 	}
 
+	public function create_reward_table() {
+		RewardSchema::create_table();
+	}
+
 }

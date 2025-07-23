@@ -154,19 +154,19 @@ class Reward {
 			$valid = false;
 		}
 
-		if ( ! empty( $comment_user_id ) && 'every_review' !== $frequency ) {
-			$last_received_reward_time = get_user_meta( $comment_user_id, 'last_received_reward_' . $this->data['id'] . '_time', true );
+		if ( 'every_review' !== $frequency ) {
+			$last_received_reward_time = $this->get_last_time_received( $comment->comment_author_email );
 
 			$args = array(
-				'user_id' => $comment_user_id,
-				'type'    => 'review',
-				'status'  => 'approve',
+				'author_email' => $comment->comment_author_email,
+				'type'         => 'review',
+				'status'       => 'approve',
 			);
 
 			$meta_query = array();
 			if ( ! empty( $last_received_reward_time ) ) {
 				$args['date_query'] = array(
-					'after' => gmdate( 'Y-m-d H:i:s', $last_received_reward_time ),
+					'after' => $last_received_reward_time,
 				);
 			}
 
@@ -222,6 +222,10 @@ class Reward {
 		return $this->data['id'] ?? '';
 	}
 
+	public function get_name() {
+		return $this->data['name'] ?? '';
+	}
+
 	public function get_rating_requirement() {
 		return $this->data['rating_requirement'] ?? self::DEFAULT_DATA['rating_requirement'];
 	}
@@ -232,6 +236,25 @@ class Reward {
 
 	public function get_frequency() {
 		return $this->data['frequency'] ?? self::DEFAULT_DATA['frequency'];
+	}
+
+	public function get_last_time_received( $email ) {
+		$data = RewardSchema::query_last_customer_reward_by_email( $email );
+		if ( ! $data ) {
+			return null;
+		}
+		return $data->created_at;
+	}
+
+	public function save_last_time_received( $email, $comment_id ) {
+		RewardSchema::insert_reward(
+			array(
+				'customer_id'             => $this->data['customer_id'] ?? '',
+				'customer_email'          => $email,
+				'created_at'              => current_time( 'mysql' ),
+				'last_trigger_comment_id' => $comment_id,
+			)
+		);
 	}
 
 }

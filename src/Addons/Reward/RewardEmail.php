@@ -89,22 +89,7 @@ class RewardEmail extends \WC_Email {
 			}
 
 			update_comment_meta( $comment->comment_ID, 'yayrev_reward_sent_' . $reward->get_id(), true );
-			if ( ! empty( $comment->user_id ) ) {
-				// save customer meta for email sent
-				$reward_data = array(
-					'id'                 => $reward->get_id(),
-					'name'               => $reward->get_name(),
-					'coupon_id'          => $coupon->get_id(),
-					'coupon_code'        => $coupon->get_code(),
-					'coupon_amount'      => $coupon->get_amount(),
-					'coupon_type'        => $coupon->get_discount_type(),
-					'rating_requirement' => $reward->get_rating_requirement(),
-					'media_requirement'  => $reward->get_media_requirement(),
-					'frequency'          => $reward->get_frequency(),
-				);
-				update_user_meta( $comment->user_id, 'last_received_reward_' . $reward->get_id() . '_time', time() );
-				update_user_meta( $comment->user_id, 'received_reward_' . $reward->get_id(), $reward_data );
-			}
+			$reward->save_last_time_received( $recipient_email, $comment->comment_ID );
 		} catch ( \Exception $e ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( $_POST['nonce'], 'yayrev_nonce' ) ) {
 				wp_send_json_error( array( 'mess' => $e->getMessage() ) );

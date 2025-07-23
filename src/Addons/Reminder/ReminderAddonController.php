@@ -45,7 +45,7 @@ class ReminderAddonController {
 				return true;
 			}
 
-			if ( 0 === $max_products_per_email ) {
+			if ( empty( $max_products_per_email ) ) {
 				return true;
 			}
 
@@ -53,16 +53,35 @@ class ReminderAddonController {
 			$items       = $order->get_items();
 			$product_ids = array();
 			foreach ( $items as $item ) {
-				$product_id = $item->get_data()['product_id'];
-				if ( $product_id ) {
+				$product_id              = $item->get_data()['product_id'];
+				$is_reviewed_by_customer = (bool) get_comments(
+					array(
+						'author_email' => $order->get_billing_email(),
+						'post_id'      => $product_id,       // match the product
+						'status'       => 'approve',         // only approved reviews
+						'type'         => 'review',          // WooCommerce sets comment_type to 'review'
+						'number'       => 1,                 // we only need to know if *one* exists
+						'count'        => true,              // return an integer count, not objects
+						'hierarchical' => 'threaded',     // speed: ignore pings/trackbacks
+					)
+				);
+				if ( $product_id && ! $is_reviewed_by_customer ) {
 					$product_ids[] = $product_id;
 				}
 			}
 
 			$product_ids = array_unique( $product_ids );
 			if ( empty( $product_ids ) ) {
-				throw new \Exception( 'No product ids found in order' );
+				throw new \Exception( 'No product is eligible to send reminder email' );
 			}
+
+			// if ( ! in_array( $product_scope, array( 'featured', 'on_sale' ) ) ) {
+			// 	return true;
+			// }
+
+			// if ( empty( $max_products_per_email ) ) {
+			// 	return true;
+			// }
 
 			// Check condition before create schedule reminder email
 			if ( 'featured' === $product_scope ) {

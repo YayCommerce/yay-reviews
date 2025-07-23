@@ -62,7 +62,7 @@ export default function RewardPage() {
                       : __('reward set', 'yay-customer-reviews-woocommerce')}
                     <TooltipProvider delayDuration={0}>
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <InfoIcon size={18} />
                         </TooltipTrigger>
                         <TooltipContent>

@@ -58,7 +58,7 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
   }, [email.email_data?.media_requirement]);
 
   const minimumRequiredReviewsSinceLastReward = useMemo(() => {
-    switch (email.email_data?.minimum_required_reviews_since_last_reward) {
+    switch (email.email_data?.frequency) {
       case 'none':
       case 'every_review':
         return __('After every review', 'yay-customer-reviews-woocommerce');
@@ -69,22 +69,28 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
       default:
         return __('No requirement', 'yay-customer-reviews-woocommerce');
     }
-  }, [email.email_data?.minimum_required_reviews_since_last_reward]);
+  }, [email.email_data?.frequency]);
 
   return (
     <div className="space-y-6 px-4 pt-6">
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell className="font-semibold">{__('Type', 'yay-customer-reviews-woocommerce')}:</TableCell>
+            <TableCell className="font-semibold">
+              {__('Type', 'yay-customer-reviews-woocommerce')}:
+            </TableCell>
             <TableCell className="capitalize">{email.type}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-semibold">{__('To', 'yay-customer-reviews-woocommerce')}:</TableCell>
+            <TableCell className="font-semibold">
+              {__('To', 'yay-customer-reviews-woocommerce')}:
+            </TableCell>
             <TableCell className="break-all">{email.customer_email}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell className="font-semibold">{__('Status', 'yay-customer-reviews-woocommerce')}:</TableCell>
+            <TableCell className="font-semibold">
+              {__('Status', 'yay-customer-reviews-woocommerce')}:
+            </TableCell>
             <TableCell>
               <Badge
                 variant="default"
@@ -107,23 +113,33 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
           {email.type === 'reward' && (
             <>
               <TableRow>
-                <TableCell className="font-semibold">{__('Coupon', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Coupon', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>{email.email_data?.coupon_code}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-semibold">{__('Product', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Product', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>{email.email_data?.product_name}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-semibold">{__('Rating', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Rating', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>{ratingRequirement}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-semibold">{__('Media', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Media', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>{mediaRequirement}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-semibold">{__('Frequency', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Frequency', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>{minimumRequiredReviewsSinceLastReward}</TableCell>
               </TableRow>
             </>
@@ -132,7 +148,9 @@ export default function EmailInformation({ email }: { email: EmailQueue | null }
           {email.type === 'reminder' && (
             <>
               <TableRow>
-                <TableCell className="font-semibold">{__('Sent after', 'yay-customer-reviews-woocommerce')}:</TableCell>
+                <TableCell className="font-semibold">
+                  {__('Sent after', 'yay-customer-reviews-woocommerce')}:
+                </TableCell>
                 <TableCell>
                   {email.email_data?.delay_amount} {email.email_data?.delay_unit}
                 </TableCell>

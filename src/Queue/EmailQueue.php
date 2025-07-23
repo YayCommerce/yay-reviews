@@ -83,7 +83,8 @@ class EmailQueue {
 		global $wpdb;
 		$table_name = $wpdb->prefix . self::TABLE_NAME;
 		/* @codingStandardsIgnoreStart */
-		return $wpdb->insert( $table_name, $data );
+		$wpdb->insert( $table_name, $data );
+		return $wpdb->insert_id;
 		/* @codingStandardsIgnoreEnd */
 	}
 

@@ -1,6 +1,7 @@
 <?php
 namespace YayRev\Emails;
 
+use YayRev\Classes\Helpers;
 use YayRev\Constants\EmailConstants;
 use YayRev\Emails\PlaceholderProcessors\ReminderPlaceholderProcessor;
 use YayRev\Models\QueueModel;
@@ -39,7 +40,7 @@ class ReminderEmail extends \WC_Email {
 			return;
 		}
 
-		if ( 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true ) ) {
+		if ( Helpers::is_reminder_sent( $order_id ) ) {
 			return;
 		}
 
@@ -88,7 +89,7 @@ class ReminderEmail extends \WC_Email {
 			/**
 			 * Update order meta
 			 */
-			update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', 'sent' );
+			Helpers::update_order_reminder_status( $order_id, 'sent' );
 
 		} catch ( \Exception $e ) {
 			if ( DOING_AJAX && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'yayrev_nonce' ) ) {

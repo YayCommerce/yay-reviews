@@ -36,22 +36,6 @@ class Helpers {
 		return wc_let_to_num( ini_get( 'upload_max_filesize' ) ) / 1024;
 	}
 
-	public static function get_user_orders_total( $user_id ) {
-		// Use other args to filter more
-		$args = array(
-			'customer_id' => $user_id,
-			'limit'       => -1, // to get _all_ orders from this user
-		);
-		// call WC API
-		$orders = wc_get_orders( $args );
-
-		if ( empty( $orders ) || ! is_array( $orders ) ) {
-			return 0;
-		}
-
-		return count( $orders );
-	}
-
 	/**
 	 * Get overview data
 	 *
@@ -114,6 +98,14 @@ class Helpers {
 			'enable_review_rating'   => 'yes' === get_option( 'woocommerce_enable_review_rating' ),
 			'review_rating_required' => 'yes' === get_option( 'woocommerce_review_rating_required' ),
 		);
+	}
+
+	public static function is_reminder_sent( $order_id ) {
+		return 'sent' === get_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', true );
+	}
+
+	public static function update_order_reminder_status( $order_id, $status ) {
+		update_post_meta( $order_id, '_yayrev_reminder_email_scheduled_sent', $status );
 	}
 
 }
