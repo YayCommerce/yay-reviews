@@ -275,7 +275,7 @@ export default function EmailsQueueTable({
                                 </DrawerTrigger>
                                 <TooltipProvider delayDuration={100}>
                                   <Tooltip>
-                                    <TooltipTrigger>
+                                    <TooltipTrigger onClick={(e) => e.preventDefault()}>
                                       <Button
                                         variant="outline"
                                         size="icon"
@@ -307,7 +307,7 @@ export default function EmailsQueueTable({
                                   <DialogTrigger asChild>
                                     <TooltipProvider delayDuration={100}>
                                       <Tooltip>
-                                        <TooltipTrigger>
+                                        <TooltipTrigger onClick={(e) => e.preventDefault()}>
                                           <Button
                                             variant="outline"
                                             size="icon"

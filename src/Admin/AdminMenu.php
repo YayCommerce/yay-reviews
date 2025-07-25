@@ -64,6 +64,10 @@ class AdminMenu {
 		wp_enqueue_script( ScriptName::PAGE_SETTINGS );
 		wp_enqueue_editor();
 
+		if ( ! class_exists( 'WC_Email' ) ) {
+			\WC()->mailer();
+		}
+
 		$uneditabled_localized_data = array(
 			'nonce'               => wp_create_nonce( 'yayrev_nonce' ),
 			'rest_nonce'          => wp_create_nonce( 'wp_rest' ),
